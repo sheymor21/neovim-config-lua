@@ -16,7 +16,7 @@ return {
 		dependencies = { "williamboman/mason.nvim" },
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "omnisharp" },
+				ensure_installed = { "omnisharp", "marksman", "vtsls", "html", "cssls", "jsonls" },
 			})
 		end,
 	},
