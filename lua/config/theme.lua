@@ -7,13 +7,21 @@ M.apply = function(name)
 		return
 	end
 
-	-- Cargar plugin si es lazy
-	require("lazy").load({ plugins = { name } })
+	require("lazy").load({
+		plugins = { name },
+		wait = true,
+	})
 
-	local ok = pcall(vim.cmd, "colorscheme " .. name)
-	if ok then
-		M.current = name
-	end
+	vim.schedule(function()
+		if vim.g.colors_name == name then
+			return
+		end
+
+		local ok = pcall(vim.cmd.colorscheme, name)
+		if not ok then
+			vim.notify("Colorscheme not found: " .. name, vim.log.levels.WARN)
+		end
+	end)
 end
 
 return M
