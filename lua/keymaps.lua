@@ -81,3 +81,15 @@ map("n", "<leader>ds", "<cmd>Telescope diagnostics<cr>")
 map("n", "<leader>m", function()
 	vim.lsp.buf.format({ async = true })
 end, { desc = "Format current buffer" })
+
+map("n", "<leader>s", function()
+	require("telescope.builtin").lsp_document_symbols({
+		symbols = {
+			"method",
+			"function",
+			"struct",
+			"class",
+			"interface",
+		},
+	})
+end, { desc = "Document symbols (fast)" })
