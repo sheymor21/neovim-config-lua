@@ -2,7 +2,6 @@ return {
 	{
 		"mfussenegger/nvim-dap",
 	},
-
 	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = {
@@ -23,14 +22,5 @@ return {
 				dapui.close()
 			end
 		end,
-	},
-
-	{
-		"williamboman/mason.nvim",
-		opts = {
-			ensure_installed = {
-				"netcoredbg",
-			},
-		},
 	},
 }

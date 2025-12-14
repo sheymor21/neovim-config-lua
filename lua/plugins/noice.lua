@@ -7,7 +7,7 @@ return {
 			"rcarriga/nvim-notify",
 			config = function()
 				require("notify").setup({
-					stages = "static", -- ⚡ sin animaciones pesadas
+					stages = "static",
 					timeout = 2500,
 					fps = 60,
 					background_colour = "#1e1e1e",
@@ -18,7 +18,7 @@ return {
 	},
 
 	opts = {
-		-- ⚡ PERFOMANCE MODE
+		-- PERFOMANCE MODE
 		render = "minimal",
 		stages = "static",
 
@@ -30,7 +30,6 @@ return {
 			view_history = "messages",
 		},
 
-		-- ✅ LSP optimizado
 		lsp = {
 			progress = {
 				enabled = true,
@@ -57,28 +56,25 @@ return {
 			},
 		},
 
-		-- ✅ CMDLINE
 		cmdline = {
 			enabled = true,
 			view = "cmdline_popup",
 		},
 
-		-- ✅ POPUPS
 		popupmenu = {
 			enabled = true,
 			backend = "nui",
 		},
 
-		-- ✅ Presets ligeros
 		presets = {
 			bottom_search = true,
 			command_palette = true,
 			long_message_to_split = true,
-			inc_rename = false, -- ⚡ off para velocidad
+			inc_rename = false,
 			lsp_doc_border = true,
 		},
 
-		-- ✅ DAP integrado
+		-- integracion con DAP
 		routes = {
 			{
 				filter = { event = "msg_show", find = "DAP" },

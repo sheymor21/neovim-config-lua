@@ -1,7 +1,3 @@
--- ===========================
--- GOPLS (Neovim 0.11+)
--- ===========================
-
 local gopls_bin = "gopls"
 
 local ok, cmp_lsp = pcall(require, "cmp_nvim_lsp")
@@ -11,7 +7,6 @@ if ok then
 	capabilities = cmp_lsp.default_capabilities(capabilities)
 end
 
--- Root segurou
 local function get_root_dir(fname)
 	return vim.fs.root(fname, { "go.work", "go.mod", ".git" }) or vim.loop.cwd()
 end
@@ -30,10 +25,6 @@ local gopls_config = {
 		},
 	},
 }
-
--- ===========================
--- SINGLETON
--- ===========================
 
 local gopls_client_id = nil
 
@@ -66,6 +57,7 @@ local function start_gopls(bufnr)
 	end
 end
 
+-- Auto iniciar en archivos CSS
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "go" },
 	callback = function(args)

@@ -6,7 +6,6 @@ require("lspconfig").vtsls.setup({
 
 	settings = {
 		vtsls = {
-			-- muy recomendado para rendimiento
 			autoUseWorkspaceTsdk = true,
 		},
 
@@ -28,7 +27,6 @@ require("lspconfig").vtsls.setup({
 		},
 	},
 
-	-- root folder: detecta automáticamente el proyecto
 	root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git"),
 })
 

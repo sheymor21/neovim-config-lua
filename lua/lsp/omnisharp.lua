@@ -1,7 +1,3 @@
--- ===========================
--- OmniSharp DEFINITIVO
--- ===========================
-
 local omnisharp_bin = vim.fn.stdpath("data") .. "/mason/bin/OmniSharp"
 
 local omnisharp_config = {
@@ -36,10 +32,6 @@ local omnisharp_config = {
 		},
 	},
 }
-
--- ===========================
--- SINGLETON: solo un cliente global
--- ===========================
 
 local omnisharp_client_id = nil
 

@@ -1,6 +1,3 @@
--- =========================
--- BOOTSTRAP LAZY.NVIM
--- =========================
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 if not vim.loop.fs_stat(lazypath) then
@@ -15,7 +12,4 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
--- =========================
--- PLUGINS
--- =========================
 require("lazy").setup("plugins")

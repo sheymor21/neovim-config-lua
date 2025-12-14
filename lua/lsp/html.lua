@@ -1,10 +1,5 @@
--- ===========================
--- HTML LSP (Mason)
--- ===========================
-
 local html_bin = vim.fn.stdpath("data") .. "/mason/bin/vscode-html-language-server"
 
--- Capabilities
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- Función root_dir segura (evita retorno nil)
@@ -13,17 +8,12 @@ local function get_root_dir(fname)
 	return root or vim.loop.cwd()
 end
 
--- Config base
 local html_config = {
 	name = "html",
 	cmd = { html_bin, "--stdio" },
 	filetypes = { "html", "htm" },
 	capabilities = capabilities,
 }
-
--- ===========================
--- SINGLETON (1 cliente global)
--- ===========================
 
 local html_client_id = nil
 

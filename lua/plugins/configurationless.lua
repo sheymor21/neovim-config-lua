@@ -1,10 +1,11 @@
 return {
-
-	-- =========================
-	-- MASON
-	-- =========================
 	{
 		"mason-org/mason.nvim",
+		opts = {
+			ensure_installed = {
+				"netcoredbg",
+			},
+		},
 		config = function()
 			require("mason").setup()
 		end,
@@ -19,10 +20,6 @@ return {
 			})
 		end,
 	},
-
-	-- =========================
-	-- LSP FILE OPS
-	-- =========================
 	{
 		"antosha417/nvim-lsp-file-operations",
 		dependencies = {
@@ -30,13 +27,12 @@ return {
 		},
 		config = true,
 	},
-
 	{
 		"karb94/neoscroll.nvim",
 		event = "BufReadPost",
 		config = function()
 			require("neoscroll").setup({
-				easing = "cubic", -- opcional: smoothing curve
+				easing = "cubic",
 			})
 		end,
 	},

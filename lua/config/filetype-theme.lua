@@ -34,14 +34,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
 			return
 		end
 
-		-- 🚫 mismo filetype → no hagas nada
 		if ft == last_ft then
 			return
 		end
 
 		local wanted = themes_by_ft[ft] or "gruvbox"
 
-		-- 🚫 mismo theme → solo actualiza estado
 		if vim.g.colors_name == wanted then
 			last_ft = ft
 			return

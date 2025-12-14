@@ -47,7 +47,7 @@ return {
 			},
 		})
 
-		-- 🎨 Highlights (compatibles con themes)
+		-- Highlights (compatibles con themes)
 		vim.api.nvim_set_hl(0, "IndentBlanklineChar", { fg = "#3b4261" })
 		vim.api.nvim_set_hl(0, "IndentScope", { fg = "#7aa2f7", bold = true })
 	end,

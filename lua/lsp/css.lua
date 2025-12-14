@@ -1,19 +1,12 @@
--- ===========================
--- CSS LSP (Mason)
--- ===========================
-
 local css_bin = vim.fn.stdpath("data") .. "/mason/bin/vscode-css-language-server"
 
--- Capabilities (cmp)
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
--- Root dir seguro
 local function get_root_dir(fname)
 	local root = vim.fs.root(fname, { "package.json", ".git" })
 	return root or vim.loop.cwd()
 end
 
--- Config base
 local css_config = {
 	name = "cssls",
 	cmd = { css_bin, "--stdio" },
@@ -26,10 +19,6 @@ local css_config = {
 		less = { validate = true },
 	},
 }
-
--- ===========================
--- SINGLETON (1 cliente global)
--- ===========================
 
 local css_client_id = nil
 

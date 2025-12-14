@@ -3,27 +3,20 @@ return {
 
 	build = ":TSUpdate",
 
-	event = { "BufReadPost", "BufNewFile" }, -- lazy loading real
+	event = { "BufReadPost", "BufNewFile" },
 
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = {
-				-- lenguajes base
 				"lua",
 				"go",
 				"html",
 				"css",
 				"scss",
 				"json",
-
-				-- JS / TS (IMPORTANTES)
 				"javascript",
 				"typescript",
-
-				-- C#
 				"c_sharp",
-
-				-- necesarios para noice.nvim
 				"regex",
 				"bash",
 			},
