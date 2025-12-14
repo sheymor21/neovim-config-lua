@@ -13,17 +13,27 @@ map({ "n", "v" }, "e", "j") -- abajo
 map({ "n", "v" }, "i", "k") -- arriba
 map({ "n", "v" }, "o", "l") -- derecha
 
+map({ "n", "v" }, "N", "H")
+map({ "n", "v" }, "E", "J") -- abajo
+map({ "n", "v" }, "I", "K") -- arriba
+map({ "n", "v" }, "O", "L") -- derecha
+
 -- Desactivar los originales
 map({ "n", "v" }, "h", "<nop>")
 map({ "n", "v" }, "j", "<nop>")
 map({ "n", "v" }, "k", "<nop>")
 map({ "n", "v" }, "l", "<nop>")
 
+map({ "n", "v" }, "H", "<nop>")
+map({ "n", "v" }, "J", "<nop>")
+map({ "n", "v" }, "K", "<nop>")
+map({ "n", "v" }, "L", "<nop>")
+
 map("n", "l", "b") -- word atrás
 
 -- Inicio / fin de línea
-map("n", "H", "^")
-map("n", "L", "$")
+map({ "n", "v" }, "N", "^")
+map({ "n", "v" }, "O", "$")
 
 -- Scroll cómodo
 map("n", "E", "<C-d>")
@@ -68,6 +78,6 @@ map("n", "gi", "<cmd>Telescope lsp_implementations<cr>")
 map("n", "<leader>ds", "<cmd>Telescope diagnostics<cr>")
 
 -- Formatear con LSP
-vim.keymap.set("n", "<leader>m", function()
+map("n", "<leader>m", function()
 	vim.lsp.buf.format({ async = true })
 end, { desc = "Format current buffer" })
