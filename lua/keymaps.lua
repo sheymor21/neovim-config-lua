@@ -29,8 +29,6 @@ map({ "n", "v" }, "J", "<nop>")
 map({ "n", "v" }, "K", "<nop>")
 map({ "n", "v" }, "L", "<nop>")
 
-map("n", "l", "b") -- word atrás
-
 -- Inicio / fin de línea
 map({ "n", "v" }, "N", "^")
 map({ "n", "v" }, "O", "$")
@@ -38,7 +36,10 @@ map({ "n", "v" }, "O", "$")
 -- Scroll cómodo
 map("n", "E", "<C-d>")
 map("n", "I", "<C-u>")
+
 map("n", "h", "o")
+map("n", "H", "O")
+map("n", "k", "i")
 
 -- =========================
 -- KEYMAPS .NET
@@ -76,6 +77,30 @@ map("n", "gd", "<cmd>Telescope lsp_definitions<cr>")
 map("n", "gr", "<cmd>Telescope lsp_references<cr>")
 map("n", "gi", "<cmd>Telescope lsp_implementations<cr>")
 map("n", "<leader>ds", "<cmd>Telescope diagnostics<cr>")
+
+-- Agrega ; al final de la linea
+map("n", ";", function()
+	local line = vim.api.nvim_get_current_line()
+	if line:match(";%s*$") then
+		return
+	end
+
+	local pos = vim.api.nvim_win_get_cursor(0)
+	vim.cmd("normal! A;")
+	vim.api.nvim_win_set_cursor(0, pos)
+end, { desc = "Smart ; at EOL" })
+
+-- Agrega , al final de la linea,
+map("n", ",", function()
+	local line = vim.api.nvim_get_current_line()
+	if line:match(",%s*$") then
+		return
+	end
+
+	local pos = vim.api.nvim_win_get_cursor(0)
+	vim.cmd("normal! A,")
+	vim.api.nvim_win_set_cursor(0, pos)
+end, { desc = "Smart , at EOL" })
 
 -- Formatear con LSP
 map("n", "<leader>m", function()
