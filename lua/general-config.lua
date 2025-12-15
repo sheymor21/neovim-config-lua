@@ -20,3 +20,17 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		})
 	end,
 })
+
+vim.diagnostic.config({
+	virtual_text = {
+		prefix = "●", -- o "▎", "■", "", etc
+		spacing = 2,
+		severity = {
+			min = vim.diagnostic.severity.ERROR, -- solo errores
+		},
+	},
+	signs = true,
+	underline = true,
+	update_in_insert = false, -- no molesta mientras escribes
+	severity_sort = true,
+})
