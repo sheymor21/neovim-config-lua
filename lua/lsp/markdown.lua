@@ -1,12 +1,22 @@
-local lspconfig = require("lspconfig")
-local util = lspconfig.util
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-lspconfig.marksman.setup({
-	capabilities = capabilities,
-	filetypes = { "markdown" },
+local function get_root_dir(fname)
+	return vim.fs.root(fname, {
+		".git",
+		".marksman.toml",
+		".marksman.yaml",
+	}) or vim.loop.cwd()
+end
 
-	root_dir = util.root_pattern(".git", ".marksman.toml", ".marksman.yaml"),
-
-	single_file_support = true,
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function(args)
+		vim.lsp.start({
+			name = "marksman",
+			cmd = { "marksman", "server" },
+			root_dir = get_root_dir(args.file),
+			capabilities = capabilities,
+			single_file_support = true,
+		})
+	end,
 })
