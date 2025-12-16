@@ -6,8 +6,8 @@ local themes_by_ft = {
 	cs = "gruvbox",
 	html = "tokyonight",
 	css = "gruvbox",
-	javascript = "tokyonight",
-	typescript = "tokyonight",
+	javascript = "onedark",
+	typescript = "onedark",
 }
 
 local ignored_ft = {
