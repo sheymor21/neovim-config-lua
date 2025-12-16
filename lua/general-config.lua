@@ -1,6 +1,3 @@
--- =========================
--- FORMAT ON SAVE
--- =========================
 vim.api.nvim_create_autocmd("BufEnter", {
 	callback = function(ev)
 		local ft = vim.bo[ev.buf].filetype

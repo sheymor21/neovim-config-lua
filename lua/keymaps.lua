@@ -41,9 +41,6 @@ map("n", "h", "o")
 map("n", "H", "O")
 map("n", "k", "i")
 
--- =========================
--- KEYMAPS .NET
--- =========================
 map("n", "gd", vim.lsp.buf.definition)
 map("n", "gi", vim.lsp.buf.implementation)
 map("n", "gr", vim.lsp.buf.references)
