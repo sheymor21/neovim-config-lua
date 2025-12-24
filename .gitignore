@@ -523,4 +523,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-
+lazy-lock*
