@@ -13,18 +13,17 @@ vim.api.nvim_create_autocmd("FileType", {
 		"javascriptreact",
 	},
 	callback = function(args)
-		-- Evita duplicar el cliente
-		for _, client in ipairs(vim.lsp.get_clients({ bufnr = args.buf })) do
-			if client.name == "vtsls" then
-				return
-			end
+		-- Optimized check for Neovim 0.11
+		if #vim.lsp.get_clients({ bufnr = args.buf, name = "vtsls" }) > 0 then
+			return
 		end
 
 		vim.lsp.start({
 			name = "vtsls",
 			cmd = vtsls_cmd,
-
 			capabilities = capabilities,
+			-- Ensure shared keymaps are applied
+			on_attach = _G.lsp_on_attach,
 
 			root_dir = vim.fs.root(args.buf, {
 				"package.json",
@@ -36,7 +35,6 @@ vim.api.nvim_create_autocmd("FileType", {
 				vtsls = {
 					autoUseWorkspaceTsdk = true,
 				},
-
 				typescript = {
 					format = {
 						semicolons = "insert",
@@ -46,7 +44,6 @@ vim.api.nvim_create_autocmd("FileType", {
 						importModuleSpecifier = "relative",
 					},
 				},
-
 				javascript = {
 					format = {
 						semicolons = "insert",
