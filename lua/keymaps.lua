@@ -41,21 +41,21 @@ map("n", "h", "o")
 map("n", "H", "O")
 map("n", "k", "i")
 
-map("n", "gd", vim.lsp.buf.definition)
-map("n", "gi", vim.lsp.buf.implementation)
-map("n", "gr", vim.lsp.buf.references)
-map("n", "K", vim.lsp.buf.hover)
-map("n", "<leader>rn", vim.lsp.buf.rename)
-map("n", "<leader>ca", vim.lsp.buf.code_action)
+map("n", "gd", vim.lsp.buf.definition,{ desc = "Go to Definition" })
+map("n", "gi", vim.lsp.buf.implementation,{ desc = "Go to implementation" })
+map("n", "gr", vim.lsp.buf.references,{ desc = "Go to references" })
+map("n", "K", vim.lsp.buf.hover,{ desc = "Hover" })
+map("n", "<leader>rn", vim.lsp.buf.rename,{ desc = "Rename" })
+map("n", "<leader>ca", vim.lsp.buf.code_action,{ desc = "Code Action" })
 
-map("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true })
+map("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true,desc = "Abrir Neotree" })
 
 -- =========================
 -- KEYMAPS SYSTEM
 -- =========================
-map("n", "<leader>w", ":w<CR>", { noremap = true, silent = true })
-map("n", "<leader>q", ":q<CR>", { noremap = true, silent = true })
-map("n", "<leader>W", ":luafile %<CR>", { noremap = true, silent = true })
+map("n", "<leader>w", ":w<CR>", { noremap = true, silent = true,desc = "Guardar archivo" })
+map("n", "<leader>q", ":q<CR>", { noremap = true, silent = true,desc = "Cerrar archivo" })
+map("n", "<leader>W", ":luafile %<CR>", { noremap = true, silent = true,desc = "Ejecutar Lua" })
 
 -- Archivos y búsqueda
 map("n", "<leader>f", "<cmd>Telescope find_files<cr>", { desc = "Buscar archivos" })
