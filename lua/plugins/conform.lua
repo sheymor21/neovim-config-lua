@@ -18,7 +18,7 @@ return {
 				yaml = { "prettier" },
 				markdown = { "prettier" },
 			},
-			format_on_save = true,
+			format_on_save = false,
 			stop_after_first = true,
 			notify = function(msg, level)
 				if pcall(require, "noice") then
