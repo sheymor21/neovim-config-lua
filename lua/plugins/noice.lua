@@ -37,14 +37,15 @@ return {
 			},
 
 			override = {
-				["vim.lsp.util.convert_input_to_markdown_lines"] = true, -- ⚡ más rápido
+				["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 				["vim.lsp.util.stylize_markdown"] = true,
-				["cmp.entry.get_documentation"] = true, -- CMP sí
+				["cmp.entry.get_documentation"] = true,
 			},
 
 			hover = {
 				enabled = true,
-				silent = true,
+                silent = true,
+                opts = { focusable = true, border = "rounded" },
 			},
 
 			signature = {
