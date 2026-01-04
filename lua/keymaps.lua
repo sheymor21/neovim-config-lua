@@ -3,6 +3,7 @@ require("plugins-keymaps.lazydocker-keymaps")
 require("plugins-keymaps.dap-keymaps")
 require("plugins-keymaps.vim-multicursor-keymaps")
 require("plugins-keymaps.yanky-keymaps")
+require("plugins-keymaps.telekasten-keymaps")
 local map = vim.keymap.set
 
 -- =========================
@@ -49,6 +50,7 @@ map("n", "<leader>rn", vim.lsp.buf.rename,{ desc = "Rename" })
 map("n", "<leader>ca", vim.lsp.buf.code_action,{ desc = "Code Action" })
 
 map("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true,desc = "Abrir Neotree" })
+map("n", "<leader>E", ":Neotree reveal_force_cwd<CR>", { noremap = true, silent = true,desc = "Abrir Neotree En la ruta actual" })
 
 -- =========================
 -- KEYMAPS SYSTEM
@@ -127,3 +129,11 @@ map("n", "<leader>s", function()
         },
     })
 end, { desc = "Document symbols (fast)" })
+
+map("n", "<leader>tt", function()
+  require("telescope.builtin").grep_string({
+    search = "- [ ]",
+    cwd = vim.fn.expand("~/notes"),
+    prompt_title = "Pending tasks",
+  })
+end, { desc = "All pending tasks" })

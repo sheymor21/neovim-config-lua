@@ -1,5 +1,5 @@
 vim.opt.relativenumber = true
-vim.opt.tabstop = 4
+vim.opt.tabstop = 4;
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
@@ -19,10 +19,10 @@ require("config.indent")
 require("config.filetype-theme")
 require("config.neo-tree")
 require("config.highlight-%")
+require("config.teleskaten-config")
 require("general-config")
 vim.notify = require("notify")
 require("telescope").load_extension("noice")
-require("keymaps")
 require("lsp.omnisharp")
 require("lsp.gopls")
 require("lsp.lua-lsp")
@@ -30,4 +30,5 @@ require("lsp.vtsls")
 require("lsp.html")
 require("lsp.css")
 require("lsp.markdown")
+require("keymaps")
 
