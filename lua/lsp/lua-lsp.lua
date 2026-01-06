@@ -2,7 +2,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local lua_library_cache = {
     vim.env.VIMRUNTIME,
-    vim.fn.stdpath("data") .. "/lazy",
+    -- vim.fn.stdpath("data") .. "/lazy",
 }
 
 local lua_client_id = nil
