@@ -6,12 +6,6 @@ require("telekasten").setup({
 
     -- Configurar múltiples vaults/workspaces
     vaults = {
-        personal = {
-            home = vim.fn.expand("~/notes/personal"),
-        },
-        works = {
-            home = vim.fn.expand("~/notes/works"),
-        },
         projects = {
             home = vim.fn.expand("~/notes/projects"),
         },
