@@ -8,6 +8,8 @@ _G.lsp_on_attach = function(client, bufnr)
     map("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "References" })
     map("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Implementation" })
     map("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
+    map("n", ".", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Actions" }))
+    map("v", ".", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Actions" }))
     map("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename Symbol" })
     map("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
 end
