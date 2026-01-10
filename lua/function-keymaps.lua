@@ -2,11 +2,13 @@ local map = vim.keymap.set
 
 _G.lsp_on_attach = function(client, bufnr)
     local opts = { buffer = bufnr, silent = true }
+    local builtin = require("telescope.builtin")
 
     client.server_capabilities.semanticTokensProvider = nil
-    map("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to Definition" })
-    map("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "References" })
-    map("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Implementation" })
+    map("n", "gd", function() Snacks.picker.lsp_definitions() end, { buffer = bufnr, desc = "Go to Definition" })
+    map("n", "grr", function() Snacks.picker.lsp_references() end, { buffer = bufnr, desc = "References" })
+    map("n", "gi", function() Snacks.picker.lsp_implementations() end, { buffer = bufnr, desc = "Implementation" })
+    map("n", "gt", function() Snacks.picker.lsp_type_definitions() end, { buffer = bufnr, desc = "Type Definition" })
     map("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
     map("n", ".", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Actions" }))
     map("v", ".", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Actions" }))

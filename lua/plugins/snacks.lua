@@ -2,7 +2,17 @@ return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
-  opts = {
+    opts = {
+        picker = {
+            enabled = true,
+            win = {
+                input = {
+                    keys = {
+                 ["<Esc>"] = { "close", mode = { "i", "n" } },
+            }
+        }
+    } },
+    input = { enabled = true },
     scroll = { enabled = true },
     notifier = { enabled = true },
     bigfile = { enabled = true },

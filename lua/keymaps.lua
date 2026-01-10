@@ -60,4 +60,3 @@ map("n", "<leader>b", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
 map("n", "<leader>r", "<cmd>Telescope oldfiles<cr>", { desc = "Recientes" })
 
 map("n", "<leader>yw", "ysiw", { remap = true })
-
