@@ -7,9 +7,22 @@ map("n", "<F10>", dap.step_over, { desc = "DAP Step Over" })
 map("n", "<F11>", dap.step_into, { desc = "DAP Step Into" })
 map("n", "<F12>", dap.step_out, { desc = "DAP Step Out" })
 
-map("n", "<eader>db", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })
-map("n", "<leader>dB", function()
-	dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
+
+local function toggle_breakpoint_or_debugger()
+    local ft = vim.bo.filetype
+    if ft == "javascript" or ft == "typescript" then
+        local row = vim.api.nvim_win_get_cursor(0)[1]
+        vim.api.nvim_buf_set_lines(0, row, row, false, { "debugger;" })
+        print("Inserted 'debugger;' below current line")
+    else
+        dap.toggle_breakpoint()
+    end
+end
+
+-- Mapeo
+map("n", "<leader>ib", toggle_breakpoint_or_debugger, { desc = "Toggle Breakpoint / Debugger" })
+map("n", "<leader>iB", function()
+    dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
 end, { desc = "Conditional Breakpoint" })
 
 map("n", "<leader>dr", dap.repl.open, { desc = "DAP REPL" })

@@ -1,26 +1,34 @@
 return {
-	{
-		"mfussenegger/nvim-dap",
-	},
-	{
-		"rcarriga/nvim-dap-ui",
-		dependencies = {
-			"mfussenegger/nvim-dap",
-			"nvim-neotest/nvim-nio",
-		},
-		config = function()
-			local dap, dapui = require("dap"), require("dapui")
-			dapui.setup()
+    "mfussenegger/nvim-dap",
+    dependencies = {
+        "williamboman/mason.nvim",
+        "jay-babu/mason-nvim-dap.nvim",
+        "rcarriga/nvim-dap-ui",
+        "nvim-neotest/nvim-nio",
+    },
+    config = function()
+        local dap = require("dap")
+        local dapui = require("dapui")
 
-			dap.listeners.after.event_initialized["dapui_config"] = function()
-				dapui.open()
-			end
-			dap.listeners.before.event_terminated["dapui_config"] = function()
-				dapui.close()
-			end
-			dap.listeners.before.event_exited["dapui_config"] = function()
-				dapui.close()
-			end
-		end,
-	},
+        dapui.setup()
+
+        dap.listeners.after.event_initialized["dapui"] = function()
+            dapui.open()
+        end
+        dap.listeners.before.event_terminated["dapui"] = function()
+            dapui.close()
+        end
+        dap.listeners.before.event_exited["dapui"] = function()
+            dapui.close()
+        end
+
+        require("mason-nvim-dap").setup({
+            automatic_installation = true,
+            ensure_installed = {
+                "netcoredbg",
+                "js-debug-adapter",
+                "delve",
+            },
+        })
+    end,
 }

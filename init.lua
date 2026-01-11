@@ -12,7 +12,7 @@ vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
 
 require("config.lazy")
 require("config.lazy-docker")
-require("config.dap-csharp")
+require("config.dap-config")
 require("config.lazygit")
 require("config.theme")
 require("config.indent")

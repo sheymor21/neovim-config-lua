@@ -66,36 +66,54 @@ map("n", "<leader>tt", function()
 end, { desc = "All pending tasks" })
 
 
--- Universal Run Project function
-local function run_project()
-    local file_extension = vim.fn.expand("%:e")
-    local file_name = vim.fn.expand("%:p")
-    local cmd = ""
+ local Terminal = require("toggleterm.terminal").Terminal
 
-    if file_extension == "cs" then
-        cmd = "dotnet run"
-    elseif file_extension == "js" or file_extension == "ts" then
-        if vim.fn.filereadable("bun.lock") == 1 then
-            cmd = "bun " .. file_name
-        elseif vim.fn.filereadable("package.json") == 1 then
-            cmd = "npm start"
-        else
-            cmd = "node " .. file_name
-        end
-    elseif file_extension == "go" then
-        cmd = "go run " .. file_name
-    elseif file_extension == "lua" then
-        cmd = "lua " .. file_name
-    elseif file_extension == "html" then
-        cmd = "xdg-open " .. file_name -- Opens in browser on Linux
+local runner = Terminal:new({
+  direction = "float",
+  close_on_exit = false,
+  hidden = true,
+})
+
+local function run_project()
+  local ext = vim.fn.expand("%:e")
+  local file = vim.fn.expand("%:p")
+  local cmd
+
+  if ext == "cs" then
+    cmd = "dotnet run"
+
+  elseif ext == "ts" or ext == "js" then
+    if vim.fn.filereadable("bun.lock") == 1 then
+      cmd = "bun run dev"
+    elseif vim.fn.filereadable("package.json") == 1 then
+      cmd = "npm start"
     else
-        print("Run command not defined for extension: " .. file_extension)
-        return
+      cmd = "node " .. file
     end
 
-    -- Using ToggleTerm to run the command
-    -- 'direction = float' makes it look clean, or use 'horizontal'
-    vim.cmd("TermExec cmd='" .. cmd .. "' direction=float")
+  elseif ext == "go" then
+    cmd = "go run " .. file
+
+  elseif ext == "lua" then
+    cmd = "lua " .. file
+
+  elseif ext == "html" then
+    cmd = "xdg-open " .. file
+  else
+    vim.notify("No runner for ." .. ext, vim.log.levels.WARN)
+    return
+  end
+
+  runner.cmd = cmd
+  runner:toggle()
 end
 
-map("n", "<leader>cn", run_project, { desc = "Run Project" })
+map("n", "<leader>cn", run_project, { desc = "Run project" })
+
+
+vim.keymap.set("n", "<leader>ct", function()
+    require("neotest").run.run()
+end, { desc = "Test nearest" })
+
+
+
