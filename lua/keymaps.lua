@@ -58,5 +58,7 @@ map("n", "<leader>f", "<cmd>Telescope find_files<cr>", { desc = "Buscar archivos
 map("n", "<leader>g", "<cmd>Telescope live_grep<cr>", { desc = "Buscar texto" })
 map("n", "<leader>b", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
 map("n", "<leader>r", "<cmd>Telescope oldfiles<cr>", { desc = "Recientes" })
+map("n", "<leader>P", "<cmd>Telescope neovim-project discover<cr>", { desc = "Descubrir Proyectos" })
+map("n", "<leader>p", "<cmd>Telescope neovim-project history<cr>", { desc = "Abrir Historial Proyectos" })
 
 map("n", "<leader>yw", "ysiw", { remap = true })
