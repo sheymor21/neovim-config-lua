@@ -5,6 +5,7 @@ require("plugins-keymaps.vim-multicursor-keymaps")
 require("plugins-keymaps.yanky-keymaps")
 require("plugins-keymaps.telekasten-keymaps")
 local map = vim.keymap.set
+local behavior = require("function-keymaps");
 
 -- =========================
 -- MOVIMIENTO COLEMAK-DH
@@ -62,3 +63,16 @@ map("n", "<leader>P", "<cmd>Telescope neovim-project discover<cr>", { desc = "De
 map("n", "<leader>p", "<cmd>Telescope neovim-project history<cr>", { desc = "Abrir Historial Proyectos" })
 
 map("n", "<leader>yw", "ysiw", { remap = true })
+
+map("n", ";", behavior.add_dot, { desc = "Smart ; at EOL" })
+map("n", ",", behavior.add_coma, { desc = "Smart , at EOL" })
+
+map("n", "<leader>mf", behavior.format, { desc = "Format current buffer" })
+map("n", "<leader>s", behavior.search_symbols, { desc = "Document symbols (fast)" })
+
+map("n", "<leader>cn", behavior.run_project, { desc = "Run project" })
+
+map("n", "<leader>tt", behavior.search_notes, { desc = "All pending tasks" })
+map("n", "<leader>ct", behavior.neotest, { desc = "Test nearest" })
+
+map("n", "<leader>iw", behavior.window_picker, { desc = "Pick a window" })
