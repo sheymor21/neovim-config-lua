@@ -6,7 +6,7 @@ _G.lsp_on_attach = function(client, bufnr)
 
     client.server_capabilities.semanticTokensProvider = nil
     map("n", "gd", function() Snacks.picker.lsp_definitions() end, { buffer = bufnr, desc = "Go to Definition" })
-    map("n", "grr", function() Snacks.picker.lsp_references() end, { buffer = bufnr, desc = "References" })
+    map("n", "gD", function() Snacks.picker.lsp_references() end, { buffer = bufnr, desc = "References" })
     map("n", "gi", function() Snacks.picker.lsp_implementations() end, { buffer = bufnr, desc = "Implementation" })
     map("n", "gt", function() Snacks.picker.lsp_type_definitions() end, { buffer = bufnr, desc = "Type Definition" })
     map("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
