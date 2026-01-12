@@ -56,13 +56,14 @@ map("n", "<leader>W", ":luafile %<CR>", { noremap = true, silent = true, desc = 
 
 -- Archivos y búsqueda
 map("n", "<leader>f", "<cmd>Telescope find_files<cr>", { desc = "Buscar archivos" })
-map("n", "<leader>g", "<cmd>Telescope live_grep<cr>", { desc = "Buscar texto" })
+map("n", "<leader>gp", "<cmd>Telescope live_grep<cr>", { desc = "Buscar texto" })
 map("n", "<leader>b", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
 map("n", "<leader>r", "<cmd>Telescope oldfiles<cr>", { desc = "Recientes" })
 map("n", "<leader>P", "<cmd>Telescope neovim-project discover<cr>", { desc = "Descubrir Proyectos" })
 map("n", "<leader>p", "<cmd>Telescope neovim-project history<cr>", { desc = "Abrir Historial Proyectos" })
 
 map("n", "<leader>yw", "ysiw", { remap = true })
+map("n", "<leader>t", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
 
 map("n", ";", behavior.add_dot, { desc = "Smart ; at EOL" })
 map("n", ",", behavior.add_coma, { desc = "Smart , at EOL" })
@@ -72,7 +73,7 @@ map("n", "<leader>s", behavior.search_symbols, { desc = "Document symbols (fast)
 
 map("n", "<leader>cn", behavior.run_project, { desc = "Run project" })
 
-map("n", "<leader>tt", behavior.search_notes, { desc = "All pending tasks" })
+map("n", "<leader>it", behavior.search_notes, { desc = "All pending tasks" })
 map("n", "<leader>ct", behavior.neotest, { desc = "Test nearest" })
 
 map("n", "<leader>iw", behavior.window_picker, { desc = "Pick a window" })
