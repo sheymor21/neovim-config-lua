@@ -14,7 +14,7 @@ return {
             }
         },
         input = { enabled = true },
-        scroll = { enabled = true },
+        scroll = { enabled = false },
         notifier = { enabled = true },
         bigfile = { enabled = true },
         quickfile = { enabled = true },

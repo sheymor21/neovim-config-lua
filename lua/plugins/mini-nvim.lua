@@ -3,7 +3,7 @@ return {
     version = false,
     config = function()
         require("mini.animate").setup({
-            scroll = { enabled = false },
+            scroll = { enabled = true },
             cursor = { enabled = true },
         })
     end,
