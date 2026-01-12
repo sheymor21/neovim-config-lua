@@ -12,12 +12,13 @@ vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
 vim.o.virtualedit = ""
 
 require("config.lazy")
+require("config.theme")
+require("config.filetype-theme")
+vim.cmd("colorscheme kanagawa")
 require("config.lazy-docker")
 require("config.dap-config")
 require("config.lazygit")
-require("config.theme")
 require("config.indent")
-require("config.filetype-theme")
 require("config.neo-tree")
 require("config.highlight-%")
 require("config.telekasten-config")

@@ -1,5 +1,22 @@
 local M = {}
 
+local function apply_lualine(theme)
+	local ok, lualine = pcall(require, "lualine")
+	if not ok then
+		return
+	end
+
+	lualine.setup({
+		options = {
+			theme = theme,
+		},
+	})
+
+	lualine.refresh()
+end
+
+
+
 M.current = nil
 
 M.apply = function(name)
@@ -21,6 +38,7 @@ M.apply = function(name)
 		if not ok then
 			vim.notify("Colorscheme not found: " .. name, vim.log.levels.WARN)
 		end
+        apply_lualine(name)
 	end)
 end
 
