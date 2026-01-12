@@ -7,6 +7,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	end,
 })
 
+vim.api.nvim_create_autocmd({"BufWinEnter", "BufReadPost"}, {
+  pattern = "*",
+  callback = function()
+    vim.o.virtualedit = ""
+  end
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight on yank",
 	group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),

@@ -9,6 +9,7 @@ vim.opt.signcolumn = "yes"
 vim.g.mapleader = " "
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
+vim.o.virtualedit = ""
 
 require("config.lazy")
 require("config.lazy-docker")
