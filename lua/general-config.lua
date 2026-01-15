@@ -57,3 +57,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		end
 	end,
 })
+
+-- Cerrar aerial en buffers light
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    if vim.api.nvim_buf_line_count(0) < 50 then
+      require("aerial").close()
+    end
+  end,
+})

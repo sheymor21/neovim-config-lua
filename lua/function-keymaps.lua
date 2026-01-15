@@ -42,18 +42,6 @@ function M.format()
     vim.lsp.buf.format({ async = true })
 end
 
-function M.search_symbols()
-    require("telescope.builtin").lsp_document_symbols({
-        symbols = {
-            "method",
-            "function",
-            "struct",
-            "class",
-            "interface",
-        },
-    })
-end
-
 function M.search_notes()
     require("telescope.builtin").grep_string({
         search = "- [ ]",

@@ -47,6 +47,10 @@ map("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true, de
 map("n", "<leader>E", ":Neotree reveal_force_cwd<CR>",
     { noremap = true, silent = true, desc = "Abrir Neotree En la ruta actual" })
 
+map("n", "<leader>s", "<cmd>Telescope aerial<CR>", {
+  desc = "Search symbols (Aerial)",
+})
+
 -- =========================
 -- KEYMAPS SYSTEM
 -- =========================
@@ -69,7 +73,6 @@ map("n", ";", behavior.add_dot, { desc = "Smart ; at EOL" })
 map("n", ",", behavior.add_coma, { desc = "Smart , at EOL" })
 
 map("n", "<leader>mf", behavior.format, { desc = "Format current buffer" })
-map("n", "<leader>s", behavior.search_symbols, { desc = "Document symbols (fast)" })
 
 map("n", "<leader>cn", behavior.run_project, { desc = "Run project" })
 
@@ -77,3 +80,5 @@ map("n", "<leader>it", behavior.search_notes, { desc = "All pending tasks" })
 map("n", "<leader>ct", behavior.neotest, { desc = "Test nearest" })
 
 map("n", "<leader>iw", behavior.window_picker, { desc = "Pick a window" })
+
+
