@@ -12,7 +12,7 @@ local function toggle_breakpoint_or_debugger()
     local ft = vim.bo.filetype
     if ft == "javascript" or ft == "typescript" then
         local row = vim.api.nvim_win_get_cursor(0)[1]
-        vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "debugger;" })
+        vim.api.nvim_buf_set_lines(0, row, row, false, { "debugger;" })
         print("Inserted 'debugger;' below current line")
     else
         dap.toggle_breakpoint()
