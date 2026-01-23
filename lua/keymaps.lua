@@ -80,5 +80,3 @@ map("n", "<leader>it", behavior.search_notes, { desc = "All pending tasks" })
 map("n", "<leader>ct", behavior.neotest, { desc = "Test nearest" })
 
 map("n", "<leader>iw", behavior.window_picker, { desc = "Pick a window" })
-
-

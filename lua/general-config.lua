@@ -66,3 +66,29 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
   end,
 })
+
+local last_project = nil
+
+vim.api.nvim_create_autocmd("DirChanged", {
+  desc = "Limpiar buffers fuera del proyecto actual",
+  callback = function()
+    local cwd = vim.loop.cwd()
+    if cwd == last_project then
+      return
+    end
+    last_project = cwd
+
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_loaded(buf)
+         and vim.fn.bufwinnr(buf) == -1
+         and vim.bo[buf].buftype == "" then
+
+        local name = vim.api.nvim_buf_get_name(buf)
+
+        if name ~= "" and not vim.startswith(name, cwd) then
+          vim.api.nvim_buf_delete(buf, {})
+        end
+      end
+    end
+  end,
+})
