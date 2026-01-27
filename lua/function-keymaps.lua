@@ -5,7 +5,6 @@ _G.lsp_on_attach = function(client, bufnr)
     local opts = { buffer = bufnr, silent = true }
 
     client.server_capabilities.semanticTokensProvider = nil
-    local Snacks = require "plugins.snacks"
     map("n", "gd", function() Snacks.picker.lsp_definitions() end, { buffer = bufnr, desc = "Go to Definition" })
     map("n", "gD", function() Snacks.picker.lsp_references() end, { buffer = bufnr, desc = "References" })
     map("n", "gi", function() Snacks.picker.lsp_implementations() end, { buffer = bufnr, desc = "Implementation" })
@@ -89,9 +88,20 @@ function M.run_project()
     runner:toggle()
 end
 
-function M.neotest()
+function M.neotest_run()
     require("neotest").run.run()
-    -- require("neotest").run.run(vim.fn.expand("%"))
+end
+
+function M.neotest_summary()
+    require("neotest").summary.toggle()
+end
+
+
+function M.neotest_debug()
+    local strategy = {
+        strategy = "dap"
+    }
+    require("neotest").run.run(strategy)
 end
 
 function M.window_picker()
