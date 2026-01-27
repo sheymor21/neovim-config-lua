@@ -1,0 +1,201 @@
+# Keybindings
+
+This reference guide covers all main keybindings configured in this Neovim distribution, including optimized Colemak-DH layout.
+
+## 🎯 Colemak-DH Layout
+
+This configuration uses the Colemak-DH layout for more ergonomic navigation:
+
+### Basic Navigation
+| Original Key | Colemak-DH Key | Function |
+|--------------|----------------|----------|
+| h | n | Move left |
+| j | e | Move down |
+| k | i | Move up |
+| l | o | Move right |
+
+### Visual Mode Navigation
+| Original Key | Colemak-DH Key | Function |
+|--------------|----------------|----------|
+| H | N | Move left (visual) |
+| J | E | Move down (visual) |
+| K | I | Move up (visual) |
+| L | O | Move right (visual) |
+
+### Extended Navigation
+| Key | Function |
+|-----|----------|
+| N | Start of line |
+| O | End of line |
+| E | Scroll down (Ctrl+d) |
+| I | Scroll up (Ctrl+u) |
+
+## 🔧 System Keybindings
+
+### Files and Management
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>w` | `:w<CR>` | Save file |
+| `<leader>q` | `:q<CR>` | Close file |
+| `<leader>W` | `:luafile %<CR>` | Execute current Lua file |
+| `<leader>f` | Telescope find_files | Find files |
+| `<leader>b` | Telescope buffers | List buffers |
+| `<leader>r` | Telescope oldfiles | Recent files |
+| `<leader>P` | Telescope neovim-project discover | Discover projects |
+| `<leader>p` | Telescope neovim-project history | Project history |
+
+### Search and Navigation
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>gp` | Telescope live_grep | Search text in files |
+| `<leader>s` | Telescope aerial | Search symbols |
+| `<leader>e` | `:Neotree toggle<CR>` | Toggle Neo-tree |
+| `<leader>E` | `:Neotree reveal_force_cwd<CR>` | Open Neo-tree in current path |
+
+### Terminal and Execution
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>t` | ToggleTerm | Toggle floating terminal |
+| `<leader>cn` | run_project() | Run project by filetype |
+| `<leader>mf` | format() | Format current buffer |
+
+### Windows and Navigation
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>iw` | window_picker() | Pick window |
+| h | `o` | Create new line below |
+| H | `O` | Create new line above |
+| k | `i` | Enter insert mode |
+
+### Smart Functions
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `;` | add_dot() | Smart `;` insertion at EOL |
+| `,` | add_coma() | Smart `,` insertion at EOL |
+
+## 🎨 Plugin Keybindings
+
+### Harpoon 2.0
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>a` | harpoon:list():add() | Add current file |
+| `<leader>h` | harpoon:toggle_quick_menu() | Quick bookmarks menu |
+| `<C-1>` | harpoon:list():select(1) | Go to bookmark 1 |
+| `<C-2>` | harpoon:list():select(2) | Go to bookmark 2 |
+| `<C-3>` | harpoon:list():select(3) | Go to bookmark 3 |
+| `<C-4>` | harpoon:list():select(4) | Go to bookmark 4 |
+| `<leader>F` | telescope harpoon marks | Search bookmarks with Telescope |
+
+### Debug Adapter Protocol (DAP)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<F5>` | dap.continue() | Start/continue debugging |
+| `<F10>` | dap.step_over() | Step over |
+| `<F11>` | dap.step_into() | Step into |
+| `<F12>` | dap.step_out() | Step out |
+| `<leader>ib` | toggle_breakpoint_or_debugger() | Toggle breakpoint |
+| `<leader>iB` | dap.set_breakpoint() | Conditional breakpoint |
+| `<leader>dr` | dap.repl.open() | Open REPL |
+| `<leader>du` | dapui.toggle() | Toggle debugging UI |
+| `<leader>dx` | dap.terminate() | Terminate debugging |
+
+### LazyGit
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>gg` | lazygit | Open LazyGit |
+
+### LazyDocker
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>dk` | lazydocker | Open LazyDocker |
+
+### Telekasten (Notes)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>zn` | telekasten.new_note() | New note |
+| `<leader>zf` | telekasten.find_notes() | Find notes |
+| `<leader>zg` | telekasten.search_notes() | Search in notes |
+| `<leader>zd` | telekasten.goto_today() | Go to today's note |
+| `<leader>zt` | telekasten.show_todo() | Show tasks |
+| `<leader>zc` | telekasten.calendar() | Notes calendar |
+
+### Yanky (Yank/Paste)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `p` | yanky.put() | Paste after |
+| `P` | yanky.put() | Paste before |
+| `]p` | yanky.put() | Paste with indentation |
+| `[p` | yanky.put() | Paste with indentation (before) |
+| `>p` | yanky.put() | Cycle forward in history |
+| `<p` | yanky.put() | Cycle backward in history |
+
+### Conform (Formatting)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>cf` | conform.format() | Format file |
+| `<leader>cf` | conform.format() | Format selection (visual) |
+
+### Vim-Multicursor
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<C-n>` | vim-multicursor.match_add() | Add cursor on match |
+| `<C-x>` | vim-multicursor.match_skip() | Skip match |
+| `<C-p>` | vim-multicursor.match_prev() | Previous cursor |
+| `<Esc>` | vim-multicursor.escape() | Exit multicursor |
+
+## 📝 LSP Keybindings
+
+### LSP Navigation
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `gd` | snacks.picker.lsp_definitions() | Go to definition |
+| `gD` | snacks.picker.lsp_references() | See references |
+| `gi` | snacks.picker.lsp_implementations() | Go to implementation |
+| `gt` | snacks.picker.lsp_type_definitions() | Go to type definition |
+| `K` | vim.lsp.buf.hover() | Hover documentation |
+| `.` | vim.lsp.buf.code_action() | Code actions |
+| `<leader>rn` | vim.lsp.buf.rename() | Rename symbol |
+| `<leader>ca` | vim.lsp.buf.code_action() | Code action |
+
+### LSP Diagnostics
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `[d` | vim.diagnostic.goto_prev() | Go to previous diagnostic |
+| `]d` | vim.diagnostic.goto_next() | Go to next diagnostic |
+
+## 🧪 Testing Keybindings
+
+### Neotest
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>iur` | neotest.run.run() | Run test |
+| `<leader>ius` | neotest.summary.toggle() | Toggle test summary |
+| `<leader>iud` | neotest.run.run({strategy = "dap"}) | Debug test |
+
+## 📋 Note Search Keybindings
+
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>it` | search_notes() | Search pending tasks in notes |
+
+## 🔄 Colemak-DH Reversion
+
+To revert to the standard Vim layout, see the [colemak-dh.md](colemak-dh.md) guide.
+
+## 📚 Quick Reference
+
+### Most Used Shortcuts
+- **Navigation**: n,e,i,o (left, down, up, right)
+- **Files**: `<leader>f` (find), `<leader>w` (save)
+- **LSP**: `gd` (definition), `K` (documentation)
+- **Git**: `<leader>gg` (LazyGit)
+- **Testing**: `<leader>iur` (run tests)
+
+## 🌐 Languages
+
+- 🇺🇸 **English**: This documentation
+- 🇪🇸 **Español**: [Keybindings en Español](../es/keymaps.md)
+
+---
+
+*For a complete guide on how to revert the Colemak-DH layout to standard, see [colemak-dh.md](colemak-dh.md).*
