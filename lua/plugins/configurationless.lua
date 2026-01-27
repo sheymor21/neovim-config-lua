@@ -15,6 +15,10 @@ return {
     },
 
     {
+        "nvim-lua/plenary.nvim",
+    },
+
+    {
         "mason-org/mason-lspconfig.nvim",
         dependencies = { "williamboman/mason.nvim" },
         config = function()
