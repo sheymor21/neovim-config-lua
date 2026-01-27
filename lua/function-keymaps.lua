@@ -5,6 +5,7 @@ _G.lsp_on_attach = function(client, bufnr)
     local opts = { buffer = bufnr, silent = true }
 
     client.server_capabilities.semanticTokensProvider = nil
+    local Snacks = require "plugins.snacks"
     map("n", "gd", function() Snacks.picker.lsp_definitions() end, { buffer = bufnr, desc = "Go to Definition" })
     map("n", "gD", function() Snacks.picker.lsp_references() end, { buffer = bufnr, desc = "References" })
     map("n", "gi", function() Snacks.picker.lsp_implementations() end, { buffer = bufnr, desc = "Implementation" })
@@ -90,6 +91,7 @@ end
 
 function M.neotest()
     require("neotest").run.run()
+    -- require("neotest").run.run(vim.fn.expand("%"))
 end
 
 function M.window_picker()
@@ -100,6 +102,5 @@ function M.window_picker()
         vim.api.nvim_set_current_win(picked_window_id)
     end
 end
-
 
 return M
