@@ -200,7 +200,7 @@ git pull origin main
 
 ## 🌐 Idiomas
 
-- 🇪🇷 **Español**: Esta documentación
+- 🇪🇸 **Español**: Esta documentación
 - 🇺🇸 **English**: [English Installation Guide](../en/installation.md)
 
 ---
