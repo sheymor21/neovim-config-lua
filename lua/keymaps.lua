@@ -4,6 +4,7 @@ require("plugins-keymaps.dap-keymaps")
 require("plugins-keymaps.vim-multicursor-keymaps")
 require("plugins-keymaps.yanky-keymaps")
 require("plugins-keymaps.telekasten-keymaps")
+
 local map = vim.keymap.set
 local behavior = require("function-keymaps");
 
@@ -82,3 +83,4 @@ map("n", "<leader>ius", behavior.neotest_summary, { desc = "Use Neotest Summary"
 map("n", "<leader>iud", behavior.neotest_debug, { desc = "Use Neotest Debug" })
 
 map("n", "<leader>iw", behavior.window_picker, { desc = "Pick a window" })
+map("n", "<leader>ip", behavior.unipackage_menu, { desc = "Unipackage Menu" })

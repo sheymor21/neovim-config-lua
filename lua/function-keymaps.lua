@@ -96,6 +96,9 @@ function M.neotest_summary()
     require("neotest").summary.toggle()
 end
 
+function M.unipackage_menu()
+    require("unipackage").package_menu()
+end
 
 function M.neotest_debug()
     local strategy = {
