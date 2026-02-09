@@ -34,7 +34,7 @@ local function start_html(bufnr)
         root_dir = get_root_dir(vim.api.nvim_buf_get_name(bufnr)),
         filetypes = html_config.filetypes,
         capabilities = html_config.capabilities,
-        on_attach = _G.lsp_on_attach,
+        -- on_attach = _G.lsp_on_attach,
 
         on_exit = function()
             html_client_id = nil

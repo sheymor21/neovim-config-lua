@@ -11,6 +11,7 @@ vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
 vim.o.virtualedit = ""
 
+require("lsp.on_attach")
 require("config.lazy")
 require("config.theme")
 require("config.filetype-theme")
@@ -26,7 +27,6 @@ require("general-config")
 vim.notify = require("notify")
 require("telescope").load_extension("noice")
 require("function-keymaps")
-require("lsp.omnisharp")
 require("lsp.gopls")
 require("lsp.lua-lsp")
 require("lsp.vtsls")

@@ -6,6 +6,55 @@ return {
             require("gruvbox").setup({
                 contrast = "hard",
                 transparent_mode = false,
+                overrides = {
+                    --------------------------------------------------
+                    -- KEYWORDS (using, public, async, return)
+                    --------------------------------------------------
+                    ["@keyword"] = { fg = "#fb4934", bold = true },
+                    ["@keyword.return"] = { fg = "#fb4934", bold = true },
+                    ["@keyword.import"] = { fg = "#fb4934", bold = true },
+                    ["Include"] = { fg = "#fb4934", bold = true },
+
+                    --------------------------------------------------
+                    -- NAMESPACES / QUALIFIED NAMES
+                    --------------------------------------------------
+                    ["@namespace"] = { fg = "#ebdbb2" },
+                    ["@module"] = { fg = "#ebdbb2" },
+
+                    --------------------------------------------------
+                    -- TYPES (string, Task, ClientServices)
+                    --------------------------------------------------
+                    ["@type"] = { fg = "#fabd2f" },
+                    ["@type.builtin"] = { fg = "#fb4934" },
+
+                    --------------------------------------------------
+                    -- FUNCTIONS / METHODS
+                    --------------------------------------------------
+                    ["@function"] = { fg = "#83a598" },
+                    ["@method"] = { fg = "#83a598" },
+                    ["@function.call"] = { fg = "#83a598" },
+                    ["@method.call"] = { fg = "#83a598" },
+
+                    --------------------------------------------------
+                    -- VARIABLES / PARAMETERS
+                    --------------------------------------------------
+                    ["@variable"] = { fg = "#83a598" },
+                    ["@parameter"] = { fg = "#83a598" },
+                    ["@property"] = { fg = "#83a598" },
+                    ["@field"] = { fg = "#83a598" },
+
+                    --------------------------------------------------
+                    -- STRINGS / NUMBERS
+                    --------------------------------------------------
+                    ["@string"] = { fg = "#b8bb26" },
+                    ["@number"] = { fg = "#d3869b" },
+
+
+                    --------------------------------------------------
+                    -- COMMENTS
+                    --------------------------------------------------
+                    ["@comment"] = { fg = "#928374", italic = true },
+                },
             })
         end,
     },
@@ -34,26 +83,20 @@ return {
         end,
         lazy = true,
     },
-        {
-            "navarasu/onedark.nvim",
-            name = "onedark",
-            config = function()
-                require("onedark").setup({
-                    style = "warmer",
-                    highlights = {
-                        -- Tree-sitter (lo que ves al entrar)
-                        ["@variable.builtin"] = { fg = "#B46BF5" },
-                        ["@variable.builtin.javascript"] = { fg = "#B46BF5" },
-                        ["@variable.builtin.typescript"] = { fg = "#B46BF5" },
-                        
-                        -- LSP Semantic Tokens (lo que se aplica después de 1 segundo)
-                        ["@lsp.type.variable.builtin"] = { fg = "#B46BF5" },
-                        ["@lsp.mod.defaultLibrary"] = { fg = "#B46BF5" },
-                        ["@lsp.typemod.variable.defaultLibrary"] = { fg = "#B46BF5" },
-                        ["@lsp.typemod.function.defaultLibrary"] = { fg = "#B46BF5" },
-                    }
-                })
-            end,
-            lazy = true,
-        },
-    }
+    {
+        "navarasu/onedark.nvim",
+        name = "onedark",
+        config = function()
+            require("onedark").setup({
+                style = "warmer",
+                highlights = {
+                    ["@variable.builtin"] = { fg = "#B46BF5" },
+                    ["@variable.builtin.javascript"] = { fg = "#B46BF5" },
+                    ["@variable.builtin.typescript"] = { fg = "#B46BF5" },
+                    ["@variable.builtin.go"] = { fg = "#B46BF5" },
+                }
+            })
+        end,
+        lazy = true,
+    },
+}

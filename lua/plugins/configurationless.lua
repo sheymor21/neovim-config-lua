@@ -10,7 +10,15 @@ return {
             },
         },
         config = function()
-            require("mason").setup()
+            require("mason").setup(
+                {
+                    registries = {
+                        "github:mason-org/mason-registry",
+                        "github:Crashdummyy/mason-registry",
+                    },
+                }
+
+            )
         end,
     },
 
@@ -23,7 +31,7 @@ return {
         dependencies = { "williamboman/mason.nvim" },
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "omnisharp", "marksman", "vtsls", "html", "cssls", "jsonls" },
+                ensure_installed = { "marksman", "vtsls", "html", "cssls", "jsonls" },
             })
         end,
     },

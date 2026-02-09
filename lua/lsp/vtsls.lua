@@ -22,9 +22,6 @@ vim.api.nvim_create_autocmd("FileType", {
 			name = "vtsls",
 			cmd = vtsls_cmd,
 			capabilities = capabilities,
-			-- Ensure shared keymaps are applied
-			on_attach = _G.lsp_on_attach,
-
 			root_dir = vim.fs.root(args.buf, {
 				"package.json",
 				"tsconfig.json",

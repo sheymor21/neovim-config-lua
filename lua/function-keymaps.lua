@@ -1,20 +1,4 @@
 local M = {}
-local map = vim.keymap.set
-
-_G.lsp_on_attach = function(client, bufnr)
-    local opts = { buffer = bufnr, silent = true }
-
-    client.server_capabilities.semanticTokensProvider = nil
-    map("n", "gd", function() Snacks.picker.lsp_definitions() end, { buffer = bufnr, desc = "Go to Definition" })
-    map("n", "gD", function() Snacks.picker.lsp_references() end, { buffer = bufnr, desc = "References" })
-    map("n", "gi", function() Snacks.picker.lsp_implementations() end, { buffer = bufnr, desc = "Implementation" })
-    map("n", "gt", function() Snacks.picker.lsp_type_definitions() end, { buffer = bufnr, desc = "Type Definition" })
-    map("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
-    map("n", ".", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Actions" }))
-    map("v", ".", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Actions" }))
-    map("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename Symbol" })
-    map("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
-end
 
 function M.add_dot()
     local line = vim.api.nvim_get_current_line()

@@ -22,10 +22,6 @@ local treesitter_config = {
     indent = {
         enable = true,
     },
-    fold = {
-        enable = true
-    }
-
 }
 
 return {
