@@ -4,7 +4,7 @@ return {
         name = "gruvbox",
         config = function()
             require("gruvbox").setup({
-                contrast = "hard",
+                contrast = "soft",
                 transparent_mode = false,
                 overrides = {
                     --------------------------------------------------
@@ -13,6 +13,7 @@ return {
                     ["@keyword"] = { fg = "#fb4934", bold = true },
                     ["@keyword.return"] = { fg = "#fb4934", bold = true },
                     ["@keyword.import"] = { fg = "#fb4934", bold = true },
+                    ["@keyword.accessor"] = { fg = "#B8BB26" },  -- C# get/set accessors (custom query)
                     ["Include"] = { fg = "#fb4934", bold = true },
 
                     --------------------------------------------------
@@ -54,6 +55,8 @@ return {
                     -- COMMENTS
                     --------------------------------------------------
                     ["@comment"] = { fg = "#928374", italic = true },
+                    
+
                 },
             })
         end,

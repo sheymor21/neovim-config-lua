@@ -14,6 +14,7 @@ vim.o.virtualedit = ""
 require("lsp.on_attach")
 require("config.lazy")
 require("config.theme")
+require("config.csharp-accessors")
 require("config.filetype-theme")
 vim.cmd("colorscheme kanagawa")
 require("config.lazy-docker")
