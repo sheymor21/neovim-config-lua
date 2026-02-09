@@ -11,6 +11,7 @@ return {
 
         -- Adapters
         "nvim-neotest/neotest-plenary",
+        "Issafalcon/neotest-dotnet",
 
         -- DAP
         "mfussenegger/nvim-dap",
@@ -32,6 +33,17 @@ return {
                 filetypes = { "lua" },
             }))
         end
+
+        local ok_dotnet, dotnet = pcall(require, "neotest-dotnet")
+        if ok_dotnet then
+            table.insert(adapters, dotnet({
+                discovery_root = function(path)
+                    local util = require("neotest.lib").files
+                    return util.match_root_pattern("*.sln")(path)
+                end,
+            }))
+        end
+
 
         local neotest_config = {
             adapters = adapters,

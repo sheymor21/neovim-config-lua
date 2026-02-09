@@ -82,9 +82,12 @@ map("n", "<leader>mf", behavior.format, { desc = "Format current buffer" })
 map("n", "<leader>cn", behavior.run_project, { desc = "Run project" })
 
 map("n", "<leader>it", behavior.search_notes, { desc = "All pending tasks" })
+
 map("n", "<leader>iur", behavior.neotest_run, { desc = "Use Neotest" })
+map("n", "<leader>iuR", behavior.neotest_run_all, { desc = "Use Neotest" })
 map("n", "<leader>ius", behavior.neotest_summary, { desc = "Use Neotest Summary" })
 map("n", "<leader>iud", behavior.neotest_debug, { desc = "Use Neotest Debug" })
+
 
 map("n", "<leader>iw", behavior.window_picker, { desc = "Pick a window" })
 map("n", "<leader>ip", behavior.unipackage_menu, { desc = "Unipackage Menu" })

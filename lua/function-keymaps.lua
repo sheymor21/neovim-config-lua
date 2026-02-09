@@ -76,6 +76,10 @@ function M.neotest_run()
     require("neotest").run.run()
 end
 
+function M.neotest_run_all()
+    require("neotest").run.run({suite = true})
+end
+
 function M.neotest_summary()
     require("neotest").summary.toggle()
 end
