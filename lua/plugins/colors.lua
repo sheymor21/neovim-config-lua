@@ -14,6 +14,10 @@ return {
                     ["@keyword.return"] = { fg = "#fb4934", bold = true },
                     ["@keyword.import"] = { fg = "#fb4934", bold = true },
                     ["@keyword.accessor"] = { fg = "#B8BB26" },  -- C# get/set accessors (custom query)
+                    ["@type.interface"] = { fg = "#fe8019" },  -- C# interface NAME (orange)
+                    ["@namespace.using"] = { fg = "#ebdbb2" },  -- C# using statement types (white)
+                    ["@variable.const"] = { fg = "#d3869b" },  -- C# const/readonly variable names (pink)
+                    ["@constructor.c_sharp"] = { fg = "#fabd2f" },  -- C# constructors (yellow)
                     ["Include"] = { fg = "#fb4934", bold = true },
 
                     --------------------------------------------------
