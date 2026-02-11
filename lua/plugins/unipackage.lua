@@ -5,7 +5,8 @@ return {
     },
     config = function()
         require("unipackage").setup({
-            fallback_to_any = false
+            fallback_to_any = false,
+            search_batch_size = 15
         })
     end,
 }
