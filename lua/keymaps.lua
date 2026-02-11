@@ -79,15 +79,20 @@ map("n", ",", behavior.add_coma, { desc = "Smart , at EOL" })
 
 map("n", "<leader>mf", behavior.format, { desc = "Format current buffer" })
 
-map("n", "<leader>cn", behavior.run_project, { desc = "Run project" })
+map("n", "<leader>cn", behavior.runner_run, { desc = "Run project" })
+map("n", "<leader>ck", behavior.runner_cancel, { desc = "Cancel a live running" })
+map("n", "<leader>cN", behavior.runner_select_run, { desc = "Select run project" })
+map("n", "<leader>cc", behavior.runner_config, { desc = "Add runner config" })
+map("n", "<leader>ch", behavior.runner_history, { desc = "Show runner history" })
 
 map("n", "<leader>it", behavior.search_notes, { desc = "All pending tasks" })
 
 map("n", "<leader>iur", behavior.neotest_run, { desc = "Use Neotest" })
 map("n", "<leader>iuR", behavior.neotest_run_all, { desc = "Use Neotest" })
+map("n", "<leader>iu", behavior.neotest_run, { desc = "Use Neotest" })
 map("n", "<leader>ius", behavior.neotest_summary, { desc = "Use Neotest Summary" })
 map("n", "<leader>iud", behavior.neotest_debug, { desc = "Use Neotest Debug" })
 
-
-map("n", "<leader>iw", behavior.window_picker, { desc = "Pick a window" })
+map("n", "<leader>iwp", behavior.window_picker, { desc = "Pick a window" })
+map("n", "<leader>iwt", behavior.runner_go_terminal, { desc = "Go to runner terminal" })
 map("n", "<leader>ip", behavior.unipackage_menu, { desc = "Unipackage Menu" })

@@ -34,42 +34,29 @@ function M.search_notes()
     })
 end
 
-local Terminal = require("toggleterm.terminal").Terminal
 
-local runner = Terminal:new({
-    direction = "float",
-    close_on_exit = false,
-    hidden = true,
-})
+function M.runner_run()
+    require("unirunner").run()
+end
 
-function M.run_project()
-    local ext = vim.fn.expand("%:e")
-    local file = vim.fn.expand("%:p")
-    local cmd
+function M.runner_select_run()
+    require("unirunner").run_select()
+end
 
-    if ext == "cs" then
-        cmd = "dotnet run"
-    elseif ext == "ts" or ext == "js" then
-        if vim.fn.filereadable("bun.lock") == 1 then
-            cmd = "bun run dev"
-        elseif vim.fn.filereadable("package.json") == 1 then
-            cmd = "npm start"
-        else
-            cmd = "node " .. file
-        end
-    elseif ext == "go" then
-        cmd = "go run " .. file
-    elseif ext == "lua" then
-        cmd = "lua " .. file
-    elseif ext == "html" then
-        cmd = "xdg-open " .. file
-    else
-        vim.notify("No runner for ." .. ext, vim.log.levels.WARN)
-        return
-    end
+function M.runner_config()
+    require("unirunner").open_config()
+end
 
-    runner.cmd = cmd
-    runner:toggle()
+function M.runner_history()
+    require("unirunner").show_output_history()
+end
+
+function M.runner_go_terminal()
+    require("unirunner").goto_terminal()
+end
+
+function M.runner_cancel()
+    require("unirunner").cancel()
 end
 
 function M.neotest_run()
