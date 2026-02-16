@@ -109,23 +109,9 @@ return {
         neotest.setup(neotest_config)
 
         -- === DAP UI AUTO ===
-        local dap_ok, dap = pcall(require, "dap")
-        local dapui_ok, dapui = pcall(require, "dapui")
-
-        if dap_ok and dapui_ok then
-            dapui.setup()
-
-            dap.listeners.after.event_initialized["neotest-dap-ui"] = function()
-                dapui.open()
-            end
-
-            dap.listeners.before.event_terminated["neotest-dap-ui"] = function()
-                dapui.close()
-            end
-
-            dap.listeners.before.event_exited["neotest-dap-ui"] = function()
-                dapui.close()
-            end
+        -- Use shared setup function from dap-ui plugin
+        if _G.setup_dapui_auto_open_close then
+            _G.setup_dapui_auto_open_close("neotest-dap-ui")
         end
     end,
 }

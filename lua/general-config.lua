@@ -1,9 +1,6 @@
 -- Main autocmd group for organization
 local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true })
 
--- Set virtualedit globally once instead of on every buffer
-vim.o.virtualedit = ""
-
 -- Combined BufEnter handler for buffer management
 vim.api.nvim_create_autocmd("BufEnter", {
 	group = augroup,

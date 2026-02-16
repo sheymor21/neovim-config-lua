@@ -65,16 +65,21 @@ return {
             virt_text_win_col = nil,
         })
 
-        -- Auto open/close dapui
-        dap.listeners.after.event_initialized["dapui_config"] = function()
-            dapui.open()
+        -- Shared function for auto open/close dapui (exported for use by other plugins)
+        _G.setup_dapui_auto_open_close = function(listener_name)
+            dap.listeners.after.event_initialized[listener_name] = function()
+                dapui.open()
+            end
+            dap.listeners.before.event_terminated[listener_name] = function()
+                dapui.close()
+            end
+            dap.listeners.before.event_exited[listener_name] = function()
+                dapui.close()
+            end
         end
-        dap.listeners.before.event_terminated["dapui_config"] = function()
-            dapui.close()
-        end
-        dap.listeners.before.event_exited["dapui_config"] = function()
-            dapui.close()
-        end
+
+        -- Setup auto open/close for dap-ui itself
+        _G.setup_dapui_auto_open_close("dapui_config")
 
         -- Error handling for DAP
         dap.listeners.after["event_output"]["error_handler"] = function(session, body)

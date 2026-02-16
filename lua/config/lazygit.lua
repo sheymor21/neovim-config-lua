@@ -1,26 +1,23 @@
 local Terminal = require("toggleterm.terminal").Terminal
+local utils = require("utils")
 
 local lazygit = Terminal:new({
-  cmd = "lazygit",
-  hidden = true,
-  direction = "float",
-  float_opts = {
-    border = "rounded",
-  },
+    cmd = "lazygit",
+    hidden = true,
+    direction = "float",
+    float_opts = {
+        border = "rounded",
+    },
 })
 
 local M = {}
 
-local function command_exists(cmd)
-  return vim.fn.executable(cmd) == 1
-end
-
 function M.toggle()
-  if not command_exists("lazygit") then
-    vim.notify("LazyGit no está instalado", vim.log.levels.ERROR)
-    return
-  end
-  lazygit:toggle()
+    if not utils.command_exists("lazygit") then
+        utils.notify("LazyGit no está instalado", vim.log.levels.ERROR)
+        return
+    end
+    lazygit:toggle()
 end
 
 return M

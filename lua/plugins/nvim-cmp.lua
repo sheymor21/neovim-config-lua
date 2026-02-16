@@ -13,7 +13,8 @@ return {
         local cmp = require("cmp")
         local luasnip = require("luasnip")
         local lspkind = require("lspkind")
-        require("luasnip.loaders.from_vscode").lazy_load()
+        local utils = require("utils")
+        -- Note: luasnip loader is called in luasnipet.lua, not here
 
         cmp.setup({
             preselect = cmp.PreselectMode.None,
@@ -66,43 +67,16 @@ return {
                 { name = "lazydev", group_index = 0 },
                 {
                     name = "nvim_lsp",
-                    entry_filter = function(entry, ctx)
-                        local line = vim.api.nvim_get_current_line()
-                        local col = vim.api.nvim_win_get_cursor(0)[2]
-                        local before_cursor = line:sub(1, col)
-                        -- Oculta LSP si hay ~ antes del cursor
-                        if before_cursor:match("~[^%s]*$") then
-                            return false
-                        end
-                        return true
-                    end
+                    entry_filter = utils.cmp_entry_filter,
                 },
                 { name = "luasnip" },
                 {
                     name = "buffer",
-                    entry_filter = function(entry, ctx)
-                        local line = vim.api.nvim_get_current_line()
-                        local col = vim.api.nvim_win_get_cursor(0)[2]
-                        local before_cursor = line:sub(1, col)
-                        -- Oculta buffer si hay ~ antes del cursor
-                        if before_cursor:match("~[^%s]*$") then
-                            return false
-                        end
-                        return true
-                    end
+                    entry_filter = utils.cmp_entry_filter,
                 },
                 {
                     name = "path",
-                    entry_filter = function(entry, ctx)
-                        local line = vim.api.nvim_get_current_line()
-                        local col = vim.api.nvim_win_get_cursor(0)[2]
-                        local before_cursor = line:sub(1, col)
-                        -- Oculta path si hay ~ antes del cursor
-                        if before_cursor:match("~[^%s]*$") then
-                            return false
-                        end
-                        return true
-                    end
+                    entry_filter = utils.cmp_entry_filter,
                 },
             },
         })
