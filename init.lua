@@ -18,6 +18,7 @@ vim.cmd("colorscheme kanagawa")
 require("general-config")
 require("function-keymaps")
 require("keymaps")
+require("config.profiler")
 
 -- Defer non-critical modules to improve startup time
 vim.api.nvim_create_autocmd("User", {

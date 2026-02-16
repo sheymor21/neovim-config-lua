@@ -5,21 +5,82 @@ return {
         "jay-babu/mason-nvim-dap.nvim",
         "rcarriga/nvim-dap-ui",
         "nvim-neotest/nvim-nio",
+        "theHamsta/nvim-dap-virtual-text",
     },
     config = function()
         local dap = require("dap")
         local dapui = require("dapui")
 
-        dapui.setup()
+        -- Enhanced DAP UI setup
+        dapui.setup({
+            icons = { expanded = "▾", collapsed = "▸", current_frame = "*" },
+            controls = {
+                icons = {
+                    pause = "",
+                    play = "",
+                    step_into = "",
+                    step_over = "",
+                    step_out = "",
+                    step_back = "",
+                    run_last = "↻",
+                    terminate = "",
+                    disconnect = "",
+                },
+            },
+            layouts = {
+                {
+                    elements = {
+                        { id = "scopes", size = 0.25 },
+                        { id = "breakpoints", size = 0.25 },
+                        { id = "stacks", size = 0.25 },
+                        { id = "watches", size = 0.25 },
+                    },
+                    size = 40,
+                    position = "left",
+                },
+                {
+                    elements = {
+                        { id = "repl", size = 0.5 },
+                        { id = "console", size = 0.5 },
+                    },
+                    size = 0.25,
+                    position = "bottom",
+                },
+            },
+        })
 
-        dap.listeners.after.event_initialized["dapui"] = function()
+        -- Virtual text for DAP
+        require("nvim-dap-virtual-text").setup({
+            enabled = true,
+            enabled_commands = true,
+            highlight_changed_variables = true,
+            highlight_new_as_changed = false,
+            show_stop_reason = true,
+            commented = false,
+            only_first_definition = true,
+            all_references = false,
+            virt_text_pos = "eol",
+            all_frames = false,
+            virt_lines = false,
+            virt_text_win_col = nil,
+        })
+
+        -- Auto open/close dapui
+        dap.listeners.after.event_initialized["dapui_config"] = function()
             dapui.open()
         end
-        dap.listeners.before.event_terminated["dapui"] = function()
+        dap.listeners.before.event_terminated["dapui_config"] = function()
             dapui.close()
         end
-        dap.listeners.before.event_exited["dapui"] = function()
+        dap.listeners.before.event_exited["dapui_config"] = function()
             dapui.close()
+        end
+
+        -- Error handling for DAP
+        dap.listeners.after["event_output"]["error_handler"] = function(session, body)
+            if body.category == "stderr" then
+                vim.notify("DAP Error: " .. body.output, vim.log.levels.ERROR)
+            end
         end
 
         require("mason-nvim-dap").setup({
