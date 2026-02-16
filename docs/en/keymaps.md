@@ -38,34 +38,40 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>w` | `:w<CR>` | Save file |
 | `<leader>q` | `:q<CR>` | Close file |
 | `<leader>W` | `:luafile %<CR>` | Execute current Lua file |
-| `<leader>f` | Telescope find_files | Find files |
-| `<leader>b` | Telescope buffers | List buffers |
-| `<leader>r` | Telescope oldfiles | Recent files |
-| `<leader>P` | Telescope neovim-project discover | Discover projects |
-| `<leader>p` | Telescope neovim-project history | Project history |
 
-### Search and Navigation
+### Find (Telescope)
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>gp` | Telescope live_grep | Search text in files |
-| `<leader>s` | Telescope aerial | Search symbols |
+| `<leader>ff` | Telescope find_files | Find files |
+| `<leader>fb` | Telescope buffers | List buffers |
+| `<leader>fr` | Telescope oldfiles | Recent files |
+| `<leader>fp` | Telescope neovim-project history | Project history |
+| `<leader>fP` | Telescope neovim-project discover | Discover projects |
+
+### Search
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>sg` | Telescope live_grep | Search text in files |
+| `<leader>ss` | Telescope aerial | Search symbols |
+| `<leader>sa` | AerialToggle | Toggle symbols outline |
+
+### Navigation
+| Keybinding | Function | Description |
+|------------|----------|-------------|
 | `<leader>e` | `:Neotree toggle<CR>` | Toggle Neo-tree |
 | `<leader>E` | `:Neotree reveal_force_cwd<CR>` | Open Neo-tree in current path |
+| `<leader>iwp` | window_picker() | Pick window |
 
 ### Terminal and Execution
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>t` | ToggleTerm | Toggle floating terminal |
+| `<leader>tt` | ToggleTerm | Toggle floating terminal |
 | `<leader>cn` | run_project() | Run project by filetype |
-| `<leader>mf` | format() | Format current buffer |
-
-### Windows and Navigation
-| Keybinding | Function | Description |
-|------------|----------|-------------|
-| `<leader>iw` | window_picker() | Pick window |
-| h | `o` | Create new line below |
-| H | `O` | Create new line above |
-| k | `i` | Enter insert mode |
+| `<leader>ck` | runner_cancel() | Cancel running project |
+| `<leader>cN` | runner_select_run() | Select and run project |
+| `<leader>cc` | runner_config() | Add runner config |
+| `<leader>ch` | runner_history() | Show runner history |
+| `<leader>iwt` | runner_go_terminal() | Go to runner terminal |
 
 ### Smart Functions
 | Keybinding | Function | Description |
@@ -99,15 +105,11 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>du` | dapui.toggle() | Toggle debugging UI |
 | `<leader>dx` | dap.terminate() | Terminate debugging |
 
-### LazyGit
+### Integration (LazyGit & LazyDocker)
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>gg` | lazygit | Open LazyGit |
-
-### LazyDocker
-| Keybinding | Function | Description |
-|------------|----------|-------------|
-| `<leader>dk` | lazydocker | Open LazyDocker |
+| `<leader>ig` | lazygit | Open LazyGit |
+| `<leader>id` | lazydocker | Open LazyDocker |
 
 ### Telekasten (Notes)
 | Keybinding | Function | Description |
@@ -116,8 +118,8 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>zf` | telekasten.find_notes() | Find notes |
 | `<leader>zg` | telekasten.search_notes() | Search in notes |
 | `<leader>zd` | telekasten.goto_today() | Go to today's note |
-| `<leader>zt` | telekasten.show_todo() | Show tasks |
-| `<leader>zc` | telekasten.calendar() | Notes calendar |
+| `<leader>zp` | telekasten.panel() | Open notes panel |
+| `<leader>zv` | telekasten.switch_vault() | Switch vault |
 
 ### Yanky (Yank/Paste)
 | Keybinding | Function | Description |
@@ -128,20 +130,15 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `[p` | yanky.put() | Paste with indentation (before) |
 | `>p` | yanky.put() | Cycle forward in history |
 | `<p` | yanky.put() | Cycle backward in history |
-
-### Conform (Formatting)
-| Keybinding | Function | Description |
-|------------|----------|-------------|
-| `<leader>cf` | conform.format() | Format file |
-| `<leader>cf` | conform.format() | Format selection (visual) |
+| `<leader>yh` | yank_history | Yank history with Telescope |
+| `<leader>yw` | ysiw | Surround word shortcut |
 
 ### Vim-Multicursor
 | Keybinding | Function | Description |
 |------------|----------|-------------|
 | `<C-n>` | vim-multicursor.match_add() | Add cursor on match |
-| `<C-x>` | vim-multicursor.match_skip() | Skip match |
-| `<C-p>` | vim-multicursor.match_prev() | Previous cursor |
-| `<Esc>` | vim-multicursor.escape() | Exit multicursor |
+| `<leader>ma` | VM-Select-All | Select all matches |
+| `<leader>mm` | VM-Reselect-Last | Reselect last selection |
 
 ## 📝 LSP Keybindings
 
@@ -156,12 +153,19 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `.` | vim.lsp.buf.code_action() | Code actions |
 | `<leader>rn` | vim.lsp.buf.rename() | Rename symbol |
 | `<leader>ca` | vim.lsp.buf.code_action() | Code action |
+| `<leader>cl` | vim.lsp.codelens.run() | Run CodeLens |
 
 ### LSP Diagnostics
 | Keybinding | Function | Description |
 |------------|----------|-------------|
 | `[d` | vim.diagnostic.goto_prev() | Go to previous diagnostic |
 | `]d` | vim.diagnostic.goto_next() | Go to next diagnostic |
+| `<leader>td` | toggle_diagnostics_display() | Toggle virtual text/lines |
+
+### LSP Features
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>th` | toggle_inlay_hints() | Toggle inlay hints |
 
 ## 🧪 Testing Keybindings
 
@@ -169,14 +173,16 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | Keybinding | Function | Description |
 |------------|----------|-------------|
 | `<leader>iur` | neotest.run.run() | Run test |
+| `<leader>iuR` | neotest.run.run({suite = true}) | Run all tests |
 | `<leader>ius` | neotest.summary.toggle() | Toggle test summary |
 | `<leader>iud` | neotest.run.run({strategy = "dap"}) | Debug test |
 
-## 📋 Note Search Keybindings
+## 📋 Notes & Tasks
 
 | Keybinding | Function | Description |
 |------------|----------|-------------|
 | `<leader>it` | search_notes() | Search pending tasks in notes |
+| `<leader>ip` | unipackage_menu() | Unipackage menu |
 
 ## 🔄 Colemak-DH Reversion
 
@@ -186,10 +192,11 @@ To revert to the standard Vim layout, see the [colemak-dh.md](colemak-dh.md) gui
 
 ### Most Used Shortcuts
 - **Navigation**: n,e,i,o (left, down, up, right)
-- **Files**: `<leader>f` (find), `<leader>w` (save)
-- **LSP**: `gd` (definition), `K` (documentation)
-- **Git**: `<leader>gg` (LazyGit)
+- **Files**: `<leader>ff` (find), `<leader>w` (save)
+- **LSP**: `gd` (definition), `K` (documentation), `<leader>th` (inlay hints)
+- **Git**: `<leader>ig` (LazyGit)
 - **Testing**: `<leader>iur` (run tests)
+- **Search**: `<leader>sg` (live grep), `<leader>ss` (symbols)
 
 ## 🌐 Languages
 
