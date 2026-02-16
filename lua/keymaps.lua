@@ -88,8 +88,7 @@ map("n", "<leader>ch", behavior.runner_history, { desc = "Show runner history" }
 map("n", "<leader>it", behavior.search_notes, { desc = "All pending tasks" })
 
 map("n", "<leader>iur", behavior.neotest_run, { desc = "Use Neotest" })
-map("n", "<leader>iuR", behavior.neotest_run_all, { desc = "Use Neotest" })
-map("n", "<leader>iu", behavior.neotest_run, { desc = "Use Neotest" })
+map("n", "<leader>iuR", behavior.neotest_run_all, { desc = "Use Neotest run all" })
 map("n", "<leader>ius", behavior.neotest_summary, { desc = "Use Neotest Summary" })
 map("n", "<leader>iud", behavior.neotest_debug, { desc = "Use Neotest Debug" })
 

@@ -3,7 +3,7 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   cmd = "Trouble",
   keys = {
-    { "<leader>x", "<cmd>Trouble diagnostics toggle<CR>", desc = "Diagnostics" },
+    { "<leader>isp", "<cmd>Trouble diagnostics toggle<CR>", desc = "Diagnostics" },
   },
   config = function()
     require("trouble").setup({
