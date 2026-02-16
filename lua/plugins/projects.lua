@@ -16,6 +16,6 @@ return {
         { "nvim-telescope/telescope.nvim" },
         { "Shatur/neovim-session-manager" },
     },
-    lazy = false,
-    priority = 100,
+    event = "VimEnter",
+    priority = 50,
 }
