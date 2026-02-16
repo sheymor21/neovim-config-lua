@@ -1,9 +1,10 @@
 require("plugins-keymaps.lazygit-keymaps")
 require("plugins-keymaps.lazydocker-keymaps")
 require("plugins-keymaps.dap-keymaps")
-require("plugins-keymaps.vim-multicursor-keymaps")
 require("plugins-keymaps.yanky-keymaps")
 require("plugins-keymaps.telekasten-keymaps")
+require("plugins-keymaps.conform-keymaps")
+require("plugins-keymaps.harpoon2-keymaps")
 
 local map = vim.keymap.set
 local behavior = require("function-keymaps");
@@ -100,3 +101,32 @@ map("n", "<leader>th", behavior.toggle_inlay_hints, { desc = "Toggle Inlay Hints
 map("n", "<leader>cl", vim.lsp.codelens.run, { desc = "Run CodeLens" })
 
 map("n", "<leader>td", behavior.toggle_diagnostics_display, { desc = "Toggle diagnostic display" })
+
+-- Multicursor keymaps
+map({"n", "x"}, "<C-n>", behavior.mc_add_cursor_next, { desc = "Add cursor at next match" })
+map({"n", "x"}, "<C-p>", behavior.mc_add_cursor_prev, { desc = "Add cursor at previous match" })
+map({"n", "x"}, "<leader>ma", behavior.mc_match_all_cursors, { desc = "Match all" })
+map("n", "<esc>", behavior.mc_clear_or_enable_cursors, { desc = "Clear cursors" })
+
+-- Flash keymaps
+map({"n", "x", "o"}, "f", behavior.flash_jump, { desc = "Flash jump" })
+map({"n", "x", "o"}, "F", behavior.flash_treesitter, { desc = "Flash treesitter" })
+
+-- Markdown preview keymap
+map("n", "<leader>mp", behavior.toggle_peek_preview, { desc = "Markdown Preview" })
+
+-- Aerial keymaps
+map("n", "{", "<cmd>AerialPrev<CR>", { desc = "Previous aerial symbol" })
+map("n", "}", "<cmd>AerialNext<CR>", { desc = "Next aerial symbol" })
+
+-- Trouble keymap
+map("n", "<leader>isp", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Toggle diagnostics" })
+
+-- Cellular Automaton keymap
+map("n", "<leader>!", "<cmd>CellularAutomaton make_it_rain<cr>", { desc = "Make it rain" })
+
+-- Oil keymap
+map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+-- Undotree keymap
+map("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Toggle undotree" })

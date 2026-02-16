@@ -5,7 +5,5 @@ return {
       show_hidden = true,
     },
   },
-  keys = {
-    { "-", "<CMD>Oil<CR>", desc = "Open parent directory" },
-  },
+
 }

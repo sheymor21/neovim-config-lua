@@ -111,4 +111,44 @@ function M.toggle_diagnostics_display()
     )
 end
 
+-- Multicursor functions
+function M.mc_add_cursor_next()
+    require("multicursor-nvim").matchAddCursor(1)
+end
+
+function M.mc_add_cursor_prev()
+    require("multicursor-nvim").matchAddCursor(-1)
+end
+
+function M.mc_match_all_cursors()
+    require("multicursor-nvim").matchAllAddCursors()
+end
+
+function M.mc_clear_or_enable_cursors()
+    local mc = require("multicursor-nvim")
+    if not mc.cursorsEnabled() then
+        mc.enableCursors()
+    else
+        mc.clearCursors()
+    end
+end
+
+-- Flash functions
+function M.flash_jump()
+    require("flash").jump()
+end
+
+function M.flash_treesitter()
+    require("flash").treesitter()
+end
+
+function M.toggle_peek_preview()
+    local peek = require("peek")
+    if peek.is_open() then
+        peek.close()
+    else
+        peek.open()
+    end
+end
+
 return M

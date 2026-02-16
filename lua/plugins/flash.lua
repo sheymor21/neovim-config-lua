@@ -21,18 +21,6 @@ return {
         },
     },
     keys = {
-        {
-            "f",
-            mode = { "n", "x", "o" },
-            function() require("flash").jump() end,
-            desc = "Flash Jump"
-        },
-        {
-            "F",
-            mode = { "n", "x", "o" },
-            function() require("flash").treesitter() end,
-            desc = "Flash Treesitter"
-        },
         { "s", mode = { "n", "x", "o" }, false },
         { "S", mode = { "n", "x", "o" }, false },
     }

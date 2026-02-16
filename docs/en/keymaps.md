@@ -53,6 +53,7 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 |------------|----------|-------------|
 | `<leader>sg` | Telescope live_grep | Search text in files |
 | `<leader>ss` | Telescope aerial | Search symbols |
+| `<leader>sa` | AerialToggle | Toggle symbols outline |
 
 ### Navigation
 | Keybinding | Function | Description |
@@ -60,6 +61,7 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>e` | `:Neotree toggle<CR>` | Toggle Neo-tree |
 | `<leader>E` | `:Neotree reveal_force_cwd<CR>` | Open Neo-tree in current path |
 | `<leader>iwp` | window_picker() | Pick window |
+| `-` | Oil | Open parent directory |
 
 ### Terminal and Execution
 | Keybinding | Function | Description |
@@ -91,6 +93,26 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<C-4>` | harpoon:list():select(4) | Go to bookmark 4 |
 | `<leader>F` | telescope harpoon marks | Search bookmarks with Telescope |
 
+### Multicursor (jake-stewart/multicursor.nvim)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<C-n>` | mc_add_cursor_next() | Add cursor at next match |
+| `<C-p>` | mc_add_cursor_prev() | Add cursor at previous match |
+| `<leader>ma` | mc_match_all_cursors() | Add cursor to all matches |
+| `<esc>` | mc_clear_or_enable_cursors() | Clear all cursors |
+
+### Flash (folke/flash.nvim)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `f` | flash_jump() | Flash jump to character |
+| `F` | flash_treesitter() | Flash treesitter node |
+
+### Aerial (stevearc/aerial.nvim)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `{` | AerialPrev | Previous aerial symbol |
+| `}` | AerialNext | Next aerial symbol |
+
 ### Debug Adapter Protocol (DAP)
 | Keybinding | Function | Description |
 |------------|----------|-------------|
@@ -109,6 +131,11 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 |------------|----------|-------------|
 | `<leader>ig` | lazygit | Open LazyGit |
 | `<leader>id` | lazydocker | Open LazyDocker |
+
+### Markdown
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>mp` | toggle_peek_preview() | Toggle markdown preview |
 
 ### Telekasten (Notes)
 | Keybinding | Function | Description |
@@ -132,12 +159,20 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>yh` | yank_history | Yank history with Telescope |
 | `<leader>yw` | ysiw | Surround word shortcut |
 
-### Vim-Multicursor
+### Trouble (folke/trouble.nvim)
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<C-n>` | vim-multicursor.match_add() | Add cursor on match |
-| `<leader>ma` | VM-Select-All | Select all matches |
-| `<leader>mm` | VM-Reselect-Last | Reselect last selection |
+| `<leader>isp` | Trouble diagnostics toggle | Toggle diagnostics panel |
+
+### Undotree (mbbill/undotree)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>u` | UndotreeToggle | Toggle undo tree |
+
+### Cellular Automaton (eandrju/cellular-automaton.nvim)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>!` | CellularAutomaton make_it_rain | Make it rain |
 
 ## 📝 LSP Keybindings
 
@@ -196,6 +231,8 @@ To revert to the standard Vim layout, see the [colemak-dh.md](colemak-dh.md) gui
 - **Git**: `<leader>ig` (LazyGit)
 - **Testing**: `<leader>iur` (run tests)
 - **Search**: `<leader>sg` (live grep), `<leader>ss` (symbols)
+- **Multicursor**: `<C-n>` (add cursor), `<esc>` (clear)
+- **Flash**: `f` (jump), `F` (treesitter)
 
 ## 🌐 Languages
 

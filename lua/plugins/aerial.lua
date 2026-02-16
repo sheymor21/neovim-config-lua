@@ -29,8 +29,5 @@ return {
         autojump = false,
     },
 
-    keys = {
-        { "{",         "<cmd>AerialPrev<CR>",   desc = "Prev symbol" },
-        { "}",         "<cmd>AerialNext<CR>",   desc = "Next symbol" },
-    },
+
 }
