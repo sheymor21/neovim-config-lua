@@ -52,7 +52,7 @@ map("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true, de
 map("n", "<leader>E", ":Neotree reveal_force_cwd<CR>",
     { noremap = true, silent = true, desc = "Abrir Neotree En la ruta actual" })
 
-map("n", "<leader>s", "<cmd>Telescope aerial<CR>", {
+map("n", "<leader>ss", "<cmd>Telescope aerial<CR>", {
     desc = "Search symbols (Aerial)",
 })
 
@@ -65,7 +65,7 @@ map("n", "<leader>W", ":luafile %<CR>", { noremap = true, silent = true, desc = 
 
 -- Archivos y búsqueda
 map("n", "<leader>f", "<cmd>Telescope find_files<cr>", { desc = "Buscar archivos" })
-map("n", "<leader>gp", "<cmd>Telescope live_grep<cr>", { desc = "Buscar texto" })
+map("n", "<leader>sg", "<cmd>Telescope live_grep<cr>", { desc = "Buscar texto" })
 map("n", "<leader>b", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
 map("n", "<leader>r", "<cmd>Telescope oldfiles<cr>", { desc = "Recientes" })
 map("n", "<leader>P", "<cmd>Telescope neovim-project discover<cr>", { desc = "Descubrir Proyectos" })

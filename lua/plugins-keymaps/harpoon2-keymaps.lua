@@ -3,12 +3,12 @@ local map = vim.keymap.set
 local ui = require("harpoon").ui
 
 -- Añadir archivo a Harpoon
-map("n", "<leader>a", function()
+map("n", "<leader>aa", function()
 	require("harpoon"):list():add()
 end, vim.tbl_extend("force", opts, { desc = "Harpoon: add file" }))
 
 -- Toggle quick menu de Harpoon
-map("n", "<leader>h", function()
+map("n", "<leader>ah", function()
 	ui:toggle_quick_menu(require("harpoon"):list())
 end, vim.tbl_extend("force", opts, { desc = "Harpoon: toggle menu" }))
 
@@ -27,6 +27,6 @@ map("n", "<C-4>", function()
 end, opts)
 
 -- Telescope nativo para marks
-map("n", "<leader>F", function()
+map("n", "<leader>as", function()
 	require("telescope").extensions.harpoon.marks()
 end, vim.tbl_extend("force", opts, { desc = "Harpoon: Telescope marks" }))
