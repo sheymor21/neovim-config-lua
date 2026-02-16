@@ -51,6 +51,7 @@ return {
 			{ "<leader>t", group = "Toggle", icon = "󰔡" },
 			{ "<leader>s", group = "Search", icon = "󰺮" },
 			{ "<leader>a", group = "Harpoon", icon = "󰛢" },
+			{ "<leader>n", group = "Nvim Status", icon = "󰒓" },
 		},
 	},
 }

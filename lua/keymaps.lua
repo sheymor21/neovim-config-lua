@@ -131,3 +131,11 @@ map({"n", "x", "o"}, "F", behavior.flash_treesitter, { desc = "Flash treesitter"
 
 -- Markdown preview keymap
 map("n", "<leader>mp", behavior.toggle_peek_preview, { desc = "Markdown Preview" })
+
+-- Nvim Status keymaps (LSP & CMP reload)
+map("n", "<leader>nr", "<cmd>DevReload<cr>", { desc = "Full reload LSP & CMP" })
+map("n", "<leader>nl", "<cmd>LspReload<cr>", { desc = "Reload LSP only" })
+map("n", "<leader>nc", "<cmd>CmpReload<cr>", { desc = "Reload CMP only" })
+map("n", "<leader>ns", "<cmd>StartupTime<cr>", { desc = "Show startup time" })
+map("n", "<leader>nS", "<cmd>SlowPlugins<cr>", { desc = "Show slow plugins" })
+map("n", "<leader>nh", "<cmd>checkhealth<cr>", { desc = "Health check" })
