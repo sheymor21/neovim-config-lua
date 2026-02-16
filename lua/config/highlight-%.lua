@@ -1,6 +1,16 @@
 local ts_utils = require("nvim-treesitter.ts_utils")
 local match_ids = {}
 
+-- Configurable filetypes for block highlighting
+-- Add more filetypes here as needed
+local enabled_filetypes = {
+    lua = true,
+    go = true,
+    cs = true,
+    typescript = true,
+    javascript = true,
+}
+
 -- Limpiar highlights previos
 local function clear_matches()
 	for _, id in ipairs(match_ids) do
@@ -84,8 +94,13 @@ local function highlight_blocks_under_cursor()
 	end
 end
 
--- Autocmd para actualizar highlight al mover el cursor
+-- Autocmd para actualizar highlight al mover el cursor (solo para filetypes habilitados)
 vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
 	pattern = "*",
-	callback = highlight_blocks_under_cursor,
+	callback = function()
+		local ft = vim.bo.filetype
+		if enabled_filetypes[ft] then
+			highlight_blocks_under_cursor()
+		end
+	end,
 })
