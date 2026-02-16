@@ -72,7 +72,7 @@ map("n", "<leader>P", "<cmd>Telescope neovim-project discover<cr>", { desc = "De
 map("n", "<leader>p", "<cmd>Telescope neovim-project history<cr>", { desc = "Abrir Historial Proyectos" })
 
 map("n", "<leader>yw", "ysiw", { remap = true })
-map("n", "<leader>t", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
+map("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
 
 map("n", ";", behavior.add_dot, { desc = "Smart ; at EOL" })
 map("n", ",", behavior.add_coma, { desc = "Smart , at EOL" })
@@ -95,7 +95,7 @@ map("n", "<leader>iwt", behavior.runner_go_terminal, { desc = "Go to runner term
 map("n", "<leader>ip", behavior.unipackage_menu, { desc = "Unipackage Menu" })
 
 -- LSP and diagnostic keymaps
-map("n", "<leader>ih", behavior.toggle_inlay_hints, { desc = "Toggle Inlay Hints" })
+map("n", "<leader>th", behavior.toggle_inlay_hints, { desc = "Toggle Inlay Hints" })
 
 map("n", "<leader>cl", vim.lsp.codelens.run, { desc = "Run CodeLens" })
 
