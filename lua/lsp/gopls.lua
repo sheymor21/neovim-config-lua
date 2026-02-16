@@ -20,7 +20,7 @@ local gopls_config = {
                 unusedparams = true,
             },
             staticcheck = true,
-            gofumpt = true,  -- Opcional: formato más estricto
+            gofumpt = true, -- Opcional: formato más estricto
         },
     },
 }
@@ -39,7 +39,7 @@ local function start_gopls(bufnr)
             gopls_client_id = nil
         end
     end
-    
+
     -- Crear nuevo cliente
     gopls_client_id = vim.lsp.start({
         name = gopls_config.name,
@@ -47,23 +47,17 @@ local function start_gopls(bufnr)
         root_dir = get_root_dir(vim.api.nvim_buf_get_name(bufnr)),
         capabilities = gopls_config.capabilities,
         settings = gopls_config.settings,
-        -- on_attach = function(client, buf)
-        --     -- Llamar tu on_attach global si existe
-        --     if _G.lsp_on_attach then
-        --         _G.lsp_on_attach(client, buf)
-        --     end
-        -- end,
         on_exit = function()
             gopls_client_id = nil
         end,
     }, {
-        bufnr = bufnr,  -- Importante: adjuntar al buffer actual
+        bufnr = bufnr, -- Importante: adjuntar al buffer actual
     })
 end
 
 -- Auto iniciar en archivos GO
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "go", "gomod", "gowork", "gotmpl" },  -- Todos los tipos
+    pattern = { "go", "gomod", "gowork", "gotmpl" }, -- Todos los tipos
     callback = function(args)
         start_gopls(args.buf)
     end,

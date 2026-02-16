@@ -53,7 +53,7 @@ map("n", "<leader>E", ":Neotree reveal_force_cwd<CR>",
     { noremap = true, silent = true, desc = "Abrir Neotree En la ruta actual" })
 
 map("n", "<leader>s", "<cmd>Telescope aerial<CR>", {
-  desc = "Search symbols (Aerial)",
+    desc = "Search symbols (Aerial)",
 })
 
 -- =========================
@@ -76,8 +76,6 @@ map("n", "<leader>t", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
 
 map("n", ";", behavior.add_dot, { desc = "Smart ; at EOL" })
 map("n", ",", behavior.add_coma, { desc = "Smart , at EOL" })
-
-map("n", "<leader>mf", behavior.format, { desc = "Format current buffer" })
 
 map("n", "<leader>cn", behavior.runner_run, { desc = "Run project" })
 map("n", "<leader>ck", behavior.runner_cancel, { desc = "Cancel a live running" })

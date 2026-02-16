@@ -12,7 +12,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "markdown",
 	callback = function(args)
 		vim.lsp.start({
-			-- on_attach = _G.lsp_on_attach,
 			name = "marksman",
 			cmd = { "marksman", "server" },
 			root_dir = get_root_dir(args.file),

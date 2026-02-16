@@ -38,7 +38,6 @@ local function start_lua_ls(bufnr)
         name = "lua_ls",
         cmd = { "lua-language-server" },
         root_dir = root_dir,
-        -- on_attach = _G.lsp_on_attach,
         capabilities = capabilities,
         settings = {
             Lua = {

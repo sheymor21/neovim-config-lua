@@ -22,10 +22,6 @@ function M.add_coma()
     vim.api.nvim_win_set_cursor(0, pos)
 end
 
-function M.format()
-    vim.lsp.buf.format({ async = true })
-end
-
 function M.search_notes()
     require("telescope.builtin").grep_string({
         search = "- [ ]",
