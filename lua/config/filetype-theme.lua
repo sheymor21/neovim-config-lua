@@ -22,6 +22,7 @@ local ignored_ft = {
     ["lazy"] = true,
     ["mason"] = true,
     ["TelescopePrompt"] = true,
+    ["aerial"] = true,
 }
 
 local last_ft = nil
@@ -29,6 +30,11 @@ local last_ft = nil
 vim.api.nvim_create_autocmd("BufEnter", {
     group = vim.api.nvim_create_augroup("FiletypeTheme", { clear = true }),
     callback = function(args)
+        -- Check if buffer is valid before accessing
+        if not vim.api.nvim_buf_is_valid(args.buf) then
+            return
+        end
+
         -- ignora buffers especiales
         if vim.bo[args.buf].buftype ~= "" then
             local ft = vim.bo[args.buf].filetype
@@ -52,9 +58,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
             last_ft = ft
             return
         end
-
-        theme.apply(wanted)
-        last_ft = ft
 
         theme.apply(wanted)
         last_ft = ft
