@@ -87,6 +87,15 @@ function M.window_picker()
     end
 end
 
+function M.toggle_inlay_hints()
+    local is_enabled = vim.lsp.inlay_hint.is_enabled()
+    vim.lsp.inlay_hint.enable(not is_enabled)
+    vim.notify(
+        is_enabled and "Inlay hints: Disabled" or "Inlay hints: Enabled",
+        vim.log.levels.INFO
+    )
+end
+
 function M.toggle_diagnostics_display()
     local config = vim.diagnostic.config()
     local use_virtual_lines = not config.virtual_lines

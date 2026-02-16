@@ -95,14 +95,7 @@ map("n", "<leader>iwt", behavior.runner_go_terminal, { desc = "Go to runner term
 map("n", "<leader>ip", behavior.unipackage_menu, { desc = "Unipackage Menu" })
 
 -- LSP and diagnostic keymaps
-map("n", "<leader>ih", function()
-    local is_enabled = vim.lsp.inlay_hint.is_enabled()
-    vim.lsp.inlay_hint.enable(not is_enabled)
-    vim.notify(
-        is_enabled and "Inlay hints: Disabled" or "Inlay hints: Enabled",
-        vim.log.levels.INFO
-    )
-end, { desc = "Toggle Inlay Hints" })
+map("n", "<leader>ih", behavior.toggle_inlay_hints, { desc = "Toggle Inlay Hints" })
 
 map("n", "<leader>cl", vim.lsp.codelens.run, { desc = "Run CodeLens" })
 
