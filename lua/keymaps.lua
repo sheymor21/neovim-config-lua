@@ -75,6 +75,22 @@ map("n", "<leader>fp", "<cmd>Telescope neovim-project history<cr>", { desc = "Ab
 map("n", "<leader>yw", "ysiw", { remap = true })
 map("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
 
+-- Aerial keymaps
+map("n", "{", "<cmd>AerialPrev<CR>", { desc = "Previous aerial symbol" })
+map("n", "}", "<cmd>AerialNext<CR>", { desc = "Next aerial symbol" })
+
+-- Trouble keymap
+map("n", "<leader>isp", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Toggle diagnostics" })
+
+-- Cellular Automaton keymap
+map("n", "<leader>!", "<cmd>CellularAutomaton make_it_rain<cr>", { desc = "Make it rain" })
+
+-- Oil keymap
+map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+-- Undotree keymap
+map("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Toggle undotree" })
+
 map("n", ";", behavior.add_dot, { desc = "Smart ; at EOL" })
 map("n", ",", behavior.add_coma, { desc = "Smart , at EOL" })
 
@@ -114,19 +130,3 @@ map({"n", "x", "o"}, "F", behavior.flash_treesitter, { desc = "Flash treesitter"
 
 -- Markdown preview keymap
 map("n", "<leader>mp", behavior.toggle_peek_preview, { desc = "Markdown Preview" })
-
--- Aerial keymaps
-map("n", "{", "<cmd>AerialPrev<CR>", { desc = "Previous aerial symbol" })
-map("n", "}", "<cmd>AerialNext<CR>", { desc = "Next aerial symbol" })
-
--- Trouble keymap
-map("n", "<leader>isp", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Toggle diagnostics" })
-
--- Cellular Automaton keymap
-map("n", "<leader>!", "<cmd>CellularAutomaton make_it_rain<cr>", { desc = "Make it rain" })
-
--- Oil keymap
-map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-
--- Undotree keymap
-map("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Toggle undotree" })
