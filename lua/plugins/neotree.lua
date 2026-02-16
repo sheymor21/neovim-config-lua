@@ -50,6 +50,9 @@ return {
                     ["p"] = "paste_from_clipboard",
                 },
             },
+            
+            -- Suppress warnings about conflicting keymaps
+            log_level = "error",
         })
     end,
 }
