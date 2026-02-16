@@ -50,8 +50,9 @@ map("n", "zN", "zM")
 map("n", "zO", "zR")
 
 map("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true, desc = "Abrir Neotree" })
-map("n", "<leader>E", ":Neotree reveal_force_cwd<CR>",
-    { noremap = true, silent = true, desc = "Abrir Neotree En la ruta actual" })
+map("n", "<leader>E", ":Oil<CR>",{ noremap = true, silent = true, desc = "Abrir Neotree En la ruta actual" })
+
+map("n", "<leader>re", ":Neotree reveal_force_cwd<CR>",{ noremap = true, silent = true, desc = "Abrir Neotree En la ruta actual" })
 
 map("n", "<leader>ss", "<cmd>Telescope aerial<CR>", {
     desc = "Search symbols (Aerial)",
