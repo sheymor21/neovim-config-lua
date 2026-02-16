@@ -21,5 +21,31 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         if not client then return end
         lsp_on_attach(client, bufnr)
+        
+        -- Enable inlay hints by default (Neovim 0.10+)
+        if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+        end
+        
+        -- Enable codelens if supported
+        if client.server_capabilities.codeLensProvider then
+            vim.lsp.codelens.refresh()
+            vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+                buffer = bufnr,
+                callback = vim.lsp.codelens.refresh,
+            })
+        end
+        
+        -- Enable document highlight if supported
+        if client.server_capabilities.documentHighlightProvider then
+            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+                buffer = bufnr,
+                callback = vim.lsp.buf.document_highlight,
+            })
+            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+                buffer = bufnr,
+                callback = vim.lsp.buf.clear_references,
+            })
+        end
     end,
 })
