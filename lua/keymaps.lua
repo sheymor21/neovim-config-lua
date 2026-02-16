@@ -64,12 +64,12 @@ map("n", "<leader>q", ":q<CR>", { noremap = true, silent = true, desc = "Cerrar 
 map("n", "<leader>W", ":luafile %<CR>", { noremap = true, silent = true, desc = "Ejecutar Lua" })
 
 -- Archivos y búsqueda
-map("n", "<leader>f", "<cmd>Telescope find_files<cr>", { desc = "Buscar archivos" })
+map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Buscar archivos" })
 map("n", "<leader>sg", "<cmd>Telescope live_grep<cr>", { desc = "Buscar texto" })
-map("n", "<leader>b", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
-map("n", "<leader>r", "<cmd>Telescope oldfiles<cr>", { desc = "Recientes" })
-map("n", "<leader>P", "<cmd>Telescope neovim-project discover<cr>", { desc = "Descubrir Proyectos" })
-map("n", "<leader>p", "<cmd>Telescope neovim-project history<cr>", { desc = "Abrir Historial Proyectos" })
+map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
+map("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Recientes" })
+map("n", "<leader>fP", "<cmd>Telescope neovim-project discover<cr>", { desc = "Descubrir Proyectos" })
+map("n", "<leader>fp", "<cmd>Telescope neovim-project history<cr>", { desc = "Abrir Historial Proyectos" })
 
 map("n", "<leader>yw", "ysiw", { remap = true })
 map("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
