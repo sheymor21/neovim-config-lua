@@ -53,7 +53,6 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 |------------|----------|-------------|
 | `<leader>sg` | Telescope live_grep | Search text in files |
 | `<leader>ss` | Telescope aerial | Search symbols |
-| `<leader>sa` | AerialToggle | Toggle symbols outline |
 
 ### Navigation
 | Keybinding | Function | Description |

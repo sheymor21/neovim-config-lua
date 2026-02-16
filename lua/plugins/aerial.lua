@@ -30,7 +30,6 @@ return {
     },
 
     keys = {
-        { "<leader>sa", "<cmd>AerialToggle<CR>", desc = "Aerial (outline)" },
         { "{",         "<cmd>AerialPrev<CR>",   desc = "Prev symbol" },
         { "}",         "<cmd>AerialNext<CR>",   desc = "Next symbol" },
     },
