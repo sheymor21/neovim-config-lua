@@ -1,6 +1,7 @@
 return {
     {
         "mason-org/mason.nvim",
+        cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUpdate", "MasonLog" },
         opts = {
             ensure_installed = {
                 "netcoredbg",
@@ -28,6 +29,7 @@ return {
 
     {
         "mason-org/mason-lspconfig.nvim",
+        cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUpdate", "MasonLog" },
         dependencies = { "williamboman/mason.nvim" },
         config = function()
             require("mason-lspconfig").setup({

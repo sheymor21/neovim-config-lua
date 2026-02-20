@@ -1,8 +1,7 @@
 return {
     "mfussenegger/nvim-dap",
+    cmd = { "DapContinue", "DapToggleBreakpoint", "DapStepOver", "DapStepInto", "DapStepOut", "DapTerminate", "DapToggleRepl" },
     dependencies = {
-        "williamboman/mason.nvim",
-        "jay-babu/mason-nvim-dap.nvim",
         "rcarriga/nvim-dap-ui",
         "nvim-neotest/nvim-nio",
         "theHamsta/nvim-dap-virtual-text",
@@ -88,13 +87,17 @@ return {
             end
         end
 
-        require("mason-nvim-dap").setup({
-            automatic_installation = true,
-            ensure_installed = {
-                "netcoredbg",
-                "js-debug-adapter",
-                "delve",
-            },
-        })
+        -- Mason-nvim-dap setup (only if mason is available)
+        local ok, mason_nvim_dap = pcall(require, "mason-nvim-dap")
+        if ok then
+            mason_nvim_dap.setup({
+                automatic_installation = true,
+                ensure_installed = {
+                    "netcoredbg",
+                    "js-debug-adapter",
+                    "delve",
+                },
+            })
+        end
     end,
 }

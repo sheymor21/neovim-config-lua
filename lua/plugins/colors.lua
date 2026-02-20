@@ -1,7 +1,17 @@
 return {
     {
+        "rebelot/kanagawa.nvim",
+        name = "kanagawa",
+        priority = 1000,
+        lazy = false,
+        config = function()
+            vim.cmd("colorscheme kanagawa")
+        end,
+    },
+    {
         "ellisonleao/gruvbox.nvim",
         name = "gruvbox",
+        lazy = true,
         config = function()
             require("gruvbox").setup({
                 contrast = "soft",
@@ -73,11 +83,6 @@ return {
     {
         "catppuccin/nvim",
         name = "catppuccin",
-        lazy = true,
-    },
-    {
-        "rebelot/kanagawa.nvim",
-        name = "kanagawa",
         lazy = true,
     },
     {

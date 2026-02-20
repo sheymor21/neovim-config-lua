@@ -1,5 +1,6 @@
 -- C# Property Accessor and Interface Colors
 -- Optimized custom highlighter for C# syntax elements
+-- Performance: Viewport-only highlighting, async execution, file size limits
 
 -- Cache for Treesitter queries to avoid re-parsing
 local query_cache = {}
@@ -29,6 +30,23 @@ local queries = {
         (using_directive (identifier) @using_type)
     ]],
 }
+
+-- Maximum file size to highlight (lines)
+local MAX_FILE_LINES = 5000
+
+-- Helper: Get visible line range
+local function get_visible_range()
+    local top = vim.fn.line('w0')
+    local bottom = vim.fn.line('w$')
+    return top, bottom
+end
+
+-- Helper: Check if file is too large
+local function is_file_too_large(bufnr)
+    local ok, line_count = pcall(vim.api.nvim_buf_line_count, bufnr)
+    if not ok then return true end
+    return line_count > MAX_FILE_LINES
+end
 
 -- Helper: Get or compile cached query
 local function get_cached_query(lang, query_name, query_str)
@@ -73,61 +91,49 @@ local function traverse_tree(root, callback)
     end
 end
 
--- Highlight get/set accessors
-local function highlight_accessors(bufnr, root, lang)
+-- Highlight get/set accessors (viewport only)
+local function highlight_accessors(bufnr, root, lang, top_line, bottom_line)
     local query = get_cached_query(lang, "accessors", queries.accessors)
     if not query then return end
     
-    vim.api.nvim_buf_clear_namespace(bufnr, ns_ids.accessors, 0, -1)
+    vim.api.nvim_buf_clear_namespace(bufnr, ns_ids.accessors, top_line - 1, bottom_line)
     
-    for _, accessor_node, _ in query:iter_captures(root, bufnr, 0, -1) do
+    for _, accessor_node, _ in query:iter_captures(root, bufnr, top_line - 1, bottom_line) do
         for child in accessor_node:iter_children() do
             local child_type = child:type()
             if child_type == "get" or child_type == "set" then
                 local row, col, end_row, end_col = child:range()
-                vim.api.nvim_buf_set_extmark(bufnr, ns_ids.accessors, row, col, {
-                    end_row = end_row,
-                    end_col = end_col,
-                    hl_group = "@keyword.accessor",
-                    priority = 150,
-                })
+                -- Only highlight if within viewport
+                if row >= top_line - 1 and row <= bottom_line - 1 then
+                    vim.api.nvim_buf_set_extmark(bufnr, ns_ids.accessors, row, col, {
+                        end_row = end_row,
+                        end_col = end_col,
+                        hl_group = "@keyword.accessor",
+                        priority = 150,
+                    })
+                end
             end
         end
     end
 end
 
--- Highlight interface names
-local function highlight_interface(bufnr, root, lang)
+-- Highlight interface names (viewport only)
+local function highlight_interface(bufnr, root, lang, top_line, bottom_line)
     local decl_query = get_cached_query(lang, "interface_decl", queries.interface_decl)
     local type_query = get_cached_query(lang, "interface_refs", queries.interface_refs)
     
-    vim.api.nvim_buf_clear_namespace(bufnr, ns_ids.interface, 0, -1)
+    vim.api.nvim_buf_clear_namespace(bufnr, ns_ids.interface, top_line - 1, bottom_line)
     
     if not decl_query then return end
     
-    -- Collect interface names
+    -- Collect interface names within viewport
     local interface_names = {}
-    for _, node, _ in decl_query:iter_captures(root, bufnr, 0, -1) do
+    for _, node, _ in decl_query:iter_captures(root, bufnr, top_line - 1, bottom_line) do
         local name = vim.treesitter.get_node_text(node, bufnr)
         if name then
             interface_names[name] = true
-            -- Highlight declaration
             local row, col, end_row, end_col = node:range()
-            vim.api.nvim_buf_set_extmark(bufnr, ns_ids.interface, row, col, {
-                end_row = end_row,
-                end_col = end_col,
-                hl_group = "@type.interface",
-                priority = 150,
-            })
-        end
-    end
-    
-    -- Highlight interface references
-    if type_query then
-        for _, node, _ in type_query:iter_captures(root, bufnr, 0, -1) do
-            local name = vim.treesitter.get_node_text(node, bufnr)
-            if name and (interface_names[name] or (name:match("^I%u") and #name > 1)) then
-                local row, col, end_row, end_col = node:range()
+            if row >= top_line - 1 and row <= bottom_line - 1 then
                 vim.api.nvim_buf_set_extmark(bufnr, ns_ids.interface, row, col, {
                     end_row = end_row,
                     end_col = end_col,
@@ -137,45 +143,65 @@ local function highlight_interface(bufnr, root, lang)
             end
         end
     end
-end
-
--- Highlight using statement types
-local function highlight_using_types(bufnr, root, lang)
-    local query = get_cached_query(lang, "using_types", queries.using_types)
-    if not query then return end
     
-    vim.api.nvim_buf_clear_namespace(bufnr, ns_ids.using_types, 0, -1)
-    
-    for _, node, _ in query:iter_captures(root, bufnr, 0, -1) do
-        local row, col, end_row, end_col = node:range()
-        vim.api.nvim_buf_set_extmark(bufnr, ns_ids.using_types, row, col, {
-            end_row = end_row,
-            end_col = end_col,
-            hl_group = "@namespace.using",
-            priority = 150,
-        })
+    -- Highlight interface references within viewport
+    if type_query then
+        for _, node, _ in type_query:iter_captures(root, bufnr, top_line - 1, bottom_line) do
+            local name = vim.treesitter.get_node_text(node, bufnr)
+            if name and (interface_names[name] or (name:match("^I%u") and #name > 1)) then
+                local row, col, end_row, end_col = node:range()
+                if row >= top_line - 1 and row <= bottom_line - 1 then
+                    vim.api.nvim_buf_set_extmark(bufnr, ns_ids.interface, row, col, {
+                        end_row = end_row,
+                        end_col = end_col,
+                        hl_group = "@type.interface",
+                        priority = 150,
+                    })
+                end
+            end
+        end
     end
 end
 
--- Highlight const variables
-local function highlight_const_variables(bufnr, root, lang)
-    vim.api.nvim_buf_clear_namespace(bufnr, ns_ids.const, 0, -1)
+-- Highlight using statement types (viewport only)
+local function highlight_using_types(bufnr, root, lang, top_line, bottom_line)
+    local query = get_cached_query(lang, "using_types", queries.using_types)
+    if not query then return end
+    
+    vim.api.nvim_buf_clear_namespace(bufnr, ns_ids.using_types, top_line - 1, bottom_line)
+    
+    for _, node, _ in query:iter_captures(root, bufnr, top_line - 1, bottom_line) do
+        local row, col, end_row, end_col = node:range()
+        if row >= top_line - 1 and row <= bottom_line - 1 then
+            vim.api.nvim_buf_set_extmark(bufnr, ns_ids.using_types, row, col, {
+                end_row = end_row,
+                end_col = end_col,
+                hl_group = "@namespace.using",
+                priority = 150,
+            })
+        end
+    end
+end
+
+-- Highlight const variables (viewport only)
+local function highlight_const_variables(bufnr, root, lang, top_line, bottom_line)
+    vim.api.nvim_buf_clear_namespace(bufnr, ns_ids.const, top_line - 1, bottom_line)
     
     local const_rows = {}
     
-    -- Single pass: find const declarations
+    -- Single pass: find const declarations within viewport
     traverse_tree(root, function(node)
         local node_type = node:type()
         if node_type == "field_declaration" or node_type == "local_declaration_statement" then
-            if has_const_modifier(node, bufnr) then
-                local row = node:range()
+            local row = node:range()
+            if row >= top_line - 1 and row <= bottom_line - 1 and has_const_modifier(node, bufnr) then
                 const_rows[row] = true
             end
         end
         return true
     end)
     
-    -- Single pass: highlight const identifiers
+    -- Single pass: highlight const identifiers within viewport
     traverse_tree(root, function(node)
         if node:type() == "identifier" then
             local parent = node:parent()
@@ -186,7 +212,7 @@ local function highlight_const_variables(bufnr, root, lang)
                     local decl_type = declaration:type()
                     if decl_type == "field_declaration" or decl_type == "local_declaration_statement" then
                         local row, col, end_row, end_col = node:range()
-                        if const_rows[row] then
+                        if row >= top_line - 1 and row <= bottom_line - 1 and const_rows[row] then
                             vim.api.nvim_buf_set_extmark(bufnr, ns_ids.const, row, col, {
                                 end_row = end_row,
                                 end_col = end_col,
@@ -202,22 +228,25 @@ local function highlight_const_variables(bufnr, root, lang)
     end)
 end
 
--- Highlight constructors
-local function highlight_constructors(bufnr, root, lang)
-    vim.api.nvim_buf_clear_namespace(bufnr, ns_ids.constructors, 0, -1)
+-- Highlight constructors (viewport only)
+local function highlight_constructors(bufnr, root, lang, top_line, bottom_line)
+    vim.api.nvim_buf_clear_namespace(bufnr, ns_ids.constructors, top_line - 1, bottom_line)
     
     traverse_tree(root, function(node)
         if node:type() == "constructor_declaration" then
-            for child in node:iter_children() do
-                if child:type() == "identifier" then
-                    local row, col, end_row, end_col = child:range()
-                    vim.api.nvim_buf_set_extmark(bufnr, ns_ids.constructors, row, col, {
-                        end_row = end_row,
-                        end_col = end_col,
-                        hl_group = "@constructor.c_sharp",
-                        priority = 200,
-                    })
-                    return false -- Stop traversing this branch
+            local row = node:range()
+            if row >= top_line - 1 and row <= bottom_line - 1 then
+                for child in node:iter_children() do
+                    if child:type() == "identifier" then
+                        local _, col, end_row, end_col = child:range()
+                        vim.api.nvim_buf_set_extmark(bufnr, ns_ids.constructors, row, col, {
+                            end_row = end_row,
+                            end_col = end_col,
+                            hl_group = "@constructor.c_sharp",
+                            priority = 200,
+                        })
+                        return false -- Stop traversing this branch
+                    end
                 end
             end
         end
@@ -225,10 +254,14 @@ local function highlight_constructors(bufnr, root, lang)
     end)
 end
 
--- Main highlight function
-local function highlight_all()
-    local bufnr = vim.api.nvim_get_current_buf()
-    local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
+-- Main highlight function (viewport only)
+local function highlight_all(bufnr, top_line, bottom_line)
+    -- Check if buffer is still valid
+    if not vim.api.nvim_buf_is_valid(bufnr) then
+        return
+    end
+    
+    local lang = vim.treesitter.language.get_lang(vim.bo[bufnr].filetype)
     if lang ~= "c_sharp" then return end
 
     local parser = vim.treesitter.get_parser(bufnr, lang)
@@ -239,33 +272,42 @@ local function highlight_all()
 
     local root = tree:root()
     
-    -- Run all highlighters
-    highlight_accessors(bufnr, root, lang)
-    highlight_interface(bufnr, root, lang)
-    highlight_using_types(bufnr, root, lang)
-    highlight_const_variables(bufnr, root, lang)
-    highlight_constructors(bufnr, root, lang)
+    -- Run all highlighters on viewport only
+    highlight_accessors(bufnr, root, lang, top_line, bottom_line)
+    highlight_interface(bufnr, root, lang, top_line, bottom_line)
+    highlight_using_types(bufnr, root, lang, top_line, bottom_line)
+    highlight_const_variables(bufnr, root, lang, top_line, bottom_line)
+    highlight_constructors(bufnr, root, lang, top_line, bottom_line)
 end
 
--- Set up autocmd for C# files
+-- Async wrapper for highlighting
+local function highlight_async()
+    local bufnr = vim.api.nvim_get_current_buf()
+    
+    -- Skip if file too large
+    if is_file_too_large(bufnr) then
+        return
+    end
+    
+    local top, bottom = get_visible_range()
+    
+    -- Run highlighting asynchronously
+    vim.schedule(function()
+        highlight_all(bufnr, top, bottom)
+    end)
+end
+
+-- Set up autocmds for C# files
+-- Only on file open and save (NOT on text change - prevents typing lag)
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
     pattern = "*.cs",
-    callback = function()
-        vim.defer_fn(highlight_all, 50)
-    end,
+    callback = highlight_async,
 })
 
--- Optional: Debounced highlighting for text changes
-local timer = nil
-vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+-- Update highlighting when scrolling (for newly visible code)
+vim.api.nvim_create_autocmd("WinScrolled", {
     pattern = "*.cs",
     callback = function()
-        if timer then
-            timer:stop()
-        end
-        timer = vim.defer_fn(function()
-            highlight_all()
-            timer = nil
-        end, 300)
+        vim.defer_fn(highlight_async, 100)
     end,
 })
