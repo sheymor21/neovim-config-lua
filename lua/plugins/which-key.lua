@@ -42,6 +42,10 @@ return {
 		-- Group definitions for better organization
 		spec = {
 			{ "<leader>i", group = "Integration", icon = "󰌹" },
+			{ "<leader>iu", group = "Neotest", icon = "󰙨" },
+			{ "<leader>iw", group = "Windows", icon = "󰖯" },
+			{ "<leader>is", group = "Diagnostics", icon = "󰒡" },
+			{ "<leader>r", group = "Misc", icon = "󰅴" },
 			{ "<leader>c", group = "Code/Runner", icon = "󰅱" },
 			{ "<leader>d", group = "Debug", icon = "󰆿" },
 			{ "<leader>f", group = "Find", icon = "󰈞" },
