@@ -61,5 +61,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
         theme.apply(wanted)
         last_ft = ft
+
     end,
 })

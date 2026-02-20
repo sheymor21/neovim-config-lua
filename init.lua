@@ -17,6 +17,8 @@ require("general-config")
 require("function-keymaps")
 require("keymaps")
 
+
+
 -- Defer non-critical modules to improve startup time
 vim.api.nvim_create_autocmd("User", {
     pattern = "VeryLazy",
@@ -28,7 +30,6 @@ vim.api.nvim_create_autocmd("User", {
         require("config.lazygit")
         require("config.dap-config")
         require("config.indent")
-        require("config.neo-tree")
         require("config.highlight-%")
         require("config.telekasten-config")
         require("lsp.gopls")

@@ -5,13 +5,21 @@ return {
         priority = 1000,
         lazy = false,
         config = function()
+            require("kanagawa").setup({
+                overrides = function(colors)
+                    return {
+                        -- Ensure devicons highlights are preserved
+                        DevIconDefault = { fg = colors.palette.fujiWhite },
+                    }
+                end,
+            })
             vim.cmd("colorscheme kanagawa")
         end,
     },
     {
         "ellisonleao/gruvbox.nvim",
         name = "gruvbox",
-        lazy = true,
+        lazy = false,
         config = function()
             require("gruvbox").setup({
                 contrast = "soft",
@@ -109,6 +117,6 @@ return {
                 }
             })
         end,
-        lazy = true,
+        lazy = false,
     },
 }
