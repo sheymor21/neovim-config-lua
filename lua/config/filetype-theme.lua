@@ -10,11 +10,6 @@ local themes_by_ft = {
     typescript = "onedark",
 }
 
-local dashboard_ft = {
-    snacks_dashboard = true,
-    dashboard = true,
-}
-
 local ignored_ft = {
     ["neo-tree"] = true,
     ["notify"] = true,
@@ -37,10 +32,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
         -- ignora buffers especiales
         if vim.bo[args.buf].buftype ~= "" then
-            local ft = vim.bo[args.buf].filetype
-            if not dashboard_ft[ft] then
-                return
-            end
+            return
         end
 
         local ft = vim.bo[args.buf].filetype

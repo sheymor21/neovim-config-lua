@@ -5,14 +5,6 @@ return {
         priority = 1000,
         lazy = false,
         config = function()
-            require("kanagawa").setup({
-                overrides = function(colors)
-                    return {
-                        -- Ensure devicons highlights are preserved
-                        DevIconDefault = { fg = colors.palette.fujiWhite },
-                    }
-                end,
-            })
             vim.cmd("colorscheme kanagawa")
         end,
     },

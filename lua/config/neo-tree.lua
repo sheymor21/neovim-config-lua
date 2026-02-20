@@ -1,2 +1,0 @@
--- This file is kept for potential future NeoTree-specific configurations
--- Devicons highlight refresh is now handled in config/theme.lua
