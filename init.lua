@@ -1,5 +1,5 @@
 vim.opt.relativenumber = true
-vim.opt.tabstop = 4;
+vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
@@ -7,6 +7,7 @@ vim.opt.termguicolors = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.signcolumn = "yes"
 vim.g.mapleader = " "
+vim.g.nvim_surround_no_normal_mappings = true
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
 vim.o.virtualedit = ""
@@ -16,8 +17,6 @@ require("config.lazy")
 require("general-config")
 require("function-keymaps")
 require("keymaps")
-
-
 
 -- Defer non-critical modules to improve startup time
 vim.api.nvim_create_autocmd("User", {

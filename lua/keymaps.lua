@@ -50,13 +50,12 @@ map("n", "zN", "zM")
 map("n", "zO", "zR")
 
 map("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true, desc = "Abrir Neotree" })
+
 map("n", "<leader>E", ":Oil<CR>",{ noremap = true, silent = true, desc = "Abrir Neotree En la ruta actual" })
 
 map("n", "<leader>re", ":Neotree reveal_force_cwd<CR>",{ noremap = true, silent = true, desc = "Abrir Neotree En la ruta actual" })
 
-map("n", "<leader>ss", "<cmd>Telescope aerial<CR>", {
-    desc = "Search symbols (Aerial)",
-})
+map("n", "<leader>ss", "<cmd>Telescope aerial<CR>", {desc = "Search symbols (Aerial)"})
 
 -- =========================
 -- KEYMAPS SYSTEM
@@ -74,6 +73,10 @@ map("n", "<leader>fP", "<cmd>Telescope neovim-project discover<cr>", { desc = "D
 map("n", "<leader>fp", "<cmd>Telescope neovim-project history<cr>", { desc = "Abrir Historial Proyectos" })
 
 map("n", "<leader>yw", "ysiw", { remap = true })
+map("n", "ys", "<Plug>(nvim-surround-normal)", {desc = "Add a surrounding pair around a motion (normal mode)"})
+map("n", "ds", "<Plug>(nvim-surround-delete)", {desc = "Delete a surrounding pair"})
+map("n", "cs", "<Plug>(nvim-surround-change)", {desc = "Change a surrounding pair"})
+
 map("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
 
 -- Aerial keymaps
