@@ -3,6 +3,7 @@ return {
     branch = "1.0",
     event = "VeryLazy",
     config = function()
-        require("multicursor-nvim").setup()
+        local mc = require("multicursor-nvim")
+        mc.setup()
     end,
 }

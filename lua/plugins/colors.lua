@@ -69,7 +69,17 @@ return {
                     -- COMMENTS
                     --------------------------------------------------
                     ["@comment"] = { fg = "#928374", italic = true },
-                    
+
+                    --------------------------------------------------
+                    -- MULTICURSOR - Using gruvbox palette colors
+                    --------------------------------------------------
+                    MultiCursorCursor = { bg = "#fb4934", fg = "#282828", bold = true },
+                    MultiCursorVisual = { bg = "#458588" },
+                    MultiCursorSign = { fg = "#fb4934" },
+                    MultiCursorMatchPreview = { bg = "#b8bb26", fg = "#282828" },
+                    MultiCursorDisabledCursor = { bg = "#928374", fg = "#282828" },
+                    MultiCursorDisabledVisual = { bg = "#504945" },
+                    MultiCursorDisabledSign = { fg = "#928374" },
 
                 },
             })
@@ -106,6 +116,14 @@ return {
                     ["@variable.builtin.javascript"] = { fg = "#B46BF5" },
                     ["@variable.builtin.typescript"] = { fg = "#B46BF5" },
                     ["@variable.builtin.go"] = { fg = "#B46BF5" },
+                    -- MULTICURSOR - Using onedark palette colors
+                    MultiCursorCursor = { bg = "#d19a66", fg = "#1e222a", bold = true },
+                    MultiCursorVisual = { bg = "#3e4452" },
+                    MultiCursorSign = { fg = "#d19a66" },
+                    MultiCursorMatchPreview = { bg = "#98c379", fg = "#1e222a" },
+                    MultiCursorDisabledCursor = { bg = "#5c6370", fg = "#1e222a" },
+                    MultiCursorDisabledVisual = { bg = "#282c34" },
+                    MultiCursorDisabledSign = { fg = "#5c6370" },
                 }
             })
         end,
