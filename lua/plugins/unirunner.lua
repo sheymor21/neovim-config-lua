@@ -1,10 +1,9 @@
 return {
-    -- 'sheymor21/unirunner.nvim',
-    -- dependencies = {
-    --     'akinsho/toggleterm.nvim',
-    --     's1n7ax/nvim-window-picker',
-    -- },
-    dir = "~/Projects/unirunner.nvim",
+    'sheymor21/unirunner.nvim',
+    dependencies = {
+        'akinsho/toggleterm.nvim',
+        's1n7ax/nvim-window-picker',
+    },
     lazy = true,
     config = function()
         require("unirunner").setup({
@@ -15,8 +14,8 @@ return {
             cancel_close_delay = 2000,
             panel = {
                 keymaps = {
-                    down = "e", -- Colemak-DH: n is down
-                    up = "i", -- Colemak-DH: e is up
+                    down = "e",
+                    up = "i",
                     view_output = "<CR>",
                     pin = "p",
                     delete = "d",
