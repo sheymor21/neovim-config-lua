@@ -98,13 +98,6 @@ return {
                 },
                 view = "notify",
             },
-            {
-                filter = {
-                    event = "notify",
-                    find = "^%[",
-                },
-                view = "notify",
-            },
         },
     },
 }
