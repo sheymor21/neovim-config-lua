@@ -29,6 +29,15 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	end,
 })
 
+-- Preserve UTF-8 BOM in C# files (prevents showing whole file as changed)
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "cs",
+    callback = function()
+        vim.opt_local.bomb = true
+    end,
+})
+
+
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = augroup,
