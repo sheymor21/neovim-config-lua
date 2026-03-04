@@ -19,6 +19,9 @@ return {
                 ["csharp|completion"] = {
                     provide_snippets = true,
                 },
+                ["csharp|code_lens"] = {
+                    dotnet_enable_references_code_lens = true,
+                },
             },
         })
     end,

@@ -18,6 +18,9 @@ return {
 
         cmp.setup({
             preselect = cmp.PreselectMode.None,
+            completion = {
+                autocomplete = { "TextChanged", "TextChangedI", "InsertEnter" },
+            },
             formatting = {
                 format = lspkind.cmp_format({
                     mode = "symbol_text",
