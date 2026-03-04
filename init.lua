@@ -18,12 +18,14 @@ require("general-config")
 require("function-keymaps")
 require("keymaps")
 
--- Defer non-critical modules to improve startup time
+    -- Defer non-critical modules to improve startup time
 vim.api.nvim_create_autocmd("User", {
     pattern = "VeryLazy",
     callback = function()
         require("config.profiler")
         require("config.csharp-accessors")
+        require("config.csharp-editorconfig")
+        require("config.plugin-health")
         require("config.filetype-theme")
         require("config.lazy-docker")
         require("config.lazygit")
