@@ -1,22 +1,8 @@
-local notify_setup = {
-    stages = "static",
-    timeout = 2500,
-    fps = 60,
-    background_colour = "#1e1e1e",
-}
-
 return {
     "folke/noice.nvim",
     event = "VeryLazy",
     dependencies = {
         "MunifTanjim/nui.nvim",
-        {
-            "rcarriga/nvim-notify",
-            config = function()
-                require("notify").setup(notify_setup)
-                vim.notify = require("notify")
-            end,
-        },
     },
 
     opts = {
