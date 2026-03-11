@@ -83,8 +83,11 @@ map("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
 map("n", "{", "<cmd>AerialPrev<CR>", { desc = "Previous aerial symbol" })
 map("n", "}", "<cmd>AerialNext<CR>", { desc = "Next aerial symbol" })
 
--- Trouble keymap
-map("n", "<leader>isp", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Toggle diagnostics" })
+-- Lspsaga diagnostics keymaps
+map("n", "<leader>isp", "<cmd>Lspsaga show_workspace_diagnostics<CR>", { desc = "Show workspace diagnostics" })
+map("n", "[i", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { desc = "Previous diagnostic" })
+map("n", "]i", "<cmd>Lspsaga diagnostic_jump_next<CR>", { desc = "Next diagnostic" })
+map("n", "ge", "<cmd>Lspsaga show_line_diagnostics<CR>", { desc = "Show line diagnostics" })
 
 -- Cellular Automaton keymap
 map("n", "<leader>!", "<cmd>CellularAutomaton make_it_rain<cr>", { desc = "Make it rain" })
