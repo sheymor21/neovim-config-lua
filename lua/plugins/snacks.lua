@@ -5,6 +5,17 @@ return {
     opts = {
         picker = {
             enabled = true,
+            formatters = {
+                file = {
+                    filename_first = true,
+                    truncate = "middle",
+                },
+            },
+            sources = {
+                lsp_references = {
+                    format = "file",
+                },
+            },
             win = {
                 input = {
                     keys = {
