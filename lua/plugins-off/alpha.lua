@@ -26,7 +26,6 @@ return {
       dashboard.button("n", "  New File", ":ene<CR>"),
       dashboard.button("e", "  Explorer", ":Neotree toggle<CR>"),
       dashboard.button("p", "  Plugins", ":Lazy<CR>"),
-      dashboard.button("r", "  Restore last session", ":AutoSession search<CR>"),
       dashboard.button("c", "⚙  Config", ":e ~/.config/nvim/init.lua\n"),
       dashboard.button("k", "⚙  Keymaps", ":e ~/.config/nvim/lua/keymaps.lua\n"),
       dashboard.button("q", "󰩈  Quit", ":qa<CR>"),
