@@ -2,6 +2,43 @@ local dap = require("dap")
 
 local mason_path = vim.fn.stdpath("data") .. "/mason/bin/netcoredbg"
 
+-- Helper function to get URL from unirunner's launchSettings.json
+local function get_launchsettings_url()
+	local ok, detector = pcall(require, "unirunner.detector")
+	if not ok then
+		return nil
+	end
+
+	local ok2, runners = pcall(require, "unirunner.runners")
+	if not ok2 then
+		return nil
+	end
+
+	local root = detector.find_root()
+	if not root then
+		return nil
+	end
+
+	local _, runner = runners.detect_runner(root)
+	if runner ~= "csharp" then
+		return nil
+	end
+
+	local ok3, csharp = pcall(require, "unirunner.runners.csharp")
+	if not ok3 then
+		return nil
+	end
+
+	local commands = csharp.get_commands(root)
+	for _, cmd in ipairs(commands) do
+		if cmd.url then
+			return cmd.url
+		end
+	end
+
+	return nil
+end
+
 -- Helper function to find .csproj files
 local function find_csproj_files()
 	local cwd = vim.fn.getcwd()
@@ -161,10 +198,14 @@ dap.configurations.cs = {
 		end
 		return vim.fn.getcwd()
 	end,
-	env = {
-		ASPNETCORE_ENVIRONMENT = "Development",
-		DOTNET_ENVIRONMENT = "Development",
-	},
+	env = function()
+		local url = get_launchsettings_url()
+		return {
+			ASPNETCORE_ENVIRONMENT = "Development",
+			DOTNET_ENVIRONMENT = "Development",
+			ASPNETCORE_URLS = url or "http://localhost:5000",
+		}
+	end,
 	console = "internalConsole",
 	stopAtEntry = false,
 },
@@ -184,18 +225,22 @@ dap.configurations.cs = {
 		if project then
 			return vim.fn.fnamemodify(project, ":h")
 		end
-		return vim.fn.getcwd()
+	return vim.fn.getcwd()
 	end,
-	env = {
-		ASPNETCORE_ENVIRONMENT = "Development",
-		DOTNET_ENVIRONMENT = "Development",
-	},
+	env = function()
+		local url = get_launchsettings_url()
+		return {
+			ASPNETCORE_ENVIRONMENT = "Development",
+			DOTNET_ENVIRONMENT = "Development",
+			ASPNETCORE_URLS = url or "http://localhost:5000",
+		}
+	end,
 	console = "internalConsole",
 	stopAtEntry = false,
 },
-	{
-		type = "coreclr",
-		name = "Debug NUnit Test (Current File)",
+{
+	type = "coreclr",
+	name = "Debug NUnit Test (Current File)",
 		request = "launch",
 		program = function()
 			-- Find the test project
@@ -237,10 +282,14 @@ dap.configurations.cs = {
 			"FullyQualifiedName~" .. current_file,
 		}
 	end,
-	env = {
-		ASPNETCORE_ENVIRONMENT = "Development",
-		DOTNET_ENVIRONMENT = "Development",
-	},
+	env = function()
+		local url = get_launchsettings_url()
+		return {
+			ASPNETCORE_ENVIRONMENT = "Development",
+			DOTNET_ENVIRONMENT = "Development",
+			ASPNETCORE_URLS = url or "http://localhost:5000",
+		}
+	end,
 	console = "internalConsole",
 	stopAtEntry = false,
 },
@@ -275,10 +324,14 @@ dap.configurations.cs = {
 		end
 		return vim.fn.getcwd()
 	end,
-	env = {
-		ASPNETCORE_ENVIRONMENT = "Development",
-		DOTNET_ENVIRONMENT = "Development",
-	},
+	env = function()
+		local url = get_launchsettings_url()
+		return {
+			ASPNETCORE_ENVIRONMENT = "Development",
+			DOTNET_ENVIRONMENT = "Development",
+			ASPNETCORE_URLS = url or "http://localhost:5000",
+		}
+	end,
 	console = "internalConsole",
 	stopAtEntry = false,
 },
