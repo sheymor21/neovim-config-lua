@@ -55,6 +55,7 @@ return {
 			{ "<leader>s", group = "Search", icon = "󰺮" },
 			{ "<leader>a", group = "Harpoon", icon = "󰛢" },
 			{ "<leader>n", group = "Nvim Status", icon = "󰒓" },
+			{ "<leader>9", group = "99 AI", icon = "󰧑" },
 		},
 	},
 }
