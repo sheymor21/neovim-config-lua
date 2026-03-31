@@ -46,7 +46,7 @@ return {
    ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝ ]],
                 keys = {
                     { icon = "󰈞 ", key = "f", desc = "Find File", action = ":Telescope find_files" },
-                    { icon = "💻", key = "p", desc = "Projects", action = ":Telescope neovim-project history" },
+                    { icon = "💻", key = "p", desc = "Projects", action = ":Telescope neovim-project discover" },
                     { icon = "󰊄 ", key = "g", desc = "Live Grep", action = ":Telescope live_grep" },
                     { icon = " ", key = "n", desc = "New File", action = ":ene" },
                     { icon = " ", key = "e", desc = "Explorer", action = ":Neotree toggle" },
