@@ -14,6 +14,8 @@ This guide covers the general Neovim configuration, including basic options, LSP
     ├── general-config.lua      # General settings and autocmds
     ├── keymaps.lua             # Global keybindings
     ├── function-keymaps.lua    # Custom functions and LSP keymaps
+    ├── health.lua              # Health checks
+    ├── utils.lua               # Utility functions
     ├── config/                 # Configuration modules
     │   ├── theme.lua           # Theme system
     │   ├── filetype-theme.lua  # Filetype-specific themes
@@ -22,10 +24,14 @@ This guide covers the general Neovim configuration, including basic options, LSP
     │   ├── lazygit.lua         # LazyGit configuration
     │   ├── lazy-docker.lua     # LazyDocker configuration
     │   ├── indent.lua          # Indentation settings
-    │   ├── neo-tree.lua        # Neo-tree configuration
-    │   ├── highlight-%.lua     # Highlight configuration
-    │   └── telekasten-config.lua # Telekasten configuration
+    │   ├── telekasten-config.lua # Telekasten configuration
+    │   ├── csharp-accessors.lua # C# accessors
+    │   ├── csharp-editorconfig.lua # C# editorconfig
+    │   ├── plugin-health.lua   # Plugin health checks
+    │   ├── profiler.lua        # Performance profiler
+    │   └── reloader.lua        # Config reloader
     ├── plugins/                # Plugin specifications
+    │   ├── 99.lua              # Core plugins loader
     │   ├── telescope.lua       # Telescope configuration
     │   ├── treesitter.lua      # Treesitter configuration
     │   ├── nvim-cmp.lua        # Autocompletion
@@ -41,7 +47,6 @@ This guide covers the general Neovim configuration, including basic options, LSP
     │   ├── snacks.lua          # Snacks.nvim features
     │   ├── flash.lua           # Quick navigation
     │   ├── undotree.lua        # Undo visualization
-    │   ├── trouble.lua         # Diagnostics display
     │   ├── surround.lua        # Surrounding text objects
     │   ├── autopairs.lua       # Auto bracket completion
     │   ├── indent.lua          # Indentation guides
@@ -52,25 +57,35 @@ This guide covers the general Neovim configuration, including basic options, LSP
     │   ├── faster.lua          # Performance optimization
     │   ├── colors.lua          # Color schemes
     │   ├── markdown-render.lua # Markdown rendering
-    │   ├── vim-multicursor.lua # Multiple cursors
+    │   ├── multicursor.lua     # Multiple cursors
     │   ├── neotest.lua         # Testing framework
     │   ├── dap-ui.lua          # Debug UI
-    │   ├── overseer.lua        # Task runner
     │   ├── neovim-session-manager.lua # Session management
     │   ├── projects.lua        # Project management
-    │   ├── dressing.lua        # UI enhancement
     │   ├── lazydev.lua         # Lua development
     │   ├── configurationless.lua # Utility functions
-    │   └── windows-picker.lua  # Window selection
+    │   ├── windows-picker.lua  # Window selection
+    │   ├── lspsaga.lua         # LSP saga
+    │   ├── mini-nvim.lua       # Mini.nvim suite
+    │   ├── roslyn.lua          # Roslyn LSP
+    │   ├── unirunner.lua       # Unified runner
+    │   ├── unipackage.lua      # Package manager
+    │   ├── wakatime.lua        # Wakatime integration
+    │   └── nvim-web-devicons.lua # File icons
+    ├── plugins-off/            # Disabled plugins
+    │   ├── alpha.lua
+    │   ├── dressing.lua
+    │   ├── overseer.lua
+    │   └── sessions.lua
     ├── plugins-keymaps/        # Plugin-specific keymaps
+    │   ├── 99-keymaps.lua
     │   ├── harpoon2-keymaps.lua
     │   ├── lazygit-keymaps.lua
     │   ├── lazydocker-keymaps.lua
     │   ├── dap-keymaps.lua
     │   ├── yanky-keymaps.lua
     │   ├── telekasten-keymaps.lua
-    │   ├── conform-keymaps.lua
-    │   └── vim-multicursor-keymaps.lua
+    │   └── conform-keymaps.lua
     └── lsp/                    # Language Server configurations
         ├── gopls.lua           # Go language server
         ├── vtsls.lua           # TypeScript/JavaScript LSP
@@ -78,7 +93,8 @@ This guide covers the general Neovim configuration, including basic options, LSP
         ├── html.lua            # HTML LSP
         ├── css.lua             # CSS LSP
         ├── markdown.lua        # Markdown LSP
-        └── omnisharp.lua       # C# language server
+        ├── on_attach.lua       # LSP attach function
+        └── utils.lua           # LSP utilities
 ```
 
 ## ⚙️ General Configuration

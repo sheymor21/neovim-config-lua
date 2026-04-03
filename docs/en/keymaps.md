@@ -38,30 +38,26 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>w` | `:w<CR>` | Save file |
 | `<leader>q` | `:q<CR>` | Close file |
 | `<leader>W` | `:luafile %<CR>` | Execute current Lua file |
-
-### Find (Telescope)
-| Keybinding | Function | Description |
-|------------|----------|-------------|
 | `<leader>ff` | Telescope find_files | Find files |
 | `<leader>fb` | Telescope buffers | List buffers |
 | `<leader>fr` | Telescope oldfiles | Recent files |
 | `<leader>fp` | Telescope neovim-project history | Project history |
 | `<leader>fP` | Telescope neovim-project discover | Discover projects |
+| `-` | Oil | Open parent directory |
 
 ### Search
 | Keybinding | Function | Description |
 |------------|----------|-------------|
 | `<leader>sg` | Telescope live_grep | Search text in files |
 | `<leader>ss` | Telescope aerial | Search symbols |
-| `<leader>sa` | AerialToggle | Toggle symbols outline |
 
 ### Navigation
 | Keybinding | Function | Description |
 |------------|----------|-------------|
 | `<leader>e` | `:Neotree toggle<CR>` | Toggle Neo-tree |
-| `<leader>E` | `:Neotree reveal_force_cwd<CR>` | Open Neo-tree in current path |
+| `<leader>E` | `:Oil<CR>` | Open Oil in current path |
+| `<leader>re` | `:Neotree reveal_force_cwd<CR>` | Open Neo-tree in current path |
 | `<leader>iwp` | window_picker() | Pick window |
-| `-` | Oil | Open parent directory |
 
 ### Terminal and Execution
 | Keybinding | Function | Description |
@@ -80,18 +76,25 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `;` | add_dot() | Smart `;` insertion at EOL |
 | `,` | add_coma() | Smart `,` insertion at EOL |
 
+### Zettelkasten (Folding)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `zn` | zc | Close fold |
+| `zN` | zM | Close all folds |
+| `zO` | zR | Open all folds |
+
 ## 🎨 Plugin Keybindings
 
 ### Harpoon 2.0
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>a` | harpoon:list():add() | Add current file |
-| `<leader>h` | harpoon:toggle_quick_menu() | Quick bookmarks menu |
+| `<leader>aa` | harpoon:list():add() | Add current file |
+| `<leader>ah` | harpoon:toggle_quick_menu() | Quick bookmarks menu |
 | `<C-1>` | harpoon:list():select(1) | Go to bookmark 1 |
 | `<C-2>` | harpoon:list():select(2) | Go to bookmark 2 |
 | `<C-3>` | harpoon:list():select(3) | Go to bookmark 3 |
 | `<C-4>` | harpoon:list():select(4) | Go to bookmark 4 |
-| `<leader>F` | telescope harpoon marks | Search bookmarks with Telescope |
+| `<leader>as` | telescope harpoon marks | Search bookmarks with Telescope |
 
 ### Multicursor (jake-stewart/multicursor.nvim)
 | Keybinding | Function | Description |
@@ -132,20 +135,20 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>ig` | lazygit | Open LazyGit |
 | `<leader>id` | lazydocker | Open LazyDocker |
 
+### Telekasten (Notes)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>zp` | telekasten.panel() | Open notes panel |
+| `<leader>zn` | telekasten.new_templated_note() | New templated note |
+| `<leader>zf` | telekasten.find_notes() | Find notes |
+| `<leader>zg` | telekasten.search_notes() | Search in notes |
+| `<leader>zd` | telekasten.goto_today() | Go to today's note |
+| `<leader>zv` | telekasten.switch_vault() | Switch vault |
+
 ### Markdown
 | Keybinding | Function | Description |
 |------------|----------|-------------|
 | `<leader>mp` | toggle_peek_preview() | Toggle markdown preview |
-
-### Telekasten (Notes)
-| Keybinding | Function | Description |
-|------------|----------|-------------|
-| `<leader>zn` | telekasten.new_note() | New note |
-| `<leader>zf` | telekasten.find_notes() | Find notes |
-| `<leader>zg` | telekasten.search_notes() | Search in notes |
-| `<leader>zd` | telekasten.goto_today() | Go to today's note |
-| `<leader>zp` | telekasten.panel() | Open notes panel |
-| `<leader>zv` | telekasten.switch_vault() | Switch vault |
 
 ### Yanky (Yank/Paste)
 | Keybinding | Function | Description |
@@ -194,7 +197,11 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 |------------|----------|-------------|
 | `[d` | vim.diagnostic.goto_prev() | Go to previous diagnostic |
 | `]d` | vim.diagnostic.goto_next() | Go to next diagnostic |
+| `[i` | Lspsaga diagnostic_jump_prev() | Previous diagnostic (Lspsaga) |
+| `]i` | Lspsaga diagnostic_jump_next() | Next diagnostic (Lspsaga) |
+| `ge` | Lspsaga show_line_diagnostics() | Show line diagnostics |
 | `<leader>td` | toggle_diagnostics_display() | Toggle virtual text/lines |
+| `<leader>isp` | Lspsaga show_workspace_diagnostics() | Toggle diagnostics panel |
 
 ### LSP Features
 | Keybinding | Function | Description |
@@ -217,6 +224,31 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 |------------|----------|-------------|
 | `<leader>it` | search_notes() | Search pending tasks in notes |
 | `<leader>ip` | unipackage_menu() | Unipackage menu |
+
+### 99 Plugin (AI)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>9v` | 99.visual() | AI replace visual selection |
+| `<leader>9s` | 99.search() | AI search |
+| `<leader>9a` | 99.vibe() | AI assistant (vibe) |
+| `<leader>9x` | 99.stop_all_requests() | Stop all requests |
+| `<leader>9l` | 99.view_logs() | View logs |
+| `<leader>9o` | 99.open() | Open last interaction |
+| `<leader>9c` | 99.clear_previous_requests() | Clear previous requests |
+| `<leader>9w` | 99.set_work() | Set work item |
+| `<leader>9r` | 99.search() | Search remaining work |
+
+### Nvim Status (Reload & Health)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>nr` | DevReload | Full reload LSP & CMP |
+| `<leader>nl` | LspReload | Reload LSP only |
+| `<leader>nc` | CmpReload | Reload CMP only |
+| `<leader>ns` | StartupTime | Show startup time |
+| `<leader>nS` | SlowPlugins | Show slow plugins |
+| `<leader>nh` | checkhealth | Health check |
+| `<leader>nn` | Noice | Show Noice |
+| `<leader>np` | %bd!\|e# | Purge Buffers |
 
 ## 🔄 Colemak-DH Reversion
 
