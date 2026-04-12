@@ -1,13 +1,13 @@
 local theme = require("config.theme")
 
 local themes_by_ft = {
-    lua = "kanagawa",
+    lua = "ayu",
     go = "onedark",
     cs = "gruvbox",
-    html = "tokyonight",
+    html = "tokyodark",
     css = "gruvbox",
-    javascript = "onedark",
-    typescript = "onedark",
+    javascript = "matteblack-reinvented",
+    typescript = "matteblack-reinvented",
 }
 
 local ignored_ft = {

@@ -21,7 +21,6 @@ local function apply_lualine(theme)
 		return
 	end
 
-	-- Only update theme option, don't full reconfigure
 	local current_config = lual.get_config and lual.get_config() or {}
 	if current_config.options and current_config.options.theme ~= theme then
 		current_config.options.theme = theme
@@ -39,7 +38,6 @@ local function refresh_devicons()
 	local icons = devicons.get_icons()
 	for icon_name, icon_data in pairs(icons) do
 		if icon_data.color and type(icon_data.color) == "string" and icon_data.color:match("^#%x%x%x%x%x%x$") then
-			-- Get the actual highlight group name that devicons uses
 			local _, hl_group = devicons.get_icon("" .. icon_name)
 			if hl_group then
 				pcall(vim.api.nvim_set_hl, 0, hl_group, {
@@ -50,7 +48,6 @@ local function refresh_devicons()
 		end
 	end
 
-	-- Set default icon highlight
 	local default_icon = devicons.get_default_icon()
 	if default_icon and default_icon.color and type(default_icon.color) == "string" then
 		pcall(vim.api.nvim_set_hl, 0, "DevIconDefault", {
@@ -67,7 +64,6 @@ M.apply = function(name)
 		return
 	end
 
-	-- Load theme plugin only if not already loaded (non-blocking)
 	if not M.loaded_themes[name] then
 		require("lazy").load({
 			plugins = { name },
@@ -76,7 +72,6 @@ M.apply = function(name)
 		M.loaded_themes[name] = true
 	end
 
-	-- Apply colorscheme
 	if vim.g.colors_name ~= name then
 		local ok = pcall(vim.cmd.colorscheme, name)
 		if not ok then
@@ -88,7 +83,6 @@ M.apply = function(name)
 	M.current = name
 	apply_lualine(name)
 
-	-- Schedule devicons refresh after colorscheme change
 	vim.schedule(function()
 		refresh_devicons()
 		vim.cmd("redraw!")

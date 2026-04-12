@@ -1,20 +1,35 @@
 return {
     {
-        "rebelot/kanagawa.nvim",
-        name = "kanagawa",
+        "Shatur/neovim-ayu",
+        name = "ayu",
         priority = 1000,
         lazy = false,
         config = function()
-            vim.cmd("colorscheme kanagawa")
+            vim.cmd("colorscheme ayu")
         end,
+    },
+    {
+        "rebelot/kanagawa.nvim",
+        name = "kanagawa",
+        lazy = true,
+    },
+    {
+        "sheymor21/matteblack-reinvented.nvim",
+        name = "matteblack-reinvented",
+        lazy = true,
+    },
+    {
+        "tiagovla/tokyodark.nvim",
+        lazy = false,
     },
     {
         "ellisonleao/gruvbox.nvim",
         name = "gruvbox",
         lazy = false,
         config = function()
+            vim.o.background = "dark"
             require("gruvbox").setup({
-                contrast = "soft",
+                contrast = "hard",
                 transparent_mode = false,
                 overrides = {
                     --------------------------------------------------
@@ -23,11 +38,11 @@ return {
                     ["@keyword"] = { fg = "#fb4934", bold = true },
                     ["@keyword.return"] = { fg = "#fb4934", bold = true },
                     ["@keyword.import"] = { fg = "#fb4934", bold = true },
-                    ["@keyword.accessor"] = { fg = "#B8BB26" },  -- C# get/set accessors (custom query)
-                    ["@type.interface"] = { fg = "#fe8019" },  -- C# interface NAME (orange)
-                    ["@namespace.using"] = { fg = "#ebdbb2" },  -- C# using statement types (white)
-                    ["@variable.const"] = { fg = "#d3869b" },  -- C# const/readonly variable names (pink)
-                    ["@constructor.c_sharp"] = { fg = "#fabd2f" },  -- C# constructors (yellow)
+                    ["@keyword.accessor"] = { fg = "#B8BB26" }, -- C# get/set accessors (custom query)
+                    ["@type.interface"] = { fg = "#fe8019" }, -- C# interface NAME (orange)
+                    ["@namespace.using"] = { fg = "#ebdbb2" }, -- C# using statement types (white)
+                    ["@variable.const"] = { fg = "#d3869b" }, -- C# const/readonly variable names (pink)
+                    ["@constructor.c_sharp"] = { fg = "#fabd2f" }, -- C# constructors (yellow)
                     ["Include"] = { fg = "#fb4934", bold = true },
 
                     --------------------------------------------------
@@ -64,7 +79,6 @@ return {
                     ["@string"] = { fg = "#b8bb26" },
                     ["@number"] = { fg = "#d3869b" },
 
-
                     --------------------------------------------------
                     -- COMMENTS
                     --------------------------------------------------
@@ -80,30 +94,9 @@ return {
                     MultiCursorDisabledCursor = { bg = "#928374", fg = "#282828" },
                     MultiCursorDisabledVisual = { bg = "#504945" },
                     MultiCursorDisabledSign = { fg = "#928374" },
-
                 },
             })
         end,
-    },
-    {
-        "folke/tokyonight.nvim",
-        name = "tokyonight",
-        lazy = true,
-    },
-    {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        lazy = true,
-    },
-    {
-        "scottmckendry/cyberdream.nvim",
-        name = "cyberdream",
-        config = function()
-            require("cyberdream").setup({
-                variant = "auto",
-            })
-        end,
-        lazy = true,
     },
     {
         "navarasu/onedark.nvim",
@@ -124,7 +117,7 @@ return {
                     MultiCursorDisabledCursor = { bg = "#5c6370", fg = "#1e222a" },
                     MultiCursorDisabledVisual = { bg = "#282c34" },
                     MultiCursorDisabledSign = { fg = "#5c6370" },
-                }
+                },
             })
         end,
         lazy = false,
