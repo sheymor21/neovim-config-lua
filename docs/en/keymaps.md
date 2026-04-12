@@ -123,11 +123,18 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<F10>` | dap.step_over() | Step over |
 | `<F11>` | dap.step_into() | Step into |
 | `<F12>` | dap.step_out() | Step out |
-| `<leader>ib` | toggle_breakpoint_or_debugger() | Toggle breakpoint |
+| `<leader>ib` | toggle_breakpoint_or_debugger() | Toggle breakpoint / Insert debugger (JS/TS) |
 | `<leader>iB` | dap.set_breakpoint() | Conditional breakpoint |
 | `<leader>dr` | dap.repl.open() | Open REPL |
 | `<leader>du` | dapui.toggle() | Toggle debugging UI |
 | `<leader>dx` | dap.terminate() | Terminate debugging |
+
+### C# DAP (Specific)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>dd` | dap.continue() | Debug .NET API (C# files only) |
+| `<leader>dt` | dap.run() | Debug NUnit Test (current file) |
+| `<leader>dT` | dap.run() | Debug All NUnit Tests |
 
 ### Integration (LazyGit & LazyDocker)
 | Keybinding | Function | Description |

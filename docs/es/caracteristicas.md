@@ -19,21 +19,26 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 - **npm/bun**: Detección automática de gestores de paquetes
 
 #### C# Development
-- **OmniSharp**: Language Server completo para .NET (vía Mason)
-- **.NET SDK**: Integración con herramientas de Microsoft
-- **DAP**: Debugging con .NET debugger
+- **Roslyn**: Language Server oficial de Microsoft para C# (vía roslyn.nvim)
+- **CSharpier**: Formateo de código
+- **Neotest**: Testing con adaptador neotest-dotnet
+- **DAP**: Debugging con netcoredbg
 - **dotnet run**: Ejecución integrada de proyectos
 
 #### Lua Development
 - **lua-language-server**: LSP oficial para Lua
 - **lazydev.nvim**: Mejoras para desarrollo de configuraciones Neovim
-- **Stylua**: Formateo automático de código Lua
+- **Stylua**: Formateo automático de código Lua (4 espacios, 100 columnas)
 - **Luasnip**: Motor de snippets potente
+
+#### Python Development
+- **black**: Formateo de código (líneas de 100 caracteres)
 
 #### Web Technologies
 - **HTML/CSS**: Language Servers con autocompletado
 - **Markdown**: Soporte completo con LSP y renderizado
 - **Emmet**: Expansión abreviada para HTML/CSS
+- **Shell/Bash**: Formateo shfmt con indentación de 4 espacios
 
 ### 2. Navegación y Movimiento
 
@@ -194,11 +199,13 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 - Integración con LSP
 - Vista jerárquica
 
-#### Overseer
-- Task runner universal
-- Gestión de tareas en background
-- Integración con build tools
-- UI de progreso y resultados
+#### Snacks.nvim
+- **Dashboard**: Pantalla de bienvenida con acciones rápidas
+- **Picker**: Selector de archios/diagnósticos con vista previa
+- **Notifier**: Sistema moderno de notificaciones
+- **Bigfile**: Manejo optimizado de archivos grandes
+- **Quickfile**: Operaciones rápidas de archivos
+- **Input**: Diálogos de entrada mejorados
 
 ### 8. Características Únicas
 
@@ -224,14 +231,16 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 
 | Característica | Categoría | Soporte de Lenguajes | Estado |
 |----------------|------------|----------------------|---------|
-| LSP | Soporte de Lenguajes | Go, TS/JS, C#, Lua, HTML/CSS | ✅ Activo |
+| LSP | Soporte de Lenguajes | Go, TS/JS, C#, Lua, Python, HTML/CSS | ✅ Activo |
 | DAP | Herramientas de Desarrollo | Go, TS/JS, C# | ✅ Activo |
 | Harpoon | Navegación | Todos | ✅ Activo |
 | Telescope | Navegación | Todos | ✅ Activo |
 | Neo-tree | Gestión de Archivos | Todos | ✅ Activo |
 | nvim-cmp | Edición | Todos | ✅ Activo |
+| Snacks.nvim | UI/Dashboard | Todos | ✅ Activo |
 | Session Manager | Gestión de Proyectos | Todos | ✅ Activo |
 | LazyGit | Herramientas de Desarrollo | Todos | ✅ Activo |
+| Conform | Formateo | Todos | ✅ Activo |
 
 ## 🌐 Idiomas
 

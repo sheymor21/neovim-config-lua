@@ -220,8 +220,9 @@ end
 - vtsls vía Mason
 - Configuración para proyectos modernos TS/JS
 
-**C# (lsp/omnisharp.lua)**
-- OmniSharp vía Mason
+**C# (plugins/roslyn.lua)**
+- Roslyn.nvim - LSP oficial de Microsoft para C#
+- Soporte de formateo CSharpier
 - Integración con .NET SDK
 
 **Lua (lsp/lua-lsp.lua)**

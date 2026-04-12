@@ -46,9 +46,11 @@ nvim
 
 - **Go** (system gopls)
 - **TypeScript/JavaScript** (vtsls via Mason)
-- **C#** (OmniSharp via Mason)
+- **C#** (Roslyn.nvim - official Microsoft LSP)
 - **Lua** (lua-language-server + lazydev)
+- **Python** (black formatter)
 - **HTML/CSS/Markdown** (LSPs via Mason)
+- **Shell/Bash** (shfmt formatter)
 
 ## 📄 License
 

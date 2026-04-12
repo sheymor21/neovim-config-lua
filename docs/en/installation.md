@@ -67,6 +67,15 @@ pip install black
 black --version
 ```
 
+##### shfmt (Shell)
+```bash
+# Arch Linux
+sudo pacman -S shfmt
+
+# Or with go
+go install mvdan.cc/sh/v3/cmd/shfmt@latest
+```
+
 ##### Stylua (Lua)
 ```bash
 # Option 1: With Cargo (Rust)
@@ -91,6 +100,11 @@ dotnet --version
 # Ubuntu/Debian: sudo apt install dotnet-sdk
 # Fedora: sudo dnf install dotnet-sdk
 # macOS: brew install dotnet
+```
+
+##### CSharpier (C# formatting)
+```bash
+dotnet tool install --global csharpier
 ```
 
 ## 🔧 Configuration Installation
@@ -130,13 +144,13 @@ Lazy.nvim will automatically install and download all configured plugins.
 ```
 
 You should see following LSPs installed:
-- **gopls** (Go)
-- **vtsls** (TypeScript/JavaScript)
-- **lua_ls** (Lua)
-- **omnisharp** (C#)
-- **html** (HTML)
-- **css** (CSS)
-- **marksman** (Markdown)
+- **gopls** (Go - system installed)
+- **vtsls** (TypeScript/JavaScript - via Mason)
+- **lua_ls** (Lua - via Mason)
+- **roslyn** (C# - via roslyn.nvim)
+- **html** (HTML - via Mason)
+- **css** (CSS - via Mason)
+- **marksman** (Markdown - via Mason)
 
 ### Verify Plugins
 ```bash
@@ -175,7 +189,7 @@ nvim
 #### 4. Formatting not working
 ```bash
 # Verify tools are installed
-which prettier black stylua
+which prettier black stylua shfmt csharpier
 ```
 
 ## 🔄 Updates
