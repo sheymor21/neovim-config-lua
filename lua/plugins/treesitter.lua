@@ -12,26 +12,15 @@ local ensure_installed = {
     "bash",
 }
 
-local treesitter_config = {
-    ensure_installed = ensure_installed,
-    highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-    },
-
-    indent = {
-        enable = true,
-    },
-}
-
 return {
     "nvim-treesitter/nvim-treesitter",
-
+    branch = "main",
     build = ":TSUpdate",
-
-    event = { "BufReadPost", "BufNewFile" },
-
+    lazy = false,
     config = function()
-        require("nvim-treesitter.configs").setup(treesitter_config)
+        require("nvim-treesitter").setup()
+        -- Install parsers synchronously on first load
+        -- Note: Install runs async by default, :wait() ensures completion
+        require("nvim-treesitter").install(ensure_installed)
     end,
 }

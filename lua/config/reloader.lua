@@ -22,7 +22,7 @@ function M.full_reload()
     end
 
     M.is_reloading = true
-    local start_time = vim.loop.hrtime()
+    local start_time = vim.uv.hrtime()
 
     vim.notify("🔄 Starting full LSP & CMP reload...", vim.log.levels.INFO)
 
@@ -54,7 +54,7 @@ function M.full_reload()
     M.reattach_to_all_buffers()
 
     -- Calculate time
-    local elapsed = (vim.loop.hrtime() - start_time) / 1e6
+    local elapsed = (vim.uv.hrtime() - start_time) / 1e6
     M.is_reloading = false
 
     vim.notify(string.format("✅ Reload complete! (%.2fms)", elapsed), vim.log.levels.INFO)
@@ -64,7 +64,7 @@ end
 function M.stop_all_lsp_clients()
     local clients = vim.lsp.get_clients and vim.lsp.get_clients() or vim.lsp.get_active_clients()
     for _, client in ipairs(clients) do
-        vim.lsp.stop_client(client.id, true)
+        client:stop(true)
     end
     -- Wait a bit for clients to stop
     vim.wait(100)

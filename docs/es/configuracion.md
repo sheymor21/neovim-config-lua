@@ -170,7 +170,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 vim.api.nvim_create_autocmd("DirChanged", {
     desc = "Limpiar buffers fuera del proyecto actual",
     callback = function()
-        local cwd = vim.loop.cwd()
+        local cwd = vim.uv.cwd()
         -- Lógica de limpieza de buffers
     end,
 })
@@ -235,7 +235,7 @@ end
 ```lua
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
     vim.fn.system({
         "git",
         "clone",

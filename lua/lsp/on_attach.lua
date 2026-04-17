@@ -30,10 +30,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.lsp.codelens.refresh()
             vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
                 buffer = bufnr,
-                callback = vim.lsp.codelens.refresh,
+                callback = function()
+                    vim.lsp.codelens.refresh()
+                end,
             })
         end
         
+        -- NOTE: Document highlighting disabled to prevent high CPU usage with C#/Roslyn
+        -- Every cursor movement was triggering LSP requests causing dotnet process to spike to 90%+ CPU
+        -- Re-enable only if needed by uncommenting below:
+        --[[
         if client.server_capabilities.documentHighlightProvider then
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
                 buffer = bufnr,
@@ -44,5 +50,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 callback = vim.lsp.buf.clear_references,
             })
         end
+        --]]
     end,
 })

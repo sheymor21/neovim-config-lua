@@ -86,7 +86,7 @@ end
 
 -- Perform health check
 function M.check_health()
-    local current_time = vim.loop.now()
+    local current_time = vim.uv.now()
     local issues = {}
     
     -- Check which-key (only every 30 seconds)
@@ -123,7 +123,7 @@ function M.setup()
     -- Check every 5 minutes during long sessions
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         callback = function()
-            local uptime = vim.loop.uptime() -- seconds since nvim started
+            local uptime = vim.uv.uptime() -- seconds since nvim started
             -- Only start monitoring after 30 minutes of uptime
             if uptime > 1800 then
                 M.check_health()

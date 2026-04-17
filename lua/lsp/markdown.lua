@@ -5,7 +5,7 @@ local function get_root_dir(fname)
         ".git",
         ".marksman.toml",
         ".marksman.yaml",
-    }) or vim.loop.cwd()
+    }) or vim.uv.cwd()
 end
 
 local marksman_config = {

@@ -30,7 +30,7 @@ return {
     {
         "mason-org/mason-lspconfig.nvim",
         cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUpdate", "MasonLog" },
-        dependencies = { "williamboman/mason.nvim" },
+        dependencies = { "mason-org/mason.nvim" },
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = { "marksman", "vtsls", "html", "cssls", "jsonls" },

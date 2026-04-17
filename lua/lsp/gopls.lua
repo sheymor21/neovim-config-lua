@@ -1,7 +1,7 @@
 local lsp_utils = require("lsp.utils")
 
 local function get_root_dir(fname)
-    return vim.fs.root(fname, { "go.work", "go.mod", ".git" }) or vim.loop.cwd()
+    return vim.fs.root(fname, { "go.work", "go.mod", ".git" }) or vim.uv.cwd()
 end
 
 local gopls_config = {

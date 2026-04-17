@@ -2,10 +2,10 @@
 local M = {}
 
 -- Track startup timing
-local start_time = vim.loop.hrtime()
+local start_time = vim.uv.hrtime()
 
 function M.get_startup_time()
-    local elapsed = vim.loop.hrtime() - start_time
+    local elapsed = vim.uv.hrtime() - start_time
     return elapsed / 1e6 -- Convert to milliseconds
 end
 

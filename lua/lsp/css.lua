@@ -4,7 +4,7 @@ local css_bin = vim.fn.stdpath("data") .. "/mason/bin/vscode-css-language-server
 
 local function get_root_dir(fname)
     local root = vim.fs.root(fname, { "package.json", ".git" })
-    return root or vim.loop.cwd()
+    return root or vim.uv.cwd()
 end
 
 local css_config = {

@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd("DirChanged", {
 	group = augroup,
 	desc = "Limpiar buffers fuera del proyecto actual",
 	callback = function()
-		local cwd = vim.loop.cwd()
+		local cwd = vim.uv.cwd()
 		if cwd == last_project then
 			return
 		end
@@ -88,7 +88,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = augroup,
 	callback = function()
 		vim.opt_local.foldmethod = "expr"
-		vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+		vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 		vim.opt_local.foldlevel = 99
 		vim.opt_local.foldlevelstart = 99
 		vim.opt_local.foldenable = true
