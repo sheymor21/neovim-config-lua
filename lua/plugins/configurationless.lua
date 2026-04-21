@@ -1,5 +1,9 @@
 return {
     {
+        "nvim-lua/plenary.nvim",
+    },
+
+    {
         "mason-org/mason.nvim",
         cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUpdate", "MasonLog" },
         opts = {
@@ -7,30 +11,22 @@ return {
                 "netcoredbg",
                 "js-debug-adapter",
                 "delve",
-
             },
         },
         config = function()
-            require("mason").setup(
-                {
-                    registries = {
-                        "github:mason-org/mason-registry",
-                        "github:Crashdummyy/mason-registry",
-                    },
-                }
-
-            )
+            require("mason").setup({
+                registries = {
+                    "github:mason-org/mason-registry",
+                    "github:Crashdummyy/mason-registry",
+                },
+            })
         end,
-    },
-
-    {
-        "nvim-lua/plenary.nvim",
     },
 
     {
         "mason-org/mason-lspconfig.nvim",
         cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUpdate", "MasonLog" },
-        dependencies = { "mason-org/mason.nvim" },
+        dependencies = { "neovim/nvim-lspconfig" },
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = { "marksman", "vtsls", "html", "cssls", "jsonls" },

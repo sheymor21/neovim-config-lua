@@ -14,13 +14,8 @@ return {
         lazy = true,
     },
     {
-        "sheymor21/matteblack-reinvented.nvim",
-        name = "matteblack-reinvented",
-        lazy = true,
-    },
-    {
         "tiagovla/tokyodark.nvim",
-        lazy = false,
+        lazy = true,
     },
     {
         "ellisonleao/gruvbox.nvim",
@@ -121,5 +116,53 @@ return {
             })
         end,
         lazy = false,
+    },
+    {
+        "olimorris/onedarkpro.nvim",
+        name = "onedark_dark",
+        lazy = true,
+        config = function()
+            require("onedarkpro").setup({
+                colors = {
+                    onedark_dark = {
+                        bg = "#212221",
+                    },
+                },
+                highlights = {
+                    ["@variable.builtin"] = { fg = "#B46BF5" },
+                    ["@variable.builtin.javascript"] = { fg = "#B46BF5" },
+                    ["@variable.builtin.typescript"] = { fg = "#B46BF5" },
+                    -- MULTICURSOR - Using onedarkpro palette colors
+                    MultiCursorCursor = { bg = "#e5c07b", fg = "#212221", bold = true },
+                    MultiCursorVisual = { bg = "#3e4452" },
+                    MultiCursorSign = { fg = "#e5c07b" },
+                    MultiCursorMatchPreview = { bg = "#98c379", fg = "#212221" },
+                    MultiCursorDisabledCursor = { bg = "#5c6370", fg = "#212221" },
+                    MultiCursorDisabledVisual = { bg = "#3e4452" },
+                    MultiCursorDisabledSign = { fg = "#5c6370" },
+                },
+                styles = {
+                    types = "NONE",
+                    methods = "NONE",
+                    numbers = "NONE",
+                    strings = "NONE",
+                    comments = "italic",
+                    keywords = "bold",
+                    constants = "bold",
+                    functions = "bold",
+                    operators = "NONE",
+                    variables = "NONE",
+                    parameters = "NONE",
+                    conditionals = "bold",
+                    virtual_text = "NONE",
+                },
+                options = {
+                    cursorline = false,
+                    transparency = false,
+                    terminal_colors = true,
+                    highlight_inactive_windows = false,
+                },
+            })
+        end,
     },
 }
