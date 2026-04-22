@@ -11,6 +11,7 @@ vim.g.nvim_surround_no_normal_mappings = true
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
 vim.o.virtualedit = ""
+vim.opt_local.bomb = true
 
 -- Preserve UTF-8 BOM in C# files (prevents showing whole file as changed)
 vim.api.nvim_create_autocmd("FileType", {

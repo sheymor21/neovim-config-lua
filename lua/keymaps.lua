@@ -17,7 +17,6 @@ map({ "n", "v" }, "e", "j") -- abajo
 map({ "n", "v" }, "i", "k") -- arriba
 map({ "n", "v" }, "o", "l") -- derecha
 
-map({ "n", "v" }, "N", "H")
 map({ "n", "v" }, "E", "J") -- abajo
 map({ "n", "v" }, "I", "K") -- arriba
 map({ "n", "v" }, "O", "L") -- derecha
