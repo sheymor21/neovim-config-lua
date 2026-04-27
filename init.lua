@@ -11,7 +11,7 @@ vim.g.nvim_surround_no_normal_mappings = true
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
 vim.o.virtualedit = ""
-vim.opt_local.bomb = true
+vim.opt.timeoutlen = 300
 
 -- Preserve UTF-8 BOM in C# files (prevents showing whole file as changed)
 vim.api.nvim_create_autocmd("FileType", {
@@ -21,15 +21,13 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-
-
 require("lsp.on_attach")
 require("config.lazy")
 require("general-config")
 require("function-keymaps")
 require("keymaps")
 
-    -- Defer non-critical modules to improve startup time
+-- Defer non-critical modules to improve startup time
 vim.api.nvim_create_autocmd("User", {
     pattern = "VeryLazy",
     callback = function()
@@ -43,6 +41,7 @@ vim.api.nvim_create_autocmd("User", {
         require("config.dap-config")
         require("config.indent")
         require("config.telekasten-config")
+        vim.opt_local.bomb = true
         require("lsp.gopls")
         require("lsp.lua-lsp")
         require("lsp.vtsls")

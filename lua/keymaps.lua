@@ -5,6 +5,7 @@ require("plugins-keymaps.yanky-keymaps")
 require("plugins-keymaps.telekasten-keymaps")
 require("plugins-keymaps.conform-keymaps")
 require("plugins-keymaps.harpoon2-keymaps")
+require("plugins-keymaps.obsidian-keymaps")
 
 local map = vim.keymap.set
 local behavior = require("function-keymaps");
@@ -82,11 +83,12 @@ map("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
 map("n", "{", "<cmd>AerialPrev<CR>", { desc = "Previous aerial symbol" })
 map("n", "}", "<cmd>AerialNext<CR>", { desc = "Next aerial symbol" })
 
--- Lspsaga diagnostics keymaps
-map("n", "<leader>isp", "<cmd>Lspsaga show_workspace_diagnostics<CR>", { desc = "Show workspace diagnostics" })
-map("n", "[i", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { desc = "Previous diagnostic" })
-map("n", "]i", "<cmd>Lspsaga diagnostic_jump_next<CR>", { desc = "Next diagnostic" })
-map("n", "ge", "<cmd>Lspsaga show_line_diagnostics<CR>", { desc = "Show line diagnostics" })
+-- Builtin vim diagnostics keymaps
+map("n", "<leader>isd", vim.diagnostic.open_float, { desc = "Line diagnostics (float)" })
+map("n", "[d", function() vim.diagnostic.goto_prev({ float = { border = "rounded" } }) end, { desc = "Previous diagnostic" })
+map("n", "]d", function() vim.diagnostic.goto_next({ float = { border = "rounded" } }) end, { desc = "Next diagnostic" })
+map("n", "<leader>isq", vim.diagnostic.setqflist, { desc = "Diagnostics to quickfix" })
+map("n", "<leader>isl", vim.diagnostic.setloclist, { desc = "Diagnostics to loclist" })
 
 -- Cellular Automaton keymap
 map("n", "<leader>!", "<cmd>CellularAutomaton make_it_rain<cr>", { desc = "Make it rain" })
@@ -146,3 +148,7 @@ map("n", "<leader>nS", "<cmd>SlowPlugins<cr>", { desc = "Show slow plugins" })
 map("n", "<leader>nh", "<cmd>checkhealth<cr>", { desc = "Health check" })
 map("n", "<leader>nn", "<cmd>Noice<cr>", { desc = "Show Noice" })
 map("n", "<leader>np", "<cmd>%bd!|e#<cr>", { desc = "Purge Buffers" })
+
+-- unidiagnostic
+map("n", "<leader>isp", "<cmd>UnidiagnosticToggle<cr>", { desc = "Show All Diagnostic" })
+map("n", "<leader>isc", "<cmd>UnidiagnosticCurrent<cr>", { desc = "Show Current File Diagnostic" })

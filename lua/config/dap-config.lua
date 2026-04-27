@@ -426,48 +426,4 @@ dap.configurations.javascript = {
 	console = "integratedTerminal",
 }
 
--- Add keymaps for C# debugging (global, only work in C# files)
-local map = vim.keymap.set
 
--- Debug current project (auto-detect)
-map("n", "<leader>dd", function()
-	if vim.bo.filetype ~= "cs" then
-		vim.notify("Not a C# file", vim.log.levels.WARN)
-		return
-	end
-	require("dap").continue()
-end, { desc = "Debug .NET API" })
-
--- Debug test (current file)
-map("n", "<leader>dt", function()
-	if vim.bo.filetype ~= "cs" then
-		vim.notify("Not a C# file", vim.log.levels.WARN)
-		return
-	end
-	local dap = require("dap")
-	local configs = dap.configurations.cs
-	for _, config in ipairs(configs) do
-		if config.name:match("Test") and config.name:match("Current") then
-			dap.run(config)
-			return
-		end
-	end
-	vim.notify("Test configuration not found", vim.log.levels.ERROR)
-end, { desc = "Debug NUnit Test (current file)" })
-
--- Debug all tests
-map("n", "<leader>dT", function()
-	if vim.bo.filetype ~= "cs" then
-		vim.notify("Not a C# file", vim.log.levels.WARN)
-		return
-	end
-	local dap = require("dap")
-	local configs = dap.configurations.cs
-	for _, config in ipairs(configs) do
-		if config.name:match("All") then
-			dap.run(config)
-			return
-		end
-	end
-	vim.notify("All tests configuration not found", vim.log.levels.ERROR)
-end, { desc = "Debug All NUnit Tests" })

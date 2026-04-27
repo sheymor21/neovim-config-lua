@@ -74,19 +74,34 @@ function M.check()
     vim.health.info("Plugin Health:")
     local lazy = require("lazy")
     local failed_plugins = {}
-    
+
     for name, plugin in pairs(lazy.plugins()) do
         if plugin._.error then
             table.insert(failed_plugins, name)
         end
     end
-    
+
     if #failed_plugins == 0 then
         vim.health.ok("All plugins loaded successfully")
     else
         for _, name in ipairs(failed_plugins) do
             vim.health.error("Plugin failed to load: " .. name)
         end
+    end
+
+    -- Check Obsidian vault
+    vim.health.info("")
+    vim.health.info("Obsidian Integration:")
+    local obsidian_ok, obsidian = pcall(require, "obsidian")
+    if obsidian_ok then
+        local vault_path = vim.fn.expand("~/notes")
+        if vim.fn.isdirectory(vault_path) == 1 then
+            vim.health.ok("Obsidian vault found at " .. vault_path)
+        else
+            vim.health.warn("Obsidian vault not found at " .. vault_path .. " - create it with `:Obsidian new`")
+        end
+    else
+        vim.health.error("Obsidian.nvim failed to load: " .. tostring(obsidian))
     end
 end
 

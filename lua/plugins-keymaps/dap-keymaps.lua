@@ -25,6 +25,45 @@ map("n", "<leader>iB", function()
     dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
 end, { desc = "Conditional Breakpoint" })
 
-map("n", "<leader>dr", dap.repl.open, { desc = "DAP REPL" })
-map("n", "<leader>du", dapui.toggle, { desc = "DAP UI" })
-map("n", "<leader>dx", dap.terminate, { desc = "DAP Stop" })
+map("n", "<leader>cdr", dap.repl.open, { desc = "DAP REPL" })
+map("n", "<leader>cdu", dapui.toggle, { desc = "DAP UI" })
+map("n", "<leader>cdx", dap.terminate, { desc = "DAP Stop" })
+
+-- C# specific debug keymaps
+map("n", "<leader>cdd", function()
+	if vim.bo.filetype ~= "cs" then
+		vim.notify("Not a C# file", vim.log.levels.WARN)
+		return
+	end
+	dap.continue()
+end, { desc = "Debug .NET API" })
+
+map("n", "<leader>cdt", function()
+	if vim.bo.filetype ~= "cs" then
+		vim.notify("Not a C# file", vim.log.levels.WARN)
+		return
+	end
+	local configs = require("dap").configurations.cs
+	for _, config in ipairs(configs) do
+		if config.name:match("Test") and config.name:match("Current") then
+			dap.run(config)
+			return
+		end
+	end
+	vim.notify("Test configuration not found", vim.log.levels.ERROR)
+end, { desc = "Debug NUnit Test (current file)" })
+
+map("n", "<leader>cdT", function()
+	if vim.bo.filetype ~= "cs" then
+		vim.notify("Not a C# file", vim.log.levels.WARN)
+		return
+	end
+	local configs = require("dap").configurations.cs
+	for _, config in ipairs(configs) do
+		if config.name:match("All") then
+			dap.run(config)
+			return
+		end
+	end
+	vim.notify("All tests configuration not found", vim.log.levels.ERROR)
+end, { desc = "Debug All NUnit Tests" })

@@ -9,7 +9,7 @@ return {
             callback = function()
                 require("mini.animate").setup({
                     scroll = { enabled = true },
-                    cursor = { enabled = true },
+                    cursor = { enabled = false},
                 })
             end,
         })
