@@ -18,7 +18,7 @@ return {
         -- Keymap
         keymap = {
             preset = "default",
-            ["<CR>"] = { "accept", "fallback" },
+            ["<CR>"] = { "select_and_accept", "fallback" },
             ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
             ["<C-j>"] = { "select_next", "fallback" },
             ["<C-k>"] = { "select_prev", "fallback" },
