@@ -1,6 +1,4 @@
-local lazygit = require("../config.lazygit")
 local map = vim.keymap.set
 
-map("n", "<leader>ig", lazygit.toggle, {
-	desc = "LazyGit",
-})
+-- LazyGit is now handled by snacks.lazygit in lua/plugins/snacks.lua
+-- Keymap: <leader>ig

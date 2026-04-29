@@ -2,10 +2,9 @@ return {
     "akinsho/toggleterm.nvim",
     version = "*",
     cmd = "ToggleTerm",
-    keys = {
-        { "<leader>ig", function() require("config.lazygit").toggle() end, desc = "LazyGit" },
-        { "<leader>id", function() require("config.lazy-docker").toggle() end, desc = "LazyDocker" },
-    },
+    -- LazyGit (<leader>ig) and LazyDocker (<leader>id) moved to snacks.nvim
+    -- ToggleTerm kept for unirunner, unipackage, unidiagnostic custom plugins
+    cmd = "ToggleTerm",
     config = function()
         require("toggleterm").setup({
             size = 20,

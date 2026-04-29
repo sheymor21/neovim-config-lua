@@ -1,0 +1,317 @@
+return {
+	"folke/snacks.nvim",
+	priority = 1000,
+	lazy = false,
+	---@type snacks.Config
+	opts = {
+		-- Notifier (replaces nvim-notify)
+		notifier = {
+			enabled = true,
+			timeout = 3000,
+			width = { min = 40, max = 0.4 },
+			height = { min = 1, max = 0.6 },
+		},
+
+		-- Dashboard (replaces alpha-nvim)
+		dashboard = {
+			enabled = true,
+			width = 60,
+			row = nil,
+			col = nil,
+			pane_gap = 4,
+			preset = {
+				-- Override all default keys (don't include the default 's' for session)
+				keys = {
+					{ icon = "", key = "f", desc = "Find File", action = ":FzfLua files" },
+					{ icon = "", key = "g", desc = "Live Grep", action = ":FzfLua live_grep" },
+					{ icon = "", key = "p", desc = "Projects", action = ":NeovimProjectDiscover" },
+					{ icon = "", key = "n", desc = "Daily Note", action = ":Telekasten goto_today" },
+					{ icon = "", key = "N", desc = "New Note", action = ":Telekasten new_templated_note" },
+					{ icon = "", key = "l", desc = "Lazy Plugins", action = ":Lazy" },
+					{ icon = "", key = "m", desc = "Mason", action = ":Mason" },
+					{ icon = "", key = "q", desc = "Quit", action = ":qa" },
+				},
+				header = [[
+██████╗ ██╗  ██╗███████╗██╗   ██╗███╗   ███╗ ██████╗ ██████╗
+██╔════╝ ██║  ██║██╔════╝╚██╗ ██╔╝████╗ ████║██╔═══██╗██╔══██╗
+╚█████╗  ███████║█████╗   ╚████╔╝ ██╔████╔██║██║   ██║██████╔╝
+ ╚═══██╗ ██╔══██║██╔══╝    ╚██╔╝  ██║╚██╔╝██║██║   ██║██╔══██╗
+██████╔╝ ██║  ██║███████╗   ██║   ██║ ╚═╝ ██║╚██████╔╝██║  ██║
+╚═════╝  ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝
+				]],
+			},
+			formats = {
+				icon = function(item)
+					if item.icon == "💻" or item.icon == "🖥️" then
+						return { { item.icon, width = 2 } }
+					end
+					return { { item.icon .. " ", hl = "icon" } }
+				end,
+				footer = { "%s", align = "center" },
+				header = { "%s", align = "center", hl = "header" },
+			},
+			sections = {
+				{ section = "header" },
+				{ section = "keys", gap = 1, padding = 1 },
+				{ section = "startup" },
+			},
+		},
+
+		-- Picker (replaces telescope-ui-select, provides vim.ui.select)
+		picker = {
+			enabled = true,
+			prompt = "   ",
+			sources = {
+				files = { prompt = "Files❯ " },
+				buffers = { prompt = "Buffers❯ " },
+				grep = { prompt = "Grep❯ " },
+				help = { prompt = "Help❯ " },
+				keymaps = { prompt = "Keymaps❯ " },
+				commands = { prompt = "Commands❯ " },
+				marks = { prompt = "Marks❯ " },
+				undo = { prompt = "Undo❯ " },
+				qflist = { prompt = "Quickfix❯ " },
+				loclist = { prompt = "Loclist❯ " },
+				select = { prompt = "Select❯ " },
+			},
+			win = {
+				input = {
+					keys = {
+						["<Esc>"] = { "close", mode = { "n", "i" } },
+						["<C-c>"] = { "close", mode = "i" },
+						["<C-n>"] = { "list_down", mode = { "i", "n" } },
+						["<C-e>"] = { "list_down", mode = { "i", "n" } },
+						["<C-p>"] = { "list_up", mode = { "i", "n" } },
+						["<C-i>"] = { "list_up", mode = { "i", "n" } },
+					},
+				},
+				list = {
+					keys = {
+						["<Esc>"] = "close",
+						["q"] = "close",
+						["e"] = "list_down",
+						["i"] = "list_up",
+					},
+				},
+			},
+		},
+
+		-- Indent (replaces indent-blankline.nvim)
+		indent = {
+			enabled = true,
+			indent = {
+				char = "│",
+				blank = " ",
+			},
+			scope = {
+				enabled = true,
+				char = "│",
+			},
+		},
+
+		-- LazyGit integration
+		lazygit = {
+			enabled = true,
+			configure = true,
+			config = {
+				os = { editPreset = "nvim-remote" },
+				gui = { nerdFontsVersion = "3" },
+			},
+			win = { border = "rounded" },
+		},
+
+		-- Terminal
+		terminal = {
+			enabled = true,
+			win = {
+				position = "float",
+				border = "rounded",
+				wo = {
+					-- Use Normal highlight instead of NormalFloat for consistent background
+					winhighlight = "Normal:Normal,NormalFloat:Normal,SignColumn:Normal,LineNr:Normal",
+				},
+			},
+		},
+
+		-- Input (vim.ui.input replacement)
+		input = {
+			enabled = true,
+			icon = "",
+			win = { border = "rounded", width = 60 },
+		},
+
+		-- Scope
+		scope = { enabled = true },
+
+		-- Smooth scroll
+		scroll = {
+			enabled = true,
+			animate = {
+				easing = "linear",
+				duration = { step = 15, total = 250 },
+			},
+		},
+
+		-- Buffer delete
+		bufdelete = { enabled = true },
+
+		-- Git utilities
+		git = {
+			enabled = true,
+			blame_line = { width = 80 },
+		},
+
+		-- Git browse (open in browser)
+		gitbrowse = { enabled = true },
+
+		-- Zen mode
+		zen = {
+			enabled = true,
+			win = {
+				backdrop = { transparent = true, blend = 40 },
+				width = 120,
+			},
+		},
+
+		-- Dim scope
+		dim = { enabled = true },
+
+		-- Words (LSP references navigation)
+		words = { enabled = true },
+
+		-- Window utilities
+		win = { enabled = true },
+	},
+	config = function(_, opts)
+		require("snacks").setup(opts)
+		require("config.snacks")
+	end,
+	keys = {
+		-- LazyGit
+		{
+			"<leader>ig",
+			function()
+				Snacks.lazygit()
+			end,
+			desc = "LazyGit",
+		},
+		-- Terminal
+		{
+			"<leader>tt",
+			function()
+				Snacks.terminal()
+			end,
+			desc = "Toggle Terminal",
+		},
+		-- LazyDocker (using terminal)
+		{
+			"<leader>id",
+			function()
+				local utils = require("utils")
+				if not utils.command_exists("lazydocker") then
+					vim.notify("LazyDocker no está instalado", vim.log.levels.ERROR)
+					return
+				end
+				Snacks.terminal({ "lazydocker" })
+			end,
+			desc = "LazyDocker",
+		},
+		-- Buffer delete (smart)
+		{
+			"<leader>bd",
+			function()
+				Snacks.bufdelete()
+			end,
+			desc = "Delete Buffer",
+		},
+		-- Zen mode
+		{
+			"<leader>z",
+			function()
+				Snacks.zen()
+			end,
+			desc = "Zen Mode",
+		},
+		-- Dim toggle
+		{
+			"<leader>D",
+			function()
+				Snacks.dim()
+			end,
+			desc = "Dim Scope",
+		},
+		-- Git blame line
+		{
+			"<leader>gb",
+			function()
+				Snacks.git.blame_line()
+			end,
+			desc = "Git Blame Line",
+		},
+		-- Git browse
+		{
+			"<leader>gB",
+			function()
+				Snacks.gitbrowse()
+			end,
+			desc = "Git Browse",
+		},
+		-- Picker sources
+		{
+			"<leader>sm",
+			function()
+				Snacks.picker.marks()
+			end,
+			desc = "Marks",
+		},
+		{
+			"<leader>sh",
+			function()
+				Snacks.picker.help()
+			end,
+			desc = "Help Pages",
+		},
+		{
+			"<leader>sk",
+			function()
+				Snacks.picker.keymaps()
+			end,
+			desc = "Keymaps",
+		},
+		{
+			"<leader>sc",
+			function()
+				Snacks.picker.commands()
+			end,
+			desc = "Commands",
+		},
+		{
+			"<leader>su",
+			function()
+				Snacks.picker.undo()
+			end,
+			desc = "Undo History",
+		},
+		{
+			"<leader>sq",
+			function()
+				Snacks.picker.qflist()
+			end,
+			desc = "Quickfix List",
+		},
+		{
+			"<leader>sl",
+			function()
+				Snacks.picker.loclist()
+			end,
+			desc = "Location List",
+		},
+		{
+			"<leader>sr",
+			function()
+				Snacks.picker.resume()
+			end,
+			desc = "Resume Picker",
+		},
+	},
+}

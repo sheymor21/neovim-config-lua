@@ -7,6 +7,7 @@ return {
             "nvim-telescope/telescope-fzf-native.nvim",
             build = "make",
         },
+        -- telescope-ui-select.nvim removed - using snacks.picker instead
     },
     priority = 900,
     cmd = "Telescope",
@@ -34,12 +35,14 @@ return {
                     override_file_sorter = true,
                     case_mode = "smart_case",
                 },
-                projects = {}
+                projects = {},
+                -- ui-select extension removed - using snacks.picker instead
             },
         })
 
         pcall(telescope.load_extension, "fzf")
         pcall(telescope.load_extension, "projects")
         pcall(telescope.load_extension, "noice")
+        -- ui-select extension removed - using snacks.picker instead
     end,
 }

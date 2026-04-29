@@ -1,5 +1,5 @@
-require("plugins-keymaps.lazygit-keymaps")
-require("plugins-keymaps.lazydocker-keymaps")
+-- LazyGit and LazyDocker keymaps moved to snacks.nvim in lua/plugins/snacks.lua
+-- <leader>ig = LazyGit, <leader>id = LazyDocker, <leader>tt = Terminal
 require("plugins-keymaps.dap-keymaps")
 require("plugins-keymaps.yanky-keymaps")
 require("plugins-keymaps.telekasten-keymaps")
@@ -74,7 +74,7 @@ map("n", "ys", "<Plug>(nvim-surround-normal)", {desc = "Add a surrounding pair a
 map("n", "ds", "<Plug>(nvim-surround-delete)", {desc = "Delete a surrounding pair"})
 map("n", "cs", "<Plug>(nvim-surround-change)", {desc = "Change a surrounding pair"})
 
-map("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
+-- <leader>tt moved to snacks.nvim (lua/plugins/snacks.lua)
 
 -- Aerial keymaps
 map("n", "{", "<cmd>AerialPrev<CR>", { desc = "Previous aerial symbol" })
