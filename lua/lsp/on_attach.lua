@@ -5,7 +5,7 @@ local function lsp_on_attach(client, bufnr)
     client.server_capabilities.semanticTokensProvider = nil
 
     map("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to Definition" })
-    map("n", "gD", Snacks.picker.lsp_references, { buffer = bufnr, desc = "Go to Declaration" })
+    map("n", "gD", function() require("fzf-lua").lsp_references() end, { buffer = bufnr, desc = "Find References" })
     map("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Implementation" })
     map("n", "gt", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Type Definition" })
     map("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
