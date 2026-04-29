@@ -7,11 +7,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	callback = function(args)
 		local ft = vim.bo[args.buf].filetype
 		
-		-- Close neo-tree when leaving it
-		if ft ~= "neo-tree" and ft ~= "neo-tree-popup" then
-			pcall(vim.cmd, "Neotree close")
-		end
-		
+		-- Oil doesn't need cleanup like neo-tree did
+
 		-- Filetype detection
 		if ft == "" then
 			vim.cmd("filetype detect")

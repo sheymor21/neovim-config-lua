@@ -50,11 +50,9 @@ map("n", "zn", "zc")
 map("n", "zN", "zM")
 map("n", "zO", "zR")
 
-map("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true, desc = "Abrir Neotree" })
+map("n", "<leader>e", ":Oil<CR>", { noremap = true, silent = true, desc = "Open Oil file explorer" })
 
-map("n", "<leader>E", ":Oil<CR>",{ noremap = true, silent = true, desc = "Abrir Neotree En la ruta actual" })
-
-map("n", "<leader>re", ":Neotree reveal_force_cwd<CR>",{ noremap = true, silent = true, desc = "Abrir Neotree En la ruta actual" })
+map("n", "<leader>E", ":Oil .<CR>", { noremap = true, silent = true, desc = "Open Oil in current working directory" })
 
 -- Replaced by fzf-lua: <leader>ss for symbols
 
