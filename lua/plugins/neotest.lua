@@ -11,13 +11,20 @@ return {
 
         -- Adapters
         "nvim-neotest/neotest-plenary",
-        "Issafalcon/neotest-dotnet",
+        "nsidorenco/neotest-vstest",
 
         -- DAP
         "mfussenegger/nvim-dap",
         "rcarriga/nvim-dap-ui",
     },
     config = function()
+        -- Configure neotest-vstest (must be set before requiring)
+        vim.g.neotest_vstest = {
+            dap_settings = {
+                type = "coreclr",
+            },
+        }
+
         local ok, neotest = pcall(require, "neotest")
         if not ok then
             return
@@ -34,21 +41,16 @@ return {
             }))
         end
 
-        local ok_dotnet, dotnet = pcall(require, "neotest-dotnet")
-        if ok_dotnet then
-            table.insert(adapters, dotnet({
-                discovery_root = function(path)
-                    local util = require("neotest.lib").files
-                    return util.match_root_pattern("*.sln")(path)
-                end,
-            }))
+        local ok_vstest, vstest = pcall(require, "neotest-vstest")
+        if ok_vstest then
+            table.insert(adapters, vstest)
         end
 
 
         local neotest_config = {
             adapters = adapters,
 
-            log_level = vim.log.levels.WARN,
+            log_level = vim.log.levels.DEBUG,
 
             -- === DISCOVERY / RUNNING ===
             discovery = {
