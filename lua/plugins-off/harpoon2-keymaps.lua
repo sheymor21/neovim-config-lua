@@ -4,7 +4,10 @@ local ui = require("harpoon").ui
 
 -- Añadir archivo a Harpoon
 map("n", "<leader>aa", function()
-	require("harpoon"):list():add()
+	local harpoon = require("harpoon")
+	harpoon:list():add()
+	local filename = vim.fn.expand("%:t")
+	vim.notify("Harpoon: " .. filename .. " added", vim.log.levels.INFO)
 end, vim.tbl_extend("force", opts, { desc = "Harpoon: add file" }))
 
 -- Toggle quick menu de Harpoon
