@@ -10,7 +10,5 @@ return {
 			fast_wrap = {},
 			disable_filetype = { "TelescopePrompt", "vim" },
 		})
-
-		-- NOTE: blink.cmp handles auto-brackets via built-in semantic token matching.
 	end,
 }

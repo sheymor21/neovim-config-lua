@@ -27,8 +27,6 @@ return {
             override = {
                 ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
                 ["vim.lsp.util.stylize_markdown"] = true,
-                -- NOTE: blink.cmp uses its own documentation engine.
-                -- ["cmp.entry.get_documentation"] = true,
             },
 
             hover = {
