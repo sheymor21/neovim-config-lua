@@ -5,7 +5,7 @@ require("plugins-keymaps.yanky-keymaps")
 require("plugins-keymaps.telekasten-keymaps")
 require("plugins-keymaps.conform-keymaps")
 require("plugins-keymaps.grapple-keymaps")
-require("plugins-keymaps.obsidian-keymaps")
+-- require("plugins-keymaps.obsidian-keymaps")  -- disabled: using telekasten instead
 require("plugins-keymaps.fzf-lua-keymaps")
 
 local map = vim.keymap.set

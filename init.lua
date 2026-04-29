@@ -49,5 +49,6 @@ vim.api.nvim_create_autocmd("User", {
         require("lsp.html")
         require("lsp.css")
         require("lsp.markdown")
+        require("luasnip.loaders.from_vscode").lazy_load()
     end,
 })

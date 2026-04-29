@@ -8,7 +8,7 @@ return {
     dependencies = {
         "L3MON4D3/LuaSnip",
         version = "v2.*",
-        -- Bridge for nvim-cmp sources (obsidian.nvim)
+        -- Bridge for nvim-cmp sources
         "saghen/blink.compat",
     },
     build = "cargo build --release",

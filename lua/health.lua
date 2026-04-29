@@ -89,19 +89,19 @@ function M.check()
         end
     end
 
-    -- Check Obsidian vault
+    -- Check Telekasten vault
     vim.health.info("")
-    vim.health.info("Obsidian Integration:")
-    local obsidian_ok, obsidian = pcall(require, "obsidian")
-    if obsidian_ok then
-        local vault_path = vim.fn.expand("~/notes")
+    vim.health.info("Telekasten Vault:")
+    local telekasten_ok, telekasten = pcall(require, "telekasten")
+    if telekasten_ok then
+        local vault_path = vim.fn.expand("~/Documents/Sheymor")
         if vim.fn.isdirectory(vault_path) == 1 then
-            vim.health.ok("Obsidian vault found at " .. vault_path)
+            vim.health.ok("Vault found at " .. vault_path)
         else
-            vim.health.warn("Obsidian vault not found at " .. vault_path .. " - create it with `:Obsidian new`")
+            vim.health.warn("Vault not found at " .. vault_path .. " - create it with `:Telekasten panel`")
         end
     else
-        vim.health.error("Obsidian.nvim failed to load: " .. tostring(obsidian))
+        vim.health.warn("telekasten.nvim failed to load: " .. tostring(telekasten))
     end
 end
 

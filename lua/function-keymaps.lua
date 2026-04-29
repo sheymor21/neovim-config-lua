@@ -25,7 +25,7 @@ end
 function M.search_notes()
     require("telescope.builtin").grep_string({
         search = "- [ ]",
-        cwd = vim.fn.expand("~/notes"),
+        cwd = vim.fn.expand("~/Documents/Sheymor"),
         prompt_title = "Pending tasks",
     })
 end

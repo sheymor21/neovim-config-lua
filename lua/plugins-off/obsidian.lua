@@ -2,7 +2,8 @@ return {
     {
         "obsidian-nvim/obsidian.nvim",
         version = "*",
-        lazy = false,
+        cmd = "Obsidian",
+        ft = "markdown",
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
