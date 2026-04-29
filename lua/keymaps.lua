@@ -82,8 +82,8 @@ map("n", "}", "<cmd>AerialNext<CR>", { desc = "Next aerial symbol" })
 
 -- Builtin vim diagnostics keymaps
 map("n", "<leader>isd", vim.diagnostic.open_float, { desc = "Line diagnostics (float)" })
-map("n", "[d", function() vim.diagnostic.goto_prev({ float = { border = "rounded" } }) end, { desc = "Previous diagnostic" })
-map("n", "]d", function() vim.diagnostic.goto_next({ float = { border = "rounded" } }) end, { desc = "Next diagnostic" })
+map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = { border = "rounded" } }) end, { desc = "Previous diagnostic" })
+map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = { border = "rounded" } }) end, { desc = "Next diagnostic" })
 map("n", "<leader>isq", vim.diagnostic.setqflist, { desc = "Diagnostics to quickfix" })
 map("n", "<leader>isl", vim.diagnostic.setloclist, { desc = "Diagnostics to loclist" })
 
