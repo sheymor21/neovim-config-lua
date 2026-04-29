@@ -97,6 +97,11 @@ return {
 
         -- Completion behavior
         completion = {
+            accept = {
+                auto_brackets = {
+                    enabled = true,
+                },
+            },
             list = {
                 selection = {
                     preselect = false,
@@ -136,7 +141,7 @@ return {
 
         -- Sources
         sources = {
-            default = { "lsp", "snippets", "buffer", "path" },
+            default = { "lsp", "lazydev", "snippets", "buffer", "path" },
             transform_items = function(_, items)
                 local line = vim.api.nvim_get_current_line()
                 local col = vim.api.nvim_win_get_cursor(0)[2]
@@ -166,31 +171,10 @@ return {
                     module = "lazydev.integrations.blink",
                     score_offset = 100,
                 },
-                obsidian = {
-                    name = "obsidian",
-                    module = "blink.compat.source",
-                    opts = {},
-                },
-                obsidian_new = {
-                    name = "obsidian_new",
-                    module = "blink.compat.source",
-                    opts = {},
-                },
-                obsidian_tags = {
-                    name = "obsidian_tags",
-                    module = "blink.compat.source",
-                    opts = {},
-                },
             },
         },
 
-        -- Per-filetype source overrides
-        sources_per_filetype = {
-            lua = { "lazydev", "lsp", "snippets", "buffer", "path" },
-            markdown = { "obsidian", "obsidian_new", "obsidian_tags", "lsp", "snippets", "buffer", "path" },
-        },
-
-        -- Built-in auto-brackets (replaces nvim-autopairs cmp integration)
+        -- Signature help (parameter hints)
         signature = {
             enabled = true,
             window = {
