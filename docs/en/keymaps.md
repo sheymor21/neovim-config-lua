@@ -204,11 +204,8 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 |------------|----------|-------------|
 | `[d` | vim.diagnostic.goto_prev() | Go to previous diagnostic |
 | `]d` | vim.diagnostic.goto_next() | Go to next diagnostic |
-| `[i` | Lspsaga diagnostic_jump_prev() | Previous diagnostic (Lspsaga) |
-| `]i` | Lspsaga diagnostic_jump_next() | Next diagnostic (Lspsaga) |
-| `ge` | Lspsaga show_line_diagnostics() | Show line diagnostics |
 | `<leader>td` | toggle_diagnostics_display() | Toggle virtual text/lines |
-| `<leader>isp` | Lspsaga show_workspace_diagnostics() | Toggle diagnostics panel |
+| `<leader>isp` | Trouble diagnostics toggle | Toggle diagnostics panel |
 
 ### LSP Features
 | Keybinding | Function | Description |

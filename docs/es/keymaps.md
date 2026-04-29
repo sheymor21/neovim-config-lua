@@ -182,11 +182,8 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 |------------|---------|-------------|
 | `[d` | vim.diagnostic.goto_prev() | Ir a diagnóstico anterior |
 | `]d` | vim.diagnostic.goto_next() | Ir a siguiente diagnóstico |
-| `[i` | Lspsaga diagnostic_jump_prev() | Diagnóstico anterior (Lspsaga) |
-| `]i` | Lspsaga diagnostic_jump_next() | Siguiente diagnóstico (Lspsaga) |
-| `ge` | Lspsaga show_line_diagnostics() | Mostrar diagnósticos de línea |
 | `<leader>td` | toggle_diagnostics_display() | Toggle visualización de diagnósticos |
-| `<leader>isp` | Lspsaga show_workspace_diagnostics() | Toggle panel de diagnósticos |
+| `<leader>isp` | Trouble diagnostics toggle | Toggle panel de diagnósticos |
 
 ## 🧪 Keybindings de Testing
 

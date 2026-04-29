@@ -207,7 +207,47 @@ This Neovim configuration includes a complete set of features designed to provid
 - **Quickfile**: Fast file operations
 - **Input**: Enhanced input dialogs
 
-### 8. Unique Features
+#### Obsidian.nvim
+- **Note-taking**: Obsidian vault integration
+- **Daily notes**: Quick access to daily notes (`<leader>n` from dashboard)
+- **New notes**: Create new notes from dashboard
+- **Templates**: Templated note creation
+- **Backlinks**: Note linking and navigation
+
+#### Oil.nvim
+- **Buffer-based file editing**: Edit filesystem like a buffer
+- **Quick navigation**: Open parent directory with `-`
+- **Batch operations**: Rename, move, delete files in bulk
+- **Git integration**: Shows git status in file tree
+- **Floating windows**: Configurable floating file manager
+
+### 8. Additional Tools
+
+#### Multicursor.nvim
+- **Multiple cursors**: Edit multiple locations simultaneously
+- **Visual mode selection**: Add cursors to selected regions
+- **Match navigation**: Jump between matches with Ctrl-n/p
+- **Match all**: Select all occurrences with `<leader>ma`
+
+#### Faster.nvim
+- **Performance optimization**: Disables heavy features for large files
+- **Automatic detection**: Enables when files exceed size threshold
+- **Smart recovery**: Re-enables features when leaving large files
+- **Treesitter protection**: Prevents crashes with large files
+
+#### Window Picker
+- **Quick window selection**: Jump to any visible window
+- **Letter hints**: Each window labeled with quick-access key
+- **Telescope integration**: Search and pick windows
+
+#### 99 Plugin (AI Assistant)
+- **AI-powered editing**: Context-aware code suggestions
+- **Visual selection**: AI operations on selected text (`<leader>9v`)
+- **Search integration**: AI-powered search (`<leader>9s`)
+- **Vibe mode**: Interactive AI assistant (`<leader>9a`)
+- **Request management**: Stop and clear AI requests
+
+### 9. Unique Features
 
 #### Colemak-DH Layout
 - Ergonomic navigation optimization
@@ -236,11 +276,15 @@ This Neovim configuration includes a complete set of features designed to provid
 | Harpoon | Navigation | All | ✅ Active |
 | Telescope | Navigation | All | ✅ Active |
 | Neo-tree | File Management | All | ✅ Active |
+| Oil | File Management | All | ✅ Active |
 | nvim-cmp | Editing | All | ✅ Active |
 | Snacks.nvim | UI/Dashboard | All | ✅ Active |
+| Obsidian | Note-taking | Markdown | ✅ Active |
+| Multicursor | Editing | All | ✅ Active |
 | Session Manager | Project Management | All | ✅ Active |
 | LazyGit | Development Tools | All | ✅ Active |
 | Conform | Formatting | All | ✅ Active |
+| Faster | Performance | All | ✅ Active |
 
 ## 🌐 Languages
 

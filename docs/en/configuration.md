@@ -65,12 +65,20 @@ This guide covers the general Neovim configuration, including basic options, LSP
     │   ├── lazydev.lua         # Lua development
     │   ├── configurationless.lua # Utility functions
     │   ├── windows-picker.lua  # Window selection
-    │   ├── lspsaga.lua         # LSP saga
     │   ├── mini-nvim.lua       # Mini.nvim suite
     │   ├── roslyn.lua          # Roslyn LSP
     │   ├── unirunner.lua       # Unified runner
     │   ├── unipackage.lua      # Package manager
+    │   ├── unidiagnostic.lua   # Diagnostic management
     │   ├── wakatime.lua        # Wakatime integration
+    │   ├── multicursor.lua     # Multiple cursors
+    │   ├── faster.lua          # Performance optimization
+    │   ├── cellular.lua        # Visual effects
+    │   ├── oil.lua             # File system editor
+    │   ├── obsidian.lua        # Obsidian note-taking
+    │   ├── telekasten.lua      # Zettelkasten notes
+    │   ├── reloader.lua        # Config reloader
+    │   ├── 99.lua              # AI assistant integration
     │   └── nvim-web-devicons.lua # File icons
     ├── plugins-off/            # Disabled plugins
     │   ├── alpha.lua

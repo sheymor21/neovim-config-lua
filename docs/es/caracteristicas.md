@@ -201,13 +201,53 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 
 #### Snacks.nvim
 - **Dashboard**: Pantalla de bienvenida con acciones rápidas
-- **Picker**: Selector de archios/diagnósticos con vista previa
+- **Picker**: Selector de archivos/diagnósticos con vista previa
 - **Notifier**: Sistema moderno de notificaciones
 - **Bigfile**: Manejo optimizado de archivos grandes
 - **Quickfile**: Operaciones rápidas de archivos
 - **Input**: Diálogos de entrada mejorados
 
-### 8. Características Únicas
+#### Obsidian.nvim
+- **Toma de notas**: Integración con vault de Obsidian
+- **Notas diarias**: Acceso rápido a notas diarias (`<leader>n` desde dashboard)
+- **Nuevas notas**: Crear notas nuevas desde el dashboard
+- **Plantillas**: Creación de notas con plantillas
+- **Backlinks**: Enlace y navegación entre notas
+
+#### Oil.nvim
+- **Edición de archivos en buffer**: Editar filesystem como un buffer
+- **Navegación rápida**: Abrir directorio padre con `-`
+- **Operaciones en lote**: Renombrar, mover, eliminar archivos en masa
+- **Integración Git**: Muestra estado git en el árbol de archivos
+- **Ventanas flotantes**: Gestor de archivos flotante configurable
+
+### 8. Herramientas Adicionales
+
+#### Multicursor.nvim
+- **Múltiples cursores**: Editar múltiples ubicaciones simultáneamente
+- **Selección en modo visual**: Agregar cursores a regiones seleccionadas
+- **Navegación de matches**: Saltar entre coincidencias con Ctrl-n/p
+- **Match all**: Seleccionar todas las ocurrencias con `<leader>ma`
+
+#### Faster.nvim
+- **Optimización de rendimiento**: Desactiva funciones pesadas en archivos grandes
+- **Detección automática**: Se activa cuando archivos exceden umbral de tamaño
+- **Recuperación inteligente**: Reactiva funciones al salir de archivos grandes
+- **Protección Treesitter**: Previene crashes con archivos grandes
+
+#### Window Picker
+- **Selección rápida de ventanas**: Saltar a cualquier ventana visible
+- **Hints con letras**: Cada ventana etiquetada con tecla de acceso rápido
+- **Integración con Telescope**: Buscar y seleccionar ventanas
+
+#### Plugin 99 (Asistente de IA)
+- **Edición con IA**: Sugerencias de código contextual
+- **Selección visual**: Operaciones IA en texto seleccionado (`<leader>9v`)
+- **Integración de búsqueda**: Búsqueda potenciada con IA (`<leader>9s`)
+- **Modo vibe**: Asistente de IA interactivo (`<leader>9a`)
+- **Gestión de requests**: Detener y limpiar requests de IA
+
+### 9. Características Únicas
 
 #### Colemak-DH Layout
 - Optimización ergonómica de navegación
@@ -236,11 +276,15 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 | Harpoon | Navegación | Todos | ✅ Activo |
 | Telescope | Navegación | Todos | ✅ Activo |
 | Neo-tree | Gestión de Archivos | Todos | ✅ Activo |
+| Oil | Gestión de Archivos | Todos | ✅ Activo |
 | nvim-cmp | Edición | Todos | ✅ Activo |
 | Snacks.nvim | UI/Dashboard | Todos | ✅ Activo |
+| Obsidian | Toma de Notas | Markdown | ✅ Activo |
+| Multicursor | Edición | Todos | ✅ Activo |
 | Session Manager | Gestión de Proyectos | Todos | ✅ Activo |
 | LazyGit | Herramientas de Desarrollo | Todos | ✅ Activo |
 | Conform | Formateo | Todos | ✅ Activo |
+| Faster | Rendimiento | Todos | ✅ Activo |
 
 ## 🌐 Idiomas
 
