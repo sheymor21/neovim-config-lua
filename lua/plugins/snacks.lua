@@ -45,9 +45,9 @@ return {
    ██║ ╚████║ ╚████╔╝ ██║██║ ╚═╝ ██║
    ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝ ]],
                 keys = {
-                    { icon = "󰈞 ", key = "f", desc = "Find File", action = ":Telescope find_files" },
+                    { icon = "󰈞 ", key = "f", desc = "Find File", action = ":FzfLua files" },
                     { icon = "💻", key = "p", desc = "Projects", action = ":Telescope neovim-project discover" },
-                    { icon = "󰊄 ", key = "g", desc = "Live Grep", action = ":Telescope live_grep" },
+                    { icon = "󰊄 ", key = "g", desc = "Live Grep", action = ":FzfLua  live_grep" },
                     { icon = " ", key = "n", desc = "Daily Note", action = ":Obsidian today" },
                     { icon = " ", key = "N", desc = "New Note", action = ":Obsidian new" },
                     { icon = " ", key = "l", desc = "Lazy Plugins", action = ":Lazy" },

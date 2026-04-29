@@ -6,6 +6,7 @@ require("plugins-keymaps.telekasten-keymaps")
 require("plugins-keymaps.conform-keymaps")
 require("plugins-keymaps.harpoon2-keymaps")
 require("plugins-keymaps.obsidian-keymaps")
+require("plugins-keymaps.fzf-lua-keymaps")
 
 local map = vim.keymap.set
 local behavior = require("function-keymaps");
@@ -55,7 +56,7 @@ map("n", "<leader>E", ":Oil<CR>",{ noremap = true, silent = true, desc = "Abrir 
 
 map("n", "<leader>re", ":Neotree reveal_force_cwd<CR>",{ noremap = true, silent = true, desc = "Abrir Neotree En la ruta actual" })
 
-map("n", "<leader>ss", "<cmd>Telescope aerial<CR>", {desc = "Search symbols (Aerial)"})
+-- Replaced by fzf-lua: <leader>ss for symbols
 
 -- =========================
 -- KEYMAPS SYSTEM
@@ -65,10 +66,7 @@ map("n", "<leader>q", ":q<CR>", { noremap = true, silent = true, desc = "Cerrar 
 map("n", "<leader>W", ":luafile %<CR>", { noremap = true, silent = true, desc = "Ejecutar Lua" })
 map("n", "<leader>j", behavior.jump_to_line, { desc = "Jump to line number" })
 
--- Archivos y búsqueda
-map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Buscar archivos" })
-map("n", "<leader>sg", "<cmd>Telescope live_grep<cr>", { desc = "Buscar texto" })
-map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
+-- Archivos y búsqueda (fzf-lua remaps <leader>ff, <leader>fb, <leader>sg, <leader>ss)
 map("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Recientes" })
 map("n", "<leader>fP", "<cmd>Telescope neovim-project discover<cr>", { desc = "Descubrir Proyectos" })
 map("n", "<leader>fp", "<cmd>Telescope neovim-project history<cr>", { desc = "Abrir Historial Proyectos" })
