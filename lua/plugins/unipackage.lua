@@ -1,9 +1,5 @@
 return {
     "sheymor21/unipackage.nvim",
-    dependencies = {
-        "akinsho/toggleterm.nvim",
-    },
-    dir = "~/Projects/unipackage.nvim",
     config = function()
         require("unipackage").setup({
             fallback_to_any = false,

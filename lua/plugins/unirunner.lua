@@ -1,9 +1,9 @@
 return {
     'sheymor21/unirunner.nvim',
     dependencies = {
-        'akinsho/toggleterm.nvim',
         's1n7ax/nvim-window-picker',
     },
+
     lazy = true,
     config = function()
         require("unirunner").setup({
