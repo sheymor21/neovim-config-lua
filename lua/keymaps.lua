@@ -143,8 +143,8 @@ map("n", "<leader>nc", "<cmd>CmpReload<cr>", { desc = "Reload CMP only" })
 map("n", "<leader>ns", "<cmd>StartupTime<cr>", { desc = "Show startup time" })
 map("n", "<leader>nS", "<cmd>SlowPlugins<cr>", { desc = "Show slow plugins" })
 map("n", "<leader>nh", "<cmd>checkhealth<cr>", { desc = "Health check" })
-map("n", "<leader>nn", "<cmd>Noice<cr>", { desc = "Show Noice" })
-map("n", "<leader>np", "<cmd>%bd!|e#<cr>", { desc = "Purge Buffers" })
+map("n", "<leader>nn", "<cmd>Noice all<cr>", { desc = "Show Noice" })
+map("n", "<leader>np", "<cmd>%bd!|e#<cr>", { desc = "Purge Buffers" });
 
 -- unidiagnostic
 map("n", "<leader>isp", "<cmd>UnidiagnosticToggle<cr>", { desc = "Show All Diagnostic" })

@@ -6,9 +6,8 @@ return {
     },
 
     opts = {
-        -- PERFOMANCE MODE
-        render = "minimal",
-        stages = "static",
+        -- Noice handles: cmdline, lsp hover/signature/progress, messages
+        -- nvim-notify handles: vim.notify notifications
 
         messages = {
             enabled = true,
@@ -44,6 +43,27 @@ return {
             },
         },
 
+        -- Disable noice's vim.notify override (nvim-notify handles this)
+        notify = {
+            enabled = false,
+        },
+
+        views = {
+            mini = {
+                position = {
+                    row = -2,
+                    col = "100%",
+                },
+                size = {
+                    width = 40,
+                    height = "auto",
+                },
+                border = {
+                    style = "rounded",
+                },
+            },
+        },
+
         cmdline = {
             enabled = true,
             view = "cmdline_popup",
@@ -62,26 +82,15 @@ return {
             lsp_doc_border = true,
         },
 
-        -- integracion con DAP
+        -- Routes for filtering messages
         routes = {
             {
                 filter = { event = "msg_show", find = "DAP" },
                 view = "mini",
             },
             {
-                filter = { event = "notify", find = "Invalid mapping for  e" },
-                opts = { skip = true },
-            },
-            {
-                filter = { event = "notify", find = "Invalid mapping for  i" },
-                opts = { skip = true },
-            },
-            {
-                filter = {
-                    event = "msg_show",
-                    find = "roslyn",
-                },
-                view = "notify",
+                filter = { event = "msg_show", find = "roslyn" },
+                view = "mini",
             },
         },
     },

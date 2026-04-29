@@ -86,13 +86,7 @@ return {
             },
 
             notify = function(msg, level)
-                if pcall(require, "noice") then
-                    vim.schedule(function()
-                        require("noice").notify(msg, level)
-                    end)
-                else
-                    vim.notify(msg, level)
-                end
+                vim.notify(msg, level)
             end,
         })
     end,

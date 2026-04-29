@@ -5,16 +5,9 @@ function M.command_exists(cmd)
     return vim.fn.executable(cmd) == 1
 end
 
--- Standardized notification
+-- Standardized notification (uses nvim-notify via vim.notify)
 function M.notify(msg, level, opts)
-    opts = opts or {}
-    if pcall(require, "noice") then
-        vim.schedule(function()
-            require("noice").notify(msg, level, opts)
-        end)
-    else
-        vim.notify(msg, level, opts)
-    end
+    vim.notify(msg, level, opts or {})
 end
 
 return M
