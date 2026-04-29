@@ -41,7 +41,6 @@ vim.api.nvim_create_autocmd("User", {
         require("config.dap-config")
         require("config.indent")
         require("config.telekasten-config")
-        vim.opt_local.bomb = true
         require("lsp.gopls")
         require("lsp.lua-lsp")
         require("lsp.vtsls")
