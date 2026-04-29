@@ -1,7 +1,9 @@
 return {
   "stevearc/oil.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
-  lazy = false,
+  keys = {
+    { "<leader>e", "<cmd>Oil<cr>", desc = "Open Oil file explorer" },
+  },
   config = function()
     local oil = require("oil")
     

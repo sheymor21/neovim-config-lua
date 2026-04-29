@@ -7,6 +7,7 @@ require("plugins-keymaps.conform-keymaps")
 require("plugins-keymaps.grapple-keymaps")
 -- require("plugins-keymaps.obsidian-keymaps")  -- disabled: using telekasten instead
 require("plugins-keymaps.fzf-lua-keymaps")
+require("plugins-keymaps.snacks-keymaps")
 
 local map = vim.keymap.set
 local behavior = require("function-keymaps");
@@ -50,7 +51,7 @@ map("n", "zn", "zc")
 map("n", "zN", "zM")
 map("n", "zO", "zR")
 
-map("n", "<leader>e", ":Oil<CR>", { noremap = true, silent = true, desc = "Open Oil file explorer" })
+-- <leader>e is defined in lua/plugins/oil.lua (lazy.nvim keys)
 
 map("n", "<leader>E", ":Oil .<CR>", { noremap = true, silent = true, desc = "Open Oil in current working directory" })
 

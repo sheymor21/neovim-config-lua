@@ -141,177 +141,25 @@ return {
 		},
 
 		-- Scope
-		scope = { enabled = true },
-
-		-- Smooth scroll
-		scroll = {
-			enabled = true,
-			animate = {
-				easing = "linear",
-				duration = { step = 15, total = 250 },
-			},
-		},
-
-		-- Buffer delete
-		bufdelete = { enabled = true },
-
-		-- Git utilities
-		git = {
-			enabled = true,
-			blame_line = { width = 80 },
-		},
-
-		-- Git browse (open in browser)
-		gitbrowse = { enabled = true },
-
-		-- Zen mode
-		zen = {
-			enabled = true,
-			win = {
-				backdrop = { transparent = true, blend = 40 },
-				width = 120,
-			},
-		},
-
-		-- Dim scope
-		dim = { enabled = true },
+		scope = { enabled = false },
 
 		-- Words (LSP references navigation)
 		words = { enabled = true },
 
-		-- Window utilities
-		win = { enabled = true },
+		-- Buffer delete
+		bufdelete = { enabled = false },
+
+		-- Git utilities
+		git = { enabled = false },
+
+		-- Git browse (open in browser)
+		gitbrowse = { enabled = false },
+
+		-- Zen mode
+		zen = { enabled = false },
 	},
 	config = function(_, opts)
 		require("snacks").setup(opts)
 		require("config.snacks")
 	end,
-	keys = {
-		-- LazyGit
-		{
-			"<leader>ig",
-			function()
-				Snacks.lazygit()
-			end,
-			desc = "LazyGit",
-		},
-		-- Terminal
-		{
-			"<leader>tt",
-			function()
-				Snacks.terminal()
-			end,
-			desc = "Toggle Terminal",
-		},
-		-- LazyDocker (using terminal)
-		{
-			"<leader>id",
-			function()
-				local utils = require("utils")
-				if not utils.command_exists("lazydocker") then
-					vim.notify("LazyDocker no está instalado", vim.log.levels.ERROR)
-					return
-				end
-				Snacks.terminal({ "lazydocker" })
-			end,
-			desc = "LazyDocker",
-		},
-		-- Buffer delete (smart)
-		{
-			"<leader>bd",
-			function()
-				Snacks.bufdelete()
-			end,
-			desc = "Delete Buffer",
-		},
-		-- Zen mode
-		{
-			"<leader>z",
-			function()
-				Snacks.zen()
-			end,
-			desc = "Zen Mode",
-		},
-		-- Dim toggle
-		{
-			"<leader>D",
-			function()
-				Snacks.dim()
-			end,
-			desc = "Dim Scope",
-		},
-		-- Git blame line
-		{
-			"<leader>gb",
-			function()
-				Snacks.git.blame_line()
-			end,
-			desc = "Git Blame Line",
-		},
-		-- Git browse
-		{
-			"<leader>gB",
-			function()
-				Snacks.gitbrowse()
-			end,
-			desc = "Git Browse",
-		},
-		-- Picker sources
-		{
-			"<leader>sm",
-			function()
-				Snacks.picker.marks()
-			end,
-			desc = "Marks",
-		},
-		{
-			"<leader>sh",
-			function()
-				Snacks.picker.help()
-			end,
-			desc = "Help Pages",
-		},
-		{
-			"<leader>sk",
-			function()
-				Snacks.picker.keymaps()
-			end,
-			desc = "Keymaps",
-		},
-		{
-			"<leader>sc",
-			function()
-				Snacks.picker.commands()
-			end,
-			desc = "Commands",
-		},
-		{
-			"<leader>su",
-			function()
-				Snacks.picker.undo()
-			end,
-			desc = "Undo History",
-		},
-		{
-			"<leader>sq",
-			function()
-				Snacks.picker.qflist()
-			end,
-			desc = "Quickfix List",
-		},
-		{
-			"<leader>sl",
-			function()
-				Snacks.picker.loclist()
-			end,
-			desc = "Location List",
-		},
-		{
-			"<leader>sr",
-			function()
-				Snacks.picker.resume()
-			end,
-			desc = "Resume Picker",
-		},
-	},
 }
