@@ -87,6 +87,10 @@ M.apply = function(name)
 		refresh_devicons()
 		vim.cmd("redraw!")
 	end)
+
+	-- Ensure blink.cmp selected item is visible across all colorschemes
+	vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "PmenuSel" })
+	vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { link = "Search" })
 end
 
 return M

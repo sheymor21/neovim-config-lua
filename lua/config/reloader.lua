@@ -34,11 +34,11 @@ function M.full_reload()
     vim.notify("  🧹 Clearing module cache...", vim.log.levels.INFO)
     M.clear_module_cache()
 
-    -- Step 3: Reload CMP
-    vim.notify("  🔄 Reloading nvim-cmp...", vim.log.levels.INFO)
-    local cmp_ok, cmp_err = pcall(M.reload_cmp)
-    if not cmp_ok then
-        vim.notify("  ❌ CMP reload failed: " .. tostring(cmp_err), vim.log.levels.ERROR)
+    -- Step 3: Reload blink.cmp
+    vim.notify("  🔄 Reloading blink.cmp...", vim.log.levels.INFO)
+    local blink_ok, blink_err = pcall(M.reload_blink)
+    if not blink_ok then
+        vim.notify("  ❌ blink.cmp reload failed: " .. tostring(blink_err), vim.log.levels.ERROR)
     end
 
     -- Step 4: Reload LSP configs
@@ -73,14 +73,9 @@ end
 -- Clear Lua module cache for LSP and CMP related modules
 function M.clear_module_cache()
     local modules_to_clear = {
-        -- CMP modules
-        "cmp",
-        "cmp_nvim_lsp",
-        "cmp_buffer",
-        "cmp_path",
-        "cmp_luasnip",
-        "lspkind",
-
+        -- blink.cmp modules
+        "blink.cmp",
+        "blink.compat",
         -- LSP modules
         "lspconfig",
         "lspconfig.configs",
@@ -101,18 +96,18 @@ function M.clear_module_cache()
     end
 end
 
--- Reload CMP configuration
-function M.reload_cmp()
-    -- Clear CMP cache
-    local cmp = require("cmp")
-    cmp.close()
+-- Reload blink.cmp configuration
+function M.reload_blink()
+    -- Close any open blink completion window
+    local blink = require("blink.cmp")
+    blink.hide()
 
     -- Reload config
-    package.loaded["plugins.nvim-cmp"] = nil
-    require("plugins.nvim-cmp")
+    package.loaded["plugins.blink-cmp"] = nil
+    require("plugins.blink-cmp")
 
-    -- Force re-attach to current buffer
-    cmp.setup.buffer({})
+    -- Re-trigger setup (lazy.nvim re-applies opts on require)
+    -- blink automatically re-attaches to buffers
 end
 
 -- Reload LSP configurations (only for active clients)
@@ -170,10 +165,10 @@ function M.reload_lsp_only()
 end
 
 function M.reload_cmp_only()
-    vim.notify("🔄 Reloading CMP only...", vim.log.levels.INFO)
+    vim.notify("🔄 Reloading blink.cmp (legacy alias)...", vim.log.levels.INFO)
     M.clear_module_cache()
-    M.reload_cmp()
-    vim.notify("✅ CMP reload complete!", vim.log.levels.INFO)
+    M.reload_blink()
+    vim.notify("✅ blink.cmp reload complete!", vim.log.levels.INFO)
 end
 
 return M

@@ -6,7 +6,7 @@ local M = {}
 -- Track last known good state
 local plugin_states = {
     which_key = { last_check = 0, healthy = true },
-    cmp = { last_check = 0, healthy = true },
+    blink = { last_check = 0, healthy = true },
 }
 
 -- Check if which-key is responsive
@@ -29,35 +29,35 @@ local function check_which_key()
     return true, "healthy"
 end
 
--- Check if cmp is responsive
-local function check_cmp()
-    local ok, cmp = pcall(require, "cmp")
+-- Check if blink.cmp is responsive
+local function check_blink()
+    local ok, blink = pcall(require, "blink.cmp")
     if not ok then
-        return false, "cmp not loaded"
+        return false, "blink.cmp not loaded"
     end
-    
-    -- Try to access cmp state
+
+    -- Try to access blink state
     local state_ok = pcall(function()
-        -- cmp should have complete and visible functions
-        return type(cmp.complete) == "function" and type(cmp.visible) == "function"
+        -- blink should have show and hide functions
+        return type(blink.show) == "function" and type(blink.hide) == "function"
     end)
-    
+
     if not state_ok then
-        return false, "cmp state corrupted"
+        return false, "blink.cmp state corrupted"
     end
-    
-    -- Check if autocomplete is configured
+
+    -- Check if sources are configured
     local config_ok, config = pcall(function()
-        return cmp.get_config and cmp.get_config()
+        return blink.config and blink.config.sources
     end)
-    
+
     if config_ok and config then
-        local has_autocomplete = config.completion and config.completion.autocomplete
-        if not has_autocomplete then
-            return false, "cmp autocomplete not configured"
+        local has_sources = config.default and #config.default > 0
+        if not has_sources then
+            return false, "blink.cmp sources not configured"
         end
     end
-    
+
     return true, "healthy"
 end
 
@@ -102,16 +102,16 @@ function M.check_health()
         end
     end
     
-    -- Check cmp (only every 30 seconds)
-    if current_time - plugin_states.cmp.last_check > 30000 then
-        local healthy, msg = check_cmp()
-        plugin_states.cmp.last_check = current_time
-        plugin_states.cmp.healthy = healthy
-        
+    -- Check blink.cmp (only every 30 seconds)
+    if current_time - plugin_states.blink.last_check > 30000 then
+        local healthy, msg = check_blink()
+        plugin_states.blink.last_check = current_time
+        plugin_states.blink.healthy = healthy
+
         if not healthy then
-            table.insert(issues, { plugin = "cmp", msg = msg })
+            table.insert(issues, { plugin = "blink.cmp", msg = msg })
             -- Try to reload
-            reload_plugin("cmp")
+            reload_plugin("blink.cmp")
         end
     end
     

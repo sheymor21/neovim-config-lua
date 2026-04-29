@@ -11,10 +11,6 @@ return {
 			disable_filetype = { "TelescopePrompt", "vim" },
 		})
 
-		local cmp_ok, cmp = pcall(require, "cmp")
-		if cmp_ok then
-			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-		end
+		-- NOTE: blink.cmp handles auto-brackets via built-in semantic token matching.
 	end,
 }
