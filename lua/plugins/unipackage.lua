@@ -3,6 +3,7 @@ return {
     dependencies = {
         "akinsho/toggleterm.nvim",
     },
+    lazy = true,
     config = function()
         require("unipackage").setup({
             fallback_to_any = false,

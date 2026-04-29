@@ -13,6 +13,8 @@ return {
         name = "kanagawa",
         lazy = true,
     },
+    -- NOTE: ayu is active colorscheme (lazy = false)
+    -- gruvbox and onedark are also loaded eagerly but could be lazy if not actively switched
     {
         "tiagovla/tokyodark.nvim",
         lazy = true,
@@ -20,7 +22,7 @@ return {
     {
         "ellisonleao/gruvbox.nvim",
         name = "gruvbox",
-        lazy = false,
+        lazy = true,
         config = function()
             vim.o.background = "dark"
             require("gruvbox").setup({
@@ -96,6 +98,7 @@ return {
     {
         "navarasu/onedark.nvim",
         name = "onedark",
+        lazy = true,
         config = function()
             require("onedark").setup({
                 style = "warmer",

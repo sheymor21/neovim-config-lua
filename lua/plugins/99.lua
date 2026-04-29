@@ -1,5 +1,6 @@
 return {
     "ThePrimeagen/99",
+    event = "VeryLazy",
     dependencies = { "nvim-lua/plenary.nvim" },
     
     config = function()

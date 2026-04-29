@@ -4,7 +4,7 @@ require("plugins-keymaps.dap-keymaps")
 require("plugins-keymaps.yanky-keymaps")
 require("plugins-keymaps.telekasten-keymaps")
 require("plugins-keymaps.conform-keymaps")
-require("plugins-keymaps.harpoon2-keymaps")
+require("plugins-keymaps.grapple-keymaps")
 require("plugins-keymaps.obsidian-keymaps")
 require("plugins-keymaps.fzf-lua-keymaps")
 
