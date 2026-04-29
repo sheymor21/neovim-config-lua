@@ -83,6 +83,17 @@ vim.api.nvim_create_autocmd("DirChanged", {
 	end,
 })
 
+-- Auto-convert CRLF to LF on open
+vim.api.nvim_create_autocmd("BufReadPost", {
+	group = augroup,
+	desc = "Auto-convert Windows line endings to Unix",
+	callback = function()
+		if vim.bo.fileformat == "dos" then
+			vim.bo.fileformat = "unix"
+		end
+	end,
+})
+
 -- Folding configuration
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup,
@@ -94,3 +105,5 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.foldenable = true
 	end,
 })
+
+
