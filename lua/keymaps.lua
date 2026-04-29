@@ -63,6 +63,7 @@ map("n", "<leader>ss", "<cmd>Telescope aerial<CR>", {desc = "Search symbols (Aer
 map("n", "<leader>w", ":w<CR>", { noremap = true, silent = true, desc = "Guardar archivo" })
 map("n", "<leader>q", ":q<CR>", { noremap = true, silent = true, desc = "Cerrar archivo" })
 map("n", "<leader>W", ":luafile %<CR>", { noremap = true, silent = true, desc = "Ejecutar Lua" })
+map("n", "<leader>j", behavior.jump_to_line, { desc = "Jump to line number" })
 
 -- Archivos y búsqueda
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Buscar archivos" })

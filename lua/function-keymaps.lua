@@ -151,4 +151,21 @@ function M.toggle_peek_preview()
     end
 end
 
+function M.jump_to_line()
+    local line_count = vim.api.nvim_buf_line_count(0)
+    local line = vim.fn.input("Jump to line (1-" .. line_count .. "): ")
+    if line and line ~= "" then
+        local num = tonumber((line:gsub("%D", "")))
+        if num then
+            if num >= 1 and num <= line_count then
+                vim.api.nvim_win_set_cursor(0, { num, 0 })
+            else
+                vim.notify("Line out of range (1-" .. line_count .. ")", vim.log.levels.WARN)
+            end
+        else
+            vim.notify("Invalid line number", vim.log.levels.WARN)
+        end
+    end
+end
+
 return M
