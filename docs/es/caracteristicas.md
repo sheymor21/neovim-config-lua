@@ -6,41 +6,48 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 
 ### 1. Soporte de Lenguajes y LSP
 
-#### Go Development
+#### Desarrollo Go
 - **gopls**: Language Server Protocol oficial de Go (instalado en sistema)
 - **DAP**: Soporte completo de debugging con puntos de interrupción
 - **Neotest**: Framework de testing integrado
 - **Runner**: Ejecución rápida de proyectos Go
 
-#### TypeScript/JavaScript Development
+#### Desarrollo TypeScript/JavaScript
 - **vtsls**: Language Server moderno para TS/JS (vía Mason)
 - **Prettier**: Formateo automático de código
 - **DAP**: Debugging con Node.js/Chrome DevTools
 - **npm/bun**: Detección automática de gestores de paquetes
 
-#### C# Development
+#### Desarrollo C#
 - **Roslyn**: Language Server oficial de Microsoft para C# (vía roslyn.nvim)
 - **CSharpier**: Formateo de código
 - **Neotest**: Testing con adaptador neotest-dotnet
 - **DAP**: Debugging con netcoredbg
 - **dotnet run**: Ejecución integrada de proyectos
 
-#### Lua Development
+#### Desarrollo Lua
 - **lua-language-server**: LSP oficial para Lua
 - **lazydev.nvim**: Mejoras para desarrollo de configuraciones Neovim
 - **Stylua**: Formateo automático de código Lua (4 espacios, 100 columnas)
 - **Luasnip**: Motor de snippets potente
 
-#### Python Development
+#### Desarrollo Python
 - **black**: Formateo de código (líneas de 100 caracteres)
 
-#### Web Technologies
+#### Tecnologías Web
 - **HTML/CSS**: Language Servers con autocompletado
 - **Markdown**: Soporte completo con LSP y renderizado
 - **Emmet**: Expansión abreviada para HTML/CSS
 - **Shell/Bash**: Formateo shfmt con indentación de 4 espacios
 
 ### 2. Navegación y Movimiento
+
+#### Fzf-lua
+- Búsqueda difusa de archivos (`<leader>ff`)
+- Gestión de buffers (`<leader>fb`)
+- Búsqueda de texto en vivo (`<leader>sg`)
+- Búsqueda de símbolos LSP (`<leader>ss`)
+- Rendimiento nativo rápido con vistas previas
 
 #### Harpoon 2.0
 - Marcadores rápidos de archivos (`<leader>a`)
@@ -49,11 +56,10 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 - Integración con Telescope
 
 #### Telescope
-- Búsqueda difusa de archivos (`<leader>f`)
-- Búsqueda de texto en archivos (`<leader>gp`)
-- Gestión de buffers (`<leader>b`)
-- Historial de archivos recientes (`<leader>r`)
-- Búsqueda de símbolos (`<leader>s`)
+- Historial de archivos recientes (`<leader>fr`)
+- Historial de proyectos (`<leader>fp`)
+- Descubrimiento de proyectos (`<leader>fP`)
+- Historial de yank y extensiones
 
 #### Flash
 - Navegación ultra-rápida con highlighting
@@ -68,11 +74,13 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 
 ### 3. Edición y Productividad
 
-#### nvim-cmp
+#### blink.cmp
 - Autocompletado inteligente con múltiples fuentes
-- Integración con LSP, snippets, buffer, path
+- Integración con LSP, snippets, buffer, path, lazydev
 - Iconos de tipo para cada fuente
-- Personalización de comportamiento
+- Búsqueda fuzzy potenciada por Rust
+- Autocompletado en línea de comandos
+- Ayuda de firmas (parameter hints)
 
 #### LuaSnip
 - Motor de snippets potente
@@ -95,6 +103,12 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 - Navegación en el historial
 - Ciclado de texto pegado
 - Integración con system clipboard
+
+#### Conform
+- Formateo async y sync (`<leader>mf`, `<leader>mF`)
+- Soporte de fallback LSP
+- Formateo de selección visual
+- Soporte multi-lenguaje
 
 ### 4. UI y Apariencia
 
@@ -187,7 +201,7 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 - Agrupación lógica de teclas
 - Personalización de menús
 
-#### Trouble
+#### Unidiagnostic / Trouble
 - Visualización mejorada de diagnostics
 - Integración con LSP
 - Filtrado por tipo/severidad
@@ -209,10 +223,11 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 
 #### Obsidian.nvim
 - **Toma de notas**: Integración con vault de Obsidian
-- **Notas diarias**: Acceso rápido a notas diarias (`<leader>n` desde dashboard)
-- **Nuevas notas**: Crear notas nuevas desde el dashboard
-- **Plantillas**: Creación de notas con plantillas
-- **Backlinks**: Enlace y navegación entre notas
+- **Notas diarias**: Acceso rápido a notas diarias (`<leader>od`)
+- **Nuevas notas**: Crear notas nuevas (`<leader>on`)
+- **Plantillas**: Creación de notas con plantillas (`<leader>oT`)
+- **Backlinks**: Enlace y navegación entre notas (`<leader>ob`)
+- **Búsqueda**: Búsqueda rápida en el vault (`<leader>os`)
 
 #### Oil.nvim
 - **Edición de archivos en buffer**: Editar filesystem como un buffer
@@ -273,11 +288,12 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 |----------------|------------|----------------------|---------|
 | LSP | Soporte de Lenguajes | Go, TS/JS, C#, Lua, Python, HTML/CSS | ✅ Activo |
 | DAP | Herramientas de Desarrollo | Go, TS/JS, C# | ✅ Activo |
+| blink.cmp | Edición | Todos | ✅ Activo |
+| fzf-lua | Navegación | Todos | ✅ Activo |
 | Harpoon | Navegación | Todos | ✅ Activo |
 | Telescope | Navegación | Todos | ✅ Activo |
 | Neo-tree | Gestión de Archivos | Todos | ✅ Activo |
 | Oil | Gestión de Archivos | Todos | ✅ Activo |
-| nvim-cmp | Edición | Todos | ✅ Activo |
 | Snacks.nvim | UI/Dashboard | Todos | ✅ Activo |
 | Obsidian | Toma de Notas | Markdown | ✅ Activo |
 | Multicursor | Edición | Todos | ✅ Activo |

@@ -29,12 +29,14 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
     │   ├── csharp-editorconfig.lua # Editorconfig de C#
     │   ├── plugin-health.lua   # Health checks de plugins
     │   ├── profiler.lua        # Profiler de rendimiento
-    │   └── reloader.lua        # Recargador de configuración
+    │   ├── reloader.lua        # Recargador de configuración
+    │   └── obsidian.lua        # Configuración de Obsidian
     ├── plugins/                # Especificaciones de plugins
     │   ├── 99.lua              # Cargador de plugins core
     │   ├── telescope.lua       # Configuración de Telescope
+    │   ├── fzf-lua.lua         # Configuración de Fzf-lua
     │   ├── treesitter.lua      # Configuración de Treesitter
-    │   ├── nvim-cmp.lua        # Autocompletado
+    │   ├── blink-cmp.lua       # Autocompletado (blink.cmp)
     │   ├── neotree.lua         # Explorador de archivos
     │   ├── harpoon2.lua        # Marcadores de navegación
     │   ├── conform.lua         # Formateo de código
@@ -71,14 +73,9 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
     │   ├── unipackage.lua      # Gestor de paquetes
     │   ├── unidiagnostic.lua   # Gestión de diagnósticos
     │   ├── wakatime.lua        # Integración Wakatime
-    │   ├── multicursor.lua     # Múltiples cursores
-    │   ├── faster.lua          # Optimización de rendimiento
-    │   ├── cellular.lua        # Efectos visuales
-    │   ├── oil.lua             # Editor de sistema de archivos
     │   ├── obsidian.lua        # Toma de notas Obsidian
     │   ├── telekasten.lua      # Notas Zettelkasten
     │   ├── reloader.lua        # Recargador de configuración
-    │   ├── 99.lua              # Integración con IA
     │   └── nvim-web-devicons.lua # Iconos de archivos
     ├── plugins-off/            # Plugins deshabilitados
     │   ├── alpha.lua
@@ -93,7 +90,9 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
     │   ├── dap-keymaps.lua
     │   ├── yanky-keymaps.lua
     │   ├── telekasten-keymaps.lua
-    │   └── conform-keymaps.lua
+    │   ├── conform-keymaps.lua
+    │   ├── fzf-lua-keymaps.lua
+    │   └── obsidian-keymaps.lua
     └── lsp/                    # Configuraciones de Language Servers
         ├── gopls.lua           # Go language server
         ├── vtsls.lua           # TypeScript/JavaScript LSP
@@ -199,22 +198,20 @@ vim.api.nvim_create_autocmd("DirChanged", {
 
 ### Función de Attach General
 ```lua
-_G.lsp_on_attach = function(client, bufnr)
+local function lsp_on_attach(client, bufnr)
     local opts = { buffer = bufnr, silent = true }
-    
-    -- Desactivar semantic tokens si no se necesitan
+    local map = vim.keymap.set
+
     client.server_capabilities.semanticTokensProvider = nil
-    
-    -- Keybindings de navegación LSP
-    map("n", "gd", function() Snacks.picker.lsp_definitions() end, opts)
-    map("n", "gD", function() Snacks.picker.lsp_references() end, opts)
-    map("n", "gi", function() Snacks.picker.lsp_implementations() end, opts)
-    map("n", "gt", function() Snacks.picker.lsp_type_definitions() end, opts)
-    map("n", "K", vim.lsp.buf.hover, opts)
-    map("n", ".", vim.lsp.buf.code_action, opts)
-    map("v", ".", vim.lsp.buf.code_action, opts)
-    map("n", "<leader>rn", vim.lsp.buf.rename, opts)
-    map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+
+    map("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to Definition" })
+    map("n", "gD", Snacks.picker.lsp_references, { buffer = bufnr, desc = "Go to Declaration" })
+    map("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Implementation" })
+    map("n", "gt", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Type Definition" })
+    map("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
+    map("n", ".", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Actions" }))
+    map("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename Symbol" })
+    map("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
 end
 ```
 
@@ -259,17 +256,25 @@ require("lazy").setup("plugins")
 
 ### Configuraciones Destacadas
 
+**blink.cmp (plugins/blink-cmp.lua)**
+- Fuentes: LSP, lazydev, snippets, buffer, path
+- Búsqueda fuzzy potenciada por Rust
+- Autocompletado en línea de comandos
+- Ayuda de firmas con parameter hints
+- Integración con LuaSnip
+
 **Telescope (plugins/telescope.lua)**
 - Extensiones: file_browser, live_grep, neovim-project
 - Integración con snacks.picker
 
+**fzf-lua (plugins/fzf-lua.lua)**
+- Búsqueda fuzzy rápida con rendimiento nativo de fzf
+- Selectores de archivos, buffers, grep y símbolos
+- Layout de vista previa horizontal
+
 **Treesitter (plugins/treesitter.lua)**
 - Highlight para múltiples lenguajes
 - Auto-install de parsers
-
-**nvim-cmp (plugins/nvim-cmp.lua)**
-- Fuentes: LSP, buffer, path, luasnip
-- Configuración de comportamiento y apariencia
 
 **DAP (config/dap-config.lua)**
 - Soporte para Go, TypeScript/JavaScript, C#
@@ -294,28 +299,12 @@ end
 
 **Runner de Proyectos**
 ```lua
-function M.run_project()
-    local ext = vim.fn.expand("%:e")
-    local file = vim.fn.expand("%:p")
-    local cmd
-    
-    if ext == "cs" then
-        cmd = "dotnet run"
-    elseif ext == "ts" or ext == "js" then
-        if vim.fn.filereadable("bun.lock") == 1 then
-            cmd = "bun run dev"
-        elseif vim.fn.filereadable("package.json") == 1 then
-            cmd = "npm start"
-        else
-            cmd = "node " .. file
-        end
-    elseif ext == "go" then
-        cmd = "go run " .. file
-    -- ... más lenguajes
-    end
-    
-    runner.cmd = cmd
-    runner:toggle()
+function M.runner_run()
+    require("unirunner").run()
+end
+
+function M.runner_select_run()
+    require("unirunner").run_select()
 end
 ```
 
@@ -327,6 +316,26 @@ function M.search_notes()
         cwd = vim.fn.expand("~/notes"),
         prompt_title = "Pending tasks",
     })
+end
+```
+
+**Salto a Línea**
+```lua
+function M.jump_to_line()
+    local line_count = vim.api.nvim_buf_line_count(0)
+    local line = vim.fn.input("Jump to line (1-" .. line_count .. "): ")
+    if line and line ~= "" then
+        local num = tonumber((line:gsub("%D", "")))
+        if num then
+            if num >= 1 and num <= line_count then
+                vim.api.nvim_win_set_cursor(0, { num, 0 })
+            else
+                vim.notify("Line out of range (1-" .. line_count .. ")", vim.log.levels.WARN)
+            end
+        else
+            vim.notify("Invalid line number", vim.log.levels.WARN)
+        end
+    end
 end
 ```
 

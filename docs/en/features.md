@@ -42,6 +42,13 @@ This Neovim configuration includes a complete set of features designed to provid
 
 ### 2. Navigation and Movement
 
+#### Fzf-lua
+- Fuzzy file finding (`<leader>ff`)
+- Buffer management (`<leader>fb`)
+- Live grep text search (`<leader>sg`)
+- LSP symbol search (`<leader>ss`)
+- Fast native fzf performance with previews
+
 #### Harpoon 2.0
 - Quick file bookmarks (`<leader>a`)
 - Ctrl-1/2/3/4 navigation
@@ -49,11 +56,10 @@ This Neovim configuration includes a complete set of features designed to provid
 - Telescope integration
 
 #### Telescope
-- Fuzzy file finding (`<leader>f`)
-- Text search in files (`<leader>gp`)
-- Buffer management (`<leader>b`)
-- Recent file history (`<leader>r`)
-- Symbol search (`<leader>s`)
+- Recent file history (`<leader>fr`)
+- Project history (`<leader>fp`)
+- Project discovery (`<leader>fP`)
+- Yank history and extensions
 
 #### Flash
 - Ultra-fast navigation with highlighting
@@ -68,11 +74,13 @@ This Neovim configuration includes a complete set of features designed to provid
 
 ### 3. Editing and Productivity
 
-#### nvim-cmp
+#### blink.cmp
 - Intelligent autocompletion with multiple sources
-- Integration with LSP, snippets, buffer, path
+- Integration with LSP, snippets, buffer, path, lazydev
 - Type icons for each source
-- Behavior customization
+- Rust-powered fuzzy matching
+- Command-line completion
+- Signature help (parameter hints)
 
 #### LuaSnip
 - Powerful snippet engine
@@ -95,6 +103,12 @@ This Neovim configuration includes a complete set of features designed to provid
 - History navigation
 - Paste text cycling
 - System clipboard integration
+
+#### Conform
+- Async and sync formatting (`<leader>mf`, `<leader>mF`)
+- LSP fallback support
+- Visual selection formatting
+- Multi-language support
 
 ### 4. UI and Appearance
 
@@ -187,7 +201,7 @@ This Neovim configuration includes a complete set of features designed to provid
 - Logical key grouping
 - Menu customization
 
-#### Trouble
+#### Unidiagnostic / Trouble
 - Enhanced diagnostics visualization
 - LSP integration
 - Type/severity filtering
@@ -209,10 +223,11 @@ This Neovim configuration includes a complete set of features designed to provid
 
 #### Obsidian.nvim
 - **Note-taking**: Obsidian vault integration
-- **Daily notes**: Quick access to daily notes (`<leader>n` from dashboard)
-- **New notes**: Create new notes from dashboard
-- **Templates**: Templated note creation
-- **Backlinks**: Note linking and navigation
+- **Daily notes**: Quick access to daily notes (`<leader>od`)
+- **New notes**: Create new notes (`<leader>on`)
+- **Templates**: Templated note creation (`<leader>oT`)
+- **Backlinks**: Note linking and navigation (`<leader>ob`)
+- **Search**: Quick search across vault (`<leader>os`)
 
 #### Oil.nvim
 - **Buffer-based file editing**: Edit filesystem like a buffer
@@ -273,11 +288,12 @@ This Neovim configuration includes a complete set of features designed to provid
 |---------|----------|------------------|---------|
 | LSP | Language Support | Go, TS/JS, C#, Lua, Python, HTML/CSS | ✅ Active |
 | DAP | Development Tools | Go, TS/JS, C# | ✅ Active |
+| blink.cmp | Editing | All | ✅ Active |
+| fzf-lua | Navigation | All | ✅ Active |
 | Harpoon | Navigation | All | ✅ Active |
 | Telescope | Navigation | All | ✅ Active |
 | Neo-tree | File Management | All | ✅ Active |
 | Oil | File Management | All | ✅ Active |
-| nvim-cmp | Editing | All | ✅ Active |
 | Snacks.nvim | UI/Dashboard | All | ✅ Active |
 | Obsidian | Note-taking | Markdown | ✅ Active |
 | Multicursor | Editing | All | ✅ Active |

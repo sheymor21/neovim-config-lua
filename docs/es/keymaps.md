@@ -1,4 +1,4 @@
-# Keybindings
+# Atajos de Teclado (Keybindings)
 
 Esta guía de referencia cubre todos los keybindings principales configurados en esta distribución de Neovim, incluyendo el layout Colemak-DH optimizado.
 
@@ -38,21 +38,27 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `<leader>w` | `:w<CR>` | Guardar archivo |
 | `<leader>q` | `:q<CR>` | Cerrar archivo |
 | `<leader>W` | `:luafile %<CR>` | Ejecutar archivo Lua actual |
-| `<leader>ff` | Telescope find_files | Buscar archivos |
-| `<leader>fb` | Telescope buffers | Listar buffers |
+| `<leader>ff` | FzfLua files | Buscar archivos |
+| `<leader>fb` | FzfLua buffers | Listar buffers |
 | `<leader>fr` | Telescope oldfiles | Archivos recientes |
 | `<leader>fp` | Telescope neovim-project history | Historial de proyectos |
 | `<leader>fP` | Telescope neovim-project discover | Descubrir proyectos |
+| `<leader>j` | jump_to_line() | Saltar a línea específica |
 | `-` | Oil | Abrir directorio padre |
 
-### Búsqueda y Navegación
+### Búsqueda
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `<leader>sg` | Telescope live_grep | Buscar texto en archivos |
-| `<leader>ss` | Telescope aerial | Buscar símbolos |
+| `<leader>sg` | FzfLua live_grep | Buscar texto en archivos |
+| `<leader>ss` | FzfLua lsp_document_symbols | Buscar símbolos |
+
+### Navegación
+| Keybinding | Función | Descripción |
+|------------|---------|-------------|
 | `<leader>e` | `:Neotree toggle<CR>` | Toggle Neo-tree |
 | `<leader>E` | `:Oil<CR>` | Abrir Oil en ruta actual |
 | `<leader>re` | `:Neotree reveal_force_cwd<CR>` | Abrir Neo-tree en ruta actual |
+| `<leader>iwp` | window_picker() | Seleccionar ventana |
 
 ### Terminal y Ejecución
 | Keybinding | Función | Descripción |
@@ -64,11 +70,6 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `<leader>cc` | runner_config() | Añadir configuración de runner |
 | `<leader>ch` | runner_history() | Mostrar historial de runner |
 | `<leader>iwt` | runner_go_terminal() | Ir a terminal del runner |
-
-### Ventanas y Navegación
-| Keybinding | Función | Descripción |
-|------------|---------|-------------|
-| `<leader>iwp` | window_picker() | Seleccionar ventana |
 
 ### Funciones Inteligentes
 | Keybinding | Función | Descripción |
@@ -96,6 +97,26 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `<C-4>` | harpoon:list():select(4) | Ir a bookmark 4 |
 | `<leader>as` | telescope harpoon marks | Buscar bookmarks con Telescope |
 
+### Multicursor
+| Keybinding | Función | Descripción |
+|------------|---------|-------------|
+| `<C-n>` | mc_add_cursor_next() | Añadir cursor en siguiente coincidencia |
+| `<C-p>` | mc_add_cursor_prev() | Añadir cursor en coincidencia anterior |
+| `<leader>ma` | mc_match_all_cursors() | Añadir cursor a todas las coincidencias |
+| `<Esc>` | mc_clear_or_enable_cursors() | Limpiar o habilitar cursores |
+
+### Flash (folke/flash.nvim)
+| Keybinding | Función | Descripción |
+|------------|---------|-------------|
+| `f` | flash_jump() | Flash jump a carácter |
+| `F` | flash_treesitter() | Flash treesitter node |
+
+### Aerial (stevearc/aerial.nvim)
+| Keybinding | Función | Descripción |
+|------------|---------|-------------|
+| `{` | AerialPrev | Símbolo aerial anterior |
+| `}` | AerialNext | Siguiente símbolo aerial |
+
 ### Debug Adapter Protocol (DAP)
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
@@ -105,25 +126,21 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `<F12>` | dap.step_out() | Step out |
 | `<leader>ib` | toggle_breakpoint_or_debugger() | Toggle breakpoint / Insertar debugger (JS/TS) |
 | `<leader>iB` | dap.set_breakpoint() | Breakpoint condicional |
-| `<leader>dr` | dap.repl.open() | Abrir REPL |
-| `<leader>du` | dapui.toggle() | Toggle UI de debugging |
-| `<leader>dx` | dap.terminate() | Terminar debugging |
+| `<leader>cdr` | dap.repl.open() | Abrir REPL |
+| `<leader>cdu` | dapui.toggle() | Toggle UI de debugging |
+| `<leader>cdx` | dap.terminate() | Terminar debugging |
 
 ### DAP C# (Específico)
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `<leader>dd` | dap.continue() | Debug .NET API (solo archivos C#) |
-| `<leader>dt` | dap.run() | Debug Test NUnit (archivo actual) |
-| `<leader>dT` | dap.run() | Debug Todos los Tests NUnit |
+| `<leader>cdd` | dap.continue() | Debug .NET API (solo archivos C#) |
+| `<leader>cdt` | dap.run() | Debug Test NUnit (archivo actual) |
+| `<leader>cdT` | dap.run() | Debug Todos los Tests NUnit |
 
-### LazyGit
+### Integración (LazyGit & LazyDocker)
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
 | `<leader>ig` | lazygit | Abrir LazyGit |
-
-### LazyDocker
-| Keybinding | Función | Descripción |
-|------------|---------|-------------|
 | `<leader>id` | lazydocker | Abrir LazyDocker |
 
 ### Telekasten (Notas)
@@ -136,6 +153,34 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `<leader>zd` | telekasten.goto_today() | Ir a nota de hoy |
 | `<leader>zv` | telekasten.switch_vault() | Cambiar vault |
 
+### Obsidian
+| Keybinding | Función | Descripción |
+|------------|---------|-------------|
+| `<leader>oo` | Obsidian open | Abrir Obsidian App |
+| `<leader>on` | Obsidian new | Nueva nota en ideas/flash |
+| `<leader>ou` | Obsidian new (daily) | Nota única en daily |
+| `<leader>od` | Obsidian today | Abrir nota diaria de hoy |
+| `<leader>oD` | Obsidian yesterday | Abrir nota diaria de ayer |
+| `<leader>ot` | Obsidian tomorrow | Abrir nota diaria de mañana |
+| `<leader>os` | Obsidian search | Buscar notas |
+| `<leader>of` | Obsidian quick_switch | Cambio rápido entre notas |
+| `<leader>ob` | Obsidian backlinks | Mostrar backlinks |
+| `<leader>ol` | Obsidian links | Mostrar links |
+| `<leader>og` | Obsidian tags | Mostrar tags |
+| `<leader>ow` | Obsidian workspace | Cambiar workspace |
+| `<leader>or` | Obsidian rename | Renombrar nota |
+| `<leader>oe` | Obsidian extract_note | Extraer texto a nueva nota |
+| `<leader>op` | Obsidian paste_img | Pegar imagen del portapapeles |
+| `<leader>oc` | Obsidian toggle_checkbox | Toggle checkbox |
+| `<leader>oT` | Obsidian template | Insertar plantilla |
+| `<leader>ok` | Obsidian follow_link | Seguir link |
+| `<leader>oK` | Obsidian follow_link vsplit | Seguir link en vsplit |
+
+### Markdown
+| Keybinding | Función | Descripción |
+|------------|---------|-------------|
+| `<leader>mp` | toggle_peek_preview() | Toggle preview de Markdown |
+
 ### Yanky (Yank/Paste)
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
@@ -145,45 +190,61 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `[p` | yanky.put() | Pegar con indentación (antes) |
 | `>p` | yanky.put() | Ciclar hacia adelante en historial |
 | `<p` | yanky.put() | Ciclar hacia atrás en historial |
-| `<leader>yh` | telescope yank_history | Historial de yank |
+| `<leader>yh` | yank_history | Historial de yank con Telescope |
+| `<leader>yw` | ysiw | Surround word shortcut |
+
+### Trouble / Unidiagnostic
+| Keybinding | Función | Descripción |
+|------------|---------|-------------|
+| `<leader>isp` | UnidiagnosticToggle | Toggle panel de diagnósticos |
+| `<leader>isc` | UnidiagnosticCurrent | Mostrar diagnósticos del archivo actual |
+
+### Undotree (mbbill/undotree)
+| Keybinding | Función | Descripción |
+|------------|---------|-------------|
+| `<leader>u` | UndotreeToggle | Toggle undo tree |
 
 ### Conform (Formateo)
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `<leader>cf` | conform.format() | Formatear archivo |
-| `<leader>cf` | conform.format() | Formatear selección (visual)
+| `<leader>mf` | conform.format() | Formatear buffer (async) |
+| `<leader>mF` | conform.format() | Formatear buffer (sync) |
+| `<leader>mf` (visual) | conform.format() | Formatear selección |
 
-### Multicursor
+### Cellular Automaton (eandrju/cellular-automaton.nvim)
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `<C-n>` | mc_add_cursor_next() | Añadir cursor en siguiente coincidencia |
-| `<C-p>` | mc_add_cursor_prev() | Añadir cursor en coincidencia anterior |
-| `<leader>ma` | mc_match_all_cursors() | Añadir cursor a todas las coincidencias |
-| `<Esc>` | mc_clear_or_enable_cursors() | Limpiar o habilitar cursores |
+| `<leader>!` | CellularAutomaton make_it_rain | Make it rain |
 
 ## 📝 Keybindings LSP
 
 ### Navegación LSP
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `gd` | snacks.picker.lsp_definitions() | Ir a definición |
-| `gD` | snacks.picker.lsp_references() | Ver referencias |
-| `gi` | snacks.picker.lsp_implementations() | Ir a implementación |
-| `gt` | snacks.picker.lsp_type_definitions() | Ir a definición de tipo |
+| `gd` | vim.lsp.buf.definition() | Ir a definición |
+| `gD` | Snacks.picker.lsp_references() | Ver referencias |
+| `gi` | vim.lsp.buf.implementation() | Ir a implementación |
+| `gt` | vim.lsp.buf.type_definition() | Ir a definición de tipo |
 | `K` | vim.lsp.buf.hover() | Documentación en hover |
 | `.` | vim.lsp.buf.code_action() | Acciones de código |
 | `<leader>rn` | vim.lsp.buf.rename() | Renombrar símbolo |
 | `<leader>ca` | vim.lsp.buf.code_action() | Acción de código |
 | `<leader>cl` | vim.lsp.codelens.run() | Ejecutar CodeLens |
-| `<leader>th` | toggle_inlay_hints() | Toggle inlay hints |
 
 ### Diagnósticos LSP
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
 | `[d` | vim.diagnostic.goto_prev() | Ir a diagnóstico anterior |
 | `]d` | vim.diagnostic.goto_next() | Ir a siguiente diagnóstico |
-| `<leader>td` | toggle_diagnostics_display() | Toggle visualización de diagnósticos |
-| `<leader>isp` | Trouble diagnostics toggle | Toggle panel de diagnósticos |
+| `<leader>isd` | vim.diagnostic.open_float() | Diagnósticos de línea (float) |
+| `<leader>isq` | vim.diagnostic.setqflist() | Diagnósticos a quickfix |
+| `<leader>isl` | vim.diagnostic.setloclist() | Diagnósticos a loclist |
+| `<leader>td` | toggle_diagnostics_display() | Toggle virtual text/lines |
+
+### Características LSP
+| Keybinding | Función | Descripción |
+|------------|---------|-------------|
+| `<leader>th` | toggle_inlay_hints() | Toggle inlay hints |
 
 ## 🧪 Keybindings de Testing
 
@@ -201,24 +262,8 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 |------------|---------|-------------|
 | `<leader>it` | search_notes() | Buscar tareas pendientes en notas |
 | `<leader>ip` | unipackage_menu() | Menú de Unipackage |
-| `<leader>mp` | toggle_peek_preview() | Preview de Markdown |
 
-## 🔄 Colemak-DH Reversión
-
-Para revertir al layout estándar de Vim, consulta la guía [colemak-dh.md](colemak-dh.md).
-
-## 📚 Referencia Rápida
-
-### Atajos Más Usados
-- **Navegación**: n,e,i,o (izquierda, abajo, arriba, derecha)
-- **Archivos**: `<leader>ff` (buscar), `<leader>w` (guardar)
-- **LSP**: `gd` (definición), `K` (documentación), `<leader>th` (inlay hints)
-- **Git**: `<leader>ig` (LazyGit)
-- **Testing**: `<leader>iur` (ejecutar tests)
-- **Multicursor**: `<C-n>` (añadir cursor), `<Esc>` (limpiar)
-- **Flash**: `f` (saltar), `F` (treesitter)
-
-### 99 Plugin (IA)
+### Plugin 99 (IA)
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
 | `<leader>9v` | 99.visual() | IA reemplazar selección visual |
@@ -242,6 +287,22 @@ Para revertir al layout estándar de Vim, consulta la guía [colemak-dh.md](cole
 | `<leader>nh` | checkhealth | Health check |
 | `<leader>nn` | Noice | Mostrar Noice |
 | `<leader>np` | %bd!\|e# | Purgar Buffers |
+
+## 🔄 Reversión Colemak-DH
+
+Para revertir al layout estándar de Vim, consulta la guía [colemak-dh.md](colemak-dh.md).
+
+## 📚 Referencia Rápida
+
+### Atajos Más Usados
+- **Navegación**: n,e,i,o (izquierda, abajo, arriba, derecha)
+- **Archivos**: `<leader>ff` (buscar), `<leader>w` (guardar)
+- **LSP**: `gd` (definición), `K` (documentación), `<leader>th` (inlay hints)
+- **Git**: `<leader>ig` (LazyGit)
+- **Testing**: `<leader>iur` (ejecutar tests)
+- **Búsqueda**: `<leader>sg` (live grep), `<leader>ss` (símbolos)
+- **Multicursor**: `<C-n>` (añadir cursor), `<Esc>` (limpiar)
+- **Flash**: `f` (saltar), `F` (treesitter)
 
 ## 🌐 Idiomas
 

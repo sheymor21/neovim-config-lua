@@ -38,18 +38,19 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>w` | `:w<CR>` | Save file |
 | `<leader>q` | `:q<CR>` | Close file |
 | `<leader>W` | `:luafile %<CR>` | Execute current Lua file |
-| `<leader>ff` | Telescope find_files | Find files |
-| `<leader>fb` | Telescope buffers | List buffers |
+| `<leader>ff` | FzfLua files | Find files |
+| `<leader>fb` | FzfLua buffers | List buffers |
 | `<leader>fr` | Telescope oldfiles | Recent files |
 | `<leader>fp` | Telescope neovim-project history | Project history |
 | `<leader>fP` | Telescope neovim-project discover | Discover projects |
+| `<leader>j` | jump_to_line() | Jump to specific line |
 | `-` | Oil | Open parent directory |
 
 ### Search
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>sg` | Telescope live_grep | Search text in files |
-| `<leader>ss` | Telescope aerial | Search symbols |
+| `<leader>sg` | FzfLua live_grep | Search text in files |
+| `<leader>ss` | FzfLua lsp_document_symbols | Search symbols |
 
 ### Navigation
 | Keybinding | Function | Description |
@@ -125,16 +126,16 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<F12>` | dap.step_out() | Step out |
 | `<leader>ib` | toggle_breakpoint_or_debugger() | Toggle breakpoint / Insert debugger (JS/TS) |
 | `<leader>iB` | dap.set_breakpoint() | Conditional breakpoint |
-| `<leader>dr` | dap.repl.open() | Open REPL |
-| `<leader>du` | dapui.toggle() | Toggle debugging UI |
-| `<leader>dx` | dap.terminate() | Terminate debugging |
+| `<leader>cdr` | dap.repl.open() | Open REPL |
+| `<leader>cdu` | dapui.toggle() | Toggle debugging UI |
+| `<leader>cdx` | dap.terminate() | Terminate debugging |
 
 ### C# DAP (Specific)
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>dd` | dap.continue() | Debug .NET API (C# files only) |
-| `<leader>dt` | dap.run() | Debug NUnit Test (current file) |
-| `<leader>dT` | dap.run() | Debug All NUnit Tests |
+| `<leader>cdd` | dap.continue() | Debug .NET API (C# files only) |
+| `<leader>cdt` | dap.run() | Debug NUnit Test (current file) |
+| `<leader>cdT` | dap.run() | Debug All NUnit Tests |
 
 ### Integration (LazyGit & LazyDocker)
 | Keybinding | Function | Description |
@@ -151,6 +152,29 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>zg` | telekasten.search_notes() | Search in notes |
 | `<leader>zd` | telekasten.goto_today() | Go to today's note |
 | `<leader>zv` | telekasten.switch_vault() | Switch vault |
+
+### Obsidian
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>oo` | Obsidian open | Open Obsidian App |
+| `<leader>on` | Obsidian new | New note in ideas/flash |
+| `<leader>ou` | Obsidian new (daily) | Unique note in daily |
+| `<leader>od` | Obsidian today | Open today's daily note |
+| `<leader>oD` | Obsidian yesterday | Open yesterday's daily note |
+| `<leader>ot` | Obsidian tomorrow | Open tomorrow's daily note |
+| `<leader>os` | Obsidian search | Search notes |
+| `<leader>of` | Obsidian quick_switch | Quick switch between notes |
+| `<leader>ob` | Obsidian backlinks | Show backlinks |
+| `<leader>ol` | Obsidian links | Show links |
+| `<leader>og` | Obsidian tags | Show tags |
+| `<leader>ow` | Obsidian workspace | Switch workspace |
+| `<leader>or` | Obsidian rename | Rename note |
+| `<leader>oe` | Obsidian extract_note | Extract text to new note |
+| `<leader>op` | Obsidian paste_img | Paste image from clipboard |
+| `<leader>oc` | Obsidian toggle_checkbox | Toggle checkbox |
+| `<leader>oT` | Obsidian template | Insert template |
+| `<leader>ok` | Obsidian follow_link | Follow link |
+| `<leader>oK` | Obsidian follow_link vsplit | Follow link in vsplit |
 
 ### Markdown
 | Keybinding | Function | Description |
@@ -169,15 +193,23 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>yh` | yank_history | Yank history with Telescope |
 | `<leader>yw` | ysiw | Surround word shortcut |
 
-### Trouble (folke/trouble.nvim)
+### Trouble / Unidiagnostic
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>isp` | Trouble diagnostics toggle | Toggle diagnostics panel |
+| `<leader>isp` | UnidiagnosticToggle | Toggle diagnostics panel |
+| `<leader>isc` | UnidiagnosticCurrent | Show current file diagnostics |
 
 ### Undotree (mbbill/undotree)
 | Keybinding | Function | Description |
 |------------|----------|-------------|
 | `<leader>u` | UndotreeToggle | Toggle undo tree |
+
+### Conform (Formatting)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>mf` | conform.format() | Format buffer (async) |
+| `<leader>mF` | conform.format() | Format buffer (sync) |
+| `<leader>mf` (visual) | conform.format() | Format selection |
 
 ### Cellular Automaton (eandrju/cellular-automaton.nvim)
 | Keybinding | Function | Description |
@@ -189,10 +221,10 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 ### LSP Navigation
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `gd` | snacks.picker.lsp_definitions() | Go to definition |
-| `gD` | snacks.picker.lsp_references() | See references |
-| `gi` | snacks.picker.lsp_implementations() | Go to implementation |
-| `gt` | snacks.picker.lsp_type_definitions() | Go to type definition |
+| `gd` | vim.lsp.buf.definition() | Go to definition |
+| `gD` | Snacks.picker.lsp_references() | See references |
+| `gi` | vim.lsp.buf.implementation() | Go to implementation |
+| `gt` | vim.lsp.buf.type_definition() | Go to type definition |
 | `K` | vim.lsp.buf.hover() | Hover documentation |
 | `.` | vim.lsp.buf.code_action() | Code actions |
 | `<leader>rn` | vim.lsp.buf.rename() | Rename symbol |
@@ -204,8 +236,10 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 |------------|----------|-------------|
 | `[d` | vim.diagnostic.goto_prev() | Go to previous diagnostic |
 | `]d` | vim.diagnostic.goto_next() | Go to next diagnostic |
+| `<leader>isd` | vim.diagnostic.open_float() | Line diagnostics (float) |
+| `<leader>isq` | vim.diagnostic.setqflist() | Diagnostics to quickfix |
+| `<leader>isl` | vim.diagnostic.setloclist() | Diagnostics to loclist |
 | `<leader>td` | toggle_diagnostics_display() | Toggle virtual text/lines |
-| `<leader>isp` | Trouble diagnostics toggle | Toggle diagnostics panel |
 
 ### LSP Features
 | Keybinding | Function | Description |

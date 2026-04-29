@@ -6,7 +6,7 @@ This guide will help you install and configure all necessary dependencies for yo
 
 ### Operating System
 - **Linux** (Arch Linux recommended, compatible with other distributions)
-- **Neovim 0.9.0+** with Lua support
+- **Neovim 0.10.0+** with Lua support (required for blink.cmp)
 
 ### Required External Tools
 
@@ -53,7 +53,19 @@ git --version
 # macOS: brew install git
 ```
 
-#### 4. Formatting Tools
+#### 4. Rust & Cargo (for blink.cmp)
+```bash
+# Arch Linux
+sudo pacman -S rust
+
+# Or via rustup
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Verify installation
+cargo --version
+```
+
+#### 5. Formatting Tools
 
 ##### Prettier (JavaScript/TypeScript)
 ```bash
@@ -88,7 +100,7 @@ sudo pacman -S stylua
 stylua --version
 ```
 
-#### 5. .NET SDK (for C#)
+#### 6. .NET SDK (for C#)
 ```bash
 # Arch Linux
 sudo pacman -S dotnet-sdk
@@ -133,7 +145,7 @@ which gopls
 nvim
 ```
 
-Lazy.nvim will automatically install and download all configured plugins.
+Lazy.nvim will automatically install and download all configured plugins. **Note**: blink.cmp will compile its Rust components on first install, which may take a moment.
 
 ## ✅ Verification
 
@@ -192,6 +204,14 @@ nvim
 which prettier black stylua shfmt csharpier
 ```
 
+#### 5. blink.cmp build fails
+```bash
+# Ensure Rust/Cargo is installed and on PATH
+cargo --version
+# Reinstall blink.cmp via Lazy
+:Lazy update saghen/blink.cmp
+```
+
 ## 🔄 Updates
 
 ### Update Plugins
@@ -211,6 +231,7 @@ git pull origin main
 - [Neovim Documentation](https://neovim.io/doc/)
 - [Lazy.nvim Guide](https://github.com/folke/lazy.nvim)
 - [Mason.nvim](https://github.com/williamboman/mason.nvim)
+- [blink.cmp Documentation](https://cmp.saghen.dev/)
 
 ## 🌐 Languages
 
