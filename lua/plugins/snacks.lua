@@ -23,7 +23,6 @@ return {
 				-- Override all default keys (don't include the default 's' for session)
 				keys = {
 					{ icon = "", key = "f", desc = "Find File", action = ":FzfLua files" },
-					{ icon = "", key = "g", desc = "Live Grep", action = ":FzfLua live_grep" },
 					{ icon = "", key = "p", desc = "Projects", action = ":NeovimProjectDiscover" },
 					{ icon = "", key = "n", desc = "Daily Note", action = ":Telekasten goto_today" },
 					{ icon = "", key = "N", desc = "New Note", action = ":Telekasten new_templated_note" },
