@@ -3,6 +3,9 @@
 
 local M = {}
 
+-- Track last cursor position for jumplist detection
+local last_cursor_pos = nil
+
 -- Track last known good state
 local plugin_states = {
     which_key = { last_check = 0, healthy = true },
@@ -128,6 +131,30 @@ function M.setup()
             if uptime > 1800 then
                 M.check_health()
             end
+        end,
+    })
+
+    -- Fix leader key after jumplist navigation (Ctrl+o/Ctrl+i)
+    -- This resets any stuck key state that can occur after buffer jumps
+    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+        group = augroup,
+        callback = function()
+            local current_pos = vim.api.nvim_win_get_cursor(0)
+            local current_buf = vim.api.nvim_get_current_buf()
+
+            if last_cursor_pos and last_cursor_pos.buf ~= current_buf then
+                -- Buffer changed - likely jumplist navigation
+                vim.schedule(function()
+                    -- Reset any stuck key state by sending <Esc>
+                    vim.api.nvim_feedkeys(
+                        vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
+                        "n",
+                        true
+                    )
+                end)
+            end
+
+            last_cursor_pos = { buf = current_buf, row = current_pos[1], col = current_pos[2] }
         end,
     })
     
