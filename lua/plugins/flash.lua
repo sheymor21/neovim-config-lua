@@ -9,8 +9,8 @@ return {
         label = {
             rainbow = { enabled = false },
             uppercase = true,
-            before = true, -- Label antes del match
-            after = false, -- No poner label después
+            before = true, -- Label before match
+            after = false, -- Don't put label after
         },
         highlight = {
             groups = {

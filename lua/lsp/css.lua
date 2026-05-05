@@ -19,7 +19,7 @@ local css_config = {
     },
 }
 
--- Auto iniciar en archivos CSS
+-- Auto start on CSS files
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "css", "scss", "less" },
     callback = function(args)

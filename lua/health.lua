@@ -94,7 +94,8 @@ function M.check()
     vim.health.info("Telekasten Vault:")
     local telekasten_ok, telekasten = pcall(require, "telekasten")
     if telekasten_ok then
-        local vault_path = vim.fn.expand("~/Documents/Sheymor")
+        local paths = require("config.paths")
+        local vault_path = paths.vault_path
         if vim.fn.isdirectory(vault_path) == 1 then
             vim.health.ok("Vault found at " .. vault_path)
         else

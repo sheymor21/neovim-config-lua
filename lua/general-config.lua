@@ -58,7 +58,7 @@ vim.diagnostic.config({
 local last_project = nil
 vim.api.nvim_create_autocmd("DirChanged", {
 	group = augroup,
-	desc = "Limpiar buffers fuera del proyecto actual",
+	desc = "Clean buffers outside current project",
 	callback = function()
 		local cwd = vim.uv.cwd()
 		if cwd == last_project then

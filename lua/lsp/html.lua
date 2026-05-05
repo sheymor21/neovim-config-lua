@@ -14,7 +14,7 @@ local html_config = {
     root_dir = get_root_dir,
 }
 
--- Auto iniciar cuando abras .html
+-- Auto start when opening .html
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "html", "htm" },
     callback = function(args)

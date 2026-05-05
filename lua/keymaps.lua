@@ -13,18 +13,18 @@ local map = vim.keymap.set
 local behavior = require("function-keymaps");
 
 -- =========================
--- MOVIMIENTO COLEMAK-DH
+-- COLEMAK-DH MOVEMENT
 -- =========================
-map({ "n", "v" }, "n", "h") -- izquierda
-map({ "n", "v" }, "e", "j") -- abajo
-map({ "n", "v" }, "i", "k") -- arriba
-map({ "n", "v" }, "o", "l") -- derecha
+map({ "n", "v" }, "n", "h") -- left
+map({ "n", "v" }, "e", "j") -- down
+map({ "n", "v" }, "i", "k") -- up
+map({ "n", "v" }, "o", "l") -- right
 
-map({ "n", "v" }, "E", "J") -- abajo
-map({ "n", "v" }, "I", "K") -- arriba
-map({ "n", "v" }, "O", "L") -- derecha
+map({ "n", "v" }, "E", "J") -- down
+map({ "n", "v" }, "I", "K") -- up
+map({ "n", "v" }, "O", "L") -- right
 
--- Desactivar los originales
+-- Disable original keys
 map({ "n", "v" }, "h", "<nop>")
 map({ "n", "v" }, "j", "<nop>")
 map({ "n", "v" }, "k", "<nop>")
@@ -35,11 +35,11 @@ map({ "n", "v" }, "J", "<nop>")
 map({ "n", "v" }, "K", "<nop>")
 map({ "n", "v" }, "L", "<nop>")
 
--- Inicio / fin de línea
+-- Start / end of line
 map({ "n", "v" }, "N", "^")
 map({ "n", "v" }, "O", "$")
 
--- Scroll cómodo
+-- Comfortable scroll
 map("n", "E", "<C-d>")
 map("n", "I", "<C-u>")
 
@@ -60,15 +60,15 @@ map("n", "<leader>E", ":Oil .<CR>", { noremap = true, silent = true, desc = "Ope
 -- =========================
 -- KEYMAPS SYSTEM
 -- =========================
-map("n", "<leader>w", ":w<CR>", { noremap = true, silent = true, desc = "Guardar archivo" })
-map("n", "<leader>q", ":q<CR>", { noremap = true, silent = true, desc = "Cerrar archivo" })
-map("n", "<leader>W", ":luafile %<CR>", { noremap = true, silent = true, desc = "Ejecutar Lua" })
+map("n", "<leader>w", ":w<CR>", { noremap = true, silent = true, desc = "Save file" })
+map("n", "<leader>q", ":q<CR>", { noremap = true, silent = true, desc = "Close file" })
+map("n", "<leader>W", ":luafile %<CR>", { noremap = true, silent = true, desc = "Run Lua" })
 map("n", "<leader>j", behavior.jump_to_line, { desc = "Jump to line number" })
 
--- Archivos y búsqueda (fzf-lua remaps <leader>ff, <leader>fb, <leader>sg, <leader>ss)
-map("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Recientes" })
-map("n", "<leader>fP", "<cmd>Telescope neovim-project discover<cr>", { desc = "Descubrir Proyectos" })
-map("n", "<leader>fp", "<cmd>Telescope neovim-project history<cr>", { desc = "Abrir Historial Proyectos" })
+-- Files and search (fzf-lua remaps <leader>ff, <leader>fb, <leader>sg, <leader>ss)
+map("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Recent files" })
+map("n", "<leader>fP", "<cmd>Telescope neovim-project discover<cr>", { desc = "Discover Projects" })
+map("n", "<leader>fp", "<cmd>Telescope neovim-project history<cr>", { desc = "Open Project History" })
 
 map("n", "<leader>yw", "ysiw", { remap = true })
 map("n", "ys", "<Plug>(nvim-surround-normal)", {desc = "Add a surrounding pair around a motion (normal mode)"})

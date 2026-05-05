@@ -23,9 +23,10 @@ function M.add_coma()
 end
 
 function M.search_notes()
+    local paths = require("config.paths")
     require("telescope.builtin").grep_string({
         search = "- [ ]",
-        cwd = vim.fn.expand("~/Documents/Sheymor"),
+        cwd = paths.vault_path,
         prompt_title = "Pending tasks",
     })
 end

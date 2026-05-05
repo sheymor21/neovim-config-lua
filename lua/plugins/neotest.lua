@@ -6,7 +6,7 @@ return {
         "nvim-treesitter/nvim-treesitter",
         "nvim-neotest/nvim-nio",
 
-        -- Necesario para cursorhold estable
+        -- Required for stable cursorhold
         "antoinemadec/FixCursorHold.nvim",
 
         -- Adapters
@@ -97,7 +97,7 @@ return {
                     width = 120,
                 },
                 dap = {
-                    -- deja que dap use su propia config
+                    -- let dap use its own config
                     justMyCode = false,
                 },
             },

@@ -225,7 +225,7 @@ dap.configurations.cs = {
 		if project then
 			return vim.fn.fnamemodify(project, ":h")
 		end
-	return vim.fn.getcwd()
+		return vim.fn.getcwd()
 	end,
 	env = function()
 		local url = get_launchsettings_url()

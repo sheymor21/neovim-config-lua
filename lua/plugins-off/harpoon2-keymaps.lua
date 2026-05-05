@@ -2,7 +2,7 @@ local opts = { noremap = true, silent = true }
 local map = vim.keymap.set
 local ui = require("harpoon").ui
 
--- Añadir archivo a Harpoon
+-- Add file to Harpoon
 map("n", "<leader>aa", function()
 	local harpoon = require("harpoon")
 	harpoon:list():add()
@@ -10,7 +10,7 @@ map("n", "<leader>aa", function()
 	vim.notify("Harpoon: " .. filename .. " added", vim.log.levels.INFO)
 end, vim.tbl_extend("force", opts, { desc = "Harpoon: add file" }))
 
--- Toggle quick menu de Harpoon
+-- Toggle Harpoon quick menu
 map("n", "<leader>ah", function()
 	ui:toggle_quick_menu(require("harpoon"):list())
 end, vim.tbl_extend("force", opts, { desc = "Harpoon: toggle menu" }))

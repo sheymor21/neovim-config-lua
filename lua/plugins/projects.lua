@@ -8,7 +8,7 @@ return {
         },
         last_session_on_startup = false,
 
-        -- Configuración de dashboard (opcional)
+        -- Dashboard configuration (optional)
         dashboard_mode = false,
     },
     dependencies = {

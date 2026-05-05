@@ -1,4 +1,5 @@
 local map = vim.keymap.set
+local Snacks = require("snacks")
 
 -- LazyGit
 map("n", "<leader>ig", function()
@@ -12,9 +13,8 @@ end, { desc = "Toggle Terminal" })
 
 -- LazyDocker (using terminal)
 map("n", "<leader>id", function()
-    local utils = require("utils")
-    if not utils.command_exists("lazydocker") then
-        vim.notify("LazyDocker no está instalado", vim.log.levels.ERROR)
+    if vim.fn.executable("lazydocker") ~= 1 then
+        vim.notify("LazyDocker is not installed", vim.log.levels.ERROR)
         return
     end
     Snacks.terminal({ "lazydocker" })

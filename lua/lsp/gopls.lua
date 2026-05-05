@@ -19,7 +19,7 @@ local gopls_config = {
     },
 }
 
--- Auto iniciar en archivos GO
+-- Auto start on Go files
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "go", "gomod", "gowork", "gotmpl" },
     callback = function(args)

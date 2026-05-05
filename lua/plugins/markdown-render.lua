@@ -18,7 +18,7 @@ return {
                 syntax = true,
                 theme = 'dark',
                 update_on_change = true,
-                app = 'browser', -- Cambia a 'browser' en lugar de 'webview'
+                app = 'browser', -- Change to 'browser' instead of 'webview'
                 filetype = { 'markdown' },
             })
         end,
