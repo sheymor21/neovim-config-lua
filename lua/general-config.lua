@@ -103,4 +103,18 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- Auto-enter insert mode for snacks.nvim input dialogs
+vim.api.nvim_create_autocmd("FileType", {
+	group = augroup,
+	pattern = { "snacks_input", "snacks_picker_input" },
+	callback = function()
+		vim.defer_fn(function()
+			local ft = vim.bo.filetype
+			if vim.fn.mode() ~= "i" and (ft == "snacks_input" or ft == "snacks_picker_input") then
+				vim.cmd("startinsert!")
+			end
+		end, 50)
+	end,
+})
+
 
