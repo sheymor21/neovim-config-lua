@@ -10,10 +10,15 @@ return {
 
         -- Dashboard configuration (optional)
         dashboard_mode = false,
+
+        -- Use snacks.nvim picker instead of telescope
+        picker = {
+            type = "snacks",
+        },
     },
     dependencies = {
         { "nvim-lua/plenary.nvim" },
-        { "nvim-telescope/telescope.nvim" },
+        { "folke/snacks.nvim" },
         { "Shatur/neovim-session-manager" },
     },
     event = "VimEnter",

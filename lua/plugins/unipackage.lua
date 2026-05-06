@@ -3,6 +3,7 @@ return {
     config = function()
         require("unipackage").setup({
             fallback_to_any = false,
+            picker = "snacks",
             search_batch_size = 15,
             version_selection = {
                 enabled = true,
