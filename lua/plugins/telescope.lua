@@ -20,6 +20,7 @@ return {
                 prompt_prefix = "   ",
                 selection_caret = " ",
                 path_display = { "truncate" },
+                initial_mode = "insert",
 
                 mappings = {
                     i = {
