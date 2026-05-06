@@ -6,7 +6,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	group = augroup,
 	callback = function(args)
 		local ft = vim.bo[args.buf].filetype
-		
+		local bt = vim.bo[args.buf].buftype
+
+		-- Skip prompt buffers (snacks picker/input) to avoid interfering with their mode
+		if bt == "prompt" then
+			return
+		end
+
 		-- Oil doesn't need cleanup like neo-tree did
 
 		-- Filetype detection
@@ -102,7 +108,6 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.foldenable = true
 	end,
 })
-
 -- Auto-enter insert mode for snacks.nvim input dialogs
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup,
@@ -113,7 +118,7 @@ vim.api.nvim_create_autocmd("FileType", {
 			if vim.fn.mode() ~= "i" and (ft == "snacks_input" or ft == "snacks_picker_input") then
 				vim.cmd("startinsert!")
 			end
-		end, 50)
+		end, 35)
 	end,
 })
 
