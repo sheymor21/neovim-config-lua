@@ -24,10 +24,13 @@ end
 
 function M.search_notes()
     local paths = require("config.paths")
-    require("telescope.builtin").grep_string({
-        search = "- [ ]",
+    local Snacks = require("snacks")
+
+    -- Use snacks grep with a fixed search pattern for pending tasks
+    Snacks.picker.grep({
         cwd = paths.vault_path,
-        prompt_title = "Pending tasks",
+        search = "- [ ]",
+        prompt = "Pending tasks❯ ",
     })
 end
 
@@ -166,6 +169,136 @@ function M.jump_to_line()
         else
             vim.notify("Invalid line number", vim.log.levels.WARN)
         end
+    end
+end
+
+-- ZealSearch smart docset mapping
+local zealsearch_docset_map = {
+    typescript = "TypeScript",
+    javascript = "JavaScript",
+    lua = "Lua",
+    python = "Python",
+    rust = "Rust",
+    go = "Go",
+    html = "HTML",
+    css = "CSS",
+    cs = "C#",
+    csharp = "C#",
+    cpp = "C++",
+    c = "C",
+    java = "Java",
+    ruby = "Ruby",
+    php = "PHP",
+    sh = "Bash",
+    bash = "Bash",
+    zsh = "Zsh",
+    vim = "Vim",
+    nvim = "Neovim",
+    sql = "SQL",
+    dockerfile = "Docker",
+    yaml = "YAML",
+    json = "JSON",
+    markdown = "Markdown",
+    react = "React",
+    vue = "Vue.js",
+    angular = "Angular",
+    svelte = "Svelte",
+}
+
+-- Store last query for repeat
+local last_zeal_query = nil
+local last_zeal_docset = nil
+
+function M.zeal_search_input()
+    vim.cmd("ZealSearchInput")
+end
+
+function M.zeal_search()
+    local ft = vim.bo.filetype
+    local docset = zealsearch_docset_map[ft]
+    local query = vim.fn.expand("<cword>")
+
+    -- Skip punctuation/symbols and get the actual word
+    if query:match("^%W+$") then
+        -- Save cursor position
+        local save_pos = vim.fn.getpos(".")
+        -- Search backward for a word character
+        vim.cmd("normal! b")
+        query = vim.fn.expand("<cword>")
+        -- Restore cursor if we got another non-word
+        if query:match("^%W+$") then
+            vim.fn.setpos(".", save_pos)
+            vim.notify("No word found to search", vim.log.levels.WARN)
+            return
+        end
+        vim.fn.setpos(".", save_pos)
+    end
+
+    -- Store for repeat
+    last_zeal_query = query
+    last_zeal_docset = docset
+
+    if docset then
+        local zealsearch = require("zealsearch")
+        local docsets = require("zealsearch.docsets")
+        local all_docsets = docsets.discover(zealsearch.config.docsets_path)
+        local found = false
+
+        for _, ds in ipairs(all_docsets) do
+            if ds.name:lower() == docset:lower() then
+                found = true
+                break
+            end
+        end
+
+        if found then
+            zealsearch.search_docset(docset, query)
+            return
+        end
+    end
+
+    -- Fallback: search all docsets
+    require("zealsearch").search(query)
+end
+
+function M.zeal_search_all()
+    local query = vim.fn.expand("<cword>")
+
+    -- Skip punctuation/symbols and get the actual word
+    if query:match("^%W+$") then
+        -- Save cursor position
+        local save_pos = vim.fn.getpos(".")
+        -- Search backward for a word character
+        vim.cmd("normal! b")
+        query = vim.fn.expand("<cword>")
+        -- Restore cursor if we got another non-word
+        if query:match("^%W+$") then
+            vim.fn.setpos(".", save_pos)
+            vim.notify("No word found to search", vim.log.levels.WARN)
+            return
+        end
+        vim.fn.setpos(".", save_pos)
+    end
+
+    -- Store for repeat
+    last_zeal_query = query
+    last_zeal_docset = nil
+
+    require("zealsearch").search(query)
+end
+
+function M.zeal_search_repeat()
+    if not last_zeal_query or last_zeal_query == "" then
+        -- No last query, use word under cursor
+        M.zeal_search()
+        return
+    end
+
+    -- Repeat last search
+    if last_zeal_docset then
+        require("zealsearch").search_docset(last_zeal_docset, last_zeal_query)
+    else
+        require("zealsearch").search(last_zeal_query)
     end
 end
 
