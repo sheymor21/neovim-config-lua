@@ -66,9 +66,13 @@ map("n", "<leader>W", ":luafile %<CR>", { noremap = true, silent = true, desc = 
 map("n", "<leader>j", behavior.jump_to_line, { desc = "Jump to line number" })
 
 -- Files and search (fzf-lua remaps <leader>ff, <leader>fb, <leader>sg, <leader>ss)
-map("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Recent files" })
-map("n", "<leader>fP", "<cmd>Telescope neovim-project discover<cr>", { desc = "Discover Projects" })
-map("n", "<leader>fp", "<cmd>Telescope neovim-project history<cr>", { desc = "Open Project History" })
+-- Recent files using snacks picker
+map("n", "<leader>fr", function()
+    require("snacks").picker.recent()
+end, { desc = "Recent files" })
+-- Projects using neovim-project with snacks picker (via neovim-project config)
+map("n", "<leader>fP", "<cmd>NeovimProjectDiscover<cr>", { desc = "Discover Projects" })
+map("n", "<leader>fp", "<cmd>NeovimProjectLoadRecent<cr>", { desc = "Open Recent Project" })
 
 map("n", "<leader>yw", "ysiw", { remap = true })
 map("n", "ys", "<Plug>(nvim-surround-normal)", {desc = "Add a surrounding pair around a motion (normal mode)"})
@@ -116,6 +120,10 @@ map("n", "<leader>iud", behavior.neotest_debug, { desc = "Use Neotest Debug" })
 map("n", "<leader>iwp", behavior.window_picker, { desc = "Pick a window" })
 map("n", "<leader>iwt", behavior.runner_go_terminal, { desc = "Go to runner terminal" })
 map("n", "<leader>ip", behavior.unipackage_menu, { desc = "Unipackage Menu" })
+
+-- ZealSearch keymaps
+map("n", "<leader>iz", behavior.zeal_search_input, { desc = "Zeal search input" })
+map("n", "<leader>iZ", behavior.zeal_search_repeat, { desc = "Zeal search repeat last" })
 
 -- LSP and diagnostic keymaps
 map("n", "<leader>th", behavior.toggle_inlay_hints, { desc = "Toggle Inlay Hints" })
