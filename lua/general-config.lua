@@ -118,7 +118,7 @@ vim.api.nvim_create_autocmd("FileType", {
 			if vim.fn.mode() ~= "i" and (ft == "snacks_input" or ft == "snacks_picker_input") then
 				vim.cmd("startinsert!")
 			end
-		end, 35)
+		end, 50)
 	end,
 })
 
