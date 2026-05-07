@@ -24,18 +24,24 @@ return {
                 keys = {
                     { icon = "", key = "f", desc = "Find File", action = ":FzfLua files" },
                     { icon = "", key = "p", desc = "Projects", action = ":NeovimProjectDiscover" },
-                    {
-                        icon = "",
-                        key = "n",
-                        desc = "Daily Note",
-                        action = ":Telekasten goto_today",
-                    },
-                    {
-                        icon = "",
-                        key = "N",
-                        desc = "New Note",
-                        action = ":Telekasten new_templated_note",
-                    },
+                {
+                    icon = "",
+                    key = "v",
+                    desc = "Open Vault",
+                    action = ":Telekasten find_notes",
+                },
+                {
+                    icon = "",
+                    key = "n",
+                    desc = "Daily Note",
+                    action = ":Telekasten goto_today",
+                },
+                {
+                    icon = "",
+                    key = "N",
+                    desc = "New Note",
+                    action = ":Telekasten new_templated_note",
+                },
                     { icon = "", key = "l", desc = "Lazy Plugins", action = ":Lazy" },
                     { icon = "", key = "m", desc = "Mason", action = ":Mason" },
                     { icon = "", key = "q", desc = "Quit", action = ":qa" },
