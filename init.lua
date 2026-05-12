@@ -23,7 +23,9 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-require("lsp.on_attach")
+if not vim.g.vscode then
+  require("lsp.on_attach")
+end
 require("config.lazy")
 require("general-config")
 require("function-keymaps")
@@ -36,19 +38,21 @@ vim.api.nvim_create_autocmd("User", {
         require("config.profiler")
         require("config.csharp-accessors")
         require("config.csharp-editorconfig")
-        require("config.plugin-health")
         require("config.filetype-theme")
-        require("config.lazy-docker")
-        require("config.lazygit")
-        require("config.dap-config")
         require("config.indent")
-        require("config.telekasten-config")
-        require("lsp.gopls")
-        require("lsp.lua-lsp")
-        require("lsp.vtsls")
-        require("lsp.html")
-        require("lsp.css")
-        require("lsp.markdown")
-        require("luasnip.loaders.from_vscode").lazy_load()
+        if not vim.g.vscode then
+          require("config.plugin-health")
+          require("config.lazy-docker")
+          require("config.lazygit")
+          require("config.dap-config")
+          require("config.telekasten-config")
+          require("lsp.gopls")
+          require("lsp.lua-lsp")
+          require("lsp.vtsls")
+          require("lsp.html")
+          require("lsp.css")
+          require("lsp.markdown")
+          require("luasnip.loaders.from_vscode").lazy_load()
+        end
     end,
 })

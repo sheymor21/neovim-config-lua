@@ -26,7 +26,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		end
 		
 		-- Close aerial for small buffers
-		if vim.api.nvim_buf_line_count(0) < 50 then
+		if vim.api.nvim_buf_line_count(0) < 50 and not vim.g.vscode then
 			pcall(function() require("aerial").close() end)
 		end
 	end,
@@ -61,6 +61,7 @@ vim.diagnostic.config({
 })
 
 -- Project management: clean buffers outside current project
+if not vim.g.vscode then
 local last_project = nil
 vim.api.nvim_create_autocmd("DirChanged", {
 	group = augroup,
@@ -85,6 +86,7 @@ vim.api.nvim_create_autocmd("DirChanged", {
 		end
 	end,
 })
+end
 
 -- Auto-convert CRLF to LF on open
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -102,6 +104,7 @@ vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 -- Auto-enter insert mode for snacks.nvim input dialogs
+if not vim.g.vscode then
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup,
 	pattern = { "snacks_input", "snacks_picker_input" },
@@ -114,5 +117,6 @@ vim.api.nvim_create_autocmd("FileType", {
 		end, 50)
 	end,
 })
+end
 
 

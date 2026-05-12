@@ -1,13 +1,15 @@
+local vscode = require("nvim_vscode")
+
 -- LazyGit and LazyDocker keymaps moved to snacks.nvim in lua/plugins/snacks.lua
 -- <leader>ig = LazyGit, <leader>id = LazyDocker, <leader>tt = Terminal
-require("plugins-keymaps.dap-keymaps")
-require("plugins-keymaps.yanky-keymaps")
-require("plugins-keymaps.telekasten-keymaps")
-require("plugins-keymaps.conform-keymaps")
-require("plugins-keymaps.grapple-keymaps")
+vscode.safe_require_keymaps("plugins-keymaps.dap-keymaps")
+vscode.safe_require_keymaps("plugins-keymaps.yanky-keymaps")
+vscode.safe_require_keymaps("plugins-keymaps.telekasten-keymaps")
+vscode.safe_require_keymaps("plugins-keymaps.conform-keymaps")
+vscode.safe_require_keymaps("plugins-keymaps.grapple-keymaps")
 -- require("plugins-keymaps.obsidian-keymaps")  -- disabled: using telekasten instead
-require("plugins-keymaps.fzf-lua-keymaps")
-require("plugins-keymaps.snacks-keymaps")
+vscode.safe_require_keymaps("plugins-keymaps.fzf-lua-keymaps")
+vscode.safe_require_keymaps("plugins-keymaps.snacks-keymaps")
 
 local map = vim.keymap.set
 local behavior = require("function-keymaps");
@@ -53,7 +55,9 @@ map("n", "zO", "zR")
 
 -- <leader>e is defined in lua/plugins/oil.lua (lazy.nvim keys)
 
+if not vim.g.vscode then
 map("n", "<leader>E", ":Oil .<CR>", { noremap = true, silent = true, desc = "Open Oil in current working directory" })
+end
 
 -- Replaced by fzf-lua: <leader>ss for symbols
 
@@ -66,6 +70,7 @@ map("n", "<leader>W", ":luafile %<CR>", { noremap = true, silent = true, desc = 
 map("n", "<leader>j", behavior.jump_to_line, { desc = "Jump to line number" })
 
 -- Files and search (fzf-lua remaps <leader>ff, <leader>fb, <leader>sg, <leader>ss)
+if not vim.g.vscode then
 -- Recent files using snacks picker
 map("n", "<leader>fr", function()
     require("snacks").picker.recent()
@@ -73,6 +78,7 @@ end, { desc = "Recent files" })
 -- Projects using neovim-project with snacks picker (via neovim-project config)
 map("n", "<leader>fP", "<cmd>NeovimProjectDiscover<cr>", { desc = "Discover Projects" })
 map("n", "<leader>fp", "<cmd>NeovimProjectLoadRecent<cr>", { desc = "Open Recent Project" })
+end
 
 map("n", "<leader>yw", "ysiw", { remap = true })
 map("n", "ys", "<Plug>(nvim-surround-normal)", {desc = "Add a surrounding pair around a motion (normal mode)"})
@@ -81,6 +87,7 @@ map("n", "cs", "<Plug>(nvim-surround-change)", {desc = "Change a surrounding pai
 
 -- <leader>tt moved to snacks.nvim (lua/plugins/snacks.lua)
 
+if not vim.g.vscode then
 -- Aerial keymaps
 map("n", "{", "<cmd>AerialPrev<CR>", { desc = "Previous aerial symbol" })
 map("n", "}", "<cmd>AerialNext<CR>", { desc = "Next aerial symbol" })
@@ -100,10 +107,12 @@ map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Undotree keymap
 map("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Toggle undotree" })
+end
 
 map("n", ";", behavior.add_dot, { desc = "Smart ; at EOL" })
 map("n", ",", behavior.add_coma, { desc = "Smart , at EOL" })
 
+if not vim.g.vscode then
 map("n", "<leader>cn", behavior.runner_run, { desc = "Run project" })
 map("n", "<leader>ck", behavior.runner_cancel, { desc = "Cancel a live running" })
 map("n", "<leader>cN", behavior.runner_select_run, { desc = "Select run project" })
@@ -137,15 +146,19 @@ map({"n", "x"}, "<C-n>", behavior.mc_add_cursor_next, { desc = "Add cursor at ne
 map({"n", "x"}, "<C-p>", behavior.mc_add_cursor_prev, { desc = "Add cursor at previous match" })
 map({"n", "x"}, "<leader>ma", behavior.mc_match_all_cursors, { desc = "Match all" })
 map("n", "<esc>", behavior.mc_clear_or_enable_cursors, { desc = "Clear cursors" })
+end
 
 -- Flash keymaps
 map({"n", "x", "o"}, "f", behavior.flash_jump, { desc = "Flash jump" })
 map({"n", "x", "o"}, "F", behavior.flash_treesitter, { desc = "Flash treesitter" })
 
 -- Markdown preview keymap
+if not vim.g.vscode then
 map("n", "<leader>mp", behavior.toggle_peek_preview, { desc = "Markdown Preview" })
+end
 
 -- Nvim Status keymaps (LSP & CMP reload)
+if not vim.g.vscode then
 map("n", "<leader>nr", "<cmd>DevReload<cr>", { desc = "Full reload LSP & CMP" })
 map("n", "<leader>nl", "<cmd>LspReload<cr>", { desc = "Reload LSP only" })
 map("n", "<leader>nc", "<cmd>CmpReload<cr>", { desc = "Reload CMP only" })
@@ -154,7 +167,14 @@ map("n", "<leader>nS", "<cmd>SlowPlugins<cr>", { desc = "Show slow plugins" })
 map("n", "<leader>nh", "<cmd>checkhealth<cr>", { desc = "Health check" })
 map("n", "<leader>nn", "<cmd>Noice all<cr>", { desc = "Show Noice" })
 map("n", "<leader>np", "<cmd>%bd!|e#<cr>", { desc = "Purge Buffers" });
+end
 
 -- unidiagnostic
+if not vim.g.vscode then
 map("n", "<leader>isp", "<cmd>UnidiagnosticToggle<cr>", { desc = "Show All Diagnostic" })
 map("n", "<leader>isc", "<cmd>UnidiagnosticCurrent<cr>", { desc = "Show Current File Diagnostic" })
+end
+
+if vim.g.vscode then
+  require("nvim_vscode.keymaps")
+end
