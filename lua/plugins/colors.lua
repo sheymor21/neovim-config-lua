@@ -13,10 +13,9 @@ return {
         name = "kanagawa",
         lazy = true,
     },
-    -- NOTE: ayu is active colorscheme (lazy = false)
-    -- gruvbox and onedark are also loaded eagerly but could be lazy if not actively switched
     {
         "tiagovla/tokyodark.nvim",
+        name = "tokyodark",
         lazy = true,
     },
     {
