@@ -226,12 +226,95 @@ cd ~/.config/nvim
 git pull origin main
 ```
 
+## 🆚 Configuración de la Extensión VS Code Neovim
+
+### Paso 1: Instalar la Extensión
+Instala la [extensión VS Code Neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) en VS Code.
+
+### Paso 2: Configurar VS Code Settings
+Abre la configuración de VS Code (`Ctrl+,`) y añade:
+```json
+{
+  "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+  "vscode-neovim.logLevel": "error"
+}
+```
+
+### Paso 3: Configurar Keybindings Colemak
+Crea o edita `~/.config/Code/User/keybindings.json`:
+```json
+[
+  // Navegación en listas (explorador, resultados de búsqueda, etc.)
+  {
+    "key": "e",
+    "command": "list.focusDown",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "i",
+    "command": "list.focusUp",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "n",
+    "command": "list.collapse",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "o",
+    "command": "list.expand",
+    "when": "listFocus && !inputFocus"
+  },
+
+  // Aceptar/abrir item en quick open con 'o'
+  {
+    "key": "o",
+    "command": "workbench.action.acceptSelectedQuickOpenItem",
+    "when": "inQuickOpen"
+  },
+
+  // Cerrar sidebar y paneles con Alt+Q
+  {
+    "key": "alt+q",
+    "command": "workbench.action.closeSidebar",
+    "when": "sideBarFocus"
+  },
+  {
+    "key": "alt+q",
+    "command": "workbench.action.closePanel",
+    "when": "panelFocus"
+  },
+  {
+    "key": "alt+q",
+    "command": "workbench.action.closeAuxiliaryBar",
+    "when": "auxiliaryBarFocus"
+  }
+]
+```
+
+### Qué Funciona en VS Code
+- ✅ Navegación Colemak (`n/e/i/o`)
+- ✅ Flash, Spider, Surround, Autopairs
+- ✅ Resaltado de Treesitter
+- ✅ Which-key, Yanky
+- ✅ LSP nativo de VS Code (no necesita Mason)
+- ✅ Búsqueda nativa de VS Code (`<leader>sg`)
+- ✅ Git nativo de VS Code (`<leader>ig`)
+
+### Qué No Funciona en VS Code
+- ❌ Pickers flotantes (fzf-lua, telescope) — usa la búsqueda de VS Code
+- ❌ Terminal (toggleterm) — usa el terminal integrado de VS Code
+- ❌ Undotree — usa la línea temporal de VS Code
+- ❌ Oil — usa el explorador de archivos de VS Code
+- ❌ Lualine, Noice — VS Code tiene su propia UI
+
 ## 📚 Recursos Adicionales
 
 - [Documentación de Neovim](https://neovim.io/doc/)
 - [Guía de Lazy.nvim](https://github.com/folke/lazy.nvim)
 - [Mason.nvim](https://github.com/williamboman/mason.nvim)
 - [Documentación de blink.cmp](https://cmp.saghen.dev/)
+- [Extensión VS Code Neovim](https://github.com/vscode-neovim/vscode-neovim)
 
 ## 🌐 Idiomas
 

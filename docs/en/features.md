@@ -272,6 +272,45 @@ This Neovim configuration includes a complete set of features designed to provid
 - Intelligent buffer management
 - Tree-sitter auto-reattachment
 
+## 🆚 VS Code Neovim Compatibility
+
+This configuration includes a **VS Code compatibility layer** (`lua/nvim_vscode/` + `lua/keymaps/nvim_vscode.lua`) that automatically detects when running inside the [VS Code Neovim extension](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) and disables conflicting plugins while remapping keys to VS Code native commands.
+
+### How It Works
+- **Detection**: Uses `vim.g.vscode` flag set by the VS Code Neovim extension
+- **Plugin Filtering**: 35 plugins disabled in VS Code mode to avoid UI conflicts
+- **Key Remapping**: `<leader>w`, `<leader>q`, `<leader>sg`, etc. map to VS Code commands via `VSCodeNotify()`
+- **Silent Undo**: `u` and `U` are silenced to prevent "Already at oldest change" spam in VS Code's OUTPUT panel
+
+### Plugins Active in VS Code
+| Plugin | Purpose |
+|--------|---------|
+| nvim-treesitter | Syntax highlighting |
+| nvim-autopairs | Auto bracket closing |
+| nvim-surround | Surround text objects |
+| flash.nvim | Quick navigation |
+| spider.nvim | CamelCase motion |
+| which-key.nvim | Keybinding help |
+| yanky.nvim | Yank/paste history |
+| reloader.nvim | Config reload |
+| colors | Color schemes |
+
+### Plugins Disabled in VS Code
+- **UI**: lualine, noice, snacks.nvim dashboard/picker/notifier
+- **LSP/CMP**: mason.nvim, blink-cmp, all LSP servers (VS Code provides these)
+- **Pickers**: fzf-lua, telescope (use VS Code's native search)
+- **Git**: gitsigns, lazygit (use VS Code's source control)
+- **Terminal**: toggleterm (use VS Code's integrated terminal)
+- **Notes**: telekasten (use VS Code's file explorer)
+- **Debug**: nvim-dap, neotest (use VS Code's debug/test panels)
+
+### VS Code Settings Required
+- `vscode-neovim.neovimExecutablePaths.linux`: `nvim`
+- `vscode-neovim.logLevel`: `"error"`
+- `keybindings.json`: Colemak navigation mappings (`e`/`i` for up/down in lists, `Alt+Q` to close panels)
+
+See [Installation Guide](installation.md#vs-code-neovim-extension) for setup details.
+
 ## 📊 Feature Matrix
 
 | Feature | Category | Language Support | Status |

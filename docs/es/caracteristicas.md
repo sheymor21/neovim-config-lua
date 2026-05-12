@@ -272,6 +272,45 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 - Buffer management inteligente
 - Tree-sitter auto-reattachment
 
+## 🆚 Compatibilidad con VS Code Neovim
+
+Esta configuración incluye una **capa de compatibilidad con VS Code** (`lua/nvim_vscode/` + `lua/keymaps/nvim_vscode.lua`) que detecta automáticamente cuando se ejecuta dentro de la [extensión VS Code Neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) y desactiva plugins conflictivos mientras remapea teclas a comandos nativos de VS Code.
+
+### Cómo Funciona
+- **Detección**: Usa el flag `vim.g.vscode` establecido por la extensión VS Code Neovim
+- **Filtrado de Plugins**: 35 plugins desactivados en modo VS Code para evitar conflictos de UI
+- **Remapeo de Teclas**: `<leader>w`, `<leader>q`, `<leader>sg`, etc. se mapean a comandos de VS Code vía `VSCodeNotify()`
+- **Undo Silencioso**: `u` y `U` se silencian para evitar el spam de "Already at oldest change" en el panel OUTPUT de VS Code
+
+### Plugins Activos en VS Code
+| Plugin | Propósito |
+|--------|-----------|
+| nvim-treesitter | Resaltado de sintaxis |
+| nvim-autopairs | Cierre automático de brackets |
+| nvim-surround | Objetos de texto surrounding |
+| flash.nvim | Navegación rápida |
+| spider.nvim | Movimiento CamelCase |
+| which-key.nvim | Ayuda de keybindings |
+| yanky.nvim | Historial de yank/paste |
+| reloader.nvim | Recarga de configuración |
+| colors | Esquemas de color |
+
+### Plugins Desactivados en VS Code
+- **UI**: lualine, noice, snacks.nvim dashboard/picker/notifier
+- **LSP/CMP**: mason.nvim, blink-cmp, todos los servidores LSP (VS Code los proporciona)
+- **Pickers**: fzf-lua, telescope (usa la búsqueda nativa de VS Code)
+- **Git**: gitsigns, lazygit (usa el control de fuente de VS Code)
+- **Terminal**: toggleterm (usa el terminal integrado de VS Code)
+- **Notas**: telekasten (usa el explorador de archivos de VS Code)
+- **Debug**: nvim-dap, neotest (usa los paneles de debug/test de VS Code)
+
+### Configuración Requerida en VS Code
+- `vscode-neovim.neovimExecutablePaths.linux`: `nvim`
+- `vscode-neovim.logLevel`: `"error"`
+- `keybindings.json`: Mapeos de navegación Colemak (`e`/`i` para arriba/abajo en listas, `Alt+Q` para cerrar paneles)
+
+Consulta la [Guía de Instalación](instalacion.md#extensión-vs-code-neovim) para más detalles.
+
 ## 📊 Matriz de Características
 
 | Característica | Categoría | Soporte de Lenguajes | Estado |

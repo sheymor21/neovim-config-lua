@@ -267,6 +267,42 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>nn` | Noice | Show Noice |
 | `<leader>np` | %bd!\|e# | Purge Buffers |
 
+## 🆚 VS Code Neovim Keymaps
+
+When running inside the [VS Code Neovim extension](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim), several keymaps are remapped to VS Code native commands:
+
+### Remapped Keybindings
+| Keybinding | VS Code Command | Description |
+|------------|-----------------|-------------|
+| `<leader>w` | `workbench.action.files.save` | Save file |
+| `<leader>q` | `workbench.action.closeActiveEditor` | Close editor |
+| `<leader>sg` | `workbench.action.findInFiles` | Search across files |
+| `<leader>ff` | `workbench.action.quickOpen` | Quick open file |
+| `<leader>fb` | `workbench.action.showAllEditors` | Show all editors |
+| `<leader>fr` | `workbench.action.openRecent` | Recent files |
+| `<leader>aa` | `bookmarks.toggle` | Toggle bookmark |
+| `<leader>ig` | `workbench.view.scm` | Source control / Git |
+| `<leader>tt` | `workbench.action.terminal.toggleTerminal` | Toggle terminal |
+| `<leader>z` | `workbench.action.toggleZenMode` | Zen mode |
+
+### Panel Navigation (VS Code `keybindings.json`)
+VS Code panels (search results, explorer) use native VS Code keybindings:
+| Key | Action |
+|-----|--------|
+| `e` | Move down in list |
+| `i` | Move up in list |
+| `n` | Collapse folder |
+| `o` | Expand folder / Open file |
+| `Alt+Q` | Close sidebar/panel |
+
+> **Note**: Colemak navigation (`n/e/i/o`) works in VS Code panels via `~/.config/Code/User/keybindings.json` since VS Code UI doesn't inherit Neovim remaps.
+
+### Disabled in VS Code
+- **Undotree**: `<leader>u` is not available (undotree plugin disabled)
+- **LSP Pickers**: `gd`, `gD` use VS Code's native Go to Definition
+- **Fzf-lua/Telescope**: All picker keymaps use VS Code equivalents
+- **Oil**: `<leader>e` and `-` disabled (use VS Code explorer)
+
 ## 🔄 Colemak-DH Reversion
 
 To revert to the standard Vim layout, see the [colemak-dh.md](colemak-dh.md) guide.

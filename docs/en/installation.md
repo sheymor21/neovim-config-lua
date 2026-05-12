@@ -226,12 +226,95 @@ cd ~/.config/nvim
 git pull origin main
 ```
 
+## 🆚 VS Code Neovim Extension Setup
+
+### Step 1: Install Extension
+Install the [VS Code Neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) extension in VS Code.
+
+### Step 2: Configure VS Code Settings
+Open VS Code settings (`Ctrl+,`) and add:
+```json
+{
+  "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+  "vscode-neovim.logLevel": "error"
+}
+```
+
+### Step 3: Configure Colemak Keybindings
+Create or edit `~/.config/Code/User/keybindings.json`:
+```json
+[
+  // Navigation in lists (explorer, search results, etc.)
+  {
+    "key": "e",
+    "command": "list.focusDown",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "i",
+    "command": "list.focusUp",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "n",
+    "command": "list.collapse",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "o",
+    "command": "list.expand",
+    "when": "listFocus && !inputFocus"
+  },
+
+  // Accept/open item in quick open with 'o'
+  {
+    "key": "o",
+    "command": "workbench.action.acceptSelectedQuickOpenItem",
+    "when": "inQuickOpen"
+  },
+
+  // Close sidebar and panels with Alt+Q
+  {
+    "key": "alt+q",
+    "command": "workbench.action.closeSidebar",
+    "when": "sideBarFocus"
+  },
+  {
+    "key": "alt+q",
+    "command": "workbench.action.closePanel",
+    "when": "panelFocus"
+  },
+  {
+    "key": "alt+q",
+    "command": "workbench.action.closeAuxiliaryBar",
+    "when": "auxiliaryBarFocus"
+  }
+]
+```
+
+### What Works in VS Code
+- ✅ Colemak navigation (`n/e/i/o`)
+- ✅ Flash, Spider, Surround, Autopairs
+- ✅ Treesitter highlighting
+- ✅ Which-key, Yanky
+- ✅ VS Code native LSP (no need for Mason)
+- ✅ VS Code native search (`<leader>sg`)
+- ✅ VS Code native Git (`<leader>ig`)
+
+### What Doesn't Work in VS Code
+- ❌ Floating pickers (fzf-lua, telescope) — use VS Code search
+- ❌ Terminal (toggleterm) — use VS Code integrated terminal
+- ❌ Undotree — use VS Code timeline
+- ❌ Oil — use VS Code file explorer
+- ❌ Lualine, Noice — VS Code has its own UI
+
 ## 📚 Additional Resources
 
 - [Neovim Documentation](https://neovim.io/doc/)
 - [Lazy.nvim Guide](https://github.com/folke/lazy.nvim)
 - [Mason.nvim](https://github.com/williamboman/mason.nvim)
 - [blink.cmp Documentation](https://cmp.saghen.dev/)
+- [VS Code Neovim Extension](https://github.com/vscode-neovim/vscode-neovim)
 
 ## 🌐 Languages
 

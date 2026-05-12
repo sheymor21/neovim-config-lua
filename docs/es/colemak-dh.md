@@ -11,39 +11,39 @@ Colemak-DH es una variante del layout Colemak diseñada para mayor ergonomía y 
 ### Navegación Básica Remapeada
 | Tecla Original | Tecla Colemak-DH | Función | Archivo |
 |----------------|------------------|---------|---------|
-| h | n | Mover izquierda | `lua/keymaps.lua:17` |
-| j | e | Mover abajo | `lua/keymaps.lua:18` |
-| k | i | Mover arriba | `lua/keymaps.lua:19` |
-| l | o | Mover derecha | `lua/keymaps.lua:20` |
+| h | n | Mover izquierda | `lua/keymaps/core.lua:7` |
+| j | e | Mover abajo | `lua/keymaps/core.lua:8` |
+| k | i | Mover arriba | `lua/keymaps/core.lua:9` |
+| l | o | Mover derecha | `lua/keymaps/core.lua:10` |
 
 ### Navegación en Modo Visual
 | Tecla Original | Tecla Colemak-DH | Función | Archivo |
 |----------------|------------------|---------|---------|
-| H | N | Mover izquierda (visual) | `lua/keymaps.lua:22` |
-| J | E | Mover abajo (visual) | `lua/keymaps.lua:23` |
-| K | I | Mover arriba (visual) | `lua/keymaps.lua:24` |
-| L | O | Mover derecha (visual) | `lua/keymaps.lua:25` |
+| H | N | Mover izquierda (visual) | `lua/keymaps/core.lua:12` |
+| J | E | Mover abajo (visual) | `lua/keymaps/core.lua:13` |
+| K | I | Mover arriba (visual) | `lua/keymaps/core.lua:14` |
+| L | O | Mover derecha (visual) | `lua/keymaps/core.lua:15` |
 
 ### Desactivación de Teclas Originales
 | Tecla | Estado | Archivo |
 |-------|--------|---------|
-| h, j, k, l | Desactivadas (`<nop>`) | `lua/keymaps.lua:27-30` |
-| H, J, K, L | Desactivadas (`<nop>`) | `lua/keymaps.lua:32-35` |
+| h, j, k, l | Desactivadas (`<nop>`) | `lua/keymaps/core.lua:17-20` |
+| H, J, K, L | Desactivadas (`<nop>`) | `lua/keymaps/core.lua:22-25` |
 
 ### Navegación Extendida
 | Tecla | Función | Archivo |
 |-------|---------|---------|
-| N | Inicio de línea (`^`) | `lua/keymaps.lua:38` |
-| O | Fin de línea (`$`) | `lua/keymaps.lua:39` |
-| E | Scroll abajo (`<C-d>`) | `lua/keymaps.lua:42` |
-| I | Scroll arriba (`<C-u>`) | `lua/keymaps.lua:43` |
+| N | Inicio de línea (`^`) | `lua/keymaps/core.lua:28` |
+| O | Fin de línea (`$`) | `lua/keymaps/core.lua:29` |
+| E | Scroll abajo (`<C-d>`) | `lua/keymaps/core.lua:32` |
+| I | Scroll arriba (`<C-u>`) | `lua/keymaps/core.lua:33` |
 
 ### Remapeos Adicionales
 | Tecla | Función | Archivo |
 |-------|---------|---------|
-| h | `o` (crear línea abajo) | `lua/keymaps.lua:45` |
-| H | `O` (crear línea arriba) | `lua/keymaps.lua:46` |
-| k | `i` (entrar modo insert) | `lua/keymaps.lua:47` |
+| h | `o` (crear línea abajo) | `lua/keymaps/core.lua:35` |
+| H | `O` (crear línea arriba) | `lua/keymaps/core.lua:36` |
+| k | `i` (entrar modo insert) | `lua/keymaps/core.lua:37` |
 
 ## 🔄 Guía Completa de Reversión
 
@@ -55,7 +55,7 @@ cp -r ~/.config/nvim ~/.config/nvim-backup-$(date +%Y%m%d)
 
 ### Paso 2: Revertir Navegación Básica
 
-**Editar `lua/keymaps.lua`:**
+**Editar `lua/keymaps/core.lua`:**
 
 **Opción A: Comentar las líneas de Colemak-DH**
 ```lua
@@ -85,7 +85,7 @@ cp -r ~/.config/nvim ~/.config/nvim-backup-$(date +%Y%m%d)
 ```
 
 **Opción B: Eliminar completamente las líneas**
-Elimina las líneas 17-35 del archivo `lua/keymaps.lua`.
+Elimina las líneas 7-25 del archivo `lua/keymaps/core.lua`.
 
 ### Paso 3: Revertir Navegación Extendida
 
@@ -280,7 +280,7 @@ nvim
 
 **Para revertir Colemak-DH:**
 1. Backup: `cp -r ~/.config/nvim ~/.config/nvim-backup`
-2. Editar `lua/keymaps.lua`: comentar líneas 17-35, 38-39, 42-43, 45-47
+2. Editar `lua/keymaps/core.lua`: comentar líneas 7-25, 28-29, 32-33, 35-37
 3. Reiniciar Neovim
 4. Probar navegación con h,j,k,l
 

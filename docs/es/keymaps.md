@@ -267,6 +267,42 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `<leader>nn` | Noice | Mostrar Noice |
 | `<leader>np` | %bd!\|e# | Purgar Buffers |
 
+## 🆚 Keymaps de VS Code Neovim
+
+Al ejecutarse dentro de la [extensión VS Code Neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim), varios keymaps se remapean a comandos nativos de VS Code:
+
+### Keybindings Remapeados
+| Keybinding | Comando VS Code | Descripción |
+|------------|-----------------|-------------|
+| `<leader>w` | `workbench.action.files.save` | Guardar archivo |
+| `<leader>q` | `workbench.action.closeActiveEditor` | Cerrar editor |
+| `<leader>sg` | `workbench.action.findInFiles` | Buscar en archivos |
+| `<leader>ff` | `workbench.action.quickOpen` | Abrir rápido archivo |
+| `<leader>fb` | `workbench.action.showAllEditors` | Mostrar todos los editores |
+| `<leader>fr` | `workbench.action.openRecent` | Archivos recientes |
+| `<leader>aa` | `bookmarks.toggle` | Toggle bookmark |
+| `<leader>ig` | `workbench.view.scm` | Control de fuente / Git |
+| `<leader>tt` | `workbench.action.terminal.toggleTerminal` | Toggle terminal |
+| `<leader>z` | `workbench.action.toggleZenMode` | Modo zen |
+
+### Navegación de Paneles (VS Code `keybindings.json`)
+Los paneles de VS Code (resultados de búsqueda, explorador) usan keybindings nativos de VS Code:
+| Tecla | Acción |
+|-------|--------|
+| `e` | Mover abajo en lista |
+| `i` | Mover arriba en lista |
+| `n` | Colapsar carpeta |
+| `o` | Expandir carpeta / Abrir archivo |
+| `Alt+Q` | Cerrar sidebar/panel |
+
+> **Nota**: La navegación Colemak (`n/e/i/o`) funciona en paneles de VS Code vía `~/.config/Code/User/keybindings.json` ya que la UI de VS Code no hereda los remaps de Neovim.
+
+### Desactivados en VS Code
+- **Undotree**: `<leader>u` no está disponible (plugin undotree desactivado)
+- **Pickers LSP**: `gd`, `gD` usan el Go to Definition nativo de VS Code
+- **Fzf-lua/Telescope**: Todos los keymaps de pickers usan equivalentes de VS Code
+- **Oil**: `<leader>e` y `-` desactivados (usa el explorador de VS Code)
+
 ## 🔄 Reversión Colemak-DH
 
 Para revertir al layout estándar de Vim, consulta la guía [colemak-dh.md](colemak-dh.md).

@@ -6,13 +6,22 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
 
 ```
 ~/.config/nvim/
-├── init.lua                    # Punto de entrada principal
+├── init.lua                    # Punto de entrada (rama a init/nvim o init/nvim_vscode)
 ├── README.md                   # Documentación de dependencias
 ├── LICENSE                     # Licencia MIT
 ├── lazy-lock.json              # Lockfile de versiones de plugins
 └── lua/
-    ├── general-config.lua      # Configuración general y autocmds
-    ├── keymaps.lua             # Keybindings globales
+    ├── init/                   # Puntos de entrada por entorno
+    │   ├── nvim.lua            # Inicio Neovim standalone
+    │   └── nvim_vscode.lua     # Inicio VS Code
+    ├── general-config.lua      # Autocmds y configuraciones compartidas
+    ├── general-config/         # Configuraciones específicas por entorno
+    │   └── nvim.lua            # Autocmds solo Neovim
+    ├── keymaps.lua             # Punto de entrada keymaps (rama a keymaps/nvim o keymaps/nvim_vscode)
+    ├── keymaps/                # Módulos de keymaps
+    │   ├── core.lua            # Keymaps compartidos (Colemak, básicos, flash)
+    │   ├── nvim.lua            # Keymaps solo Neovim
+    │   └── nvim_vscode.lua     # Keymaps VS Code
     ├── function-keymaps.lua    # Funciones personalizadas y keymaps LSP
     ├── health.lua              # Health checks
     ├── utils.lua               # Funciones utilitarias
@@ -74,6 +83,8 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
     │   ├── telekasten.lua      # Notas Zettelkasten
     │   ├── reloader.lua        # Recargador de configuración
     │   └── nvim-web-devicons.lua # Iconos de archivos
+    ├── nvim_vscode/            # Capa de compatibilidad VS Code
+    │   └── init.lua            # Detección y filtrado de plugins
     ├── plugins-off/            # Plugins deshabilitados
     │   ├── alpha.lua
     │   ├── dressing.lua
