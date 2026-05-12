@@ -103,14 +103,14 @@ end
 function M.toggle_diagnostics_display()
     local config = vim.diagnostic.config()
     local use_virtual_lines = not config.virtual_lines
-    
+
     vim.diagnostic.config({
-        virtual_text = not use_virtual_lines,
+        virtual_text = false,
         virtual_lines = use_virtual_lines and { only_current_line = true } or false,
     })
-    
+
     vim.notify(
-        use_virtual_lines and "Diagnostics: Virtual Lines" or "Diagnostics: Virtual Text",
+        use_virtual_lines and "Diagnostics: Virtual Lines" or "Diagnostics: Inline",
         vim.log.levels.INFO
     )
 end

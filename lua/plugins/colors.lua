@@ -117,7 +117,6 @@ return {
                 },
             })
         end,
-        lazy = true,
     },
     {
         "olimorris/onedarkpro.nvim",

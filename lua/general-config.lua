@@ -97,17 +97,10 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	end,
 })
 
--- Folding configuration
-vim.api.nvim_create_autocmd("FileType", {
-	group = augroup,
-	callback = function()
-		vim.opt_local.foldmethod = "expr"
-		vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-		vim.opt_local.foldlevel = 99
-		vim.opt_local.foldlevelstart = 99
-		vim.opt_local.foldenable = true
-	end,
-})
+-- Base fold settings (ufo manages foldmethod/foldexpr)
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
 -- Auto-enter insert mode for snacks.nvim input dialogs
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup,
