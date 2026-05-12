@@ -1,5 +1,7 @@
 return {
-    "sheymor21/unipackage.nvim",
+    -- "sheymor21/unipackage.nvim",
+    dir = "~/Projects/unipackage.nvim",
+    lazy = "VeryLazy",
     config = function()
         require("unipackage").setup({
             fallback_to_any = false,

@@ -16,11 +16,9 @@ return {
     "nvim-treesitter/nvim-treesitter",
     branch = "main",
     build = ":TSUpdate",
-    lazy = false,
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
         require("nvim-treesitter").setup()
-        -- Install parsers synchronously on first load
-        -- Note: Install runs async by default, :wait() ensures completion
         require("nvim-treesitter").install(ensure_installed)
     end,
 }

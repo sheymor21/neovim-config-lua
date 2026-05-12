@@ -24,14 +24,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		if ft ~= "" then
 			pcall(vim.treesitter.start, args.buf)
 		end
-		
-		-- Close aerial for small buffers
-		if vim.api.nvim_buf_line_count(0) < 50 and not vim.g.vscode then
-			pcall(function() require("aerial").close() end)
-		end
 	end,
 })
-
 
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -60,34 +54,6 @@ vim.diagnostic.config({
 	severity_sort = true,
 })
 
--- Project management: clean buffers outside current project
-if not vim.g.vscode then
-local last_project = nil
-vim.api.nvim_create_autocmd("DirChanged", {
-	group = augroup,
-	desc = "Clean buffers outside current project",
-	callback = function()
-		local cwd = vim.uv.cwd()
-		if cwd == last_project then
-			return
-		end
-		last_project = cwd
-
-		for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-			if vim.api.nvim_buf_is_loaded(buf)
-				and vim.fn.bufwinnr(buf) == -1
-				and vim.bo[buf].buftype == "" then
-
-				local name = vim.api.nvim_buf_get_name(buf)
-				if name ~= "" and not vim.startswith(name, cwd) then
-					vim.api.nvim_buf_delete(buf, {})
-				end
-			end
-		end
-	end,
-})
-end
-
 -- Auto-convert CRLF to LF on open
 vim.api.nvim_create_autocmd("BufReadPost", {
 	group = augroup,
@@ -103,20 +69,3 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
--- Auto-enter insert mode for snacks.nvim input dialogs
-if not vim.g.vscode then
-vim.api.nvim_create_autocmd("FileType", {
-	group = augroup,
-	pattern = { "snacks_input", "snacks_picker_input" },
-	callback = function()
-		vim.defer_fn(function()
-			local ft = vim.bo.filetype
-			if vim.fn.mode() ~= "i" and (ft == "snacks_input" or ft == "snacks_picker_input") then
-				vim.cmd("startinsert!")
-			end
-		end, 50)
-	end,
-})
-end
-
-

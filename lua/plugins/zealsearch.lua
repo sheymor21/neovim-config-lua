@@ -1,6 +1,6 @@
 return {
     "sheymor21/zealsearch.nvim",
-    lazy = false,
+    event = "VeryLazy",
     config = function()
         require("zealsearch").setup()
     end,

@@ -112,9 +112,9 @@ return {
             },
         },
 
-        -- Indent (replaces indent-blankline.nvim)
+        -- Indent (replaces indent-blankline.nvim) - enabled in VeryLazy
         indent = {
-            enabled = true,
+            enabled = false,
             indent = {
                 char = "│",
                 blank = " ",
@@ -164,8 +164,8 @@ return {
         -- Scope
         scope = { enabled = false },
 
-        -- Words (LSP references navigation)
-        words = { enabled = true },
+        -- Words (LSP references navigation) - enabled in VeryLazy
+        words = { enabled = false },
 
         -- Buffer delete
         bufdelete = { enabled = false },

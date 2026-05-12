@@ -43,21 +43,4 @@ M.disabled_plugins = {
   zealsearch = true,
 }
 
-M.disabled_keymap_modules = {
-  ["plugins-keymaps.dap-keymaps"] = true,
-  ["plugins-keymaps.snacks-keymaps"] = true,
-  ["plugins-keymaps.fzf-lua-keymaps"] = true,
-  ["plugins-keymaps.conform-keymaps"] = true,
-  ["plugins-keymaps.telekasten-keymaps"] = true,
-  ["plugins-keymaps.grapple-keymaps"] = true,
-  ["plugins-keymaps.yanky-keymaps"] = true,
-}
-
-M.safe_require_keymaps = function(modname)
-  if M.is_vscode() and M.disabled_keymap_modules[modname] then
-    return
-  end
-  require(modname)
-end
-
 return M

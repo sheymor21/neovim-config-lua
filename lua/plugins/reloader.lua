@@ -1,7 +1,7 @@
 return {
     "reloader",
     dir = vim.fn.stdpath("config"),
-    lazy = false,
+    cmd = { "DevReload", "LspReload", "CmpReload" },
     config = function()
         local reloader = require("config.reloader")
 
