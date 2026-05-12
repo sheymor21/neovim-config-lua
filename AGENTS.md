@@ -2,17 +2,18 @@
 
 ## Architecture
 
-**Entry point**: `init.lua` - sets core vim options, then loads:
-1. `lsp/on_attach.lua` - LSP handlers
-2. `config/lazy.lua` - Plugin manager bootstrap
-3. `general-config.lua` - Autocmds, diagnostics, folding
-4. `function-keymaps.lua` - Utility functions
-5. `keymaps.lua` - Keymaps (imports plugin keymaps)
+**Entry point**: `init.lua` - sets core vim options, then branches to:
+1. `lua/init/nvim.lua` - Standalone Neovim init (or)
+2. `lua/init/nvim_vscode.lua` - VS Code: init
+   - Each loads `config/lazy.lua`, `general-config.lua`, `function-keymaps.lua`, `keymaps.lua`
 
 **Directory structure**:
+- `lua/init/` - Environment entry points (branched from init.lua)
 - `lua/plugins/` - Plugin specs (return lazy.nvim spec tables)
 - `lua/config/` - Plugin setup/config logic (deferred modules for VeryLazy too)
 - `lua/plugins-keymaps/` - Keymap definitions per plugin
+- `lua/keymaps/` - Keymap modules (core, nvim, nvim_vscode)
+- `lua/general-config/` - Environment-specific autocmds
 - `lua/lsp/` - LSP server configurations
 - `lua/plugins-off/` - Disabled plugins (not loaded by lazy)
 - `docs/en/`, `docs/es/` - Bilingual documentation
@@ -25,8 +26,9 @@ The config remaps movement keys to Colemak-DH. **When defining new keymaps**:
 - `e` = down (was `j`)
 - `i` = up (was `k`)
 - `o` = right (was `l`)
+- `h` = open line below (was `o`)
+- `k` = enter insert mode (was `i`)
 - Original h/j/k/l are disabled (`<nop>`)
-- `h` now opens line below, `k` enters insert mode
 
 **Safe keys for leader combinations**: Everything except n, e, i, o and their uppercase variants.
 
@@ -50,7 +52,7 @@ map("n", "<leader>xx", ...)
 ```
 
 ### Startup Defer Pattern
-Non-critical modules load on `VeryLazy` event (see `init.lua` lines 33-54). Add new deferred modules there.
+Non-critical modules load on `VeryLazy` event (see `lua/init/nvim.lua`). Add new deferred modules there.
 
 ### Keymap Behavior Functions
 Complex keymap logic goes in `function-keymaps.lua`, wrapped in the `M` table, then referenced in keymaps.
@@ -110,3 +112,8 @@ Required: `git`
 ## Notes/Telekasten Vault
 
 Vault path is defined in `lua/config/paths.lua` (default: `~/Documents/Sheymor`). The health check verifies vault accessibility.
+
+## Special Filetype Handling
+
+- **C# files**: UTF-8 BOM is preserved (`vim.opt_local.bomb = true`) to prevent showing whole file as changed
+- **Windows line endings**: Auto-converted to Unix on open (`:set fileformat=unix`)
