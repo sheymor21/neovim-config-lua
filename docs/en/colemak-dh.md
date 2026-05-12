@@ -118,7 +118,7 @@ Ensure LSP functions don't depend on Colemak-DH layout. Current functions use Sn
 ### Step 6: Verify Plugins
 
 **Review files in `lua/plugins-keymaps/`:**
-- `harpoon2-keymaps.lua` - Doesn't use navigation keys
+- `grapple-keymaps.lua` - Doesn't use navigation keys
 - `dap-keymaps.lua` - Uses function keys, not affected
 - `lazygit-keymaps.lua` - Doesn't use navigation keys
 - `yanky-keymaps.lua` - Uses standard p/P

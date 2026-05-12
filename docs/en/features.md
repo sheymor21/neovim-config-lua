@@ -49,16 +49,14 @@ This Neovim configuration includes a complete set of features designed to provid
 - LSP symbol search (`<leader>ss`)
 - Fast native fzf performance with previews
 
-#### Harpoon 2.0
-- Quick file bookmarks (`<leader>a`)
+#### Grapple
+- Quick file bookmarks (`<leader>aa`)
 - Ctrl-1/2/3/4 navigation
-- Quick bookmarks menu (`<leader>h`)
-- Telescope integration
+- Quick bookmarks menu (`<leader>ah`)
+- Fzf-lua integration
 
-#### Telescope
-- Recent file history (`<leader>fr`)
-- Project history (`<leader>fp`)
-- Project discovery (`<leader>fP`)
+#### Telescope (Legacy)
+- Project discovery via neovim-project (`<leader>fP`, `<leader>fp`)
 - Yank history and extensions
 
 #### Flash
@@ -66,11 +64,7 @@ This Neovim configuration includes a complete set of features designed to provid
 - Enhanced jump motion
 - Multiple tag support
 
-#### Neo-tree
-- File explorer with git integration
-- Tree view with icons
-- Integrated search
-- Toggle with `<leader>e`
+
 
 ### 3. Editing and Productivity
 
@@ -214,20 +208,16 @@ This Neovim configuration includes a complete set of features designed to provid
 - Hierarchical view
 
 #### Snacks.nvim
-- **Dashboard**: Welcome screen with quick actions
-- **Picker**: File/diagnostic picker with preview
-- **Notifier**: Modern notification system
-- **Bigfile**: Optimized handling for large files
-- **Quickfile**: Fast file operations
-- **Input**: Enhanced input dialogs
+- **Dashboard**: Welcome screen with quick actions (replaces alpha-nvim)
+- **Picker**: File/diagnostic/recent picker with preview (replaces telescope-ui-select)
+- **Notifier**: Modern notification system (replaces nvim-notify)
+- **Indent**: Indentation guides (replaces indent-blankline)
+- **LazyGit**: Integrated lazygit UI
+- **Terminal**: Floating terminal management
+- **Words**: LSP references navigation
+- **Input**: Enhanced input dialogs (replaces vim.ui.input)
 
-#### Obsidian.nvim
-- **Note-taking**: Obsidian vault integration
-- **Daily notes**: Quick access to daily notes (`<leader>od`)
-- **New notes**: Create new notes (`<leader>on`)
-- **Templates**: Templated note creation (`<leader>oT`)
-- **Backlinks**: Note linking and navigation (`<leader>ob`)
-- **Search**: Quick search across vault (`<leader>os`)
+
 
 #### Oil.nvim
 - **Buffer-based file editing**: Edit filesystem like a buffer
@@ -290,12 +280,11 @@ This Neovim configuration includes a complete set of features designed to provid
 | DAP | Development Tools | Go, TS/JS, C# | ✅ Active |
 | blink.cmp | Editing | All | ✅ Active |
 | fzf-lua | Navigation | All | ✅ Active |
-| Harpoon | Navigation | All | ✅ Active |
-| Telescope | Navigation | All | ✅ Active |
-| Neo-tree | File Management | All | ✅ Active |
+| Grapple | Navigation | All | ✅ Active |
+| Telescope | Navigation | All | ⚠️ Legacy |
 | Oil | File Management | All | ✅ Active |
 | Snacks.nvim | UI/Dashboard | All | ✅ Active |
-| Obsidian | Note-taking | Markdown | ✅ Active |
+| Telekasten | Note-taking | Markdown | ✅ Active |
 | Multicursor | Editing | All | ✅ Active |
 | Session Manager | Project Management | All | ✅ Active |
 | LazyGit | Development Tools | All | ✅ Active |

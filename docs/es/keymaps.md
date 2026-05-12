@@ -40,9 +40,9 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `<leader>W` | `:luafile %<CR>` | Ejecutar archivo Lua actual |
 | `<leader>ff` | FzfLua files | Buscar archivos |
 | `<leader>fb` | FzfLua buffers | Listar buffers |
-| `<leader>fr` | Telescope oldfiles | Archivos recientes |
-| `<leader>fp` | Telescope neovim-project history | Historial de proyectos |
-| `<leader>fP` | Telescope neovim-project discover | Descubrir proyectos |
+| `<leader>fr` | Snacks picker recent | Archivos recientes |
+| `<leader>fp` | NeovimProjectLoadRecent | Proyecto reciente |
+| `<leader>fP` | NeovimProjectDiscover | Descubrir proyectos |
 | `<leader>j` | jump_to_line() | Saltar a línea específica |
 | `-` | Oil | Abrir directorio padre |
 
@@ -55,16 +55,15 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 ### Navegación
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `<leader>e` | `:Neotree toggle<CR>` | Toggle Neo-tree |
-| `<leader>E` | `:Oil<CR>` | Abrir Oil en ruta actual |
-| `<leader>re` | `:Neotree reveal_force_cwd<CR>` | Abrir Neo-tree en ruta actual |
+| `<leader>e` | `:Oil<CR>` | Abrir Oil file manager |
+| `<leader>E` | `:Oil .<CR>` | Abrir Oil en directorio de trabajo |
+| `-` | `:Oil<CR>` | Abrir directorio padre |
 | `<leader>iwp` | window_picker() | Seleccionar ventana |
 
 ### Terminal y Ejecución
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `<leader>tt` | ToggleTerm | Toggle terminal flotante |
-| `<leader>cn` | run_project() | Ejecutar proyecto según filetype |
+| `<leader>cn` | runner_run() | Ejecutar proyecto según filetype |
 | `<leader>ck` | runner_cancel() | Cancelar proyecto en ejecución |
 | `<leader>cN` | runner_select_run() | Seleccionar y ejecutar proyecto |
 | `<leader>cc` | runner_config() | Añadir configuración de runner |
@@ -86,16 +85,16 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 
 ## 🎨 Keybindings de Plugins
 
-### Harpoon 2.0
+### Grapple (Bookmarks)
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `<leader>aa` | harpoon:list():add() | Añadir archivo actual |
-| `<leader>ah` | harpoon:toggle_quick_menu() | Menú rápido de bookmarks |
-| `<C-1>` | harpoon:list():select(1) | Ir a bookmark 1 |
-| `<C-2>` | harpoon:list():select(2) | Ir a bookmark 2 |
-| `<C-3>` | harpoon:list():select(3) | Ir a bookmark 3 |
-| `<C-4>` | harpoon:list():select(4) | Ir a bookmark 4 |
-| `<leader>as` | telescope harpoon marks | Buscar bookmarks con Telescope |
+| `<leader>aa` | grapple.toggle() | Toggle bookmark de archivo |
+| `<leader>ah` | grapple.open_tags() | Abrir menú de bookmarks |
+| `<C-1>` | grapple.select({index=1}) | Ir a bookmark 1 |
+| `<C-2>` | grapple.select({index=2}) | Ir a bookmark 2 |
+| `<C-3>` | grapple.select({index=3}) | Ir a bookmark 3 |
+| `<C-4>` | grapple.select({index=4}) | Ir a bookmark 4 |
+| `<leader>as` | grapple.open_tags() | Buscar bookmarks |
 
 ### Multicursor
 | Keybinding | Función | Descripción |
@@ -137,11 +136,12 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `<leader>cdt` | dap.run() | Debug Test NUnit (archivo actual) |
 | `<leader>cdT` | dap.run() | Debug Todos los Tests NUnit |
 
-### Integración (LazyGit & LazyDocker)
+### Integración (LazyGit & LazyDocker via Snacks)
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `<leader>ig` | lazygit | Abrir LazyGit |
-| `<leader>id` | lazydocker | Abrir LazyDocker |
+| `<leader>ig` | Snacks.lazygit() | Abrir LazyGit |
+| `<leader>id` | LazyDocker (custom) | Abrir LazyDocker |
+| `<leader>tt` | Snacks.terminal() | Toggle terminal flotante |
 
 ### Telekasten (Notas)
 | Keybinding | Función | Descripción |
@@ -153,28 +153,7 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `<leader>zd` | telekasten.goto_today() | Ir a nota de hoy |
 | `<leader>zv` | telekasten.switch_vault() | Cambiar vault |
 
-### Obsidian
-| Keybinding | Función | Descripción |
-|------------|---------|-------------|
-| `<leader>oo` | Obsidian open | Abrir Obsidian App |
-| `<leader>on` | Obsidian new | Nueva nota en ideas/flash |
-| `<leader>ou` | Obsidian new (daily) | Nota única en daily |
-| `<leader>od` | Obsidian today | Abrir nota diaria de hoy |
-| `<leader>oD` | Obsidian yesterday | Abrir nota diaria de ayer |
-| `<leader>ot` | Obsidian tomorrow | Abrir nota diaria de mañana |
-| `<leader>os` | Obsidian search | Buscar notas |
-| `<leader>of` | Obsidian quick_switch | Cambio rápido entre notas |
-| `<leader>ob` | Obsidian backlinks | Mostrar backlinks |
-| `<leader>ol` | Obsidian links | Mostrar links |
-| `<leader>og` | Obsidian tags | Mostrar tags |
-| `<leader>ow` | Obsidian workspace | Cambiar workspace |
-| `<leader>or` | Obsidian rename | Renombrar nota |
-| `<leader>oe` | Obsidian extract_note | Extraer texto a nueva nota |
-| `<leader>op` | Obsidian paste_img | Pegar imagen del portapapeles |
-| `<leader>oc` | Obsidian toggle_checkbox | Toggle checkbox |
-| `<leader>oT` | Obsidian template | Insertar plantilla |
-| `<leader>ok` | Obsidian follow_link | Seguir link |
-| `<leader>oK` | Obsidian follow_link vsplit | Seguir link en vsplit |
+
 
 ### Markdown
 | Keybinding | Función | Descripción |
@@ -190,7 +169,7 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `[p` | yanky.put() | Pegar con indentación (antes) |
 | `>p` | yanky.put() | Ciclar hacia adelante en historial |
 | `<p` | yanky.put() | Ciclar hacia atrás en historial |
-| `<leader>yh` | yank_history | Historial de yank con Telescope |
+| `<leader>yh` | yank_history | Historial de yank |
 | `<leader>yw` | ysiw | Surround word shortcut |
 
 ### Trouble / Unidiagnostic
@@ -234,8 +213,8 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 ### Diagnósticos LSP
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `[d` | vim.diagnostic.goto_prev() | Ir a diagnóstico anterior |
-| `]d` | vim.diagnostic.goto_next() | Ir a siguiente diagnóstico |
+| `[d` | vim.diagnostic.jump({count=-1}) | Ir a diagnóstico anterior |
+| `]d` | vim.diagnostic.jump({count=1}) | Ir a siguiente diagnóstico |
 | `<leader>isd` | vim.diagnostic.open_float() | Diagnósticos de línea (float) |
 | `<leader>isq` | vim.diagnostic.setqflist() | Diagnósticos a quickfix |
 | `<leader>isl` | vim.diagnostic.setloclist() | Diagnósticos a loclist |

@@ -40,9 +40,9 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>W` | `:luafile %<CR>` | Execute current Lua file |
 | `<leader>ff` | FzfLua files | Find files |
 | `<leader>fb` | FzfLua buffers | List buffers |
-| `<leader>fr` | Telescope oldfiles | Recent files |
-| `<leader>fp` | Telescope neovim-project history | Project history |
-| `<leader>fP` | Telescope neovim-project discover | Discover projects |
+| `<leader>fr` | Snacks picker recent | Recent files |
+| `<leader>fp` | NeovimProjectLoadRecent | Recent project |
+| `<leader>fP` | NeovimProjectDiscover | Discover projects |
 | `<leader>j` | jump_to_line() | Jump to specific line |
 | `-` | Oil | Open parent directory |
 
@@ -55,16 +55,15 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 ### Navigation
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>e` | `:Neotree toggle<CR>` | Toggle Neo-tree |
-| `<leader>E` | `:Oil<CR>` | Open Oil in current path |
-| `<leader>re` | `:Neotree reveal_force_cwd<CR>` | Open Neo-tree in current path |
+| `<leader>e` | `:Oil<CR>` | Open Oil file manager |
+| `<leader>E` | `:Oil .<CR>` | Open Oil in working directory |
+| `-` | `:Oil<CR>` | Open parent directory |
 | `<leader>iwp` | window_picker() | Pick window |
 
 ### Terminal and Execution
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>tt` | ToggleTerm | Toggle floating terminal |
-| `<leader>cn` | run_project() | Run project by filetype |
+| `<leader>cn` | runner_run() | Run project by filetype |
 | `<leader>ck` | runner_cancel() | Cancel running project |
 | `<leader>cN` | runner_select_run() | Select and run project |
 | `<leader>cc` | runner_config() | Add runner config |
@@ -86,16 +85,16 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 
 ## 🎨 Plugin Keybindings
 
-### Harpoon 2.0
+### Grapple (Bookmarks)
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>aa` | harpoon:list():add() | Add current file |
-| `<leader>ah` | harpoon:toggle_quick_menu() | Quick bookmarks menu |
-| `<C-1>` | harpoon:list():select(1) | Go to bookmark 1 |
-| `<C-2>` | harpoon:list():select(2) | Go to bookmark 2 |
-| `<C-3>` | harpoon:list():select(3) | Go to bookmark 3 |
-| `<C-4>` | harpoon:list():select(4) | Go to bookmark 4 |
-| `<leader>as` | telescope harpoon marks | Search bookmarks with Telescope |
+| `<leader>aa` | grapple.toggle() | Toggle file bookmark |
+| `<leader>ah` | grapple.open_tags() | Open bookmarks menu |
+| `<C-1>` | grapple.select({index=1}) | Go to bookmark 1 |
+| `<C-2>` | grapple.select({index=2}) | Go to bookmark 2 |
+| `<C-3>` | grapple.select({index=3}) | Go to bookmark 3 |
+| `<C-4>` | grapple.select({index=4}) | Go to bookmark 4 |
+| `<leader>as` | grapple.open_tags() | Search bookmarks |
 
 ### Multicursor (jake-stewart/multicursor.nvim)
 | Keybinding | Function | Description |
@@ -137,11 +136,12 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>cdt` | dap.run() | Debug NUnit Test (current file) |
 | `<leader>cdT` | dap.run() | Debug All NUnit Tests |
 
-### Integration (LazyGit & LazyDocker)
+### Integration (LazyGit & LazyDocker via Snacks)
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>ig` | lazygit | Open LazyGit |
-| `<leader>id` | lazydocker | Open LazyDocker |
+| `<leader>ig` | Snacks.lazygit() | Open LazyGit |
+| `<leader>id` | LazyDocker (custom) | Open LazyDocker |
+| `<leader>tt` | Snacks.terminal() | Toggle floating terminal |
 
 ### Telekasten (Notes)
 | Keybinding | Function | Description |
@@ -153,28 +153,7 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>zd` | telekasten.goto_today() | Go to today's note |
 | `<leader>zv` | telekasten.switch_vault() | Switch vault |
 
-### Obsidian
-| Keybinding | Function | Description |
-|------------|----------|-------------|
-| `<leader>oo` | Obsidian open | Open Obsidian App |
-| `<leader>on` | Obsidian new | New note in ideas/flash |
-| `<leader>ou` | Obsidian new (daily) | Unique note in daily |
-| `<leader>od` | Obsidian today | Open today's daily note |
-| `<leader>oD` | Obsidian yesterday | Open yesterday's daily note |
-| `<leader>ot` | Obsidian tomorrow | Open tomorrow's daily note |
-| `<leader>os` | Obsidian search | Search notes |
-| `<leader>of` | Obsidian quick_switch | Quick switch between notes |
-| `<leader>ob` | Obsidian backlinks | Show backlinks |
-| `<leader>ol` | Obsidian links | Show links |
-| `<leader>og` | Obsidian tags | Show tags |
-| `<leader>ow` | Obsidian workspace | Switch workspace |
-| `<leader>or` | Obsidian rename | Rename note |
-| `<leader>oe` | Obsidian extract_note | Extract text to new note |
-| `<leader>op` | Obsidian paste_img | Paste image from clipboard |
-| `<leader>oc` | Obsidian toggle_checkbox | Toggle checkbox |
-| `<leader>oT` | Obsidian template | Insert template |
-| `<leader>ok` | Obsidian follow_link | Follow link |
-| `<leader>oK` | Obsidian follow_link vsplit | Follow link in vsplit |
+
 
 ### Markdown
 | Keybinding | Function | Description |
@@ -190,7 +169,7 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `[p` | yanky.put() | Paste with indentation (before) |
 | `>p` | yanky.put() | Cycle forward in history |
 | `<p` | yanky.put() | Cycle backward in history |
-| `<leader>yh` | yank_history | Yank history with Telescope |
+| `<leader>yh` | yank_history | Yank history |
 | `<leader>yw` | ysiw | Surround word shortcut |
 
 ### Trouble / Unidiagnostic
@@ -234,8 +213,8 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 ### LSP Diagnostics
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `[d` | vim.diagnostic.goto_prev() | Go to previous diagnostic |
-| `]d` | vim.diagnostic.goto_next() | Go to next diagnostic |
+| `[d` | vim.diagnostic.jump({count=-1}) | Go to previous diagnostic |
+| `]d` | vim.diagnostic.jump({count=1}) | Go to next diagnostic |
 | `<leader>isd` | vim.diagnostic.open_float() | Line diagnostics (float) |
 | `<leader>isq` | vim.diagnostic.setqflist() | Diagnostics to quickfix |
 | `<leader>isl` | vim.diagnostic.setloclist() | Diagnostics to loclist |

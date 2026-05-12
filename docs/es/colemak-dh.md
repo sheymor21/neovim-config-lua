@@ -118,7 +118,7 @@ Asegúrate de que las funciones LSP no dependan del layout Colemak-DH. Las funci
 ### Paso 6: Verificar Plugins
 
 **Revisar archivos en `lua/plugins-keymaps/`:**
-- `harpoon2-keymaps.lua` - No usa teclas de navegación
+- `grapple-keymaps.lua` - No usa teclas de navegación
 - `dap-keymaps.lua` - Usa teclas de función, no afectado
 - `lazygit-keymaps.lua` - No usa teclas de navegación
 - `yanky-keymaps.lua` - Usa p/P estándar

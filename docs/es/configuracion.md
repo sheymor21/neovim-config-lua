@@ -30,15 +30,13 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
     │   ├── plugin-health.lua   # Health checks de plugins
     │   ├── profiler.lua        # Profiler de rendimiento
     │   ├── reloader.lua        # Recargador de configuración
-    │   └── obsidian.lua        # Configuración de Obsidian
     ├── plugins/                # Especificaciones de plugins
     │   ├── 99.lua              # Cargador de plugins core
     │   ├── telescope.lua       # Configuración de Telescope
     │   ├── fzf-lua.lua         # Configuración de Fzf-lua
     │   ├── treesitter.lua      # Configuración de Treesitter
     │   ├── blink-cmp.lua       # Autocompletado (blink.cmp)
-    │   ├── neotree.lua         # Explorador de archivos
-    │   ├── harpoon2.lua        # Marcadores de navegación
+    │   ├── grapple.lua         # Marcadores de navegación
     │   ├── conform.lua         # Formateo de código
     │   ├── aerial.lua          # Outline de símbolos
     │   ├── lualine.lua         # Status line
@@ -73,7 +71,6 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
     │   ├── unipackage.lua      # Gestor de paquetes
     │   ├── unidiagnostic.lua   # Gestión de diagnósticos
     │   ├── wakatime.lua        # Integración Wakatime
-    │   ├── obsidian.lua        # Toma de notas Obsidian
     │   ├── telekasten.lua      # Notas Zettelkasten
     │   ├── reloader.lua        # Recargador de configuración
     │   └── nvim-web-devicons.lua # Iconos de archivos
@@ -84,15 +81,16 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
     │   └── sessions.lua
     ├── plugins-keymaps/        # Keymaps específicos de plugins
     │   ├── 99-keymaps.lua
-    │   ├── harpoon2-keymaps.lua
-    │   ├── lazygit-keymaps.lua
+    │   ├── grapple-keymaps.lua
+    │   ├── snacks-keymaps.lua
     │   ├── lazydocker-keymaps.lua
     │   ├── dap-keymaps.lua
     │   ├── yanky-keymaps.lua
     │   ├── telekasten-keymaps.lua
     │   ├── conform-keymaps.lua
     │   ├── fzf-lua-keymaps.lua
-    │   └── obsidian-keymaps.lua
+    │   ├── snacks-keymaps.lua
+    │   └── grapple-keymaps.lua
     └── lsp/                    # Configuraciones de Language Servers
         ├── gopls.lua           # Go language server
         ├── vtsls.lua           # TypeScript/JavaScript LSP
@@ -133,18 +131,6 @@ vim.opt.clipboard = "unnamedplus"
 ```
 
 ### Autocommands (general-config.lua)
-
-**Cierre automático de Neo-tree**
-```lua
-vim.api.nvim_create_autocmd("BufEnter", {
-    callback = function(ev)
-        local ft = vim.bo[ev.buf].filetype
-        if ft ~= "neo-tree" and ft ~= "neo-tree-popup" then
-            pcall(vim.cmd, "Neotree close")
-        end
-    end,
-})
-```
 
 **Highlight en yank**
 ```lua

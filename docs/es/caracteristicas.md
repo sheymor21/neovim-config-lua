@@ -49,16 +49,14 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 - Búsqueda de símbolos LSP (`<leader>ss`)
 - Rendimiento nativo rápido con vistas previas
 
-#### Harpoon 2.0
-- Marcadores rápidos de archivos (`<leader>a`)
+#### Grapple
+- Marcadores rápidos de archivos (`<leader>aa`)
 - Navegación con Ctrl-1/2/3/4
-- Menú rápido de bookmarks (`<leader>h`)
-- Integración con Telescope
+- Menú rápido de bookmarks (`<leader>ah`)
+- Integración con Fzf-lua
 
-#### Telescope
-- Historial de archivos recientes (`<leader>fr`)
-- Historial de proyectos (`<leader>fp`)
-- Descubrimiento de proyectos (`<leader>fP`)
+#### Telescope (Legacy)
+- Descubrimiento de proyectos vía neovim-project (`<leader>fP`, `<leader>fp`)
 - Historial de yank y extensiones
 
 #### Flash
@@ -66,11 +64,7 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 - Jump motion mejorado
 - Soporte para múltiples etiquetas
 
-#### Neo-tree
-- Explorador de archivos con git integration
-- Vista de árbol con iconos
-- Búsqueda integrada
-- Toggle con `<leader>e`
+
 
 ### 3. Edición y Productividad
 
@@ -214,20 +208,16 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 - Vista jerárquica
 
 #### Snacks.nvim
-- **Dashboard**: Pantalla de bienvenida con acciones rápidas
-- **Picker**: Selector de archivos/diagnósticos con vista previa
-- **Notifier**: Sistema moderno de notificaciones
-- **Bigfile**: Manejo optimizado de archivos grandes
-- **Quickfile**: Operaciones rápidas de archivos
-- **Input**: Diálogos de entrada mejorados
+- **Dashboard**: Pantalla de bienvenida con acciones rápidas (reemplaza alpha-nvim)
+- **Picker**: Selector de archivos/diagnósticos/recientes con vista previa (reemplaza telescope-ui-select)
+- **Notifier**: Sistema moderno de notificaciones (reemplaza nvim-notify)
+- **Indent**: Guías de indentación (reemplaza indent-blankline)
+- **LazyGit**: UI integrada de lazygit
+- **Terminal**: Gestión de terminal flotante
+- **Words**: Navegación de referencias LSP
+- **Input**: Diálogos de entrada mejorados (reemplaza vim.ui.input)
 
-#### Obsidian.nvim
-- **Toma de notas**: Integración con vault de Obsidian
-- **Notas diarias**: Acceso rápido a notas diarias (`<leader>od`)
-- **Nuevas notas**: Crear notas nuevas (`<leader>on`)
-- **Plantillas**: Creación de notas con plantillas (`<leader>oT`)
-- **Backlinks**: Enlace y navegación entre notas (`<leader>ob`)
-- **Búsqueda**: Búsqueda rápida en el vault (`<leader>os`)
+
 
 #### Oil.nvim
 - **Edición de archivos en buffer**: Editar filesystem como un buffer
@@ -290,12 +280,11 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 | DAP | Herramientas de Desarrollo | Go, TS/JS, C# | ✅ Activo |
 | blink.cmp | Edición | Todos | ✅ Activo |
 | fzf-lua | Navegación | Todos | ✅ Activo |
-| Harpoon | Navegación | Todos | ✅ Activo |
-| Telescope | Navegación | Todos | ✅ Activo |
-| Neo-tree | Gestión de Archivos | Todos | ✅ Activo |
+| Grapple | Navegación | Todos | ✅ Activo |
+| Telescope | Navegación | Todos | ⚠️ Legacy |
 | Oil | Gestión de Archivos | Todos | ✅ Activo |
 | Snacks.nvim | UI/Dashboard | Todos | ✅ Activo |
-| Obsidian | Toma de Notas | Markdown | ✅ Activo |
+| Telekasten | Toma de Notas | Markdown | ✅ Activo |
 | Multicursor | Edición | Todos | ✅ Activo |
 | Session Manager | Gestión de Proyectos | Todos | ✅ Activo |
 | LazyGit | Herramientas de Desarrollo | Todos | ✅ Activo |
