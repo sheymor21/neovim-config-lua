@@ -1,8 +1,5 @@
 return {
     "sheymor21/unidiagnostic.nvim",
-    dependencies = {
-        "akinsho/toggleterm.nvim",
-    },
     lazy = "VeryLazy",
     config = function()
         require("unidiagnostic").setup({
