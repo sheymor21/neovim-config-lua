@@ -3,6 +3,7 @@ return {
     dependencies = {
         "akinsho/toggleterm.nvim",
     },
+    lazy = "VeryLazy",
     config = function()
         require("unidiagnostic").setup({
             -- Window position
