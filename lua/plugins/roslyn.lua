@@ -6,6 +6,11 @@ return {
         require("roslyn").setup({
             filewatching = true,
             lock_target = true,
+            extensions = {
+                razor = {
+                    enabled = false,
+                },
+            },
             config = {
                 capabilities = capabilities,
                 offset_encoding = "utf-16",
