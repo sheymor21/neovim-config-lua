@@ -1,6 +1,25 @@
 local map = vim.keymap.set
 
-map("n", "<F5>", function() require("dap").continue() end, { desc = "DAP Start" })
+map("n", "<F5>", function()
+	local dap = require("dap")
+	local ft = vim.bo.filetype
+	local configs = dap.configurations[ft] or {}
+
+	if #configs == 1 then
+		dap.run(configs[1])
+		return
+	end
+
+	for _, config in ipairs(configs) do
+		if config.name:match("Current File") then
+			dap.run(config)
+			return
+		end
+	end
+
+	-- fallback to picker if no "Current File" config found
+	dap.continue()
+end, { desc = "DAP Start" })
 map("n", "<F10>", function() require("dap").step_over() end, { desc = "DAP Step Over" })
 map("n", "<F11>", function() require("dap").step_into() end, { desc = "DAP Step Into" })
 map("n", "<F12>", function() require("dap").step_out() end, { desc = "DAP Step Out" })

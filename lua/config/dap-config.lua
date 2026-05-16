@@ -465,25 +465,6 @@ dap.configurations.typescript = {
 		internalConsoleOptions = "neverOpen",
 		sourceMaps = true,
 	},
-	{
-		type = "pwa-node",
-		request = "launch",
-		name = "Debug TypeScript Project",
-		runtimeExecutable = function()
-			return get_ts_runner()
-		end,
-		runtimeArgs = function()
-			local _, args = get_ts_runner()
-			return args
-		end,
-		program = function()
-			return vim.fn.input("Entry file: ", "src/index.ts", "file")
-		end,
-		cwd = "${workspaceFolder}",
-		console = "integratedTerminal",
-		internalConsoleOptions = "neverOpen",
-		sourceMaps = true,
-	},
 }
 
 
