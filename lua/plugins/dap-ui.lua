@@ -3,6 +3,7 @@ return {
     cmd = { "DapContinue", "DapToggleBreakpoint", "DapStepOver", "DapStepInto", "DapStepOut", "DapTerminate", "DapToggleRepl" },
     dependencies = {
         "rcarriga/nvim-dap-ui",
+        "jay-babu/mason-nvim-dap.nvim",
         "nvim-neotest/nvim-nio",
         "theHamsta/nvim-dap-virtual-text",
     },
@@ -83,7 +84,8 @@ return {
         -- Error handling for DAP
         dap.listeners.after["event_output"]["error_handler"] = function(session, body)
             if body.category == "stderr" then
-                vim.notify("DAP Error: " .. body.output, vim.log.levels.ERROR)
+                local msg = body.output
+                vim.notify("DAP Error: " .. msg, vim.log.levels.ERROR)
             end
         end
 

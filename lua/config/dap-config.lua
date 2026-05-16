@@ -398,32 +398,92 @@ dap.adapters["pwa-node"] = {
 	},
 }
 
+dap.configurations.javascript = {
+	{
+		type = "pwa-node",
+		request = "launch",
+		name = "Debug Current File",
+		program = "${file}",
+		cwd = "${workspaceFolder}",
+		console = "internalConsole",
+		internalConsoleOptions = "neverOpen",
+		sourceMaps = true,
+	},
+	{
+		type = "pwa-node",
+		request = "launch",
+		name = "Debug Project (npm start)",
+		runtimeExecutable = "npm",
+		runtimeArgs = { "start" },
+		cwd = "${workspaceFolder}",
+		console = "internalConsole",
+		internalConsoleOptions = "neverOpen",
+		sourceMaps = true,
+	},
+	{
+		type = "pwa-node",
+		request = "launch",
+		name = "Debug Project (custom entry)",
+		program = function()
+			return vim.fn.input("Entry file: ", "src/index.js", "file")
+		end,
+		cwd = "${workspaceFolder}",
+		console = "internalConsole",
+		internalConsoleOptions = "neverOpen",
+		sourceMaps = true,
+	},
+}
+
+local function get_ts_runner()
+	local cwd = vim.fn.getcwd()
+	if vim.fn.filereadable(cwd .. "/bun.lockb") == 1 or vim.fn.filereadable(cwd .. "/bun.lock") == 1 then
+		return "bunx", { "tsx" }
+	elseif vim.fn.filereadable(cwd .. "/pnpm-lock.yaml") == 1 then
+		return "pnpm", { "tsx" }
+	elseif vim.fn.filereadable(cwd .. "/yarn.lock") == 1 then
+		return "yarn", { "tsx" }
+	else
+		return "npx", { "tsx" }
+	end
+end
+
 dap.configurations.typescript = {
 	{
 		type = "pwa-node",
 		request = "launch",
-		name = "Debug with tsx",
-		runtimeExecutable = "bunx",
-		runtimeArgs = { "tsx" },
+		name = "Debug TypeScript (Current File)",
+		runtimeExecutable = function()
+			return get_ts_runner()
+		end,
+		runtimeArgs = function()
+			local _, args = get_ts_runner()
+			return args
+		end,
 		args = { "${file}" },
 		cwd = "${workspaceFolder}",
+		console = "internalConsole",
+		internalConsoleOptions = "neverOpen",
 		sourceMaps = true,
-		protocol = "inspector",
-		console = "integratedTerminal",
-		killBehavior = "forceful",
 	},
-}
-
-dap.configurations.javascript = {
-	type = "pwa-node",
-	request = "launch",
-	name = "Debug Node",
-	runtimeExecutable = "node",
-	program = "${file}",
-	cwd = "${workspaceFolder}",
-	sourceMaps = true,
-	protocol = "inspector",
-	console = "integratedTerminal",
+	{
+		type = "pwa-node",
+		request = "launch",
+		name = "Debug TypeScript Project",
+		runtimeExecutable = function()
+			return get_ts_runner()
+		end,
+		runtimeArgs = function()
+			local _, args = get_ts_runner()
+			return args
+		end,
+		program = function()
+			return vim.fn.input("Entry file: ", "src/index.ts", "file")
+		end,
+		cwd = "${workspaceFolder}",
+		console = "internalConsole",
+		internalConsoleOptions = "neverOpen",
+		sourceMaps = true,
+	},
 }
 
 
