@@ -46,14 +46,62 @@ map("n", "<leader>cdr", function() require("dap").repl.open() end, { desc = "DAP
 map("n", "<leader>cdu", function() require("dapui").toggle() end, { desc = "DAP UI" })
 map("n", "<leader>cdx", function() require("dap").terminate() end, { desc = "DAP Stop" })
 
--- C# specific debug keymaps
+-- Auto-detect project type and debug
 map("n", "<leader>cdd", function()
-	if vim.bo.filetype ~= "cs" then
-		vim.notify("Not a C# file", vim.log.levels.WARN)
-		return
-	end
-	require("dap").continue()
-end, { desc = "Debug .NET API" })
+    local dap = require("dap")
+
+    if dap.session() then
+        dap.continue()
+        return
+    end
+
+    local ft = vim.bo.filetype
+    local configs = dap.configurations[ft] or {}
+
+    if #configs == 0 then
+        local cwd = vim.fn.getcwd()
+
+        if vim.fn.filereadable(cwd .. "/go.mod") == 1 then
+            configs = dap.configurations.go or {}
+        elseif vim.fn.filereadable(cwd .. "/package.json") == 1 then
+            if vim.fn.filereadable(cwd .. "/tsconfig.json") == 1 then
+                configs = dap.configurations.typescript or {}
+            else
+                configs = dap.configurations.javascript or {}
+            end
+        elseif #vim.fn.glob(cwd .. "/*.sln", false, true) > 0
+            or #vim.fn.glob(cwd .. "/*.csproj", false, true) > 0
+            or #vim.fn.glob(cwd .. "/*/*.csproj", false, true) > 0 then
+            configs = dap.configurations.cs or {}
+        end
+    end
+
+    if #configs == 0 then
+        vim.notify("No debug configuration available", vim.log.levels.WARN)
+        return
+    end
+
+    if #configs == 1 then
+        dap.run(configs[1])
+        return
+    end
+
+    for _, config in ipairs(configs) do
+        if config.name:match("Auto%-detect") or config.name:match("Current File") then
+            dap.run(config)
+            return
+        end
+    end
+
+    local names = vim.tbl_map(function(c) return c.name end, configs)
+    vim.ui.select(names, {
+        prompt = "Select debug configuration:",
+    }, function(choice, idx)
+        if choice and idx then
+            dap.run(configs[idx])
+        end
+    end)
+end, { desc = "Debug project (auto-detect)" })
 
 map("n", "<leader>cdt", function()
 	if vim.bo.filetype ~= "cs" then
