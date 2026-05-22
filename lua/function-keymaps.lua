@@ -172,6 +172,24 @@ function M.jump_to_line()
     end
 end
 
+-- Dashboard URL opener (reads from gitignored dashboard-urls.lua)
+function M.dashboard_open_url()
+    local ok, urls = pcall(require, "config.dashboard-urls")
+    if not ok or not urls or #urls == 0 then
+        vim.notify("No URLs configured. Copy lua/config/dashboard-urls.example.lua to lua/config/dashboard-urls.lua", vim.log.levels.WARN)
+        return
+    end
+    local items = {}
+    for _, entry in ipairs(urls) do
+        items[#items + 1] = entry.name .. "  " .. entry.url
+    end
+    vim.ui.select(items, { prompt = "Open URL" }, function(choice, idx)
+        if choice and idx then
+            vim.ui.open(urls[idx].url)
+        end
+    end)
+end
+
 -- ZealSearch smart docset mapping
 local zealsearch_docset_map = {
     typescript = "TypeScript",
