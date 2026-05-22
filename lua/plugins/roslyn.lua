@@ -2,19 +2,14 @@ return {
     "seblyng/roslyn.nvim",
     ft = { "cs" },
     config = function()
-        local capabilities = require("blink.cmp").get_lsp_capabilities()
+        vim.lsp.config("roslyn", {
+            capabilities = require("blink.cmp").get_lsp_capabilities(),
+            offset_encoding = "utf-16",
+        })
+
         require("roslyn").setup({
-            filewatching = true,
+            filewatching = "auto",
             lock_target = true,
-            extensions = {
-                razor = {
-                    enabled = false,
-                },
-            },
-            config = {
-                capabilities = capabilities,
-                offset_encoding = "utf-16",
-            },
         })
     end,
 }
