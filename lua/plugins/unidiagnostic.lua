@@ -1,6 +1,5 @@
 return {
     "sheymor21/unidiagnostic.nvim",
-    lazy = "VeryLazy",
     config = function()
         require("unidiagnostic").setup({
             -- Window position
