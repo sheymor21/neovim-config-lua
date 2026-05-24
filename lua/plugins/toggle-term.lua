@@ -4,7 +4,6 @@ return {
     cmd = "ToggleTerm",
     -- LazyGit (<leader>ig) and LazyDocker (<leader>id) moved to snacks.nvim
     -- ToggleTerm kept for unirunner, unipackage, unidiagnostic custom plugins
-    cmd = "ToggleTerm",
     config = function()
         require("toggleterm").setup({
             size = 20,
