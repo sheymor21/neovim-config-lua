@@ -59,6 +59,14 @@ function M.runner_cancel()
     require("unirunner").cancel()
 end
 
+function M.runner_open_url()
+    require("unirunner").open_url()
+end
+
+function M.runner_url_select()
+    require("unirunner").open_url_select()
+end
+
 function M.neotest_run()
     require("neotest").run.run()
 end

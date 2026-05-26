@@ -43,6 +43,8 @@ map("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Toggle undotree" })
 map("n", "<leader>cn", behavior.runner_run, { desc = "Run project" })
 map("n", "<leader>ck", behavior.runner_cancel, { desc = "Cancel a live running" })
 map("n", "<leader>cN", behavior.runner_select_run, { desc = "Select run project" })
+map("n", "<leader>co", behavior.runner_open_url, { desc = "Open runner url" })
+map("n", "<leader>cO", behavior.runner_url_select, { desc = "Select runner url" })
 map("n", "<leader>cc", behavior.runner_config, { desc = "Add runner config" })
 map("n", "<leader>ch", behavior.runner_history, { desc = "Show runner history" })
 
