@@ -1,7 +1,7 @@
 local map = vim.keymap.set
 
 -- Note operations (mirroring old Obsidian <leader>o prefix)
-map("n", "<leader>on", "<cmd>Telekasten new_templated_note<CR>", { desc = "New note from template" })
+map("n", "<leader>on", function() require("function-keymaps").new_note_with_folder() end, { desc = "New note in folder" })
 map("n", "<leader>od", "<cmd>Telekasten goto_today<CR>", { desc = "Open today's daily note" })
 map("n", "<leader>oD", "<cmd>Telekasten goto_yesterday<CR>", { desc = "Open yesterday's daily note" })
 map("n", "<leader>ot", "<cmd>Telekasten goto_tomorrow<CR>", { desc = "Open tomorrow's daily note" })

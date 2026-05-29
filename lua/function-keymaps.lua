@@ -34,6 +34,52 @@ function M.search_notes()
     })
 end
 
+function M.new_note_with_folder()
+    local paths = require("config.paths")
+    local vault = paths.vault_path
+
+    local dirs = {}
+    local handle = vim.loop.fs_scandir(vault)
+    if handle then
+        while true do
+            local name, type = vim.loop.fs_scandir_next(handle)
+            if not name then break end
+            if type == "directory" then
+                if not name:match("^%.")
+                    and name ~= "assets"
+                    and name ~= "daily"
+                    and name ~= "weekly"
+                    and name ~= "templates" then
+                    table.insert(dirs, name)
+                end
+            end
+        end
+    end
+    table.sort(dirs)
+    table.insert(dirs, 1, "(root)")
+
+    vim.ui.select(dirs, { prompt = "Note folder ❯ " }, function(folder)
+        if not folder then return end
+
+        vim.ui.input({ prompt = "Note title: " }, function(title)
+            if not title or title == "" then return end
+
+            local full_title = folder ~= "(root)" and folder .. "/" .. title or title
+
+            local orig_input = vim.ui.input
+            vim.ui.input = function(opts, cb)
+                if opts and opts.prompt == "Title: " then
+                    vim.ui.input = orig_input
+                    cb(full_title)
+                else
+                    orig_input(opts, cb)
+                end
+            end
+
+            require("telekasten").new_templated_note()
+        end)
+    end)
+end
 
 function M.runner_run()
     require("unirunner").run()

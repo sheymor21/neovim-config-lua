@@ -40,7 +40,7 @@ return {
                     icon = "",
                     key = "N",
                     desc = "New Note",
-                    action = ":Telekasten new_templated_note",
+                    action = function() require("function-keymaps").new_note_with_folder() end,
                 },
                     { icon = "", key = "l", desc = "Lazy Plugins", action = ":Lazy" },
                     { icon = "", key = "u", desc = "Open URL", action = function() require("function-keymaps").dashboard_open_url() end },
