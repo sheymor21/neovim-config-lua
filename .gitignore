@@ -524,3 +524,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 lazy-lock*
+lua/config/dashboard-urls.lua
