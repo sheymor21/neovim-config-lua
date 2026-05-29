@@ -3,7 +3,15 @@ local map = vim.keymap.set
 
 -- Add file to Grapple
 map("n", "<leader>aa", function()
-  require("grapple").toggle()
+  local grapple = require("grapple")
+  local exists = grapple.exists()
+  local filename = vim.fn.expand("%:t")
+
+  grapple.toggle()
+
+  if not exists then
+    vim.notify("Grapple added: " .. filename, vim.log.levels.INFO)
+  end
 end, vim.tbl_extend("force", opts, { desc = "Grapple: toggle file" }))
 
 -- Open Grapple popup
