@@ -11,7 +11,6 @@ M.lsp_servers = {
     "html",
     "cssls",
     "marksman",
-    "roslyn",
 }
 
 -- Full reload function
