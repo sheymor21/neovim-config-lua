@@ -9,7 +9,6 @@ local last_cursor_pos = nil
 -- Track last known good state
 local plugin_states = {
     which_key = { last_check = 0, healthy = true },
-    blink = { last_check = 0, healthy = true },
 }
 
 -- Check if which-key is responsive
@@ -29,38 +28,6 @@ local function check_which_key()
         return false, "which-key state corrupted"
     end
     
-    return true, "healthy"
-end
-
--- Check if blink.cmp is responsive
-local function check_blink()
-    local ok, blink = pcall(require, "blink.cmp")
-    if not ok then
-        return false, "blink.cmp not loaded"
-    end
-
-    -- Try to access blink state
-    local state_ok = pcall(function()
-        -- blink should have show and hide functions
-        return type(blink.show) == "function" and type(blink.hide) == "function"
-    end)
-
-    if not state_ok then
-        return false, "blink.cmp state corrupted"
-    end
-
-    -- Check if sources are configured
-    local config_ok, config = pcall(function()
-        return blink.config and blink.config.sources
-    end)
-
-    if config_ok and config then
-        local has_sources = config.default and #config.default > 0
-        if not has_sources then
-            return false, "blink.cmp sources not configured"
-        end
-    end
-
     return true, "healthy"
 end
 
@@ -102,19 +69,6 @@ function M.check_health()
             table.insert(issues, { plugin = "which-key", msg = msg })
             -- Try to reload
             reload_plugin("which-key")
-        end
-    end
-    
-    -- Check blink.cmp (only every 30 seconds)
-    if current_time - plugin_states.blink.last_check > 30000 then
-        local healthy, msg = check_blink()
-        plugin_states.blink.last_check = current_time
-        plugin_states.blink.healthy = healthy
-
-        if not healthy then
-            table.insert(issues, { plugin = "blink.cmp", msg = msg })
-            -- Try to reload
-            reload_plugin("blink.cmp")
         end
     end
     

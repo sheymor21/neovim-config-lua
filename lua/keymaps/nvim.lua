@@ -80,10 +80,9 @@ map("n", "<esc>", behavior.mc_clear_or_enable_cursors, { desc = "Clear cursors" 
 -- Markdown preview keymap
 map("n", "<leader>mp", behavior.toggle_peek_preview, { desc = "Markdown Preview" })
 
--- Nvim Status keymaps (LSP & CMP reload)
-map("n", "<leader>nr", "<cmd>DevReload<cr>", { desc = "Full reload LSP & CMP" })
+-- Nvim Status keymaps (LSP reload)
+map("n", "<leader>nr", "<cmd>DevReload<cr>", { desc = "Full reload LSP" })
 map("n", "<leader>nl", "<cmd>LspReload<cr>", { desc = "Reload LSP only" })
-map("n", "<leader>nc", "<cmd>CmpReload<cr>", { desc = "Reload CMP only" })
 map("n", "<leader>ns", "<cmd>StartupTime<cr>", { desc = "Show startup time" })
 map("n", "<leader>nS", "<cmd>SlowPlugins<cr>", { desc = "Show slow plugins" })
 map("n", "<leader>nh", "<cmd>checkhealth<cr>", { desc = "Health check" })

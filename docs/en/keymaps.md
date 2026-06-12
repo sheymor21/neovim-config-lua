@@ -258,9 +258,8 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 ### Nvim Status (Reload & Health)
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>nr` | DevReload | Full reload LSP & CMP |
+| `<leader>nr` | DevReload | Full reload LSP |
 | `<leader>nl` | LspReload | Reload LSP only |
-| `<leader>nc` | CmpReload | Reload CMP only |
 | `<leader>ns` | StartupTime | Show startup time |
 | `<leader>nS` | SlowPlugins | Show slow plugins |
 | `<leader>nh` | checkhealth | Health check |

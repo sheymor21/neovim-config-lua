@@ -73,9 +73,8 @@ Complex keymap logic goes in `function-keymaps.lua`, wrapped in the `M` table, t
 | `:checkhealth` | Run health check (see `lua/health.lua`) |
 | `:StartupTime` | Show startup performance |
 | `:SlowPlugins` | Show slow-loading plugins |
-| `:DevReload` | Full reload LSP & CMP |
+| `:DevReload` | Full reload LSP |
 | `:LspReload` | Reload LSP only |
-| `:CmpReload` | Reload CMP only |
 | `:Lazy` | Plugin manager |
 | `:Mason` | LSP server installer |
 
@@ -83,7 +82,7 @@ Complex keymap logic goes in `function-keymaps.lua`, wrapped in the `M` table, t
 
 1. Edit a Lua file
 2. Run `:luafile %` (or `<leader>W`) to source current file
-3. Run `:DevReload` if LSP/CMP affected
+3. Run `:DevReload` if LSP affected
 4. Run `:checkhealth` to verify health
 
 ## LSP Servers

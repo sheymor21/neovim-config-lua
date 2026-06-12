@@ -24,32 +24,25 @@ function M.full_reload()
     M.is_reloading = true
     local start_time = vim.uv.hrtime()
 
-    vim.notify("🔄 Starting full LSP & CMP reload...", vim.log.levels.INFO)
+    vim.notify("🔄 Starting full LSP reload...", vim.log.levels.INFO)
 
     -- Step 1: Stop all LSP clients
     vim.notify("  ⏹️  Stopping LSP clients...", vim.log.levels.INFO)
     M.stop_all_lsp_clients()
 
-    -- Step 2: Clear Lua module cache for LSP and CMP
+    -- Step 2: Clear Lua module cache for LSP
     vim.notify("  🧹 Clearing module cache...", vim.log.levels.INFO)
     M.clear_module_cache()
 
-    -- Step 3: Reload blink.cmp
-    vim.notify("  🔄 Reloading blink.cmp...", vim.log.levels.INFO)
-    local blink_ok, blink_err = pcall(M.reload_blink)
-    if not blink_ok then
-        vim.notify("  ❌ blink.cmp reload failed: " .. tostring(blink_err), vim.log.levels.ERROR)
-    end
-
-    -- Step 4: Reload LSP configs
+    -- Step 3: Reload LSP configs
     vim.notify("  🔄 Reloading LSP configurations...", vim.log.levels.INFO)
     M.reload_lsp_configs()
 
-    -- Step 5: Re-attach to current buffer
+    -- Step 4: Re-attach to current buffer
     vim.notify("  🔌 Re-attaching to current buffer...", vim.log.levels.INFO)
     M.reattach_to_buffer(vim.api.nvim_get_current_buf())
 
-    -- Step 6: Re-attach to other buffers
+    -- Step 5: Re-attach to other buffers
     vim.notify("  🔌 Re-attaching to other buffers...", vim.log.levels.INFO)
     M.reattach_to_all_buffers()
 
@@ -70,12 +63,9 @@ function M.stop_all_lsp_clients()
     vim.wait(100)
 end
 
--- Clear Lua module cache for LSP and CMP related modules
+-- Clear Lua module cache for LSP related modules
 function M.clear_module_cache()
     local modules_to_clear = {
-        -- blink.cmp modules
-        "blink.cmp",
-        "blink.compat",
         -- LSP modules
         "lspconfig",
         "lspconfig.configs",
@@ -94,20 +84,6 @@ function M.clear_module_cache()
     for _, mod in ipairs(modules_to_clear) do
         package.loaded[mod] = nil
     end
-end
-
--- Reload blink.cmp configuration
-function M.reload_blink()
-    -- Close any open blink completion window
-    local blink = require("blink.cmp")
-    blink.hide()
-
-    -- Reload config
-    package.loaded["plugins.blink-cmp"] = nil
-    require("plugins.blink-cmp")
-
-    -- Re-trigger setup (lazy.nvim re-applies opts on require)
-    -- blink automatically re-attaches to buffers
 end
 
 -- Reload LSP configurations (only for active clients)
@@ -162,13 +138,6 @@ function M.reload_lsp_only()
     M.reload_lsp_configs()
     M.reattach_to_all_buffers()
     vim.notify("✅ LSP reload complete!", vim.log.levels.INFO)
-end
-
-function M.reload_cmp_only()
-    vim.notify("🔄 Reloading blink.cmp (legacy alias)...", vim.log.levels.INFO)
-    M.clear_module_cache()
-    M.reload_blink()
-    vim.notify("✅ blink.cmp reload complete!", vim.log.levels.INFO)
 end
 
 return M

@@ -258,9 +258,8 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 ### Nvim Status (Recarga y Salud)
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `<leader>nr` | DevReload | Recarga completa LSP & CMP |
+| `<leader>nr` | DevReload | Recarga completa LSP |
 | `<leader>nl` | LspReload | Recargar solo LSP |
-| `<leader>nc` | CmpReload | Recargar solo CMP |
 | `<leader>ns` | StartupTime | Mostrar tiempo de inicio |
 | `<leader>nS` | SlowPlugins | Mostrar plugins lentos |
 | `<leader>nh` | checkhealth | Health check |

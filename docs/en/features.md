@@ -297,7 +297,7 @@ This configuration includes a **VS Code compatibility layer** (`lua/nvim_vscode/
 
 ### Plugins Disabled in VS Code
 - **UI**: lualine, noice, snacks.nvim dashboard/picker/notifier
-- **LSP/CMP**: mason.nvim, blink-cmp, all LSP servers (VS Code provides these)
+- **LSP**: mason.nvim, blink-cmp, all LSP servers (VS Code provides these)
 - **Pickers**: fzf-lua, telescope (use VS Code's native search)
 - **Git**: gitsigns, lazygit (use VS Code's source control)
 - **Terminal**: toggleterm (use VS Code's integrated terminal)
