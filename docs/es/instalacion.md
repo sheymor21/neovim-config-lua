@@ -73,6 +73,20 @@ npm install -g prettier
 prettier --version
 ```
 
+##### Python 3
+```bash
+# Arch Linux
+sudo pacman -S python
+
+# Verificar instalación
+python3 --version
+
+# Alternativas:
+# Ubuntu/Debian: sudo apt install python3
+# Fedora: sudo dnf install python3
+# macOS: brew install python3
+```
+
 ##### Black (Python)
 ```bash
 pip install black
@@ -117,6 +131,11 @@ dotnet --version
 ##### CSharpier (formateo de C#)
 ```bash
 dotnet tool install --global csharpier
+
+# Asegúrate de que ~/.dotnet/tools esté en tu PATH
+echo 'export PATH=$PATH:$HOME/.dotnet/tools' >> ~/.bashrc
+# o ~/.zshrc si usas zsh
+source ~/.bashrc
 ```
 
 ## 🔧 Instalación de la Configuración
@@ -135,9 +154,13 @@ git clone <tu-repositorio> ~/.config/nvim
 # gopls (LSP oficial de Go)
 go install golang.org/x/tools/gopls@latest
 
-# Verificar que esté en tu PATH
-which gopls
-# Debe mostrar: ~/go/bin/gopls
+# Formateadores de Go
+go install mvdan.cc/gofumpt@latest
+go install golang.org/x/tools/cmd/goimports@latest
+
+# Verificar que estén en tu PATH
+which gopls gofumpt goimports
+# Debe mostrar: ~/go/bin/gopls, ~/go/bin/gofumpt, ~/go/bin/goimports
 ```
 
 ### Paso 3: Iniciar Neovim
@@ -162,6 +185,7 @@ Deberías ver los siguientes LSPs instalados:
 - **roslyn** (C# - vía roslyn.nvim)
 - **html** (HTML - vía Mason)
 - **css** (CSS - vía Mason)
+- **jsonls** (JSON - vía Mason)
 - **marksman** (Markdown - vía Mason)
 
 ### Verificar Plugins
@@ -171,6 +195,22 @@ Deberías ver los siguientes LSPs instalados:
 ```
 
 Todos los plugins deberían estar instalados y listos.
+
+### Verificar Salud
+```bash
+# Dentro de Neovim, ejecuta:
+:checkhealth
+```
+
+Esto ejecuta el health check personalizado que verifica el tiempo de inicio, dependencias externas, servidores LSP, salud de plugins y el vault de Telekasten.
+
+### Instalar Servidores LSP vía Mason
+```bash
+# Dentro de Neovim, ejecuta:
+:Mason
+```
+
+Instala cualquier servidor LSP faltante de la lista anterior. Mason proporciona una UI para instalar/desinstalar servidores LSP.
 
 ## 🐛 Solución de Problemas
 
@@ -201,7 +241,10 @@ nvim
 #### 4. Formateo no funciona
 ```bash
 # Verifica que las herramientas estén instaladas
-which prettier black stylua shfmt csharpier
+which prettier black stylua shfmt gofumpt goimports csharpier
+
+# Si csharpier no se encuentra, verifica que ~/.dotnet/tools esté en tu PATH
+echo $PATH | grep -q dotnet && echo "dotnet encontrado" || echo "dotnet NO en PATH"
 ```
 
 #### 5. Falla la compilación de blink.cmp
@@ -270,7 +313,7 @@ Crea o edita `~/.config/Code/User/keybindings.json`:
   {
     "key": "o",
     "command": "workbench.action.acceptSelectedQuickOpenItem",
-    "when": "inQuickOpen"
+    "when": "inQuickOpen && !listFocus"
   },
 
   // Cerrar sidebar y paneles con Alt+Q

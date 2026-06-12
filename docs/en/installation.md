@@ -73,6 +73,20 @@ npm install -g prettier
 prettier --version
 ```
 
+##### Python 3
+```bash
+# Arch Linux
+sudo pacman -S python
+
+# Verify installation
+python3 --version
+
+# Alternatives:
+# Ubuntu/Debian: sudo apt install python3
+# Fedora: sudo dnf install python3
+# macOS: brew install python3
+```
+
 ##### Black (Python)
 ```bash
 pip install black
@@ -117,6 +131,11 @@ dotnet --version
 ##### CSharpier (C# formatting)
 ```bash
 dotnet tool install --global csharpier
+
+# Make sure ~/.dotnet/tools is in your PATH
+echo 'export PATH=$PATH:$HOME/.dotnet/tools' >> ~/.bashrc
+# or ~/.zshrc if you use zsh
+source ~/.bashrc
 ```
 
 ## 🔧 Configuration Installation
@@ -135,9 +154,13 @@ git clone <your-repository> ~/.config/nvim
 # gopls (official Go LSP)
 go install golang.org/x/tools/gopls@latest
 
-# Verify it's in your PATH
-which gopls
-# Should show: ~/go/bin/gopls
+# Go formatters
+go install mvdan.cc/gofumpt@latest
+go install golang.org/x/tools/cmd/goimports@latest
+
+# Verify they're in your PATH
+which gopls gofumpt goimports
+# Should show: ~/go/bin/gopls, ~/go/bin/gofumpt, ~/go/bin/goimports
 ```
 
 ### Step 3: Start Neovim
@@ -162,6 +185,7 @@ You should see following LSPs installed:
 - **roslyn** (C# - via roslyn.nvim)
 - **html** (HTML - via Mason)
 - **css** (CSS - via Mason)
+- **jsonls** (JSON - via Mason)
 - **marksman** (Markdown - via Mason)
 
 ### Verify Plugins
@@ -171,6 +195,22 @@ You should see following LSPs installed:
 ```
 
 All plugins should be installed and ready.
+
+### Verify Health
+```bash
+# Inside Neovim, run:
+:checkhealth
+```
+
+This runs the custom health check that verifies startup time, external dependencies, LSP servers, plugin health, and Telekasten vault.
+
+### Install LSP Servers via Mason
+```bash
+# Inside Neovim, run:
+:Mason
+```
+
+Install any missing LSP servers from the list above. Mason provides a UI to install/uninstall LSP servers.
 
 ## 🐛 Troubleshooting
 
@@ -201,7 +241,10 @@ nvim
 #### 4. Formatting not working
 ```bash
 # Verify tools are installed
-which prettier black stylua shfmt csharpier
+which prettier black stylua shfmt gofumpt goimports csharpier
+
+# If csharpier is not found, check that ~/.dotnet/tools is in your PATH
+echo $PATH | grep -q dotnet && echo "dotnet found" || echo "dotnet NOT in PATH"
 ```
 
 #### 5. blink.cmp build fails
@@ -270,7 +313,7 @@ Create or edit `~/.config/Code/User/keybindings.json`:
   {
     "key": "o",
     "command": "workbench.action.acceptSelectedQuickOpenItem",
-    "when": "inQuickOpen"
+    "when": "inQuickOpen && !listFocus"
   },
 
   // Close sidebar and panels with Alt+Q
