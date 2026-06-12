@@ -2,21 +2,28 @@
 
 ## Architecture
 
-**Entry point**: `init.lua` - sets core vim options, then branches to:
-1. `lua/init/nvim.lua` - Standalone Neovim init (or)
+**Entry point**: `init.lua` - sets core vim options (tabstop=4, expandtab, relativenumber, etc.), then branches to:
+1. `lua/init/nvim.lua` - Standalone Neovim init
 2. `lua/init/nvim_vscode.lua` - VS Code: init
-   - Each loads `config/lazy.lua`, `general-config.lua`, `function-keymaps.lua`, `keymaps.lua`
 
-**Directory structure**:
-- `lua/init/` - Environment entry points (branched from init.lua)
-- `lua/plugins/` - Plugin specs (return lazy.nvim spec tables)
-- `lua/config/` - Plugin setup/config logic (deferred modules for VeryLazy too)
-- `lua/plugins-keymaps/` - Keymap definitions per plugin
-- `lua/keymaps/` - Keymap modules (core, nvim, nvim_vscode)
-- `lua/general-config/` - Environment-specific autocmds
-- `lua/lsp/` - LSP server configurations
-- `lua/plugins-off/` - Disabled plugins (not loaded by lazy)
-- `docs/en/`, `docs/es/` - Bilingual documentation
+Both load: `config/lazy.lua` → `general-config.lua` → `function-keymaps.lua` → `keymaps.lua`
+
+**Plugin loading pattern** (3-part separation):
+```lua
+-- lua/plugins/foo.lua - the spec (lazy.nvim spec table)
+return { "author/plugin", config = function() require("config.foo") end }
+
+-- lua/config/foo.lua - setup logic
+require("plugin").setup({...})
+
+-- lua/plugins-keymaps/foo-keymaps.lua - keymaps
+local map = vim.keymap.set
+map("n", "<leader>xx", ...)
+```
+
+**Deferred loading**: Non-critical modules load on `User VeryLazy` event in `lua/init/nvim.lua`. Add new deferred modules there.
+
+**VS Code mode**: `vim.g.vscode` triggers `lua/init/nvim_vscode.lua`. The `nvim_vscode` module (not in this repo) provides a `disabled_plugins` list that filters the plugin specs dynamically.
 
 ## Critical Conventions
 
@@ -28,55 +35,14 @@ The config remaps movement keys to Colemak-DH. **When defining new keymaps**:
 - `o` = right (was `l`)
 - `h` = open line below (was `o`)
 - `k` = enter insert mode (was `i`)
-- Original h/j/k/l are disabled (`<nop>`)
+- Original `h/j/k/l` are disabled (`<nop>`) in normal+visual
 
-**Safe keys for leader combinations**: Everything except n, e, i, o and their uppercase variants.
+**Safe keys for leader combinations**: Everything except `n/e/i/o` and their uppercase variants.
 
-### Plugin Loading Pattern
-Plugins use lazy.nvim with structured separation:
-```lua
--- lua/plugins/foo.lua - the spec
-return {
-    "author/plugin",
-    config = function()
-        require("config.foo") -- setup logic
-    end,
-}
-
--- lua/config/foo.lua - the setup
-require("plugin").setup({...})
-
--- lua/plugins-keymaps/foo-keymaps.lua - keymaps
-local map = vim.keymap.set
-map("n", "<leader>xx", ...)
-```
-
-### Startup Defer Pattern
-Non-critical modules load on `VeryLazy` event (see `lua/init/nvim.lua`). Add new deferred modules there.
+**Snacks picker keys** in `lua/plugins/snacks.lua` are already mapped to Colemak-DH (`<C-e>` for list down, `<C-i>` for list up).
 
 ### Keymap Behavior Functions
-Complex keymap logic goes in `function-keymaps.lua`, wrapped in the `M` table, then referenced in keymaps.
-
-## Primary Tools
-
-- **File finder**: fzf-lua (`<leader>ff`, `<leader>fb`, `<leader>sg`)
-- **File manager**: Oil.nvim (`<leader>e`, `-` for parent dir)
-- **Bookmarks**: Grapple (`<leader>aa`, `<C-1>` to `<C-4>`)
-- **Git**: Snacks.lazygit (`<leader>ig`)
-- **Notes**: Telekasten (`<leader>zp`, `<leader>zf`)
-- **Picker/Recent**: Snacks.picker (`<leader>fr`)
-
-## Commands
-
-| Command | Purpose |
-|---------|---------|
-| `:checkhealth` | Run health check (see `lua/health.lua`) |
-| `:StartupTime` | Show startup performance |
-| `:SlowPlugins` | Show slow-loading plugins |
-| `:DevReload` | Full reload LSP |
-| `:LspReload` | Reload LSP only |
-| `:Lazy` | Plugin manager |
-| `:Mason` | LSP server installer |
+Complex keymap logic goes in `lua/function-keymaps.lua`, wrapped in the `M` table, then referenced in keymaps. Do not inline complex logic in keymap definitions.
 
 ## Testing Changes
 
@@ -85,7 +51,21 @@ Complex keymap logic goes in `function-keymaps.lua`, wrapped in the `M` table, t
 3. Run `:DevReload` if LSP affected
 4. Run `:checkhealth` to verify health
 
-## LSP Servers
+## LSP Architecture
+
+Custom LSP setup (not nvim-lspconfig). Uses `lua/lsp/utils.lua`:
+
+```lua
+function M.start_lsp_client(server_name, bufnr, config)
+    config.capabilities = require("blink.cmp").get_lsp_capabilities()
+    return vim.lsp.start(config, { bufnr = bufnr, reuse_client = ... })
+end
+```
+
+**Important**: `lua/lsp/on_attach.lua` disables semantic tokens for ALL clients:
+```lua
+client.server_capabilities.semanticTokensProvider = nil
+```
 
 Configured servers (in `lua/lsp/`):
 - `gopls` - Go (requires system install)
@@ -94,6 +74,32 @@ Configured servers (in `lua/lsp/`):
 - `roslyn` - C# (special plugin, not Mason)
 - `html`, `cssls` - Web (via Mason)
 - `markdown` - Markdown (via Mason)
+
+## Primary Tools
+
+| Tool | Plugin | Keymaps |
+|------|--------|---------|
+| File finder | fzf-lua | `<leader>ff`, `<leader>fb`, `<leader>sg` |
+| File manager | Oil.nvim | `<leader>e`, `-` for parent dir |
+| Bookmarks | Grapple | `<leader>aa`, `<C-1>` to `<C-4>` |
+| Git | Snacks.lazygit | `<leader>ig` |
+| Notes | Telekasten | `<leader>on`, `<leader>od`, `<leader>of` |
+| Picker | Snacks.picker | `<leader>fr`, `<leader>sm`, `<leader>sh` |
+| Completion | blink.cmp | Tab, S-Tab, C-j, C-k |
+| Terminal | Snacks.terminal | `<leader>tt` |
+| Dashboard | Snacks.dashboard | Shows on startup |
+
+## Commands
+
+| Command | Purpose |
+|---------|---------|
+| `:checkhealth` | Run health check (see `lua/health.lua`) |
+| `:StartupTime` | Show startup performance |
+| `:SlowPlugins` | Show slow-loading plugins |
+| `:DevReload` | Full reload LSP (stops → clears cache → reloads configs → reattaches) |
+| `:LspReload` | Reload LSP only |
+| `:Lazy` | Plugin manager |
+| `:Mason` | LSP server installer |
 
 ## External Dependencies
 
@@ -104,10 +110,6 @@ Required: `git`
 
 `lua/health.lua` provides `:checkhealth` integration. Add new checks there following the existing pattern with `vim.health.ok/warn/error`.
 
-## Lockfile
-
-`lazy-lock.json` is committed for reproducible builds. Update with `:Lazy sync` or `:Lazy update`.
-
 ## Notes/Telekasten Vault
 
 Vault path is defined in `lua/config/paths.lua` (default: `~/Documents/Sheymor`). The health check verifies vault accessibility.
@@ -116,3 +118,17 @@ Vault path is defined in `lua/config/paths.lua` (default: `~/Documents/Sheymor`)
 
 - **C# files**: UTF-8 BOM is preserved (`vim.opt_local.bomb = true`) to prevent showing whole file as changed
 - **Windows line endings**: Auto-converted to Unix on open (`:set fileformat=unix`)
+- **Per-filetype themes**: Auto-switched by `lua/config/filetype-theme.lua` (lua→ayu, go→onedark_dark, cs→gruvbox, etc.)
+
+## Git
+
+- `lazy-lock.json` is **ignored** (not tracked). Users generate their own lockfile.
+- `lua/config/dashboard-urls.lua` is gitignored (create from `dashboard-urls.example.lua`)
+
+## Formatting
+
+- **Lua**: `stylua` (4-space indent, 100 col width)
+- **Go**: `gofumpt` + `goimports`
+- **C#**: `csharpier`
+- **Web**: `prettier` (with spacious defaults: 4-tab, 120 width)
+- **Format on save is DISABLED** — manual only via `<leader>mf` or conform
