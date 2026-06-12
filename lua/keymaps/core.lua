@@ -36,9 +36,9 @@ map("n", "h", "o")
 map("n", "H", "O")
 map("n", "k", "i")
 
-map("n", "zn", "zc")
-map("n", "zN", "zM")
-map("n", "zO", "zR")
+map("n", "zn", "zc", { desc = "Close fold" })
+map("n", "zN", "zM", { desc = "Close all folds" })
+map("n", "zO", "zR", { desc = "Open all folds" })
 
 -- =========================
 -- KEYMAPS SYSTEM
