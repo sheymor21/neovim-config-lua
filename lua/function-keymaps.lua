@@ -374,4 +374,73 @@ function M.zeal_search_repeat()
     end
 end
 
+-- Open external terminal in project root with opencode
+function M.open_external_opencode()
+    -- Find project root via git
+    local root = vim.fn.system("git rev-parse --show-toplevel 2>/dev/null")
+    root = vim.fn.trim(root)
+    if root == "" or vim.v.shell_error ~= 0 then
+        root = vim.fn.getcwd()
+    end
+
+    -- Terminal preference: user-defined > auto-detect
+    local preferred = vim.g.external_terminal
+    local terminals = {
+        "alacritty",
+        "kitty",
+        "wezterm",
+        "gnome-terminal",
+        "konsole",
+        "xterm",
+    }
+
+    local terminal = nil
+    if preferred and preferred ~= "" then
+        if vim.fn.executable(preferred) == 1 then
+            terminal = preferred
+        else
+            vim.notify(
+                "Preferred terminal '" .. preferred .. "' not found, falling back to auto-detect",
+                vim.log.levels.WARN
+            )
+        end
+    end
+
+    if not terminal then
+        for _, term in ipairs(terminals) do
+            if vim.fn.executable(term) == 1 then
+                terminal = term
+                break
+            end
+        end
+    end
+
+    if not terminal then
+        vim.notify("No external terminal found (tried: alacritty, kitty, wezterm, gnome-terminal, konsole, xterm)", vim.log.levels.ERROR)
+        return
+    end
+
+    -- Build command based on terminal
+    local cmd
+    if terminal == "alacritty" then
+        cmd = { "alacritty", "--working-directory", root, "-e", "opencode" }
+    elseif terminal == "kitty" then
+        cmd = { "kitty", "--working-directory=" .. root, "opencode" }
+    elseif terminal == "wezterm" then
+        cmd = { "wezterm", "start", "--cwd", root, "opencode" }
+    elseif terminal == "gnome-terminal" then
+        cmd = { "gnome-terminal", "--working-directory=" .. root, "--", "opencode" }
+    elseif terminal == "konsole" then
+        cmd = { "konsole", "--workdir", root, "-e", "opencode" }
+    elseif terminal == "xterm" then
+        cmd = { "xterm", "-e", "cd " .. vim.fn.shellescape(root) .. " && opencode" }
+    else
+        -- Generic fallback
+        cmd = { terminal, "-e", "cd " .. vim.fn.shellescape(root) .. " && opencode" }
+    end
+
+    vim.fn.jobstart(cmd, { detach = true })
+    vim.notify("Opened opencode in " .. terminal .. " at " .. root, vim.log.levels.INFO)
+end
+
 return M
