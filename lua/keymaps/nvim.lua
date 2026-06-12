@@ -39,6 +39,9 @@ map("n", "<leader>!", "<cmd>CellularAutomaton make_it_rain<cr>", { desc = "Make 
 -- Undotree keymap
 map("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Toggle undotree" })
 
+-- Open URL under cursor
+map("n", "<leader>iou", behavior.dashboard_open_url, { desc = "Open dashboard URL" })
+
 -- Runner keymaps
 map("n", "<leader>cn", behavior.runner_run, { desc = "Run project" })
 map("n", "<leader>ck", behavior.runner_cancel, { desc = "Cancel a live running" })
