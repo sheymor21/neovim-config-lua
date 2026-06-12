@@ -39,69 +39,81 @@ This guide covers the general Neovim configuration, including basic options, LSP
     │   ├── plugin-health.lua   # Plugin health checks
     │   ├── profiler.lua        # Performance profiler
     │   ├── reloader.lua        # Config reloader
+    │   ├── paths.lua           # Vault and path constants
+    │   ├── obsidian.lua        # Obsidian integration
+    │   ├── snacks.lua          # Snacks.nvim configuration
+    │   ├── dashboard-urls.lua  # Dashboard URL list (gitignored)
+    │   └── dashboard-urls.example.lua # Dashboard URL example
     ├── plugins/                # Plugin specifications
     │   ├── 99.lua              # Core plugins loader
-    │   ├── telescope.lua       # Telescope configuration
-    │   ├── fzf-lua.lua         # Fzf-lua configuration
-    │   ├── treesitter.lua      # Treesitter configuration
-    │   ├── blink-cmp.lua       # Autocompletion (blink.cmp)
-    │   ├── grapple.lua         # Navigation bookmarks
-    │   ├── conform.lua         # Code formatting
     │   ├── aerial.lua          # Symbol outline
-    │   ├── lualine.lua         # Status line
-    │   ├── toggle-term.lua     # Terminal management
-    │   ├── which-key.lua       # Keybinding help
-    │   ├── gitsigns.lua        # Git integration
-    │   ├── noice.lua           # UI notifications
-    │   ├── snacks.lua          # Snacks.nvim features
-    │   ├── flash.lua           # Quick navigation
-    │   ├── undotree.lua        # Undo visualization
-    │   ├── surround.lua        # Surrounding text objects
     │   ├── autopairs.lua       # Auto bracket completion
-    │   ├── indent.lua          # Indentation guides
-    │   ├── oil.lua             # File system editing
-    │   ├── yanky.lua           # Enhanced yank/paste
-    │   ├── luasnipet.lua       # Snippets
+    │   ├── blink-cmp.lua       # Autocompletion (blink.cmp)
     │   ├── cellular.lua        # Visual effects
-    │   ├── faster.lua          # Performance optimization
     │   ├── colors.lua          # Color schemes
+    │   ├── configurationless.lua # Utility functions
+    │   ├── conform.lua         # Code formatting
+    │   ├── dap-ui.lua          # Debug UI
+    │   ├── faster.lua          # Performance optimization
+    │   ├── flash.lua           # Quick navigation
+    │   ├── fzf-lua.lua         # Fzf-lua configuration
+    │   ├── gitsigns.lua        # Git integration
+    │   ├── grapple.lua         # Navigation bookmarks
+    │   ├── lazydev.lua         # Lua development
+    │   ├── lualine.lua         # Status line
+    │   ├── luasnipet.lua       # Snippets
     │   ├── markdown-render.lua # Markdown rendering
+    │   ├── mason.lua           # LSP server installer
     │   ├── multicursor.lua     # Multiple cursors
     │   ├── neotest.lua         # Testing framework
-    │   ├── dap-ui.lua          # Debug UI
     │   ├── neovim-session-manager.lua # Session management
+    │   ├── noice.lua           # UI notifications
+    │   ├── nvim-web-devicons.lua # File icons
+    │   ├── oil.lua             # File system editing
     │   ├── projects.lua        # Project management
-    │   ├── lazydev.lua         # Lua development
-    │   ├── configurationless.lua # Utility functions
-    │   ├── windows-picker.lua  # Window selection
-    │   ├── mini-nvim.lua       # Mini.nvim suite
-    │   ├── roslyn.lua          # Roslyn LSP
-    │   ├── unirunner.lua       # Unified runner
-    │   ├── unipackage.lua      # Package manager
-    │   ├── unidiagnostic.lua   # Diagnostic management
-    │   ├── wakatime.lua        # Wakatime integration
-    │   ├── telekasten.lua      # Zettelkasten notes
+    │   ├── rainbow-delimiters.lua # Rainbow delimiters
     │   ├── reloader.lua        # Config reloader
-    │   └── nvim-web-devicons.lua # File icons
+    │   ├── roslyn.lua          # Roslyn LSP
+    │   ├── snacks.lua          # Snacks.nvim features
+    │   ├── spider.lua          # CamelCase motion
+    │   ├── surround.lua        # Surrounding text objects
+    │   ├── telekasten.lua      # Zettelkasten notes
+    │   ├── telescope.lua       # Telescope configuration
+    │   ├── toggle-term.lua     # Terminal management
+    │   ├── treesitter.lua      # Treesitter configuration
+    │   ├── ufo.lua             # UFO folding
+    │   ├── undotree.lua        # Undo visualization
+    │   ├── unidiagnostic.lua   # Diagnostic management
+    │   ├── unipackage.lua      # Package manager
+    │   ├── unirunner.lua       # Unified runner
+    │   ├── wakatime.lua        # Wakatime integration
+    │   ├── which-key.lua       # Keybinding help
+    │   ├── windows-picker.lua  # Window selection
+    │   ├── yanky.lua           # Enhanced yank/paste
+    │   └── zealsearch.lua      # Zeal documentation search
     ├── nvim_vscode/            # VS Code compatibility layer
     │   └── init.lua            # Detection & plugin filtering
     ├── plugins-off/            # Disabled plugins
-    │   ├── alpha.lua
     │   ├── dressing.lua
+    │   ├── harpoon2.lua
+    │   ├── harpoon2-keymaps.lua
+    │   ├── obsidian.lua
     │   ├── overseer.lua
-    │   └── sessions.lua
+    │   ├── sessions.lua
+    │   └── tiny-inline-diagnostic.lua
     ├── plugins-keymaps/        # Plugin-specific keymaps
     │   ├── 99-keymaps.lua
-    │   ├── grapple-keymaps.lua
-    │   ├── snacks-keymaps.lua
-    │   ├── lazydocker-keymaps.lua
-    │   ├── dap-keymaps.lua
-    │   ├── yanky-keymaps.lua
-    │   ├── telekasten-keymaps.lua
     │   ├── conform-keymaps.lua
+    │   ├── dap-keymaps.lua
     │   ├── fzf-lua-keymaps.lua
+    │   ├── grapple-keymaps.lua
+    │   ├── lazydocker-keymaps.lua
+    │   ├── lazygit-keymaps.lua
+    │   ├── obsidian-keymaps.lua
     │   ├── snacks-keymaps.lua
-    │   └── grapple-keymaps.lua
+    │   ├── spider-keymaps.lua
+    │   ├── telekasten-keymaps.lua
+    │   └── yanky-keymaps.lua
     └── lsp/                    # Language Server configurations
         ├── gopls.lua           # Go language server
         ├── vtsls.lua           # TypeScript/JavaScript LSP
@@ -201,10 +213,18 @@ local function lsp_on_attach(client, bufnr)
 
     client.server_capabilities.semanticTokensProvider = nil
 
-    map("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to Definition" })
-    map("n", "gD", Snacks.picker.lsp_references, { buffer = bufnr, desc = "Go to Declaration" })
-    map("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Implementation" })
-    map("n", "gt", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Type Definition" })
+    map("n", "gd", function()
+        require("fzf-lua").lsp_definitions({ jump1 = true })
+    end, { buffer = bufnr, desc = "Go to Definition" })
+    map("n", "gD", function()
+        require("fzf-lua").lsp_references({ jump1 = true })
+    end, { buffer = bufnr, desc = "Find References" })
+    map("n", "gi", function()
+        require("fzf-lua").lsp_implementations({ jump1 = true })
+    end, { buffer = bufnr, desc = "Implementation" })
+    map("n", "gt", function()
+        require("fzf-lua").lsp_typedefs({ jump1 = true })
+    end, { buffer = bufnr, desc = "Type Definition" })
     map("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
     map("n", ".", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Actions" }))
     map("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename Symbol" })
@@ -261,8 +281,8 @@ require("lazy").setup("plugins")
 - LuaSnip integration
 
 **Telescope (plugins/telescope.lua)**
-- Extensions: file_browser, live_grep, neovim-project
-- Integration with snacks.picker
+- Legacy: kept for Telekasten dependency and minimal use
+- Most picker functionality moved to fzf-lua and Snacks.nvim
 
 **fzf-lua (plugins/fzf-lua.lua)**
 - Fast fuzzy finding with native fzf performance
@@ -308,10 +328,13 @@ end
 **Note Search**
 ```lua
 function M.search_notes()
-    require("telescope.builtin").grep_string({
+    local paths = require("config.paths")
+    local Snacks = require("snacks")
+
+    Snacks.picker.grep({
+        cwd = paths.vault_path,
         search = "- [ ]",
-        cwd = vim.fn.expand("~/notes"),
-        prompt_title = "Pending tasks",
+        prompt = "Pending tasks❯ ",
     })
 end
 ```

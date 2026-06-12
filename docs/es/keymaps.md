@@ -17,10 +17,8 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 ### Navegación en Modo Visual
 | Tecla Original | Tecla Colemak-DH | Función |
 |----------------|------------------|---------|
-| H | N | Mover izquierda (visual) |
 | J | E | Mover abajo (visual) |
 | K | I | Mover arriba (visual) |
-| L | O | Mover derecha (visual) |
 
 ### Navegación Extendida
 | Tecla | Función |
@@ -49,7 +47,8 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 ### Búsqueda
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `<leader>sg` | FzfLua live_grep | Buscar texto en archivos |
+| `<leader>sgg` | FzfLua live_grep | Buscar texto en archivos (global) |
+| `<leader>sgf` | FzfLua live_grep | Buscar texto en archivo actual |
 | `<leader>ss` | FzfLua lsp_document_symbols | Buscar símbolos |
 
 ### Navegación
@@ -66,6 +65,8 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `<leader>cn` | runner_run() | Ejecutar proyecto según filetype |
 | `<leader>ck` | runner_cancel() | Cancelar proyecto en ejecución |
 | `<leader>cN` | runner_select_run() | Seleccionar y ejecutar proyecto |
+| `<leader>co` | runner_open_url() | Abrir URL del runner |
+| `<leader>cO` | runner_url_select() | Seleccionar URL del runner |
 | `<leader>cc` | runner_config() | Añadir configuración de runner |
 | `<leader>ch` | runner_history() | Mostrar historial de runner |
 | `<leader>iwt` | runner_go_terminal() | Ir a terminal del runner |
@@ -132,7 +133,7 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 ### DAP C# (Específico)
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `<leader>cdd` | dap.continue() | Debug .NET API (solo archivos C#) |
+| `<leader>cdd` | auto_detect_debug() | Debug proyecto (auto-detect) |
 | `<leader>cdt` | dap.run() | Debug Test NUnit (archivo actual) |
 | `<leader>cdT` | dap.run() | Debug Todos los Tests NUnit |
 
@@ -143,15 +144,36 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `<leader>id` | LazyDocker (custom) | Abrir LazyDocker |
 | `<leader>tt` | Snacks.terminal() | Toggle terminal flotante |
 
+### Snacks Picker
+| Keybinding | Función | Descripción |
+|------------|---------|-------------|
+| `<leader>sm` | Snacks.picker.marks() | Marks |
+| `<leader>sh` | Snacks.picker.help() | Páginas de ayuda |
+| `<leader>sk` | Snacks.picker.keymaps() | Keymaps |
+| `<leader>sc` | Snacks.picker.commands() | Comandos |
+| `<leader>su` | Snacks.picker.undo() | Historial de undo |
+| `<leader>sq` | Snacks.picker.qflist() | Quickfix list |
+| `<leader>sl` | Snacks.picker.loclist() | Location list |
+| `<leader>sr` | Snacks.picker.resume() | Reanudar último picker |
+
 ### Telekasten (Notas)
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `<leader>zp` | telekasten.panel() | Abrir panel de notas |
-| `<leader>zn` | telekasten.new_templated_note() | Nueva nota con plantilla |
-| `<leader>zf` | telekasten.find_notes() | Buscar notas |
-| `<leader>zg` | telekasten.search_notes() | Buscar en notas |
-| `<leader>zd` | telekasten.goto_today() | Ir a nota de hoy |
-| `<leader>zv` | telekasten.switch_vault() | Cambiar vault |
+| `<leader>on` | new_note_with_folder() | Nueva nota en carpeta |
+| `<leader>od` | telekasten.goto_today() | Abrir nota diaria de hoy |
+| `<leader>oD` | telekasten.goto_yesterday() | Abrir nota diaria de ayer |
+| `<leader>ot` | telekasten.goto_tomorrow() | Abrir nota diaria de mañana |
+| `<leader>os` | telekasten.search_notes() | Buscar notas |
+| `<leader>of` | telekasten.find_notes() | Buscar notas |
+| `<leader>ob` | telekasten.show_backlinks() | Mostrar backlinks |
+| `<leader>og` | telekasten.show_tags() | Mostrar tags |
+| `<leader>or` | telekasten.rename_note() | Renombrar nota |
+| `<leader>op` | telekasten.paste_img_and_link() | Pegar imagen desde clipboard |
+| `<leader>oc` | telekasten.toggle_todo() | Toggle checkbox / todo |
+| `<leader>oT` | telekasten.show_calendar() | Mostrar calendario |
+| `<leader>ok` | telekasten.follow_link() | Seguir enlace |
+| `<leader>oC` | telekasten.capture() | Capturar nota rápida |
+| `<leader>oo` | telekasten.panel() | Abrir panel de Telekasten |
 
 
 
@@ -160,17 +182,21 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 |------------|---------|-------------|
 | `<leader>mp` | toggle_peek_preview() | Toggle preview de Markdown |
 
-### Yanky (Yank/Paste)
-| Keybinding | Función | Descripción |
-|------------|---------|-------------|
-| `p` | yanky.put() | Pegar después |
-| `P` | yanky.put() | Pegar antes |
-| `]p` | yanky.put() | Pegar con indentación |
-| `[p` | yanky.put() | Pegar con indentación (antes) |
-| `>p` | yanky.put() | Ciclar hacia adelante en historial |
-| `<p` | yanky.put() | Ciclar hacia atrás en historial |
-| `<leader>yh` | yank_history | Historial de yank |
+### Surround (nvim-surround)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `ys` | `<Plug>(nvim-surround-normal)` | Añadir par surrounding alrededor de motion |
+| `yS` | `<Plug>(nvim-surround-normal-line)` | Añadir par surrounding alrededor de línea |
+| `ds` | `<Plug>(nvim-surround-delete)` | Eliminar par surrounding |
+| `cs` | `<Plug>(nvim-surround-change)` | Cambiar par surrounding |
 | `<leader>yw` | ysiw | Surround word shortcut |
+
+### Yanky (Yank/Paste)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>yh` | yank_history | Historial de yank |
+
+> **Nota**: Yanky también mejora `p`/`P` con ciclo de historial (`>p` / `<p`), pegado con indentación (`]p` / `[p`), e integración con clipboard del sistema mediante su comportamiento predeterminado.
 
 ### Trouble / Unidiagnostic
 | Keybinding | Función | Descripción |
@@ -200,10 +226,10 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 ### Navegación LSP
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
-| `gd` | vim.lsp.buf.definition() | Ir a definición |
-| `gD` | Snacks.picker.lsp_references() | Ver referencias |
-| `gi` | vim.lsp.buf.implementation() | Ir a implementación |
-| `gt` | vim.lsp.buf.type_definition() | Ir a definición de tipo |
+| `gd` | fzf-lua.lsp_definitions() | Ir a definición |
+| `gD` | fzf-lua.lsp_references() | Ver referencias |
+| `gi` | fzf-lua.lsp_implementations() | Ir a implementación |
+| `gt` | fzf-lua.lsp_typedefs() | Ir a definición de tipo |
 | `K` | vim.lsp.buf.hover() | Documentación en hover |
 | `.` | vim.lsp.buf.code_action() | Acciones de código |
 | `<leader>rn` | vim.lsp.buf.rename() | Renombrar símbolo |
@@ -241,6 +267,13 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 |------------|---------|-------------|
 | `<leader>it` | search_notes() | Buscar tareas pendientes en notas |
 | `<leader>ip` | unipackage_menu() | Menú de Unipackage |
+| `<leader>iou` | dashboard_open_url() | Abrir URL del dashboard |
+
+### ZealSearch
+| Keybinding | Función | Descripción |
+|------------|---------|-------------|
+| `<leader>iz` | zeal_search_input() | Zeal search input |
+| `<leader>iZ` | zeal_search_repeat() | Zeal search repetir última |
 
 ### Plugin 99 (IA)
 | Keybinding | Función | Descripción |
@@ -253,7 +286,7 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `<leader>9o` | 99.open() | Abrir última interacción |
 | `<leader>9c` | 99.clear_previous_requests() | Limpiar peticiones anteriores |
 | `<leader>9w` | 99.set_work() | Establecer work item |
-| `<leader>9r` | 99.search() | Buscar trabajo restante |
+| `<leader>9r` | 99.Extensions.Worker.search() | Buscar trabajo restante |
 
 ### Nvim Status (Recarga y Salud)
 | Keybinding | Función | Descripción |
@@ -314,7 +347,7 @@ Para revertir al layout estándar de Vim, consulta la guía [colemak-dh.md](cole
 - **LSP**: `gd` (definición), `K` (documentación), `<leader>th` (inlay hints)
 - **Git**: `<leader>ig` (LazyGit)
 - **Testing**: `<leader>iur` (ejecutar tests)
-- **Búsqueda**: `<leader>sg` (live grep), `<leader>ss` (símbolos)
+- **Búsqueda**: `<leader>sgg` (live grep), `<leader>sgf` (archivo actual), `<leader>ss` (símbolos)
 - **Multicursor**: `<C-n>` (añadir cursor), `<Esc>` (limpiar)
 - **Flash**: `f` (saltar), `F` (treesitter)
 

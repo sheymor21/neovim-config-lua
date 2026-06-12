@@ -45,7 +45,7 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 #### Fzf-lua
 - Búsqueda difusa de archivos (`<leader>ff`)
 - Gestión de buffers (`<leader>fb`)
-- Búsqueda de texto en vivo (`<leader>sg`)
+- Búsqueda de texto en vivo (`<leader>sgg`, `<leader>sgf`)
 - Búsqueda de símbolos LSP (`<leader>ss`)
 - Rendimiento nativo rápido con vistas previas
 
@@ -161,11 +161,14 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 - Integración con Docker CLI
 - Vista de logs y recursos
 
-#### ToggleTerm
-- Gestión de terminales flotantes
-- Múltiples terminales
-- Atajos rápidos
+#### Snacks.terminal
+- Gestión de terminal flotante
+- Atajos rápidos vía `<leader>tt`
 - Integración con runners
+
+#### ToggleTerm (legacy)
+- Mantenido para compatibilidad con `unirunner`, `unipackage`, `unidiagnostic`
+- La mayoría del uso de terminal se ha movido a `Snacks.terminal`
 
 ### 6. Gestión de Sesiones y Proyectos
 
@@ -178,7 +181,7 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 #### Neovim Project
 - Descubrimiento automático de proyectos
 - Historial de proyectos recientes
-- Telescope integration
+- Integración con Snacks.nvim picker
 - Gestión de workspace por proyecto
 
 #### Undotree
@@ -243,7 +246,7 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 #### Window Picker
 - **Selección rápida de ventanas**: Saltar a cualquier ventana visible
 - **Hints con letras**: Cada ventana etiquetada con tecla de acceso rápido
-- **Integración con Telescope**: Buscar y seleccionar ventanas
+- **Hints flotantes con letras grandes**: Overlay visual para selección de ventanas
 
 #### Plugin 99 (Asistente de IA)
 - **Edición con IA**: Sugerencias de código contextual
@@ -300,7 +303,7 @@ Esta configuración incluye una **capa de compatibilidad con VS Code** (`lua/nvi
 - **LSP**: mason.nvim, blink-cmp, todos los servidores LSP (VS Code los proporciona)
 - **Pickers**: fzf-lua, telescope (usa la búsqueda nativa de VS Code)
 - **Git**: gitsigns, lazygit (usa el control de fuente de VS Code)
-- **Terminal**: toggleterm (usa el terminal integrado de VS Code)
+- **Terminal**: Snacks.terminal / toggleterm (usa el terminal integrado de VS Code)
 - **Notas**: telekasten (usa el explorador de archivos de VS Code)
 - **Debug**: nvim-dap, neotest (usa los paneles de debug/test de VS Code)
 

@@ -19,10 +19,8 @@ Colemak-DH is a variant of the Colemak layout designed for greater ergonomics an
 ### Visual Mode Navigation
 | Original Key | Colemak-DH Key | Function | File |
 |--------------|----------------|----------|------|
-| H | N | Move left (visual) | `lua/keymaps/core.lua:12` |
-| J | E | Move down (visual) | `lua/keymaps/core.lua:13` |
-| K | I | Move up (visual) | `lua/keymaps/core.lua:14` |
-| L | O | Move right (visual) | `lua/keymaps/core.lua:15` |
+| J | E | Move down (visual) | `lua/keymaps/core.lua:12` |
+| K | I | Move up (visual) | `lua/keymaps/core.lua:13` |
 
 ### Original Keys Deactivated
 | Key | Status | File |
@@ -112,8 +110,8 @@ Remove lines 7-25 from `lua/keymaps/core.lua` file.
 
 ### Step 5: Verify LSP and Functions
 
-**Review `lua/function-keymaps.lua`:**
-Ensure LSP functions don't depend on Colemak-DH layout. Current functions use Snacks.picker and should work correctly.
+**Review `lua/lsp/on_attach.lua`:**
+Ensure LSP functions don't depend on Colemak-DH layout. Current functions use fzf-lua and should work correctly.
 
 ### Step 6: Verify Plugins
 

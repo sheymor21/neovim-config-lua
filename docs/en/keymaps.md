@@ -17,10 +17,8 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 ### Visual Mode Navigation
 | Original Key | Colemak-DH Key | Function |
 |--------------|----------------|----------|
-| H | N | Move left (visual) |
 | J | E | Move down (visual) |
 | K | I | Move up (visual) |
-| L | O | Move right (visual) |
 
 ### Extended Navigation
 | Key | Function |
@@ -49,7 +47,8 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 ### Search
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>sg` | FzfLua live_grep | Search text in files |
+| `<leader>sgg` | FzfLua live_grep | Search text in files (global) |
+| `<leader>sgf` | FzfLua live_grep | Search text in current file |
 | `<leader>ss` | FzfLua lsp_document_symbols | Search symbols |
 
 ### Navigation
@@ -66,6 +65,8 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>cn` | runner_run() | Run project by filetype |
 | `<leader>ck` | runner_cancel() | Cancel running project |
 | `<leader>cN` | runner_select_run() | Select and run project |
+| `<leader>co` | runner_open_url() | Open runner URL |
+| `<leader>cO` | runner_url_select() | Select runner URL |
 | `<leader>cc` | runner_config() | Add runner config |
 | `<leader>ch` | runner_history() | Show runner history |
 | `<leader>iwt` | runner_go_terminal() | Go to runner terminal |
@@ -132,7 +133,7 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 ### C# DAP (Specific)
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>cdd` | dap.continue() | Debug .NET API (C# files only) |
+| `<leader>cdd` | auto_detect_debug() | Debug project (auto-detect) |
 | `<leader>cdt` | dap.run() | Debug NUnit Test (current file) |
 | `<leader>cdT` | dap.run() | Debug All NUnit Tests |
 
@@ -143,15 +144,36 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>id` | LazyDocker (custom) | Open LazyDocker |
 | `<leader>tt` | Snacks.terminal() | Toggle floating terminal |
 
+### Snacks Picker
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>sm` | Snacks.picker.marks() | Marks |
+| `<leader>sh` | Snacks.picker.help() | Help pages |
+| `<leader>sk` | Snacks.picker.keymaps() | Keymaps |
+| `<leader>sc` | Snacks.picker.commands() | Commands |
+| `<leader>su` | Snacks.picker.undo() | Undo history |
+| `<leader>sq` | Snacks.picker.qflist() | Quickfix list |
+| `<leader>sl` | Snacks.picker.loclist() | Location list |
+| `<leader>sr` | Snacks.picker.resume() | Resume last picker |
+
 ### Telekasten (Notes)
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `<leader>zp` | telekasten.panel() | Open notes panel |
-| `<leader>zn` | telekasten.new_templated_note() | New templated note |
-| `<leader>zf` | telekasten.find_notes() | Find notes |
-| `<leader>zg` | telekasten.search_notes() | Search in notes |
-| `<leader>zd` | telekasten.goto_today() | Go to today's note |
-| `<leader>zv` | telekasten.switch_vault() | Switch vault |
+| `<leader>on` | new_note_with_folder() | New note in folder |
+| `<leader>od` | telekasten.goto_today() | Open today's daily note |
+| `<leader>oD` | telekasten.goto_yesterday() | Open yesterday's daily note |
+| `<leader>ot` | telekasten.goto_tomorrow() | Open tomorrow's daily note |
+| `<leader>os` | telekasten.search_notes() | Search notes |
+| `<leader>of` | telekasten.find_notes() | Find notes |
+| `<leader>ob` | telekasten.show_backlinks() | Show backlinks |
+| `<leader>og` | telekasten.show_tags() | Show tags |
+| `<leader>or` | telekasten.rename_note() | Rename note |
+| `<leader>op` | telekasten.paste_img_and_link() | Paste image from clipboard |
+| `<leader>oc` | telekasten.toggle_todo() | Toggle checkbox / todo |
+| `<leader>oT` | telekasten.show_calendar() | Show calendar |
+| `<leader>ok` | telekasten.follow_link() | Follow link |
+| `<leader>oC` | telekasten.capture() | Capture quick note |
+| `<leader>oo` | telekasten.panel() | Open Telekasten panel |
 
 
 
@@ -160,17 +182,21 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 |------------|----------|-------------|
 | `<leader>mp` | toggle_peek_preview() | Toggle markdown preview |
 
+### Surround (nvim-surround)
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `ys` | `<Plug>(nvim-surround-normal)` | Add surrounding pair around motion |
+| `yS` | `<Plug>(nvim-surround-normal-line)` | Add surrounding pair around line |
+| `ds` | `<Plug>(nvim-surround-delete)` | Delete surrounding pair |
+| `cs` | `<Plug>(nvim-surround-change)` | Change surrounding pair |
+| `<leader>yw` | ysiw | Surround word shortcut |
+
 ### Yanky (Yank/Paste)
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `p` | yanky.put() | Paste after |
-| `P` | yanky.put() | Paste before |
-| `]p` | yanky.put() | Paste with indentation |
-| `[p` | yanky.put() | Paste with indentation (before) |
-| `>p` | yanky.put() | Cycle forward in history |
-| `<p` | yanky.put() | Cycle backward in history |
 | `<leader>yh` | yank_history | Yank history |
-| `<leader>yw` | ysiw | Surround word shortcut |
+
+> **Note**: Yanky also enhances `p`/`P` with cycle history (`>p` / `<p`), indent paste (`]p` / `[p`), and system clipboard integration via its default behavior.
 
 ### Trouble / Unidiagnostic
 | Keybinding | Function | Description |
@@ -200,10 +226,10 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 ### LSP Navigation
 | Keybinding | Function | Description |
 |------------|----------|-------------|
-| `gd` | vim.lsp.buf.definition() | Go to definition |
-| `gD` | Snacks.picker.lsp_references() | See references |
-| `gi` | vim.lsp.buf.implementation() | Go to implementation |
-| `gt` | vim.lsp.buf.type_definition() | Go to type definition |
+| `gd` | fzf-lua.lsp_definitions() | Go to definition |
+| `gD` | fzf-lua.lsp_references() | See references |
+| `gi` | fzf-lua.lsp_implementations() | Go to implementation |
+| `gt` | fzf-lua.lsp_typedefs() | Go to type definition |
 | `K` | vim.lsp.buf.hover() | Hover documentation |
 | `.` | vim.lsp.buf.code_action() | Code actions |
 | `<leader>rn` | vim.lsp.buf.rename() | Rename symbol |
@@ -241,6 +267,13 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 |------------|----------|-------------|
 | `<leader>it` | search_notes() | Search pending tasks in notes |
 | `<leader>ip` | unipackage_menu() | Unipackage menu |
+| `<leader>iou` | dashboard_open_url() | Open dashboard URL |
+
+### ZealSearch
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>iz` | zeal_search_input() | Zeal search input |
+| `<leader>iZ` | zeal_search_repeat() | Zeal search repeat last |
 
 ### 99 Plugin (AI)
 | Keybinding | Function | Description |
@@ -253,7 +286,7 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>9o` | 99.open() | Open last interaction |
 | `<leader>9c` | 99.clear_previous_requests() | Clear previous requests |
 | `<leader>9w` | 99.set_work() | Set work item |
-| `<leader>9r` | 99.search() | Search remaining work |
+| `<leader>9r` | 99.Extensions.Worker.search() | Search remaining work |
 
 ### Nvim Status (Reload & Health)
 | Keybinding | Function | Description |
@@ -314,7 +347,7 @@ To revert to the standard Vim layout, see the [colemak-dh.md](colemak-dh.md) gui
 - **LSP**: `gd` (definition), `K` (documentation), `<leader>th` (inlay hints)
 - **Git**: `<leader>ig` (LazyGit)
 - **Testing**: `<leader>iur` (run tests)
-- **Search**: `<leader>sg` (live grep), `<leader>ss` (symbols)
+- **Search**: `<leader>sgg` (live grep), `<leader>sgf` (current file), `<leader>ss` (symbols)
 - **Multicursor**: `<C-n>` (add cursor), `<esc>` (clear)
 - **Flash**: `f` (jump), `F` (treesitter)
 

@@ -35,8 +35,8 @@ nvim
 ## 📋 Key Features
 
 - **Colemak-DH Layout**: Ergonomic navigation optimization
-- **Full LSP**: Multi-language support with intelligent autocompletion
-- **Advanced Navigation**: Harpoon 2.0, Telescope, Flash
+- **Full LSP**: Multi-language support with blink.cmp autocompletion
+- **Advanced Navigation**: fzf-lua, Grapple, Flash, Snacks.nvim
 - **Modern UI**: Kanagawa theme, Lualine, Noice.nvim
 - **Development Tools**: DAP debugging, Neotest, LazyGit
 - **Session Management**: Persistence and project management

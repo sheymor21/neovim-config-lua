@@ -45,7 +45,7 @@ This Neovim configuration includes a complete set of features designed to provid
 #### Fzf-lua
 - Fuzzy file finding (`<leader>ff`)
 - Buffer management (`<leader>fb`)
-- Live grep text search (`<leader>sg`)
+- Live grep text search (`<leader>sgg`, `<leader>sgf`)
 - LSP symbol search (`<leader>ss`)
 - Fast native fzf performance with previews
 
@@ -161,11 +161,14 @@ This Neovim configuration includes a complete set of features designed to provid
 - Docker CLI integration
 - Logs and resources view
 
-#### ToggleTerm
+#### Snacks.terminal
 - Floating terminal management
-- Multiple terminals
-- Quick shortcuts
+- Quick shortcuts via `<leader>tt`
 - Runner integration
+
+#### ToggleTerm (legacy)
+- Kept for `unirunner`, `unipackage`, `unidiagnostic` compatibility
+- Most terminal usage has moved to `Snacks.terminal`
 
 ### 6. Session and Project Management
 
@@ -178,7 +181,7 @@ This Neovim configuration includes a complete set of features designed to provid
 #### Neovim Project
 - Automatic project discovery
 - Recent project history
-- Telescope integration
+- Snacks.nvim picker integration
 - Per-project workspace management
 
 #### Undotree
@@ -243,7 +246,7 @@ This Neovim configuration includes a complete set of features designed to provid
 #### Window Picker
 - **Quick window selection**: Jump to any visible window
 - **Letter hints**: Each window labeled with quick-access key
-- **Telescope integration**: Search and pick windows
+- **Floating big-letter hints**: Visual window selection overlay
 
 #### 99 Plugin (AI Assistant)
 - **AI-powered editing**: Context-aware code suggestions
@@ -300,7 +303,7 @@ This configuration includes a **VS Code compatibility layer** (`lua/nvim_vscode/
 - **LSP**: mason.nvim, blink-cmp, all LSP servers (VS Code provides these)
 - **Pickers**: fzf-lua, telescope (use VS Code's native search)
 - **Git**: gitsigns, lazygit (use VS Code's source control)
-- **Terminal**: toggleterm (use VS Code's integrated terminal)
+- **Terminal**: Snacks.terminal / toggleterm (use VS Code's integrated terminal)
 - **Notes**: telekasten (use VS Code's file explorer)
 - **Debug**: nvim-dap, neotest (use VS Code's debug/test panels)
 

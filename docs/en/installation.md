@@ -303,7 +303,7 @@ Create or edit `~/.config/Code/User/keybindings.json`:
 
 ### What Doesn't Work in VS Code
 - ❌ Floating pickers (fzf-lua, telescope) — use VS Code search
-- ❌ Terminal (toggleterm) — use VS Code integrated terminal
+- ❌ Terminal (Snacks.terminal / toggleterm) — use VS Code integrated terminal
 - ❌ Undotree — use VS Code timeline
 - ❌ Oil — use VS Code file explorer
 - ❌ Lualine, Noice — VS Code has its own UI

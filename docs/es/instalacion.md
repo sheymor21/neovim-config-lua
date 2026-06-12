@@ -303,7 +303,7 @@ Crea o edita `~/.config/Code/User/keybindings.json`:
 
 ### Qué No Funciona en VS Code
 - ❌ Pickers flotantes (fzf-lua, telescope) — usa la búsqueda de VS Code
-- ❌ Terminal (toggleterm) — usa el terminal integrado de VS Code
+- ❌ Terminal (Snacks.terminal / toggleterm) — usa el terminal integrado de VS Code
 - ❌ Undotree — usa la línea temporal de VS Code
 - ❌ Oil — usa el explorador de archivos de VS Code
 - ❌ Lualine, Noice — VS Code tiene su propia UI

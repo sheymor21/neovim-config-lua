@@ -39,69 +39,81 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
     │   ├── plugin-health.lua   # Health checks de plugins
     │   ├── profiler.lua        # Profiler de rendimiento
     │   ├── reloader.lua        # Recargador de configuración
+    │   ├── paths.lua           # Rutas y constantes del vault
+    │   ├── obsidian.lua        # Integración Obsidian
+    │   ├── snacks.lua          # Configuración de Snacks.nvim
+    │   ├── dashboard-urls.lua  # Lista de URLs del dashboard (gitignored)
+    │   └── dashboard-urls.example.lua # Ejemplo de URLs del dashboard
     ├── plugins/                # Especificaciones de plugins
     │   ├── 99.lua              # Cargador de plugins core
-    │   ├── telescope.lua       # Configuración de Telescope
-    │   ├── fzf-lua.lua         # Configuración de Fzf-lua
-    │   ├── treesitter.lua      # Configuración de Treesitter
-    │   ├── blink-cmp.lua       # Autocompletado (blink.cmp)
-    │   ├── grapple.lua         # Marcadores de navegación
-    │   ├── conform.lua         # Formateo de código
     │   ├── aerial.lua          # Outline de símbolos
-    │   ├── lualine.lua         # Status line
-    │   ├── toggle-term.lua     # Gestión de terminales
-    │   ├── which-key.lua       # Ayuda de keybindings
-    │   ├── gitsigns.lua        # Integración Git
-    │   ├── noice.lua           # Notificaciones UI
-    │   ├── snacks.lua          # Funciones de Snacks.nvim
-    │   ├── flash.lua           # Navegación rápida
-    │   ├── undotree.lua        # Visualización de undo
-    │   ├── surround.lua        # Texto surrounding
     │   ├── autopairs.lua       # Auto cierre de brackets
-    │   ├── indent.lua          # Guías de indentación
-    │   ├── oil.lua             # Edición de filesystem
-    │   ├── yanky.lua           # Yank/paste mejorado
-    │   ├── luasnipet.lua       # Snippets
+    │   ├── blink-cmp.lua       # Autocompletado (blink.cmp)
     │   ├── cellular.lua        # Efectos visuales
-    │   ├── faster.lua          # Optimización de rendimiento
     │   ├── colors.lua          # Esquemas de color
+    │   ├── configurationless.lua # Funciones utilitarias
+    │   ├── conform.lua         # Formateo de código
+    │   ├── dap-ui.lua          # UI de debugging
+    │   ├── faster.lua          # Optimización de rendimiento
+    │   ├── flash.lua           # Navegación rápida
+    │   ├── fzf-lua.lua         # Configuración de Fzf-lua
+    │   ├── gitsigns.lua        # Integración Git
+    │   ├── grapple.lua         # Marcadores de navegación
+    │   ├── lazydev.lua         # Desarrollo Lua
+    │   ├── lualine.lua         # Status line
+    │   ├── luasnipet.lua       # Snippets
     │   ├── markdown-render.lua # Renderizado de Markdown
+    │   ├── mason.lua           # Instalador de LSP servers
     │   ├── multicursor.lua     # Múltiples cursores
     │   ├── neotest.lua         # Framework de testing
-    │   ├── dap-ui.lua          # UI de debugging
     │   ├── neovim-session-manager.lua # Gestión de sesiones
+    │   ├── noice.lua           # Notificaciones UI
+    │   ├── nvim-web-devicons.lua # Iconos de archivos
+    │   ├── oil.lua             # Edición de filesystem
     │   ├── projects.lua        # Gestión de proyectos
-    │   ├── lazydev.lua         # Desarrollo Lua
-    │   ├── configurationless.lua # Funciones utilitarias
-    │   ├── windows-picker.lua  # Selección de ventanas
-    │   ├── mini-nvim.lua       # Suite Mini.nvim
-    │   ├── roslyn.lua          # LSP Roslyn
-    │   ├── unirunner.lua       # Runner unificado
-    │   ├── unipackage.lua      # Gestor de paquetes
-    │   ├── unidiagnostic.lua   # Gestión de diagnósticos
-    │   ├── wakatime.lua        # Integración Wakatime
-    │   ├── telekasten.lua      # Notas Zettelkasten
+    │   ├── rainbow-delimiters.lua # Delimitadores rainbow
     │   ├── reloader.lua        # Recargador de configuración
-    │   └── nvim-web-devicons.lua # Iconos de archivos
+    │   ├── roslyn.lua          # LSP Roslyn
+    │   ├── snacks.lua          # Funciones de Snacks.nvim
+    │   ├── spider.lua          # Movimiento CamelCase
+    │   ├── surround.lua        # Texto surrounding
+    │   ├── telekasten.lua      # Notas Zettelkasten
+    │   ├── telescope.lua       # Configuración de Telescope
+    │   ├── toggle-term.lua     # Gestión de terminales
+    │   ├── treesitter.lua      # Configuración de Treesitter
+    │   ├── ufo.lua             # Folding UFO
+    │   ├── undotree.lua        # Visualización de undo
+    │   ├── unidiagnostic.lua   # Gestión de diagnósticos
+    │   ├── unipackage.lua      # Gestor de paquetes
+    │   ├── unirunner.lua       # Runner unificado
+    │   ├── wakatime.lua        # Integración Wakatime
+    │   ├── which-key.lua       # Ayuda de keybindings
+    │   ├── windows-picker.lua  # Selección de ventanas
+    │   ├── yanky.lua           # Yank/paste mejorado
+    │   └── zealsearch.lua      # Búsqueda de documentación Zeal
     ├── nvim_vscode/            # Capa de compatibilidad VS Code
     │   └── init.lua            # Detección y filtrado de plugins
     ├── plugins-off/            # Plugins deshabilitados
-    │   ├── alpha.lua
     │   ├── dressing.lua
+    │   ├── harpoon2.lua
+    │   ├── harpoon2-keymaps.lua
+    │   ├── obsidian.lua
     │   ├── overseer.lua
-    │   └── sessions.lua
+    │   ├── sessions.lua
+    │   └── tiny-inline-diagnostic.lua
     ├── plugins-keymaps/        # Keymaps específicos de plugins
     │   ├── 99-keymaps.lua
-    │   ├── grapple-keymaps.lua
-    │   ├── snacks-keymaps.lua
-    │   ├── lazydocker-keymaps.lua
-    │   ├── dap-keymaps.lua
-    │   ├── yanky-keymaps.lua
-    │   ├── telekasten-keymaps.lua
     │   ├── conform-keymaps.lua
+    │   ├── dap-keymaps.lua
     │   ├── fzf-lua-keymaps.lua
+    │   ├── grapple-keymaps.lua
+    │   ├── lazydocker-keymaps.lua
+    │   ├── lazygit-keymaps.lua
+    │   ├── obsidian-keymaps.lua
     │   ├── snacks-keymaps.lua
-    │   └── grapple-keymaps.lua
+    │   ├── spider-keymaps.lua
+    │   ├── telekasten-keymaps.lua
+    │   └── yanky-keymaps.lua
     └── lsp/                    # Configuraciones de Language Servers
         ├── gopls.lua           # Go language server
         ├── vtsls.lua           # TypeScript/JavaScript LSP
@@ -201,10 +213,18 @@ local function lsp_on_attach(client, bufnr)
 
     client.server_capabilities.semanticTokensProvider = nil
 
-    map("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to Definition" })
-    map("n", "gD", Snacks.picker.lsp_references, { buffer = bufnr, desc = "Go to Declaration" })
-    map("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Implementation" })
-    map("n", "gt", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Type Definition" })
+    map("n", "gd", function()
+        require("fzf-lua").lsp_definitions({ jump1 = true })
+    end, { buffer = bufnr, desc = "Go to Definition" })
+    map("n", "gD", function()
+        require("fzf-lua").lsp_references({ jump1 = true })
+    end, { buffer = bufnr, desc = "Find References" })
+    map("n", "gi", function()
+        require("fzf-lua").lsp_implementations({ jump1 = true })
+    end, { buffer = bufnr, desc = "Implementation" })
+    map("n", "gt", function()
+        require("fzf-lua").lsp_typedefs({ jump1 = true })
+    end, { buffer = bufnr, desc = "Type Definition" })
     map("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
     map("n", ".", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Actions" }))
     map("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename Symbol" })
@@ -261,8 +281,8 @@ require("lazy").setup("plugins")
 - Integración con LuaSnip
 
 **Telescope (plugins/telescope.lua)**
-- Extensiones: file_browser, live_grep, neovim-project
-- Integración con snacks.picker
+- Legacy: mantenido para dependencia de Telekasten y uso mínimo
+- La mayoría de funcionalidad de pickers se movió a fzf-lua y Snacks.nvim
 
 **fzf-lua (plugins/fzf-lua.lua)**
 - Búsqueda fuzzy rápida con rendimiento nativo de fzf
@@ -308,10 +328,13 @@ end
 **Búsqueda de Notas**
 ```lua
 function M.search_notes()
-    require("telescope.builtin").grep_string({
+    local paths = require("config.paths")
+    local Snacks = require("snacks")
+
+    Snacks.picker.grep({
+        cwd = paths.vault_path,
         search = "- [ ]",
-        cwd = vim.fn.expand("~/notes"),
-        prompt_title = "Pending tasks",
+        prompt = "Pending tasks❯ ",
     })
 end
 ```
