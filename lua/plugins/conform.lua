@@ -43,7 +43,7 @@ return {
 
             formatters = {
                 prettier = {
-                    prepend_args = function(self, ctx)
+                    prepend_args = function(_, ctx)
                         local prettier_configs = {
                             ".prettierrc", ".prettierrc.json", ".prettierrc.yml",
                             ".prettierrc.yaml", ".prettierrc.js", "prettier.config.js",

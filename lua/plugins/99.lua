@@ -30,6 +30,6 @@ return {
             },
         })
         
-        require("../plugins-keymaps/99-keymaps")
+        require("plugins-keymaps.99-keymaps")
     end,
 }

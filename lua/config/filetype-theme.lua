@@ -30,7 +30,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
             return
         end
 
-        -- ignora buffers especiales
+        -- ignore special buffers
         if vim.bo[args.buf].buftype ~= "" then
             return
         end

@@ -39,10 +39,10 @@ function M.new_note_with_folder()
     local vault = paths.vault_path
 
     local dirs = {}
-    local handle = vim.loop.fs_scandir(vault)
+    local handle = vim.uv.fs_scandir(vault)
     if handle then
         while true do
-            local name, type = vim.loop.fs_scandir_next(handle)
+            local name, type = vim.uv.fs_scandir_next(handle)
             if not name then break end
             if type == "directory" then
                 if not name:match("^%.")

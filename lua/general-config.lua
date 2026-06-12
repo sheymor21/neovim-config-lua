@@ -1,5 +1,5 @@
 -- Main autocmd group for organization
-local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = true })
+local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = false })
 
 -- Combined BufEnter handler for buffer management
 vim.api.nvim_create_autocmd("BufEnter", {

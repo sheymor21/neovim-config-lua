@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd("DirChanged", {
 
 		for _, buf in ipairs(vim.api.nvim_list_bufs()) do
 			if vim.api.nvim_buf_is_loaded(buf)
-				and vim.fn.bufwinnr(buf) == -1
+				and vim.fn.bufwinid(buf) == -1
 				and vim.bo[buf].buftype == "" then
 
 				local name = vim.api.nvim_buf_get_name(buf)

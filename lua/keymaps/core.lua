@@ -11,7 +11,6 @@ map({ "n", "v" }, "o", "l") -- right
 
 map({ "n", "v" }, "E", "J") -- down
 map({ "n", "v" }, "I", "K") -- up
-map({ "n", "v" }, "O", "L") -- right
 
 -- Disable original keys
 map({ "n", "v" }, "h", "<nop>")
