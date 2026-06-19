@@ -202,7 +202,7 @@ Todos los plugins deberían estar instalados y listos.
 :checkhealth
 ```
 
-Esto ejecuta el health check personalizado que verifica el tiempo de inicio, dependencias externas, servidores LSP, salud de plugins y el vault de Telekasten.
+Esto ejecuta el health check personalizado que verifica el tiempo de inicio, dependencias externas, servidores LSP, salud de plugins y el vault de notas.
 
 ### Instalar Servidores LSP vía Mason
 ```bash

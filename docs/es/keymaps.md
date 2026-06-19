@@ -151,24 +151,22 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `<leader>sl` | Snacks.picker.loclist() | Location list |
 | `<leader>sr` | Snacks.picker.resume() | Reanudar último picker |
 
-### Telekasten (Notas)
+### Notas (Markdown + snacks.picker)
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
 | `<leader>on` | new_note_with_folder() | Nueva nota en carpeta |
-| `<leader>od` | telekasten.goto_today() | Abrir nota diaria de hoy |
-| `<leader>oD` | telekasten.goto_yesterday() | Abrir nota diaria de ayer |
-| `<leader>ot` | telekasten.goto_tomorrow() | Abrir nota diaria de mañana |
-| `<leader>os` | telekasten.search_notes() | Buscar notas |
-| `<leader>of` | telekasten.find_notes() | Buscar notas |
-| `<leader>ob` | telekasten.show_backlinks() | Mostrar backlinks |
-| `<leader>og` | telekasten.show_tags() | Mostrar tags |
-| `<leader>or` | telekasten.rename_note() | Renombrar nota |
-| `<leader>op` | telekasten.paste_img_and_link() | Pegar imagen desde clipboard |
-| `<leader>oc` | telekasten.toggle_todo() | Toggle checkbox / todo |
-| `<leader>oT` | telekasten.show_calendar() | Mostrar calendario |
-| `<leader>ok` | telekasten.follow_link() | Seguir enlace |
-| `<leader>oC` | telekasten.capture() | Capturar nota rápida |
-| `<leader>oo` | telekasten.panel() | Abrir panel de Telekasten |
+| `<leader>od` | open_daily_note(0) | Abrir nota diaria de hoy |
+| `<leader>oD` | open_daily_note(-1) | Abrir nota diaria de ayer |
+| `<leader>ot` | open_daily_note(1) | Abrir nota diaria de mañana |
+| `<leader>os` | grep_notes() | Buscar notas |
+| `<leader>of` | find_notes() | Buscar notas |
+| `<leader>ob` | show_backlinks() | Mostrar backlinks |
+| `<leader>og` | show_tags() | Mostrar tags |
+| `<leader>or` | rename_note() | Renombrar nota |
+| `<leader>oc` | toggle_checkbox() | Toggle checkbox |
+| `<leader>ok` | follow_link() | Seguir enlace |
+| `<leader>oC` | capture_note() | Capturar nota rápida |
+| `<leader>oo` | open_notes_panel() | Abrir panel de notas |
 
 
 

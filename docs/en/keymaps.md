@@ -151,24 +151,22 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `<leader>sl` | Snacks.picker.loclist() | Location list |
 | `<leader>sr` | Snacks.picker.resume() | Resume last picker |
 
-### Telekasten (Notes)
+### Notes (Markdown + snacks.picker)
 | Keybinding | Function | Description |
 |------------|----------|-------------|
 | `<leader>on` | new_note_with_folder() | New note in folder |
-| `<leader>od` | telekasten.goto_today() | Open today's daily note |
-| `<leader>oD` | telekasten.goto_yesterday() | Open yesterday's daily note |
-| `<leader>ot` | telekasten.goto_tomorrow() | Open tomorrow's daily note |
-| `<leader>os` | telekasten.search_notes() | Search notes |
-| `<leader>of` | telekasten.find_notes() | Find notes |
-| `<leader>ob` | telekasten.show_backlinks() | Show backlinks |
-| `<leader>og` | telekasten.show_tags() | Show tags |
-| `<leader>or` | telekasten.rename_note() | Rename note |
-| `<leader>op` | telekasten.paste_img_and_link() | Paste image from clipboard |
-| `<leader>oc` | telekasten.toggle_todo() | Toggle checkbox / todo |
-| `<leader>oT` | telekasten.show_calendar() | Show calendar |
-| `<leader>ok` | telekasten.follow_link() | Follow link |
-| `<leader>oC` | telekasten.capture() | Capture quick note |
-| `<leader>oo` | telekasten.panel() | Open Telekasten panel |
+| `<leader>od` | open_daily_note(0) | Open today's daily note |
+| `<leader>oD` | open_daily_note(-1) | Open yesterday's daily note |
+| `<leader>ot` | open_daily_note(1) | Open tomorrow's daily note |
+| `<leader>os` | grep_notes() | Search notes |
+| `<leader>of` | find_notes() | Find notes |
+| `<leader>ob` | show_backlinks() | Show backlinks |
+| `<leader>og` | show_tags() | Show tags |
+| `<leader>or` | rename_note() | Rename note |
+| `<leader>oc` | toggle_checkbox() | Toggle checkbox |
+| `<leader>ok` | follow_link() | Follow link |
+| `<leader>oC` | capture_note() | Capture quick note |
+| `<leader>oo` | open_notes_panel() | Open notes panel |
 
 
 

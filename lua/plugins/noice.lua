@@ -92,6 +92,14 @@ return {
                 filter = { event = "msg_show", find = "roslyn" },
                 view = "mini",
             },
+            {
+                filter = { event = "lsp", kind = "message" },
+                view = "mini",
+            },
+            {
+                filter = { event = "notify", min_height = 1 },
+                view = "mini",
+            },
         },
     },
 }

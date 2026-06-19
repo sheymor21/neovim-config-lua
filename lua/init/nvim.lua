@@ -18,7 +18,6 @@ vim.api.nvim_create_autocmd("User", {
         require("config.lazy-docker")
         require("config.lazygit")
         require("config.dap-config")
-        require("config.telekasten-config")
         require("lsp.gopls")
         require("lsp.lua-lsp")
         require("lsp.vtsls")

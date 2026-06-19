@@ -33,14 +33,12 @@ This guide covers the general Neovim configuration, including basic options, LSP
     │   ├── lazygit.lua         # LazyGit configuration
     │   ├── lazy-docker.lua     # LazyDocker configuration
     │   ├── indent.lua          # Indentation settings
-    │   ├── telekasten-config.lua # Telekasten configuration
     │   ├── csharp-accessors.lua # C# accessors
     │   ├── csharp-editorconfig.lua # C# editorconfig
     │   ├── plugin-health.lua   # Plugin health checks
     │   ├── profiler.lua        # Performance profiler
     │   ├── reloader.lua        # Config reloader
     │   ├── paths.lua           # Vault and path constants
-    │   ├── obsidian.lua        # Obsidian integration
     │   ├── snacks.lua          # Snacks.nvim configuration
     │   ├── dashboard-urls.lua  # Dashboard URL list (gitignored)
     │   └── dashboard-urls.example.lua # Dashboard URL example
@@ -76,8 +74,6 @@ This guide covers the general Neovim configuration, including basic options, LSP
     │   ├── roslyn.lua          # Roslyn LSP
     │   ├── snacks.lua          # Snacks.nvim features
     │   ├── spider.lua          # CamelCase motion
-    │   ├── telekasten.lua      # Zettelkasten notes
-    │   ├── telescope.lua       # Telescope configuration
     │   ├── toggle-term.lua     # Terminal management
     │   ├── treesitter.lua      # Treesitter configuration
     │   ├── ufo.lua             # UFO folding
@@ -108,10 +104,9 @@ This guide covers the general Neovim configuration, including basic options, LSP
     │   ├── grapple-keymaps.lua
     │   ├── lazydocker-keymaps.lua
     │   ├── lazygit-keymaps.lua
-    │   ├── obsidian-keymaps.lua
+    │   ├── notes-keymaps.lua
     │   ├── snacks-keymaps.lua
     │   ├── spider-keymaps.lua
-    │   ├── telekasten-keymaps.lua
     │   └── yanky-keymaps.lua
     └── lsp/                    # Language Server configurations
         ├── gopls.lua           # Go language server
@@ -278,10 +273,6 @@ require("lazy").setup("plugins")
 - Command-line completion
 - Signature help with parameter hints
 - LuaSnip integration
-
-**Telescope (plugins/telescope.lua)**
-- Legacy: kept for Telekasten dependency and minimal use
-- Most picker functionality moved to fzf-lua and Snacks.nvim
 
 **fzf-lua (plugins/fzf-lua.lua)**
 - Fast fuzzy finding with native fzf performance

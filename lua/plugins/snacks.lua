@@ -28,13 +28,13 @@ return {
                     icon = "",
                     key = "v",
                     desc = "Open Vault",
-                    action = ":Telekasten find_notes",
+                    action = function() require("function-keymaps").find_notes() end,
                 },
                 {
                     icon = "",
                     key = "n",
                     desc = "Daily Note",
-                    action = ":Telekasten goto_today",
+                    action = function() require("function-keymaps").open_daily_note(0) end,
                 },
                 {
                     icon = "",

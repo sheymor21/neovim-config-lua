@@ -120,7 +120,7 @@ Ensure LSP functions don't depend on Colemak-DH layout. Current functions use fz
 - `dap-keymaps.lua` - Uses function keys, not affected
 - `lazygit-keymaps.lua` - Doesn't use navigation keys
 - `yanky-keymaps.lua` - Uses standard p/P
-- `telekasten-keymaps.lua` - Doesn't use navigation keys
+- `notes-keymaps.lua` - Doesn't use navigation keys
 
 ### Step 7: Test Configuration
 

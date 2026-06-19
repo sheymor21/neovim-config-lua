@@ -55,10 +55,6 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 - Menú rápido de bookmarks (`<leader>ah`)
 - Integración con Fzf-lua
 
-#### Telescope (Legacy)
-- Descubrimiento de proyectos vía neovim-project (`<leader>fP`, `<leader>fp`)
-- Historial de yank y extensiones
-
 #### Flash
 - Navegación ultra-rápida con highlighting
 - Jump motion mejorado
@@ -302,10 +298,10 @@ Esta configuración incluye una **capa de compatibilidad con VS Code** (`lua/nvi
 ### Plugins Desactivados en VS Code
 - **UI**: lualine, noice, snacks.nvim dashboard/picker/notifier
 - **LSP**: mason.nvim, blink-cmp, todos los servidores LSP (VS Code los proporciona)
-- **Pickers**: fzf-lua, telescope (usa la búsqueda nativa de VS Code)
+- **Pickers**: fzf-lua (usa la búsqueda nativa de VS Code)
 - **Git**: gitsigns, lazygit (usa el control de fuente de VS Code)
 - **Terminal**: Snacks.terminal / toggleterm (usa el terminal integrado de VS Code)
-- **Notas**: telekasten (usa el explorador de archivos de VS Code)
+- **Notas**: archivos markdown (usa el explorador de archivos de VS Code)
 - **Debug**: nvim-dap, neotest (usa los paneles de debug/test de VS Code)
 
 ### Configuración Requerida en VS Code
@@ -324,10 +320,9 @@ Consulta la [Guía de Instalación](instalacion.md#extensión-vs-code-neovim) pa
 | blink.cmp | Edición | Todos | ✅ Activo |
 | fzf-lua | Navegación | Todos | ✅ Activo |
 | Grapple | Navegación | Todos | ✅ Activo |
-| Telescope | Navegación | Todos | ⚠️ Legacy |
 | Oil | Gestión de Archivos | Todos | ✅ Activo |
 | Snacks.nvim | UI/Dashboard | Todos | ✅ Activo |
-| Telekasten | Toma de Notas | Markdown | ✅ Activo |
+| Notas Markdown | Toma de Notas | Markdown | ✅ Activo |
 | Multicursor | Edición | Todos | ✅ Activo |
 | Session Manager | Gestión de Proyectos | Todos | ✅ Activo |
 | LazyGit | Herramientas de Desarrollo | Todos | ✅ Activo |

@@ -89,20 +89,15 @@ function M.check()
         end
     end
 
-    -- Check Telekasten vault
+    -- Check notes vault
     vim.health.info("")
-    vim.health.info("Telekasten Vault:")
-    local telekasten_ok, telekasten = pcall(require, "telekasten")
-    if telekasten_ok then
-        local paths = require("config.paths")
-        local vault_path = paths.vault_path
-        if vim.fn.isdirectory(vault_path) == 1 then
-            vim.health.ok("Vault found at " .. vault_path)
-        else
-            vim.health.warn("Vault not found at " .. vault_path .. " - create it with `:Telekasten panel`")
-        end
+    vim.health.info("Notes Vault:")
+    local paths = require("config.paths")
+    local vault_path = paths.vault_path
+    if vim.fn.isdirectory(vault_path) == 1 then
+        vim.health.ok("Vault found at " .. vault_path)
     else
-        vim.health.warn("telekasten.nvim failed to load: " .. tostring(telekasten))
+        vim.health.warn("Vault not found at " .. vault_path .. " - create it to use notes features")
     end
 end
 

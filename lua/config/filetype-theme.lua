@@ -16,7 +16,6 @@ local ignored_ft = {
     ["noice"] = true,
     ["lazy"] = true,
     ["mason"] = true,
-    ["TelescopePrompt"] = true,
 }
 
 local last_ft = nil

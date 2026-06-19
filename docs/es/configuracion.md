@@ -33,14 +33,12 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
     │   ├── lazygit.lua         # Configuración de LazyGit
     │   ├── lazy-docker.lua     # Configuración de LazyDocker
     │   ├── indent.lua          # Configuración de indentación
-    │   ├── telekasten-config.lua # Configuración de Telekasten
     │   ├── csharp-accessors.lua # Accessors de C#
     │   ├── csharp-editorconfig.lua # Editorconfig de C#
     │   ├── plugin-health.lua   # Health checks de plugins
     │   ├── profiler.lua        # Profiler de rendimiento
     │   ├── reloader.lua        # Recargador de configuración
     │   ├── paths.lua           # Rutas y constantes del vault
-    │   ├── obsidian.lua        # Integración Obsidian
     │   ├── snacks.lua          # Configuración de Snacks.nvim
     │   ├── dashboard-urls.lua  # Lista de URLs del dashboard (gitignored)
     │   └── dashboard-urls.example.lua # Ejemplo de URLs del dashboard
@@ -76,8 +74,6 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
     │   ├── roslyn.lua          # LSP Roslyn
     │   ├── snacks.lua          # Funciones de Snacks.nvim
     │   ├── spider.lua          # Movimiento CamelCase
-    │   ├── telekasten.lua      # Notas Zettelkasten
-    │   ├── telescope.lua       # Configuración de Telescope
     │   ├── toggle-term.lua     # Gestión de terminales
     │   ├── treesitter.lua      # Configuración de Treesitter
     │   ├── ufo.lua             # Folding UFO
@@ -108,10 +104,9 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
     │   ├── grapple-keymaps.lua
     │   ├── lazydocker-keymaps.lua
     │   ├── lazygit-keymaps.lua
-    │   ├── obsidian-keymaps.lua
+    │   ├── notes-keymaps.lua
     │   ├── snacks-keymaps.lua
     │   ├── spider-keymaps.lua
-    │   ├── telekasten-keymaps.lua
     │   └── yanky-keymaps.lua
     └── lsp/                    # Configuraciones de Language Servers
         ├── gopls.lua           # Go language server
@@ -278,10 +273,6 @@ require("lazy").setup("plugins")
 - Autocompletado en línea de comandos
 - Ayuda de firmas con parameter hints
 - Integración con LuaSnip
-
-**Telescope (plugins/telescope.lua)**
-- Legacy: mantenido para dependencia de Telekasten y uso mínimo
-- La mayoría de funcionalidad de pickers se movió a fzf-lua y Snacks.nvim
 
 **fzf-lua (plugins/fzf-lua.lua)**
 - Búsqueda fuzzy rápida con rendimiento nativo de fzf

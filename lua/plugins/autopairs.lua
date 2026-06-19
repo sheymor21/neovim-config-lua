@@ -8,7 +8,7 @@ return {
 			check_ts = true, -- usa treesitter
 			enable_check_bracket_line = false,
 			fast_wrap = {},
-			disable_filetype = { "TelescopePrompt", "vim" },
+			disable_filetype = { "vim" },
 		})
 	end,
 }

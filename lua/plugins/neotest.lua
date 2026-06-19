@@ -6,9 +6,6 @@ return {
         "nvim-treesitter/nvim-treesitter",
         "nvim-neotest/nvim-nio",
 
-        -- Required for stable cursorhold
-        "antoinemadec/FixCursorHold.nvim",
-
         -- Adapters
         "nvim-neotest/neotest-plenary",
         "nsidorenco/neotest-vstest",

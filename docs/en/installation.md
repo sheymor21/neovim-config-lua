@@ -202,7 +202,7 @@ All plugins should be installed and ready.
 :checkhealth
 ```
 
-This runs the custom health check that verifies startup time, external dependencies, LSP servers, plugin health, and Telekasten vault.
+This runs the custom health check that verifies startup time, external dependencies, LSP servers, plugin health, and notes vault.
 
 ### Install LSP Servers via Mason
 ```bash

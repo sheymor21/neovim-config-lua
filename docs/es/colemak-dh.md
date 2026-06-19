@@ -120,7 +120,7 @@ Asegúrate de que las funciones LSP no dependan del layout Colemak-DH. Las funci
 - `dap-keymaps.lua` - Usa teclas de función, no afectado
 - `lazygit-keymaps.lua` - No usa teclas de navegación
 - `yanky-keymaps.lua` - Usa p/P estándar
-- `telekasten-keymaps.lua` - No usa teclas de navegación
+- `notes-keymaps.lua` - No usa teclas de navegación
 
 ### Paso 7: Probar la Configuración
 
