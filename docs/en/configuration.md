@@ -46,7 +46,7 @@ This guide covers the general Neovim configuration, including basic options, LSP
     │   └── dashboard-urls.example.lua # Dashboard URL example
     ├── plugins/                # Plugin specifications
     │   ├── 99.lua              # Core plugins loader
-    │   ├── aerial.lua          # Symbol outline
+    │   ├── nvim-navic.lua      # Breadcrumbs / symbol navigation
     │   ├── autopairs.lua       # Auto bracket completion
     │   ├── blink-cmp.lua       # Autocompletion (blink.cmp)
     │   ├── cellular.lua        # Visual effects

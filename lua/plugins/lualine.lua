@@ -1,6 +1,6 @@
 return {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons", "SmiteshP/nvim-navic" },
     event = "VeryLazy",
     config = function()
         require("lualine").setup({
@@ -15,13 +15,7 @@ return {
                 lualine_b = { "branch", "diff" },
                 lualine_c = {
                     "filename",
-                    {
-                        "aerial",
-                        sep = "  ",
-                        depth = 2, -- Clase → Método
-                        dense = false,
-                        colored = true,
-                    },
+                    "navic",
                 },
                 lualine_x = { "encoding", "filetype" },
                 lualine_y = { "progress" },

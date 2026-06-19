@@ -46,7 +46,7 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
     │   └── dashboard-urls.example.lua # Ejemplo de URLs del dashboard
     ├── plugins/                # Especificaciones de plugins
     │   ├── 99.lua              # Cargador de plugins core
-    │   ├── aerial.lua          # Outline de símbolos
+    │   ├── nvim-navic.lua      # Breadcrumbs / navegación de símbolos
     │   ├── autopairs.lua       # Auto cierre de brackets
     │   ├── blink-cmp.lua       # Autocompletado (blink.cmp)
     │   ├── cellular.lua        # Efectos visuales

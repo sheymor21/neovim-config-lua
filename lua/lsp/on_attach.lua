@@ -32,6 +32,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
         lsp_on_attach(client, bufnr)
 
+        if client.server_capabilities.documentSymbolProvider then
+            require("nvim-navic").attach(client, bufnr)
+        end
+
         if client.server_capabilities.inlayHintProvider then
             vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
         end

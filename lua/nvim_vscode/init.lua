@@ -6,7 +6,6 @@ end
 
 M.disabled_plugins = {
   ["99"] = true,
-  aerial = true,
   ["blink-cmp"] = true,
   cellular = true,
   conform = true,

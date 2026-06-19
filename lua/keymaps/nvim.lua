@@ -22,10 +22,6 @@ end, { desc = "Recent files" })
 map("n", "<leader>fP", "<cmd>NeovimProjectDiscover<cr>", { desc = "Discover Projects" })
 map("n", "<leader>fp", "<cmd>NeovimProjectLoadRecent<cr>", { desc = "Open Recent Project" })
 
--- Aerial keymaps
-map("n", "{", "<cmd>AerialPrev<CR>", { desc = "Previous aerial symbol" })
-map("n", "}", "<cmd>AerialNext<CR>", { desc = "Next aerial symbol" })
-
 -- Builtin vim diagnostics keymaps
 map("n", "<leader>isd", vim.diagnostic.open_float, { desc = "Line diagnostics (float)" })
 map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = { border = "rounded" } }) end, { desc = "Previous diagnostic" })

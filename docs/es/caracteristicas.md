@@ -204,11 +204,11 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 - Filtrado por tipo/severidad
 - Quick fix de problemas
 
-#### Aerial
-- Outline de símbolos de código
-- Navegación estructural
+#### nvim-navic
+- Breadcrumbs LSP en statusline
+- Ruta de navegación de símbolos
 - Integración con LSP
-- Vista jerárquica
+- Más ligero que aerial
 
 #### Snacks.nvim
 - **Dashboard**: Pantalla de bienvenida con acciones rápidas (reemplaza alpha-nvim)

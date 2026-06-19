@@ -111,12 +111,6 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation:
 | `f` | flash_jump() | Flash jump to character |
 | `F` | flash_treesitter() | Flash treesitter node |
 
-### Aerial (stevearc/aerial.nvim)
-| Keybinding | Function | Description |
-|------------|----------|-------------|
-| `{` | AerialPrev | Previous aerial symbol |
-| `}` | AerialNext | Next aerial symbol |
-
 ### Debug Adapter Protocol (DAP)
 | Keybinding | Function | Description |
 |------------|----------|-------------|

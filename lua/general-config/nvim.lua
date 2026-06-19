@@ -1,16 +1,6 @@
 -- Nvim-only autocmds (extracted from general-config.lua)
 local augroup = vim.api.nvim_create_augroup("UserConfig", { clear = false })
 
--- Aerial close for small buffers
-vim.api.nvim_create_autocmd("BufEnter", {
-	group = augroup,
-	callback = function()
-		if vim.api.nvim_buf_line_count(0) < 50 then
-			pcall(function() require("aerial").close() end)
-		end
-	end,
-})
-
 -- Project management: clean buffers outside current project
 local last_project = nil
 vim.api.nvim_create_autocmd("DirChanged", {
