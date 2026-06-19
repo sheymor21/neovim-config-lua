@@ -47,10 +47,6 @@ map("n", "<leader>q", ":q<CR>", { noremap = true, silent = true, desc = "Close f
 map("n", "<leader>W", ":luafile %<CR>", { noremap = true, silent = true, desc = "Run Lua" })
 map("n", "<leader>j", behavior.jump_to_line, { desc = "Jump to line number" })
 
-map("n", "<leader>yw", "ysiw", { remap = true })
-map("n", "ys", "<Plug>(nvim-surround-normal)", {desc = "Add a surrounding pair around a motion (normal mode)"})
-map("n", "ds", "<Plug>(nvim-surround-delete)", {desc = "Delete a surrounding pair"})
-map("n", "cs", "<Plug>(nvim-surround-change)", {desc = "Change a surrounding pair"})
 
 map("n", ";", behavior.add_dot, { desc = "Smart ; at EOL" })
 map("n", ",", behavior.add_coma, { desc = "Smart , at EOL" })

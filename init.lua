@@ -9,7 +9,6 @@ vim.opt.termguicolors = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.signcolumn = "yes"
 vim.g.mapleader = " "
-vim.g.nvim_surround_no_normal_mappings = true
 vim.g.external_terminal = "alacritty"
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
