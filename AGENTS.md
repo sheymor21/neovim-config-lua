@@ -83,7 +83,7 @@ Configured servers (in `lua/lsp/`):
 | File manager | Oil.nvim | `<leader>e`, `-` for parent dir |
 | Bookmarks | Grapple | `<leader>aa`, `<C-1>` to `<C-4>` |
 | Git | Snacks.lazygit | `<leader>ig` |
-| Notes | Telekasten | `<leader>on`, `<leader>od`, `<leader>of` |
+| Notes | Markdown notes + snacks.picker | `<leader>on`, `<leader>od`, `<leader>of` |
 | Picker | Snacks.picker | `<leader>fr`, `<leader>sm`, `<leader>sh` |
 | Completion | blink.cmp | Tab, S-Tab, C-j, C-k |
 | Terminal | Snacks.terminal | `<leader>tt` |
@@ -110,9 +110,9 @@ Required: `git`
 
 `lua/health.lua` provides `:checkhealth` integration. Add new checks there following the existing pattern with `vim.health.ok/warn/error`.
 
-## Notes/Telekasten Vault
+## Notes Vault
 
-Vault path is defined in `lua/config/paths.lua` (default: `~/Documents/Sheymor`). The health check verifies vault accessibility.
+Vault path is defined in `lua/config/paths.lua` (default: `~/Documents/Sheymor`). Notes are plain markdown files managed with `snacks.picker` and custom helpers in `lua/function-keymaps.lua`. The health check verifies vault accessibility.
 
 ## Special Filetype Handling
 
