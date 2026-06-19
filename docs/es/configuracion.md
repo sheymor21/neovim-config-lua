@@ -76,7 +76,6 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
     │   ├── roslyn.lua          # LSP Roslyn
     │   ├── snacks.lua          # Funciones de Snacks.nvim
     │   ├── spider.lua          # Movimiento CamelCase
-    │   ├── surround.lua        # Texto surrounding
     │   ├── telekasten.lua      # Notas Zettelkasten
     │   ├── telescope.lua       # Configuración de Telescope
     │   ├── toggle-term.lua     # Gestión de terminales

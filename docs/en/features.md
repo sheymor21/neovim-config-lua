@@ -82,11 +82,6 @@ This Neovim configuration includes a complete set of features designed to provid
 - Tab/Enter expansion
 - Placeholder navigation
 
-#### nvim-surround
-- Delimiter manipulation (quotes, brackets, tags)
-- Add/delete/change surrounding text
-- Visual and normal mode operations
-
 #### nvim-autopairs
 - Automatic bracket, quote closing
 - Filetype-specific configuration
@@ -169,6 +164,13 @@ This Neovim configuration includes a complete set of features designed to provid
 #### ToggleTerm (legacy)
 - Kept for `unirunner`, `unipackage`, `unidiagnostic` compatibility
 - Most terminal usage has moved to `Snacks.terminal`
+
+#### OpenCode Integration
+- Open external terminal with OpenCode AI in project root
+- Auto-detects project root via git
+- Supports multiple terminals: alacritty, kitty, wezterm, gnome-terminal, konsole, xterm
+- Configurable via `vim.g.external_terminal`
+- Quick access via `<leader>to`
 
 ### 6. Session and Project Management
 
@@ -290,7 +292,6 @@ This configuration includes a **VS Code compatibility layer** (`lua/nvim_vscode/
 |--------|---------|
 | nvim-treesitter | Syntax highlighting |
 | nvim-autopairs | Auto bracket closing |
-| nvim-surround | Surround text objects |
 | flash.nvim | Quick navigation |
 | spider.nvim | CamelCase motion |
 | which-key.nvim | Keybinding help |

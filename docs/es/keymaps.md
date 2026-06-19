@@ -137,6 +137,7 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | `<leader>ig` | Snacks.lazygit() | Abrir LazyGit |
 | `<leader>id` | LazyDocker (custom) | Abrir LazyDocker |
 | `<leader>tt` | Snacks.terminal() | Toggle terminal flotante |
+| `<leader>to` | open_external_opencode() | Abrir OpenCode en terminal externa |
 
 ### Snacks Picker
 | Keybinding | Función | Descripción |
@@ -175,15 +176,6 @@ Esta configuración utiliza el layout Colemak-DH para una navegación más ergon
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
 | `<leader>mp` | toggle_peek_preview() | Toggle preview de Markdown |
-
-### Surround (nvim-surround)
-| Keybinding | Function | Description |
-|------------|----------|-------------|
-| `ys` | `<Plug>(nvim-surround-normal)` | Añadir par surrounding alrededor de motion |
-| `yS` | `<Plug>(nvim-surround-normal-line)` | Añadir par surrounding alrededor de línea |
-| `ds` | `<Plug>(nvim-surround-delete)` | Eliminar par surrounding |
-| `cs` | `<Plug>(nvim-surround-change)` | Cambiar par surrounding |
-| `<leader>yw` | ysiw | Surround word shortcut |
 
 ### Yanky (Yank/Paste)
 | Keybinding | Function | Description |
