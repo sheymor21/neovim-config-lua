@@ -18,7 +18,7 @@ local function lsp_on_attach(client, bufnr)
     end, { buffer = bufnr, desc = "Type Definition" })
     map("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
     map("n", ".", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Actions" }))
-    map("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename Symbol" })
+    map("n", "<leader>rn", require("function-keymaps").lsp_rename_and_save, { buffer = bufnr, desc = "Rename Symbol" })
     map("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
 end
 

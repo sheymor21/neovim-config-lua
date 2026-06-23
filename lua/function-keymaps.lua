@@ -302,8 +302,47 @@ function M.runner_url_select()
     require("unirunner").open_url_select()
 end
 
+function M.lsp_rename_and_save()
+	local current_name = vim.fn.expand("<cword>")
+	vim.ui.input({ prompt = "Rename to: ", default = current_name }, function(input)
+		if not input or input == "" then
+			return
+		end
+
+		local params = vim.lsp.util.make_position_params()
+		params.newName = input
+
+		vim.lsp.buf_request(0, "textDocument/rename", params, function(err, result, ctx)
+			if err then
+				vim.notify("Rename failed: " .. err.message, vim.log.levels.ERROR)
+				return
+			end
+
+			if not result or (not result.changes and not result.documentChanges) then
+				vim.notify("No rename changes", vim.log.levels.INFO)
+				return
+			end
+
+			local client = vim.lsp.get_client_by_id(ctx.client_id)
+			local offset_encoding = client and client.offset_encoding or "utf-16"
+			vim.lsp.util.apply_workspace_edit(result, offset_encoding)
+
+			-- Save all modified normal buffers
+			for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+				if vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].modified and vim.bo[bufnr].buftype == "" then
+					vim.api.nvim_buf_call(bufnr, function()
+						vim.cmd("silent! write")
+					end)
+				end
+			end
+
+			vim.notify("Renamed and saved affected files", vim.log.levels.INFO)
+		end)
+	end)
+end
+
 function M.neotest_run()
-    require("neotest").run.run()
+	require("neotest").run.run()
 end
 
 function M.neotest_run_all()
