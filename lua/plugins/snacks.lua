@@ -127,13 +127,11 @@ return {
         },
 
         -- LazyGit integration
+        -- configure = false lets lazygit use the user's own config file
+        -- (~/.config/lazygit/config.yml) which contains the Colemak-DH keybindings.
         lazygit = {
             enabled = true,
-            configure = true,
-            config = {
-                os = { editPreset = "nvim-remote" },
-                gui = { nerdFontsVersion = "3" },
-            },
+            configure = false,
             win = { border = "rounded" },
         },
 
