@@ -10,6 +10,11 @@ return {
         require("roslyn").setup({
             filewatching = "auto",
             lock_target = true,
+            extensions = {
+                razor = {
+                    enabled = false,
+                },
+            },
         })
     end,
 }
