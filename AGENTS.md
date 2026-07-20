@@ -8,6 +8,8 @@
 
 Both load: `config/lazy.lua` → `general-config.lua` → `function-keymaps.lua` → `keymaps.lua`
 
+`lua/init/nvim.lua` additionally loads `general-config.nvim` (resolves to `lua/general-config/nvim.lua`), which contains nvim-only autocmds: project buffer cleanup on `DirChanged`, and auto-insert mode for snacks input dialogs.
+
 **Plugin loading pattern** (3-part separation):
 ```lua
 -- lua/plugins/foo.lua - the spec (lazy.nvim spec table)
@@ -39,7 +41,9 @@ The config remaps movement keys to Colemak-DH. **When defining new keymaps**:
 
 **Safe keys for leader combinations**: Everything except `n/e/i/o` and their uppercase variants.
 
-**Snacks picker keys** in `lua/plugins/snacks.lua` are already mapped to Colemak-DH (`<C-e>` for list down, `<C-i>` for list up).
+**Snacks picker keys** in `lua/plugins/snacks.lua` are already mapped to Colemak-DH:
+- `<C-e>` / `e` = list down
+- `<C-i>` / `i` = list up
 
 ### Keymap Behavior Functions
 Complex keymap logic goes in `lua/function-keymaps.lua`, wrapped in the `M` table, then referenced in keymaps. Do not inline complex logic in keymap definitions.
@@ -67,13 +71,14 @@ end
 client.server_capabilities.semanticTokensProvider = nil
 ```
 
-Configured servers (in `lua/lsp/`):
+Configured servers (in `lua/lsp/servers.lua` + `lua/lsp/setup.lua`):
 - `gopls` - Go (requires system install)
 - `vtsls` - TypeScript (via Mason)
 - `lua_ls` - Lua (via Mason + lazydev)
-- `roslyn` - C# (special plugin, not Mason)
 - `html`, `cssls` - Web (via Mason)
-- `markdown` - Markdown (via Mason)
+- `marksman` - Markdown (via Mason)
+
+**Exception**: `roslyn` (C#) is handled by `seblyng/roslyn.nvim` in `lua/plugins/roslyn.lua`, NOT the custom LSP setup.
 
 ## Primary Tools
 
@@ -103,7 +108,7 @@ Configured servers (in `lua/lsp/`):
 
 ## External Dependencies
 
-Optional: `node`, `npm`, `deno`, `go`, `python3`, `dotnet`, `cargo`
+Optional: `node`, `npm`, `deno`, `go`, `python3`, `dotnet`, `cargo` (required for blink.cmp build)
 Required: `git`
 
 ## Health Check System
@@ -118,12 +123,13 @@ Vault path is defined in `lua/config/paths.lua` (default: `~/Documents/Sheymor`)
 
 - **C# files**: UTF-8 BOM is preserved (`vim.opt_local.bomb = true`) to prevent showing whole file as changed
 - **Windows line endings**: Auto-converted to Unix on open (`:set fileformat=unix`)
-- **Per-filetype themes**: Auto-switched by `lua/config/filetype-theme.lua` (lua→ayu, go→onedark_dark, cs→gruvbox, etc.)
-
-## Git
-
-- `lazy-lock.json` is **ignored** (not tracked). Users generate their own lockfile.
-- `lua/config/dashboard-urls.lua` is gitignored (create from `dashboard-urls.example.lua`)
+- **Per-filetype themes**: Auto-switched by `lua/config/filetype-theme.lua`:
+  - `lua` → `ayu`
+  - `go` → `onedark_dark`
+  - `cs` → `gruvbox`
+  - `html` → `tokyodark`
+  - `css` → `gruvbox`
+  - `javascript` / `typescript` → `onedark_dark`
 
 ## Formatting
 
@@ -131,4 +137,9 @@ Vault path is defined in `lua/config/paths.lua` (default: `~/Documents/Sheymor`)
 - **Go**: `gofumpt` + `goimports`
 - **C#**: `csharpier`
 - **Web**: `prettier` (with spacious defaults: 4-tab, 120 width)
-- **Format on save is DISABLED** — manual only via `<leader>mf` or conform
+- **Format on save is DISABLED** — manual only via `<leader>mf` (async) or `<leader>mF` (sync)
+
+## Git
+
+- `lazy-lock.json` is **ignored** (not tracked). Users generate their own lockfile.
+- `lua/config/dashboard-urls.lua` is gitignored (create from `dashboard-urls.example.lua`)
