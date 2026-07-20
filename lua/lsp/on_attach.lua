@@ -20,36 +20,26 @@ local function lsp_on_attach(client, bufnr)
     map("n", ".", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Actions" }))
     map("n", "<leader>rn", require("function-keymaps").lsp_rename_and_save, { buffer = bufnr, desc = "Rename Symbol" })
     map("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
+
+    if client.server_capabilities.documentSymbolProvider then
+        require("nvim-navic").attach(client, bufnr)
+    end
+
+    if client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    end
+
+    if client.server_capabilities.codeLensProvider then
+        vim.lsp.codelens.enable(true, { bufnr = bufnr })
+        vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+            buffer = bufnr,
+            callback = function()
+                if not vim.lsp.codelens.is_enabled({ bufnr = bufnr }) then
+                    vim.lsp.codelens.enable(true, { bufnr = bufnr })
+                end
+            end,
+        })
+    end
 end
 
-vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        local bufnr = args.buf
-
-        if not client then
-            return
-        end
-        lsp_on_attach(client, bufnr)
-
-        if client.server_capabilities.documentSymbolProvider then
-            require("nvim-navic").attach(client, bufnr)
-        end
-
-        if client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-        end
-
-        if client.server_capabilities.codeLensProvider then
-            vim.lsp.codelens.enable(true, { bufnr = bufnr })
-            vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-                buffer = bufnr,
-                callback = function()
-                    if not vim.lsp.codelens.is_enabled({ bufnr = bufnr }) then
-                        vim.lsp.codelens.enable(true, { bufnr = bufnr })
-                    end
-                end,
-            })
-        end
-    end,
-})
+return lsp_on_attach

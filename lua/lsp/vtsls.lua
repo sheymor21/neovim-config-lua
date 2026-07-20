@@ -1,21 +1,25 @@
-local lsp_utils = require("lsp.utils")
-
 local vtsls_cmd = {
     vim.fn.stdpath("data") .. "/mason/bin/vtsls",
     "--stdio",
 }
 
-local function get_root_dir(bufnr)
-    return vim.fs.root(bufnr, {
+local function get_root_dir(fname)
+    return vim.fs.root(fname, {
         "package.json",
         "tsconfig.json",
         ".git",
     })
 end
 
-local vtsls_config = {
+return {
     name = "vtsls",
     cmd = vtsls_cmd,
+    filetypes = {
+        "typescript",
+        "typescriptreact",
+        "javascript",
+        "javascriptreact",
+    },
     root_dir = get_root_dir,
     settings = {
         vtsls = {
@@ -38,20 +42,3 @@ local vtsls_config = {
         },
     },
 }
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = {
-        "typescript",
-        "typescriptreact",
-        "javascript",
-        "javascriptreact",
-    },
-    callback = function(args)
-        local bufnr = args.buf
-        local root_dir = vtsls_config.root_dir(bufnr)
-        local config = vim.tbl_extend("force", vtsls_config, {
-            root_dir = root_dir,
-        })
-        lsp_utils.start_lsp_client("vtsls", bufnr, config)
-    end,
-})

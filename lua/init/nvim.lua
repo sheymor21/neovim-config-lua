@@ -1,4 +1,3 @@
-require("lsp.on_attach")
 require("config.lazy")
 require("general-config")
 require("general-config.nvim")
@@ -18,12 +17,7 @@ vim.api.nvim_create_autocmd("User", {
         require("config.lazy-docker")
         require("config.lazygit")
         require("config.dap-config")
-        require("lsp.gopls")
-        require("lsp.lua-lsp")
-        require("lsp.vtsls")
-        require("lsp.html")
-        require("lsp.css")
-        require("lsp.markdown")
+        require("lsp.setup").setup()
         require("luasnip.loaders.from_vscode").lazy_load()
 
         -- Enable deferred snacks modules

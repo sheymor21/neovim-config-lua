@@ -1,5 +1,3 @@
-local lsp_utils = require("lsp.utils")
-
 local function get_root_dir(fname)
     return vim.fs.root(fname, {
         ".luarc.json",
@@ -10,10 +8,12 @@ local function get_root_dir(fname)
     }) or vim.fn.expand("~/.config/nvim")
 end
 
-local lua_config = {
+return {
     name = "lua_ls",
     cmd = { "lua-language-server" },
+    filetypes = { "lua" },
     root_dir = get_root_dir,
+    defer = true,
     settings = {
         Lua = {
             diagnostics = {
@@ -31,22 +31,3 @@ local lua_config = {
         },
     },
 }
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "lua",
-    callback = function(args)
-        vim.schedule(function()
-            local bufnr = args.buf
-            if not bufnr or type(bufnr) ~= "number" or not vim.api.nvim_buf_is_valid(bufnr) then
-                return
-            end
-            
-            local fname = vim.api.nvim_buf_get_name(bufnr)
-            local root_dir = lua_config.root_dir(fname)
-            local config = vim.tbl_extend("force", lua_config, {
-                root_dir = root_dir,
-            })
-            lsp_utils.start_lsp_client("lua_ls", bufnr, config)
-        end)
-    end,
-})
