@@ -37,7 +37,7 @@ nvim
 - **Colemak-DH Layout**: Ergonomic navigation optimization
 - **Full LSP**: Multi-language support with blink.cmp autocompletion
 - **Advanced Navigation**: fzf-lua, Grapple, Flash, Snacks.nvim
-- **Modern UI**: Kanagawa theme, Lualine, Noice.nvim
+- **Modern UI**: Adaptive filetype themes (ayu default), Lualine, Noice.nvim
 - **Development Tools**: DAP debugging, Neotest, LazyGit
 - **Session Management**: Persistence and project management
 - **Performance Optimized**: Lazy loading and modular configuration

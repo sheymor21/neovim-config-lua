@@ -97,17 +97,17 @@ This Neovim configuration includes a complete set of features designed to provid
 
 ### 4. UI and Appearance
 
-#### Kanagawa Theme
-- Default main theme
-- Wave, dragon, lotus variants
-- Treesitter support
-- Cohesive color palette
+#### Adaptive Filetype Themes
+- **Ayu** (default) - Loaded at startup
+- Auto-switches per filetype: onedark_dark (Go/TS/JS), gruvbox (C#/CSS), tokyodark (HTML), ayu (Lua)
+- Kanagawa as fallback for unspecified filetypes
 
-#### Additional Themes
-- Catppuccin (mocha, latte, frappe, macchiato)
-- Gruvbox (dark, light, hard, soft)
-- Onedark
-- Cyberdream
+#### Available Themes
+- Ayu
+- Kanagawa (wave, dragon, lotus)
+- Gruvbox (dark, hard contrast)
+- Onedark / Onedark Dark
+- Tokyodark
 
 #### Lualine
 - Custom status line
