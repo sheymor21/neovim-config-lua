@@ -1,6 +1,16 @@
 local dap = require("dap")
 
-local mason_path = vim.fn.stdpath("data") .. "/mason/bin/netcoredbg"
+local function get_netcoredbg_path()
+	local mason_bin = vim.fn.stdpath("data") .. "/mason/bin/netcoredbg"
+	if vim.fn.filereadable(mason_bin) == 1 then
+		return mason_bin
+	end
+	local mason_pkg = vim.fn.stdpath("data") .. "/mason/packages/netcoredbg/netcoredbg"
+	if vim.fn.filereadable(mason_pkg) == 1 then
+		return mason_pkg
+	end
+	return nil
+end
 
 -- Helper function to get URL from unirunner's launchSettings.json
 local function get_launchsettings_url()
@@ -151,11 +161,30 @@ local function select_project()
 	return projects[1]
 end
 
-dap.adapters.coreclr = {
-	type = "executable",
-	command = mason_path,
-	args = { "--interpreter=vscode" },
-}
+dap.adapters.coreclr = function(callback, config)
+	local path = get_netcoredbg_path()
+	if not path then
+		local ok, mr = pcall(require, "mason-registry")
+		if ok then
+			local ok2, pkg = pcall(mr.get_package, mr, "netcoredbg")
+			if ok2 and pkg and not pkg:is_installed() then
+				vim.notify("netcoredbg not found — installing via Mason...", vim.log.levels.INFO)
+				pkg:install()
+				return
+			end
+		end
+		vim.notify(
+			"netcoredbg not found and could not be installed automatically. Run :MasonInstall netcoredbg",
+			vim.log.levels.ERROR
+		)
+		return
+	end
+	callback({
+		type = "executable",
+		command = path,
+		args = { "--interpreter=vscode" },
+	})
+end
 
 dap.configurations.cs = {
 	{
