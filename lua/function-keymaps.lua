@@ -454,6 +454,41 @@ function M.jump_to_line()
     end
 end
 
+-- Dashboard git clone
+function M.dashboard_git_clone()
+    vim.ui.input({ prompt = "Repository URL: " }, function(url)
+        if not url or url == "" then
+            return
+        end
+
+        -- Derive target folder name from URL
+        local folder = url:match(".+/(.-)$") or "repo"
+        folder = folder:gsub("%.git$", "")
+
+        local base = vim.fn.expand("~/Projects")
+        if vim.fn.isdirectory(base) == 0 then
+            vim.fn.mkdir(base, "p")
+        end
+
+        local target = base .. "/" .. folder
+        if vim.fn.isdirectory(target) == 1 then
+            vim.notify("Directory already exists: " .. target, vim.log.levels.WARN)
+            return
+        end
+
+        vim.notify("Cloning " .. url .. " ...", vim.log.levels.INFO)
+        vim.system({ "git", "clone", url, target }, { text = true }, function(obj)
+            vim.schedule(function()
+                if obj.code == 0 then
+                    vim.notify("Cloned to " .. target, vim.log.levels.INFO)
+                else
+                    vim.notify("Git clone failed: " .. (obj.stderr or ""), vim.log.levels.ERROR)
+                end
+            end)
+        end)
+    end)
+end
+
 -- Dashboard URL opener (reads from gitignored dashboard-urls.lua)
 function M.dashboard_open_url()
     local ok, urls = pcall(require, "config.dashboard-urls")

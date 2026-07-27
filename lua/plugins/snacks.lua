@@ -44,6 +44,7 @@ return {
                 },
                     { icon = "", key = "l", desc = "Lazy Plugins", action = ":Lazy" },
                     { icon = "", key = "u", desc = "Open URL", action = function() require("function-keymaps").dashboard_open_url() end },
+                    { icon = "", key = "g", desc = "Git Clone", action = function() require("function-keymaps").dashboard_git_clone() end },
                     { icon = "", key = "m", desc = "Mason", action = ":Mason" },
                     { icon = "", key = "q", desc = "Quit", action = ":qa" },
                 },
