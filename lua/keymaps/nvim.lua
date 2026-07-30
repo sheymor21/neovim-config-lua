@@ -9,6 +9,7 @@ require("plugins-keymaps.conform-keymaps")
 require("plugins-keymaps.grapple-keymaps")
 require("plugins-keymaps.fzf-lua-keymaps")
 require("plugins-keymaps.snacks-keymaps")
+require("plugins-keymaps.storyboard-keymaps")
 
 -- Oil keymap
 map("n", "<leader>E", ":Oil .<CR>", { noremap = true, silent = true, desc = "Open Oil in current working directory" })

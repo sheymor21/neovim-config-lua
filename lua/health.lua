@@ -99,6 +99,36 @@ function M.check()
     else
         vim.health.warn("Vault not found at " .. vault_path .. " - create it to use notes features")
     end
+
+    -- Check Story Board (DiaProject)
+    vim.health.info("")
+    vim.health.info("Story Board:")
+    local storyboard = require("config.storyboard")
+    if vim.fn.executable("go") == 1 then
+        vim.health.ok("Go is installed")
+    else
+        vim.health.warn("Go is not installed — needed to build Story Board")
+    end
+    if vim.fn.executable("curl") == 1 then
+        vim.health.ok("curl is installed")
+    else
+        vim.health.error("curl is required but not installed")
+    end
+    if storyboard.is_cloned() then
+        vim.health.ok("Story Board repo cloned at " .. storyboard.clone_dir)
+    else
+        vim.health.warn("Story Board not cloned — run <leader>dd to clone and start")
+    end
+    if storyboard.has_binary() then
+        vim.health.ok("Story Board binary exists")
+    elseif storyboard.is_cloned() then
+        vim.health.warn("Story Board binary missing — will be built on first start")
+    end
+    if storyboard.is_running() then
+        vim.health.ok("Story Board is running on port " .. (storyboard.get_port() or "?"))
+    else
+        vim.health.info("Story Board is not running")
+    end
 end
 
 return M

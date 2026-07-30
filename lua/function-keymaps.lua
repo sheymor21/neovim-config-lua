@@ -706,4 +706,240 @@ function M.open_external_opencode()
     vim.notify("Opened opencode in " .. terminal .. " at " .. root, vim.log.levels.INFO)
 end
 
+-- Story Board (DiaProject) functions
+function M.dia_start()
+    require("config.storyboard").start()
+end
+
+function M.dia_stop()
+    require("config.storyboard").stop()
+end
+
+function M.dia_open()
+    local storyboard = require("config.storyboard")
+    local port = storyboard.get_port()
+    if not port then
+        vim.notify("Story Board is not running. Start it with <leader>dd", vim.log.levels.WARN)
+        return
+    end
+    vim.ui.open("http://localhost:" .. port)
+end
+
+function M.dia_logs()
+    local storyboard = require("config.storyboard")
+    local log_path = storyboard.log_path
+    if vim.fn.filereadable(log_path) == 0 then
+        vim.notify("No log file found at " .. log_path, vim.log.levels.WARN)
+        return
+    end
+    vim.cmd("vsplit " .. vim.fn.fnameescape(log_path))
+end
+
+function M.dia_projects()
+    local storyboard = require("config.storyboard")
+    if not storyboard.is_running() then
+        vim.notify("Story Board is not running. Start it with <leader>dd", vim.log.levels.WARN)
+        return
+    end
+
+    storyboard.api_get("/api/projects", function(data, err)
+        if err then
+            vim.notify("Failed to fetch projects: " .. err, vim.log.levels.ERROR)
+            return
+        end
+
+        local projects = data or {}
+        if #projects == 0 then
+            vim.notify("No projects found. Create one with <leader>dn", vim.log.levels.INFO)
+            return
+        end
+
+        local items = {}
+        for _, p in ipairs(projects) do
+            local label = p.name
+            if p.description and p.description ~= "" then
+                label = label .. " — " .. p.description
+            end
+            table.insert(items, { id = p.id, name = p.name, label = label })
+        end
+
+        vim.ui.select(items, {
+            prompt = "Project ❯ ",
+            format_item = function(item)
+                return item.label
+            end,
+        }, function(choice)
+            if not choice then return end
+            vim.notify("Selected project: " .. choice.name, vim.log.levels.INFO)
+        end)
+    end)
+end
+
+function M.dia_create_project()
+    local storyboard = require("config.storyboard")
+    if not storyboard.is_running() then
+        vim.notify("Story Board is not running. Start it with <leader>dd", vim.log.levels.WARN)
+        return
+    end
+
+    vim.ui.input({ prompt = "Project name: " }, function(name)
+        if not name or name == "" then return end
+        vim.ui.input({ prompt = "Description (optional): " }, function(desc)
+            storyboard.api_post("/api/projects", {
+                name = name,
+                description = desc or "",
+            }, function(data, err)
+                if err then
+                    vim.notify("Failed to create project: " .. err, vim.log.levels.ERROR)
+                    return
+                end
+                vim.notify("Created project: " .. name, vim.log.levels.INFO)
+            end)
+        end)
+    end)
+end
+
+function M.dia_columns()
+    local storyboard = require("config.storyboard")
+    if not storyboard.is_running() then
+        vim.notify("Story Board is not running. Start it with <leader>dd", vim.log.levels.WARN)
+        return
+    end
+
+    -- First select a project
+    storyboard.api_get("/api/projects", function(projects, err)
+        if err then
+            vim.notify("Failed to fetch projects: " .. err, vim.log.levels.ERROR)
+            return
+        end
+
+        local items = {}
+        for _, p in ipairs(projects or {}) do
+            table.insert(items, { id = p.id, name = p.name })
+        end
+
+        if #items == 0 then
+            vim.notify("No projects found", vim.log.levels.WARN)
+            return
+        end
+
+        vim.ui.select(items, {
+            prompt = "Project ❯ ",
+            format_item = function(item) return item.name end,
+        }, function(project)
+            if not project then return end
+
+            storyboard.api_get("/api/columns?project_id=" .. project.id, function(columns, err2)
+                if err2 then
+                    vim.notify("Failed to fetch columns: " .. err2, vim.log.levels.ERROR)
+                    return
+                end
+
+                local col_items = {}
+                for _, c in ipairs(columns or {}) do
+                    table.insert(col_items, c.name)
+                end
+
+                if #col_items == 0 then
+                    vim.notify("No columns in project: " .. project.name, vim.log.levels.INFO)
+                    return
+                end
+
+                vim.ui.select(col_items, { prompt = "Column ❯ " }, function(choice)
+                    if choice then
+                        vim.notify("Selected column: " .. choice, vim.log.levels.INFO)
+                    end
+                end)
+            end)
+        end)
+    end)
+end
+
+function M.dia_cards()
+    local storyboard = require("config.storyboard")
+    if not storyboard.is_running() then
+        vim.notify("Story Board is not running. Start it with <leader>dd", vim.log.levels.WARN)
+        return
+    end
+
+    -- Select project → column → list cards
+    storyboard.api_get("/api/projects", function(projects, err)
+        if err then
+            vim.notify("Failed to fetch projects: " .. err, vim.log.levels.ERROR)
+            return
+        end
+
+        local proj_items = {}
+        for _, p in ipairs(projects or {}) do
+            table.insert(proj_items, { id = p.id, name = p.name })
+        end
+
+        if #proj_items == 0 then
+            vim.notify("No projects found", vim.log.levels.WARN)
+            return
+        end
+
+        vim.ui.select(proj_items, {
+            prompt = "Project ❯ ",
+            format_item = function(item) return item.name end,
+        }, function(project)
+            if not project then return end
+
+            storyboard.api_get("/api/columns?project_id=" .. project.id, function(columns, err2)
+                if err2 then
+                    vim.notify("Failed to fetch columns: " .. err2, vim.log.levels.ERROR)
+                    return
+                end
+
+                local col_items = {}
+                for _, c in ipairs(columns or {}) do
+                    table.insert(col_items, { id = c.id, name = c.name })
+                end
+
+                if #col_items == 0 then
+                    vim.notify("No columns in project", vim.log.levels.WARN)
+                    return
+                end
+
+                vim.ui.select(col_items, {
+                    prompt = "Column ❯ ",
+                    format_item = function(item) return item.name end,
+                }, function(column)
+                    if not column then return end
+
+                    storyboard.api_get(
+                        "/api/cards?project_id=" .. project.id .. "&column_id=" .. column.id,
+                        function(cards, err3)
+                            if err3 then
+                                vim.notify("Failed to fetch cards: " .. err3, vim.log.levels.ERROR)
+                                return
+                            end
+
+                            local card_items = {}
+                            for _, c in ipairs(cards or {}) do
+                                local label = c.title
+                                if c.type and c.type ~= "" then
+                                    label = "[" .. c.type .. "] " .. label
+                                end
+                                table.insert(card_items, label)
+                            end
+
+                            if #card_items == 0 then
+                                vim.notify("No cards in column: " .. column.name, vim.log.levels.INFO)
+                                return
+                            end
+
+                            vim.ui.select(card_items, { prompt = "Card ❯ " }, function(choice)
+                                if choice then
+                                    vim.notify("Selected card: " .. choice, vim.log.levels.INFO)
+                                end
+                            end)
+                        end
+                    )
+                end)
+            end)
+        end)
+    end)
+end
+
 return M
