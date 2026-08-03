@@ -138,39 +138,6 @@ echo 'export PATH=$PATH:$HOME/.dotnet/tools' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-##### Azure Artifacts Credential Provider (for Azure DevOps NuGet feeds)
-Authenticates `dotnet restore` against Azure DevOps feeds without storing tokens in plain text (tokens are kept in a protected session cache, not in `nuget.config`).
-
-```bash
-# 1. Install the tool
-dotnet tool install -g Microsoft.Artifacts.CredentialProvider.NuGet.Tool --source https://api.nuget.org/v3/index.json
-
-# 2. Wire it into NuGet's plugin discovery dir (REQUIRED — the tool install alone is not enough)
-# The tool only drops an executable in ~/.dotnet/tools/; NuGet loads credential
-# plugins only from ~/.nuget/plugins/netcore/. Copy the ENTIRE folder — a partial
-# copy makes the provider load but crash (SIGABRT) on missing dependencies.
-SRC=~/.dotnet/tools/.store/microsoft.artifacts.credentialprovider.nuget.tool/*/microsoft.artifacts.credentialprovider.nuget.tool/*/tools/net8.0/any
-DEST=~/.nuget/plugins/netcore/CredentialProvider.Microsoft
-mkdir -p "$DEST"
-cp -r "$SRC"/. "$DEST"/
-```
-
-Verify the provider is discovered:
-```bash
-cd /some/project
-dotnet restore -v diag 2>&1 | grep "as a credential provider plugin"
-# Expect: Using ~/.nuget/plugins/netcore/CredentialProvider.Microsoft/...dll as a credential provider plugin
-```
-
-Then point `nuget.config` at your feed (no PAT — the provider handles auth interactively, or reuses `az login`):
-```xml
-<packageSources>
-  <add key="devops" value="https://pkgs.dev.azure.com/<org>/<project-if-applicable>/_packaging/<feed>/nuget/v3/index.json" />
-</packageSources>
-```
-
-> **Note**: After upgrading the tool (`dotnet tool update --global`), re-run step 2 so the plugin copy stays in sync with the new version.
-
 ## 🔧 Configuration Installation
 
 ### Step 1: Clone Repository
