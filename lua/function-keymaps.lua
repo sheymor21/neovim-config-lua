@@ -309,7 +309,9 @@ function M.lsp_rename_and_save()
 			return
 		end
 
-		local params = vim.lsp.util.make_position_params()
+		local clients = vim.lsp.get_clients({ bufnr = 0 })
+		local encoding = clients[1] and clients[1].offset_encoding or "utf-16"
+		local params = vim.lsp.util.make_position_params(0, encoding)
 		params.newName = input
 
 		vim.lsp.buf_request(0, "textDocument/rename", params, function(err, result, ctx)
