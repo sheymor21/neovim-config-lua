@@ -5,7 +5,8 @@ return {
         projects = {
             "~/Projects/*",
             "~/.config/nvim",
-            "~/Universal/*"
+            "~/Universal/*",
+            "~/.config/opencode/plugins/*"
         },
         last_session_on_startup = false,
 
