@@ -46,6 +46,15 @@ return {
                     { icon = "", key = "u", desc = "Open URL", action = function() require("function-keymaps").dashboard_open_url() end },
                     { icon = "", key = "g", desc = "Git Clone", action = function() require("function-keymaps").dashboard_git_clone() end },
                     { icon = "", key = "m", desc = "Mason", action = ":Mason" },
+                    {
+                        icon = "",
+                        key = "d",
+                        desc = "Open DB",
+                        action = function()
+                            vim.cmd("enew")
+                            vim.cmd("DBUIToggle")
+                        end,
+                    },
                     { icon = "", key = "q", desc = "Quit", action = ":qa" },
                 },
                 header = [[
