@@ -117,7 +117,7 @@ function M.check()
     if storyboard.is_cloned() then
         vim.health.ok("Story Board repo cloned at " .. storyboard.clone_dir)
     else
-        vim.health.warn("Story Board not cloned — run <leader>dd to clone and start")
+        vim.health.warn("Story Board not cloned — run <leader>tsd to clone and start")
     end
     if storyboard.has_binary() then
         vim.health.ok("Story Board binary exists")

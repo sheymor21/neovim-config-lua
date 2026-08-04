@@ -3,6 +3,7 @@ local behavior = require("function-keymaps")
 
 -- Plugin keymaps (nvim-only)
 require("plugins-keymaps.dap-keymaps")
+require("plugins-keymaps.dadbod-keymaps")
 require("plugins-keymaps.yanky-keymaps")
 require("plugins-keymaps.notes-keymaps")
 require("plugins-keymaps.conform-keymaps")

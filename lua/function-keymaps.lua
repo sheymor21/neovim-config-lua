@@ -721,7 +721,7 @@ function M.dia_open()
     local storyboard = require("config.storyboard")
     local port = storyboard.get_port()
     if not port then
-        vim.notify("Story Board is not running. Start it with <leader>dd", vim.log.levels.WARN)
+        vim.notify("Story Board is not running. Start it with <leader>tsd", vim.log.levels.WARN)
         return
     end
     vim.ui.open("http://localhost:" .. port)
@@ -740,7 +740,7 @@ end
 function M.dia_projects()
     local storyboard = require("config.storyboard")
     if not storyboard.is_running() then
-        vim.notify("Story Board is not running. Start it with <leader>dd", vim.log.levels.WARN)
+        vim.notify("Story Board is not running. Start it with <leader>tsd", vim.log.levels.WARN)
         return
     end
 
@@ -752,7 +752,7 @@ function M.dia_projects()
 
         local projects = data or {}
         if #projects == 0 then
-            vim.notify("No projects found. Create one with <leader>dn", vim.log.levels.INFO)
+            vim.notify("No projects found. Create one with <leader>tsn", vim.log.levels.INFO)
             return
         end
 
@@ -780,7 +780,7 @@ end
 function M.dia_create_project()
     local storyboard = require("config.storyboard")
     if not storyboard.is_running() then
-        vim.notify("Story Board is not running. Start it with <leader>dd", vim.log.levels.WARN)
+        vim.notify("Story Board is not running. Start it with <leader>tsd", vim.log.levels.WARN)
         return
     end
 
@@ -804,7 +804,7 @@ end
 function M.dia_columns()
     local storyboard = require("config.storyboard")
     if not storyboard.is_running() then
-        vim.notify("Story Board is not running. Start it with <leader>dd", vim.log.levels.WARN)
+        vim.notify("Story Board is not running. Start it with <leader>tsd", vim.log.levels.WARN)
         return
     end
 
@@ -860,7 +860,7 @@ end
 function M.dia_cards()
     local storyboard = require("config.storyboard")
     if not storyboard.is_running() then
-        vim.notify("Story Board is not running. Start it with <leader>dd", vim.log.levels.WARN)
+        vim.notify("Story Board is not running. Start it with <leader>tsd", vim.log.levels.WARN)
         return
     end
 
@@ -941,6 +941,175 @@ function M.dia_cards()
                 end)
             end)
         end)
+    end)
+end
+
+-- ============================================================
+-- vim-dadbod URL builder (snippet composer + clipboard copy)
+-- ============================================================
+--
+-- Press <leader>du: pick a scheme (mysql/sqlserver/postgres), accept defaults,
+-- fill the missing fields, and the encoded URI ends up in the `+` register.
+
+M.dadbod_schemes = {
+    mysql = {
+        default_port = 3306,
+        default_user = "root",
+        extra_prompts = {},
+    },
+    sqlserver = {
+        default_port = 1433,
+        default_user = "sa",
+        extra_prompts = {
+            {
+                key = "trust_cert",
+                label = "Trust server certificate? (yes/no)",
+                default = "yes",
+                coerce = function(v) return (tostring(v or ""):lower():match("^yes") ~= nil) end,
+            },
+        },
+    },
+    postgres = {
+        default_port = 5432,
+        default_user = "postgres",
+        extra_prompts = {},
+    },
+}
+
+local SCHEME_IDS = { "mysql", "sqlserver", "postgres" }
+
+local function dadbod_uri_encode(s)
+    -- vim.uri_encode only escapes spaces; we need to encode every byte that
+    -- has reserved meaning in a URI component (RFC 3986 unreserved + %):
+    --   unreserved: A-Z a-z 0-9 - _ . ~
+    --   reserved (must be escaped inside userinfo):
+    --     : / ? # [ ] @ ! $ & ' ( ) * + , ; =
+    if s == nil then return "" end
+    local str = tostring(s)
+    local out = {}
+    local i = 1
+    while i <= #str do
+        local c = str:byte(i)
+        local safe = (
+            (c >= 65 and c <= 90) or   -- A-Z
+            (c >= 97 and c <= 122) or  -- a-z
+            (c >= 48 and c <= 57) or   -- 0-9
+            c == 45 or                 -- -
+            c == 95 or                 -- _
+            c == 46 or                 -- .
+            c == 126                   -- ~
+        )
+        if safe then
+            out[#out + 1] = str:sub(i, i)
+        else
+            out[#out + 1] = string.format("%%%02x", c)
+        end
+        i = i + 1
+    end
+    return table.concat(out)
+end
+
+local function dadbod_build_uri(scheme_id, t)
+    local auth = ""
+    if (t.user and t.user ~= "") or (t.password and t.password ~= "") then
+        auth = dadbod_uri_encode(t.user or "") .. ":" .. dadbod_uri_encode(t.password or "") .. "@"
+    end
+    local path = (t.db and t.db ~= "") and ("/" .. t.db) or ""
+    local host = (t.host and t.host ~= "") and t.host or "localhost"
+    local port = t.port
+    local query = ""
+    if scheme_id == "sqlserver" and t.trust_cert then
+        query = "?TrustServerCertificate=true"
+    end
+    return string.format("%s://%s%s:%d%s%s", scheme_id, auth, host, port, path, query)
+end
+
+local function dadbod_pick_index(labels, prompt, cb)
+    -- vim.ui.select (snacks-backed) is async; the callback fires after the
+    -- user picks. We pass the 1-based index through, or nil on cancel.
+    vim.ui.select(labels, { prompt = prompt }, function(_, idx)
+        cb(idx)
+    end)
+end
+
+local function dadbod_input(prompt, default, cb)
+    -- vim.ui.input is async too.
+    vim.ui.input({ prompt = prompt, default = default or "" }, function(value)
+        cb(value)
+    end)
+end
+
+local function dadbod_collect_new_connection(done)
+    local items = {}
+    for _, sid in ipairs(SCHEME_IDS) do items[#items + 1] = sid end
+    items[#items + 1] = "(cancel)"
+
+    dadbod_pick_index(items, "DB scheme", function(idx)
+        if not idx or items[idx] == "(cancel)" then return done(nil) end
+        local picked = items[idx]
+        local sc = M.dadbod_schemes[picked]
+        if not sc then
+            vim.notify("Unsupported scheme: " .. tostring(picked), vim.log.levels.ERROR)
+            return done(nil)
+        end
+
+        dadbod_input("host", "localhost", function(host)
+            if not host or host == "" then return done(nil) end
+
+            dadbod_input("port", tostring(sc.default_port), function(port_str)
+                if not port_str or port_str == "" then port_str = tostring(sc.default_port) end
+                local port = tonumber(port_str) or sc.default_port
+
+                dadbod_input("user", sc.default_user, function(user)
+                    if not user then return done(nil) end
+
+                    dadbod_input("database (optional, leave empty to skip)", "", function(db)
+                        if db == nil then return done(nil) end
+
+                        dadbod_input("password", "", function(password)
+                            if password == nil then return done(nil) end
+
+                            local extras = {}
+                            local i = 1
+                            local function next_extra()
+                                local p = sc.extra_prompts[i]
+                                if not p then
+                                    local default_name = picked .. "-" .. host
+                                    if db ~= "" then default_name = default_name .. "-" .. db end
+                                    return done({
+                                        name = default_name,
+                                        scheme = picked,
+                                        host = host,
+                                        port = port,
+                                        user = user ~= "" and user or nil,
+                                        db = db ~= "" and db or nil,
+                                        password = password ~= "" and password or nil,
+                                        trust_cert = extras.trust_cert,
+                                    })
+                                end
+                                i = i + 1
+                                dadbod_input(p.label, p.default, function(v)
+                                    if v == nil then return done(nil) end
+                                    extras[p.key] = p.coerce and p.coerce(v) or v
+                                    next_extra()
+                                end)
+                            end
+                            next_extra()
+                        end)
+                    end)
+                end)
+            end)
+        end)
+    end)
+end
+
+function M.dadbod_build_url()
+    dadbod_collect_new_connection(function(entry)
+        if not entry then return end
+        local uri = dadbod_build_uri(entry.scheme, entry)
+        vim.fn.setreg("+", uri)
+        vim.fn.setreg('"', uri)
+        vim.notify("URL copied: " .. uri, vim.log.levels.INFO)
     end)
 end
 

@@ -142,6 +142,11 @@ return {
         -- Sources
         sources = {
             default = { "lsp", "lazydev", "snippets", "buffer", "path" },
+            per_filetype = {
+                sql = { "lsp", "dadbod", "snippets", "buffer" },
+                mysql = { "lsp", "dadbod", "snippets", "buffer" },
+                plsql = { "lsp", "dadbod", "snippets", "buffer" },
+            },
             transform_items = function(_, items)
                 local line = vim.api.nvim_get_current_line()
                 local col = vim.api.nvim_win_get_cursor(0)[2]
@@ -170,6 +175,10 @@ return {
                     name = "LazyDev",
                     module = "lazydev.integrations.blink",
                     score_offset = 100,
+                },
+                dadbod = {
+                    name = "Dadbod",
+                    module = "vim_dadbod_completion.blink",
                 },
             },
         },
