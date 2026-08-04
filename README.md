@@ -38,8 +38,10 @@ nvim
 - **Full LSP**: Multi-language support with blink.cmp autocompletion
 - **Advanced Navigation**: fzf-lua, Grapple, Flash, Snacks.nvim
 - **Modern UI**: Adaptive filetype themes (ayu default), Lualine, Noice.nvim
-- **Development Tools**: DAP debugging, Neotest, LazyGit
+- **Development Tools**: DAP debugging, Neotest, LazyGit, DiffView
 - **Session Management**: Persistence and project management
+- **Database Workflow**: dadbod / dadbod-ui for SQL connection management
+- **Storyboard (DiaProject)**: Optional custom Go kanban server (`<leader>ts<key>`)
 - **Performance Optimized**: Lazy loading and modular configuration
 
 ## 📊 Supported Languages
@@ -51,6 +53,7 @@ nvim
 - **Python** (black formatter)
 - **HTML/CSS/Markdown** (LSPs via Mason)
 - **Shell/Bash** (shfmt formatter)
+- **SQL** (via vim-dadbod + blink.cmp integration)
 
 ## 📄 License
 
@@ -58,7 +61,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 👤 Author
 
-**sheymor21** - 2025
+**sheymor21** - 2026
 
 ---
 

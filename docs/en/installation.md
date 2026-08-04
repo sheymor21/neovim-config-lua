@@ -10,6 +10,8 @@ This guide will help you install and configure all necessary dependencies for yo
 
 ### Required External Tools
 
+> Storyboard is **optional**. If you don't need the kanban backend you can skip `go` and `curl`; :checkhealth reports each independently.
+
 #### 1. Node.js & npm
 ```bash
 # Arch Linux
@@ -178,15 +180,17 @@ Lazy.nvim will automatically install and download all configured plugins. **Note
 :LspInfo
 ```
 
-You should see following LSPs installed:
+You should see following LSPs wired up by the custom `lsp/servers.lua` pipeline:
 - **gopls** (Go - system installed)
 - **vtsls** (TypeScript/JavaScript - via Mason)
 - **lua_ls** (Lua - via Mason)
-- **roslyn** (C# - via roslyn.nvim)
 - **html** (HTML - via Mason)
-- **css** (CSS - via Mason)
-- **jsonls** (JSON - via Mason)
+- **cssls** (CSS - via Mason)
 - **marksman** (Markdown - via Mason)
+
+**C#** is handled separately by `roslyn.nvim` from `lua/plugins/roslyn.lua` — it doesn't go through the custom LSP pipeline. Roslyn auto-downloads its language server binaries.
+
+`jsonls` and `vtsls` are in Mason `ensure_installed` and `:checkhealth` references them, but only the LSPs listed above are auto-registered. If you need `jsonls` explicitly, run `:MasonInstall jsonls` and wire it into `lua/lsp/servers.lua`.
 
 ### Verify Plugins
 ```bash
@@ -202,7 +206,32 @@ All plugins should be installed and ready.
 :checkhealth
 ```
 
-This runs the custom health check that verifies startup time, external dependencies, LSP servers, plugin health, and notes vault.
+This runs the custom health check that verifies startup time, external dependencies, LSP servers, plugin health, notes vault and the Story Board (DiaProject) backend (clone state, binary, and run state).
+
+### Optional: Story Board (DiaProject) backend
+
+The Story Board integration is a **custom Go backend** hosted at `https://github.com/sheymor21/DiaProject.git`. It is **not** required by Neovim itself but the goal keys (`<leader>ts<key>`) won't work without it.
+
+```bash
+# Required host tools (already listed above): go + curl
+go version
+curl --version
+```
+
+The first time you press `<leader>tsd` (start), Neovim clones the repo to `~/.local/share/nvim/storyboard`, builds the `server` binary, and starts it on a free port. The clone + build + run pipeline is exposed in `lua/config/storyboard.lua` and verified by `:checkhealth`.
+
+### Optional: Dadbod (SQL workflow)
+
+Dadbod is bundled with `tpope/vim-dadbod`, `vim-dadbod-ui`, and `vim-dadbod-completion`. **No LSP server or extra binary is required** for the workflow itself; SQL completion comes from `vim-dadbod-completion` via blink.cmp.
+
+```bash
+# Add connections interactively (stored at ~/.local/share/nvim/dadbod_ui/):
+:DBUIAddConnection
+# Toggle the sidebar:
+<leader>db
+# Build a connection URI and copy it to the clipboard:
+<leader>du
+```
 
 ### Install LSP Servers via Mason
 ```bash

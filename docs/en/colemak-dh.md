@@ -25,8 +25,8 @@ Colemak-DH is a variant of the Colemak layout designed for greater ergonomics an
 ### Original Keys Deactivated
 | Key | Status | File |
 |-----|--------|------|
-| h, j, k, l | Deactivated (`<nop>`) | `lua/keymaps/core.lua:17-20` |
-| H, J, K, L | Deactivated (`<nop>`) | `lua/keymaps/core.lua:22-25` |
+| h, j, k, l | Deactivated (`<nop>`) | `lua/keymaps/core.lua:16-19` |
+| H, J, K, L | Deactivated (`<nop>`) | `lua/keymaps/core.lua:21-24` |
 
 ### Extended Navigation
 | Key | Function | File |
@@ -83,7 +83,7 @@ cp -r ~/.config/nvim ~/.config/nvim-backup-$(date +%Y%m%d)
 ```
 
 **Option B: Completely remove lines**
-Remove lines 7-25 from `lua/keymaps/core.lua` file.
+Remove the n/e/i/o remapping block (`core.lua:7-13`) and the four `<nop>` blocks (`core.lua:16-19` and `core.lua:21-24`).
 
 ### Step 3: Revert Extended Navigation
 
@@ -121,6 +121,9 @@ Ensure LSP functions don't depend on Colemak-DH layout. Current functions use fz
 - `lazygit-keymaps.lua` - Doesn't use navigation keys
 - `yanky-keymaps.lua` - Uses standard p/P
 - `notes-keymaps.lua` - Doesn't use navigation keys
+- `dadbod-keymaps.lua` / `storyboard-keymaps.lua` / `diffview-keymaps.lua` - All use `<leader><x>` chains and avoid `n/e/i/o`
+
+Colemak-safe keys for new chains: avoid `n`, `e`, `i`, `o` (and their upper-case variants). Dadbod uses the `<leader>d<key>` prefix and Storyboard uses `<leader>ts<key>` — both are conflict-free with the movement remap.
 
 ### Step 7: Test Configuration
 

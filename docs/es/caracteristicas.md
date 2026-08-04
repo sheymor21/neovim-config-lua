@@ -1,333 +1,276 @@
 # Características
 
-Esta configuración de Neovim incluye un conjunto completo de características diseñadas para proporcionar un entorno de desarrollo moderno y productivo.
+Esta configuración de Neovim incluye un conjunto completo de características diseñadas para un entorno de desarrollo moderno y productivo.
 
 ## 🎯 Características Principales
 
 ### 1. Soporte de Lenguajes y LSP
 
-#### Desarrollo Go
-- **gopls**: Language Server Protocol oficial de Go (instalado en sistema)
-- **DAP**: Soporte completo de debugging con puntos de interrupción
+#### Go
+- **gopls**: LSP oficial de Go (instalado en sistema)
+- **DAP**: Debugging con delve, configuraciones auto-detectadas
 - **Neotest**: Framework de testing integrado
-- **Runner**: Ejecución rápida de proyectos Go
+- **Unirunner**: Ejecución rápida con detección por root markers
 
-#### Desarrollo TypeScript/JavaScript
-- **vtsls**: Language Server moderno para TS/JS (vía Mason)
-- **Prettier**: Formateo automático de código
-- **DAP**: Debugging con Node.js/Chrome DevTools
-- **npm/bun**: Detección automática de gestores de paquetes
+#### TypeScript/JavaScript
+- **vtsls**: LSP moderno TS/JS (vía Mason)
+- **Prettier**: Formateo automático
+- **DAP**: js-debug-adapter con auto-detección de `npm`/`pnpm`/`yarn`/`bun`
+- **Unirunner**: Selecciona automáticamente el package manager para `tsx`
 
-#### Desarrollo C#
-- **Roslyn**: Language Server oficial de Microsoft para C# (vía roslyn.nvim)
-- **CSharpier**: Formateo de código
-- **Neotest**: Testing con adaptador neotest-dotnet
-- **DAP**: Debugging con netcoredbg
-- **dotnet run**: Ejecución integrada de proyectos
+#### C#
+- **Roslyn**: LSP oficial de Microsoft (vía `seblyng/roslyn.nvim`)
+- **CSharpier**: Formateo
+- **DAP**: netcoredbg vía Mason (auto-install), inyección de URL de launchSettings, soporte NUnit
+- **dotnet run**: Ejecución integrada vía unirunner
 
-#### Desarrollo Lua
-- **lua-language-server**: LSP oficial para Lua
-- **lazydev.nvim**: Mejoras para desarrollo de configuraciones Neovim
-- **Stylua**: Formateo automático de código Lua (4 espacios, 100 columnas)
-- **Luasnip**: Motor de snippets potente
+#### Lua
+- **lua-language-server**: LSP oficial de Lua
+- **lazydev.nvim**: Mejoras para desarrollo de configs
+- **Stylua**: Formateo (4 espacios, 100 columnas)
+- **LuaSnip**: Motor de snippets
 
-#### Desarrollo Python
-- **black**: Formateo de código (líneas de 100 caracteres)
+#### Python
+- **black**: Formateo (100 caracteres)
 
-#### Tecnologías Web
-- **HTML/CSS**: Language Servers con autocompletado
-- **Markdown**: Soporte completo con LSP y renderizado
-- **Emmet**: Expansión abreviada para HTML/CSS
-- **Shell/Bash**: Formateo shfmt con indentación de 4 espacios
+#### Web / Markdown / Shell
+- **HTML/CSS**: LSPs con autocompletado
+- **Markdown**: marksman + rendering
+- **Shell/Bash**: shfmt con indentación de 4 espacios
 
-### 2. Navegación y Movimiento
+#### SQL
+- **vim-dadbod** para gestión de conexiones
+- **vim-dadbod-ui** para explorar esquema y lanzar queries
+- **vim-dadbod-completion** integrado como source en blink.cmp para `sql`/`mysql`/`plsql`
+- Constructor interactivo de URIs (`<leader>du`)
+
+### 2. Navegación
 
 #### Fzf-lua
-- Búsqueda difusa de archivos (`<leader>ff`)
-- Gestión de buffers (`<leader>fb`)
-- Búsqueda de texto en vivo (`<leader>sgg`, `<leader>sgf`)
-- Búsqueda de símbolos LSP (`<leader>ss`)
-- Rendimiento nativo rápido con vistas previas
+- Archivos (`<leader>ff`)
+- Buffers (`<leader>fb`)
+- Live grep (`<leader>sgg`, `<leader>sgf`)
+- Símbolos LSP (`<leader>ss`)
+
+#### Snacks Picker
+- Archivos recientes (`<leader>fr`)
+- Marks / Help / Keymaps / Commands / Undo / Quickfix / Loclist / Resume
+- Notas markdown: `find_notes`, `grep_notes`, `show_backlinks`, `show_tags`
 
 #### Grapple
-- Marcadores rápidos de archivos (`<leader>aa`)
-- Navegación con Ctrl-1/2/3/4
-- Menú rápido de bookmarks (`<leader>ah`)
-- Integración con Fzf-lua
+- Bookmarks rápidos (`<leader>aa`)
+- Ctrl-1/2/3/4 directo; menú (`<leader>ah`), búsqueda (`<leader>as`)
 
 #### Flash
-- Navegación ultra-rápida con highlighting
-- Jump motion mejorado
-- Soporte para múltiples etiquetas
+- Salto rápido con highlighting (`f`/`F`)
 
-
+#### Snap / motion
+- **Spider** (movimiento semántico w/e/b)
+- **Window picker** (`<leader>iwp`)
+- **Multicursor** (`<C-n>`/`<C-p>`/`<leader>ma`)
 
 ### 3. Edición y Productividad
 
 #### blink.cmp
-- Autocompletado inteligente con múltiples fuentes
-- Integración con LSP, snippets, buffer, path, lazydev
-- Iconos de tipo para cada fuente
-- Búsqueda fuzzy potenciada por Rust
-- Autocompletado en línea de comandos
-- Ayuda de firmas (parameter hints)
+- Sources: `lsp`, `lazydev`, `snippets`, `buffer`, `path` (+ `dadbod` para SQL)
+- Fuzzy en Rust
+- Commandline completion
+- Signature help
+- Snippet trigger: `<C-s>`
 
 #### LuaSnip
-- Motor de snippets potente
-- Snippets específicos por lenguaje
-- Expansión con Tab/Enter
-- Navegación entre placeholders
+- Cooperativo con Tab / S-Tab jump
+- Cargador VSCode se difiere a VeryLazy
 
 #### nvim-autopairs
-- Cierre automático de brackets, quotes, etc.
-- Configuración específica por filetype
-- Compatibilidad con snippets
+- Cierre automático de brackets / quotes, etc.
 
 #### Yanky
-- Historial de yank/paste
-- Navegación en el historial
-- Ciclado de texto pegado
-- Integración con system clipboard
+- Historial de yank/paste con cycling y paste con indentación
 
 #### Conform
-- Formateo async y sync (`<leader>mf`, `<leader>mF`)
-- Soporte de fallback LSP
-- Formateo de selección visual
-- Soporte multi-lenguaje
+- Formateo async y sync (`<leader>mf`/`<leader>mF`), formateo de selección en visual
+
+#### UFO
+- Folding en C rápido, aliases Colemak-DH `z<key>` en `keymaps/core.lua`
 
 ### 4. UI y Apariencia
 
-#### Kanagawa Theme
-- Tema principal predeterminado
-- Variantes wave, dragon, lotus
-- Soporte para árboles sintácticos
-- Paleta de colores cohesiva
+#### Temas Adaptativos por Filetype
+- **Ayu** se carga eagerly al inicio desde `lua/plugins/colors.lua`
+- Auto-switch por filetype (`lua/config/filetype-theme.lua`):
+  - `lua` → ayu, `go` → onedark_dark, `cs` → gruvbox, `html` → tokyodark, `css` → gruvbox, `javascript`/`typescript` → onedark_dark
+- Fallback: `kanagawa`
 
-#### Temas Adicionales
-- Catppuccin (mocha, latte, frappe, macchiato)
-- Gruvbox (dark, light, hard, soft)
-- Onedark
-- Cyberdream
+#### Temas Disponibles
+- Ayu (default), Kanagawa, Gruvbox (con overrides C# y multicursor), Onedark / Onedark Dark, Tokyodark
 
 #### Lualine
-- Status line personalizada
-- Indicadores de modo, git, LSP, diagnostics
-- Temas personalizables
-- Componentes modulares
+- Status line personalizada, sincronizada con el colorscheme activo
 
-#### Noice.nvim
-- Reemplazo moderno para notificaciones
-- UI mejorada para command line
-- Messages inteligentes
-- Integración con notify.nvim
+#### Snacks.notifier
+- Reemplaza `vim.notify` vía `config/snacks.lua`
 
-#### Indent Guides
-- Guías visuales de indentación
-- Rainbow highlighting
-- Configuración específica por lenguaje
+#### Indent / Rainbow
+- Snacks `indent` (diferido a VeryLazy) y `rainbow-delimiters`
 
 ### 5. Herramientas de Desarrollo
 
-#### Debug Adapter Protocol (DAP)
-- Soporte de debugging multi-lenguaje
-- Breakpoints condicionales
-- REPL integrado
-- UI de debugging mejorada
+#### DAP
+- Multi-lenguaje con breakpoints condicionales, REPL integrado
+- Auto-install de `netcoredbg`, `js-debug-adapter`, `delve` vía Mason
 
 #### Neotest
-- Framework de testing unificado
-- Ejecución de tests individuales o de archivo
-- Integración con DAP
-- Resultados en ventana flotante
+- Framework unificado con integración DAP
 
-#### LazyGit
-- Interfaz Git mejorada
-- Integración con Neovim
-- Toggle con teclas rápidas
-- Operaciones Git comunes
+#### LazyGit (vía Snacks)
+- Respeta `~/.config/lazygit/config.yml`
+- Único punto de entrada: `<leader>ig`
 
 #### LazyDocker
-- Interfaz Docker mejorada
-- Gestión de contenedores
-- Integración con Docker CLI
-- Vista de logs y recursos
+- Wrapper Toggleterm (`config/lazy-docker.lua`) + launcher vía Snacks (`<leader>id`)
+
+#### DiffView
+- Side-by-side / file history; wired en `plugins-keymaps/diffview-keymaps.lua`
+- LSP `gd`/`gD` siguen ganando en buffer-local
 
 #### Snacks.terminal
-- Gestión de terminal flotante
-- Atajos rápidos vía `<leader>tt`
-- Integración con runners
+- Terminal flotante con `<leader>tt` e integración con runners
 
 #### ToggleTerm (legacy)
-- Mantenido para compatibilidad con `unirunner`, `unipackage`, `unidiagnostic`
-- La mayoría del uso de terminal se ha movido a `Snacks.terminal`
+- Mantenido para los wrappers de `unirunner`/`lazygit`/`lazy-docker`
 
-#### Integración con OpenCode
-- Abrir terminal externa con OpenCode AI en root del proyecto
-- Detección automática de root del proyecto vía git
-- Soporta múltiples terminales: alacritty, kitty, wezterm, gnome-terminal, konsole, xterm
-- Configurable vía `vim.g.external_terminal`
-- Acceso rápido vía `<leader>to`
+#### OpenCode
+- Launcher externo (`<leader>to`), respeta `vim.g.external_terminal`
 
-### 6. Gestión de Sesiones y Proyectos
+### 6. Sesiones y Proyectos
 
-#### Neovim Session Manager
-- Persistencia de sesiones
-- Auto-guardado de sesiones
-- Recuperación rápida de workspace
-- Gestión de buffers y layouts
+#### neovim-session-manager (`Shatur/neovim-session-manager`)
+- Persistencia y auto-guardado de sesiones
 
 #### Neovim Project
-- Descubrimiento automático de proyectos
-- Historial de proyectos recientes
-- Integración con Snacks.nvim picker
-- Gestión de workspace por proyecto
+- Auto-descubrimiento (`<leader>fP`) y recientes (`<leader>fp`)
+
+#### Dashboard (Snacks)
+- Teclas: `f` (find), `p` (projects), `v` (vault), `n` (today), `N` (new), `l` (Lazy), `u` (URL), `g` (git clone), `m` (Mason), `q` (quit)
 
 #### Undotree
-- Visualización de historial de cambios
-- Navegación en timeline de undo
-- Comparación de versiones
-- Restauración de cambios específicos
+- `<leader>u` para alternar undo tree
 
 ### 7. Utilidades Avanzadas
 
-#### Which-key
-- Ayuda interactiva de keybindings
-- Sugerencias de comandos
-- Agrupación lógica de teclas
-- Personalización de menús
-
-#### Unidiagnostic / Trouble
-- Visualización mejorada de diagnostics
-- Integración con LSP
-- Filtrado por tipo/severidad
-- Quick fix de problemas
-
-#### nvim-navic
-- Breadcrumbs LSP en statusline
-- Ruta de navegación de símbolos
-- Integración con LSP
-- Más ligero que aerial
-
-#### Snacks.nvim
-- **Dashboard**: Pantalla de bienvenida con acciones rápidas (reemplaza alpha-nvim)
-- **Picker**: Selector de archivos/diagnósticos/recientes con vista previa (reemplaza telescope-ui-select)
-- **Notifier**: Sistema moderno de notificaciones (reemplaza nvim-notify)
-- **Indent**: Guías de indentación (reemplaza indent-blankline)
-- **LazyGit**: UI integrada de lazygit
-- **Terminal**: Gestión de terminal flotante
-- **Words**: Navegación de referencias LSP
-- **Input**: Diálogos de entrada mejorados (reemplaza vim.ui.input)
-
-
-
-#### Oil.nvim
-- **Edición de archivos en buffer**: Editar filesystem como un buffer
-- **Navegación rápida**: Abrir directorio padre con `-`
-- **Operaciones en lote**: Renombrar, mover, eliminar archivos en masa
-- **Integración Git**: Muestra estado git en el árbol de archivos
-- **Ventanas flotantes**: Gestor de archivos flotante configurable
+#### Which-key, Unidiagnostic, nvim-navic, Snacks.nvim, Oil.nvim
+- Ayudas de keybindings, panel de diagnósticos (toggle + current), breadcrumbs LSP (sólo si el servidor soporta `documentSymbolProvider`)
+- Snacks: dashboard/picker/notifier/indent/lazygit/terminal/words/input
 
 ### 8. Herramientas Adicionales
 
-#### Multicursor.nvim
-- **Múltiples cursores**: Editar múltiples ubicaciones simultáneamente
-- **Selección en modo visual**: Agregar cursores a regiones seleccionadas
-- **Navegación de matches**: Saltar entre coincidencias con Ctrl-n/p
-- **Match all**: Seleccionar todas las ocurrencias con `<leader>ma`
+#### Multicursor / Faster / Window picker / ZealSearch
+- (Ver configuración para detalles)
 
-#### Faster.nvim
-- **Optimización de rendimiento**: Desactiva funciones pesadas en archivos grandes
-- **Detección automática**: Se activa cuando archivos exceden umbral de tamaño
-- **Recuperación inteligente**: Reactiva funciones al salir de archivos grandes
-- **Protección Treesitter**: Previene crashes con archivos grandes
+#### Dadbod / Dadbod-UI
+- Gestión de conexiones vía `:DBUIAddConnection` (almacenadas en `~/.local/share/nvim/dadbod_ui/`)
+- Sidebar UI (`<leader>db`)
+- Completion SQL a través de blink.cmp
+- Constructor de URL (`<leader>du`) que codifica RFC 3986 y copia al portapapeles
 
-#### Window Picker
-- **Selección rápida de ventanas**: Saltar a cualquier ventana visible
-- **Hints con letras**: Cada ventana etiquetada con tecla de acceso rápido
-- **Hints flotantes con letras grandes**: Overlay visual para selección de ventanas
+### 9. Storyboard (DiaProject) — Backend kanban custom
 
-#### Plugin 99 (Asistente de IA)
-- **Edición con IA**: Sugerencias de código contextual
-- **Selección visual**: Operaciones IA en texto seleccionado (`<leader>9v`)
-- **Integración de búsqueda**: Búsqueda potenciada con IA (`<leader>9s`)
-- **Modo vibe**: Asistente de IA interactivo (`<leader>9a`)
-- **Gestión de requests**: Detener y limpiar requests de IA
+Sheymor mantiene un backend Go custom en `https://github.com/sheymor21/DiaProject`. El módulo `lua/config/storyboard.lua` lo clona en `vim.fn.stdpath("data")/storyboard`, compila el binario `server` bajo demanda y lo ejecuta en un puerto libre.
 
-### 9. Características Únicas
+Keymaps del prefijo `<leader>ts<key>`:
+
+| Keymap | Acción |
+|--------|--------|
+| `<leader>tsd` | Iniciar servidor (clonar + build + run si hace falta) |
+| `<leader>tsD` | Detener servidor |
+| `<leader>tso` | Abrir dashboard en el navegador |
+| `<leader>tsl` | Ver log del servidor |
+| `<leader>tsp` | Listar / inspeccionar proyectos |
+| `<leader>tsn` | Crear proyecto |
+| `<leader>tsc` | Listar columnas de un proyecto |
+| `<leader>tsk` | Listar cards (proyecto → columna → cards) |
+
+Storyboard se reporta en `:checkhealth` y requiere `go` y `curl` en el host.
+
+### 10. Características Únicas
 
 #### Colemak-DH Layout
-- Optimización ergonómica de navegación
-- Remapeo de h,j,k,l → n,e,i,o
-- Mejora de velocidad y comodidad
-- Guía de reversión incluida
+- `h,j,k,l` → `n,e,i,o`. Revisión en `colemak-dh.md`
 
-#### Smart Functions
-- Inserción inteligente de puntuación
-- Formateo con un comando
-- Búsqueda de notas pendientes
-- Limpieza automática de buffers
+#### Funciones Inteligentes
+- Inserción de `;`, `,`
+- Formateo con un comando (`<leader>mf`/`<leader>mF`)
+- Búsqueda de tareas pendientes en notas (`<leader>it`)
+- Limpieza automática de buffers en DirChanged
+- Rename LSP cross-file con auto-save (`<leader>rn`)
 
-#### Performance Optimizations
+#### Optimizaciones de Rendimiento
 - Lazy loading agresivo
-- Event-driven configuration
-- Buffer management inteligente
+- Configuración dirigida por eventos (`User VeryLazy`)
+- Gestión inteligente de buffers
 - Tree-sitter auto-reattachment
 
 ## 🆚 Compatibilidad con VS Code Neovim
 
-Esta configuración incluye una **capa de compatibilidad con VS Code** (`lua/nvim_vscode/` + `lua/keymaps/nvim_vscode.lua`) que detecta automáticamente cuando se ejecuta dentro de la [extensión VS Code Neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) y desactiva plugins conflictivos mientras remapea teclas a comandos nativos de VS Code.
+Capa de compatibilidad (`lua/nvim_vscode/` + `lua/keymaps/nvim_vscode.lua`) que detecta cuando se ejecuta dentro de la extensión [VS Code Neovim](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim) y desactiva plugins conflictivos.
 
 ### Cómo Funciona
-- **Detección**: Usa el flag `vim.g.vscode` establecido por la extensión VS Code Neovim
-- **Filtrado de Plugins**: 35 plugins desactivados en modo VS Code para evitar conflictos de UI
-- **Remapeo de Teclas**: `<leader>w`, `<leader>q`, `<leader>sg`, etc. se mapean a comandos de VS Code vía `VSCodeNotify()`
-- **Undo Silencioso**: `u` y `U` se silencian para evitar el spam de "Already at oldest change" en el panel OUTPUT de VS Code
+- **Detección**: `vim.g.vscode`
+- **Filtrado**: `config/lazy.lua` lee `nvim_vscode.disabled_plugins` y omite esos specs. El resto se sigue cargando — desactívalo también con `lua/plugins-off/` si entra en conflicto
+- **Remapeo**: `<leader>w`, `<leader>q`, etc. → `VSCodeNotify()`
+- **Undo silencioso**: `u`/`U` ejecutan `<cmd>silent undo<CR>`/`<cmd>silent redo<CR>` para evitar spam de "Already at oldest change" en OUTPUT
 
-### Plugins Activos en VS Code
+### Plugins activos en VS Code
 | Plugin | Propósito |
 |--------|-----------|
-| nvim-treesitter | Resaltado de sintaxis |
-| nvim-autopairs | Cierre automático de brackets |
+| nvim-treesitter | Sintaxis |
+| nvim-autopairs | Cierre de brackets |
 | flash.nvim | Navegación rápida |
 | spider.nvim | Movimiento CamelCase |
 | which-key.nvim | Ayuda de keybindings |
 | yanky.nvim | Historial de yank/paste |
-| reloader.nvim | Recarga de configuración |
+| reloader.nvim | Recarga de config |
 | colors | Esquemas de color |
 
-### Plugins Desactivados en VS Code
+### Plugins deshabilitados por defecto en VS Code
 - **UI**: lualine, noice, snacks.nvim dashboard/picker/notifier
-- **LSP**: mason.nvim, blink-cmp, todos los servidores LSP (VS Code los proporciona)
-- **Pickers**: fzf-lua (usa la búsqueda nativa de VS Code)
-- **Git**: gitsigns, lazygit (usa el control de fuente de VS Code)
-- **Terminal**: Snacks.terminal / toggleterm (usa el terminal integrado de VS Code)
-- **Notas**: archivos markdown (usa el explorador de archivos de VS Code)
-- **Debug**: nvim-dap, neotest (usa los paneles de debug/test de VS Code)
+- **LSP**: mason.nvim, blink-cmp, todos los servidores LSP
+- **Pickers**: fzf-lua
+- **Git**: gitsigns, lazygit
+- **Terminal**: Snacks.terminal / toggleterm
+- **Notas**: archivos markdown
+- **Debug**: nvim-dap, neotest
 
-### Configuración Requerida en VS Code
+(La lista autoritativa es `nvim_vscode.disabled_plugins`.)
+
+### Configuración de VS Code
 - `vscode-neovim.neovimExecutablePaths.linux`: `nvim`
 - `vscode-neovim.logLevel`: `"error"`
-- `keybindings.json`: Mapeos de navegación Colemak (`e`/`i` para arriba/abajo en listas, `Alt+Q` para cerrar paneles)
+- `keybindings.json`: Mapeos Colemak (`e`/`i` arriba/abajo en listas, `Alt+Q` cierra paneles)
 
 Consulta la [Guía de Instalación](instalacion.md#extensión-vs-code-neovim) para más detalles.
 
 ## 📊 Matriz de Características
 
 | Característica | Categoría | Soporte de Lenguajes | Estado |
-|----------------|------------|----------------------|---------|
-| LSP | Soporte de Lenguajes | Go, TS/JS, C#, Lua, Python, HTML/CSS | ✅ Activo |
+|----------------|------------|----------------------|--------|
+| LSP | Soporte de Lenguajes | Go, TS/JS, C#, Lua, Python, HTML/CSS, Markdown | ✅ Activo |
 | DAP | Herramientas de Desarrollo | Go, TS/JS, C# | ✅ Activo |
-| blink.cmp | Edición | Todos | ✅ Activo |
+| blink.cmp | Edición | Todos (SQL añade source `dadbod`) | ✅ Activo |
 | fzf-lua | Navegación | Todos | ✅ Activo |
 | Grapple | Navegación | Todos | ✅ Activo |
 | Oil | Gestión de Archivos | Todos | ✅ Activo |
 | Snacks.nvim | UI/Dashboard | Todos | ✅ Activo |
-| Notas Markdown | Toma de Notas | Markdown | ✅ Activo |
+| Markdown Notes | Toma de Notas | Markdown | ✅ Activo |
 | Multicursor | Edición | Todos | ✅ Activo |
 | Session Manager | Gestión de Proyectos | Todos | ✅ Activo |
 | LazyGit | Herramientas de Desarrollo | Todos | ✅ Activo |
 | Conform | Formateo | Todos | ✅ Activo |
 | Faster | Rendimiento | Todos | ✅ Activo |
+| DiffView | Git/Diff | Todos | ✅ Activo |
+| Dadbod | Datos/SQL | SQL (mysql/postgres/sqlserver) | ✅ Activo |
+| Storyboard | Backend custom | Binario Go | ✅ Activo |
 
 ## 🌐 Idiomas
 

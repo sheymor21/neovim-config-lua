@@ -25,8 +25,8 @@ Colemak-DH es una variante del layout Colemak diseñada para mayor ergonomía y 
 ### Desactivación de Teclas Originales
 | Tecla | Estado | Archivo |
 |-------|--------|---------|
-| h, j, k, l | Desactivadas (`<nop>`) | `lua/keymaps/core.lua:17-20` |
-| H, J, K, L | Desactivadas (`<nop>`) | `lua/keymaps/core.lua:22-25` |
+| h, j, k, l | Desactivadas (`<nop>`) | `lua/keymaps/core.lua:16-19` |
+| H, J, K, L | Desactivadas (`<nop>`) | `lua/keymaps/core.lua:21-24` |
 
 ### Navegación Extendida
 | Tecla | Función | Archivo |
@@ -83,7 +83,7 @@ cp -r ~/.config/nvim ~/.config/nvim-backup-$(date +%Y%m%d)
 ```
 
 **Opción B: Eliminar completamente las líneas**
-Elimina las líneas 7-25 del archivo `lua/keymaps/core.lua`.
+Elimina el bloque de remapeo `n/e/i/o` (`core.lua:7-13`) y los cuatro bloques `<nop>` (`core.lua:16-19` y `core.lua:21-24`).
 
 ### Paso 3: Revertir Navegación Extendida
 
@@ -121,6 +121,9 @@ Asegúrate de que las funciones LSP no dependan del layout Colemak-DH. Las funci
 - `lazygit-keymaps.lua` - No usa teclas de navegación
 - `yanky-keymaps.lua` - Usa p/P estándar
 - `notes-keymaps.lua` - No usa teclas de navegación
+- `dadbod-keymaps.lua` / `storyboard-keymaps.lua` / `diffview-keymaps.lua` - Todos usan cadenas `<leader><x>` y evitan `n/e/i/o`
+
+Teclas Colemak-safe para nuevas cadenas: evita `n`, `e`, `i`, `o` (y sus variantes mayúsculas). Dadbod usa el prefijo `<leader>d<key>` y Storyboard `<leader>ts<key>` — ambos libres de conflicto con el remapeo de movimiento.
 
 ### Paso 7: Probar la Configuración
 
