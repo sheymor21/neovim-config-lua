@@ -456,6 +456,39 @@ function M.jump_to_line()
     end
 end
 
+-- Helper snippets (lua/config/helpers.lua). Pick a category, copy item to clipboard.
+function M.helpers_open(category_key)
+    local ok, config = pcall(require, "config.helpers")
+    if not ok or not config.helpers then
+        vim.notify("No helpers config found", vim.log.levels.WARN)
+        return
+    end
+
+    local category = config.helpers[category_key]
+    if not category then
+        vim.notify("Unknown helper list: " .. tostring(category_key), vim.log.levels.WARN)
+        return
+    end
+
+    local items = category.items or {}
+    if #items == 0 then
+        vim.notify("Helper list '" .. category.label .. "' is empty. Add items with <leader>hl", vim.log.levels.WARN)
+        return
+    end
+
+    vim.ui.select(items, { prompt = (category.label or category_key) .. " ❯ " }, function(choice)
+        if not choice then return end
+        vim.fn.setreg("+", choice)
+        vim.fn.setreg('"', choice)
+        vim.notify("Copied: " .. choice, vim.log.levels.INFO)
+    end)
+end
+
+function M.helpers_open_config()
+    local path = vim.fn.stdpath("config") .. "/lua/config/helpers.lua"
+    vim.cmd("edit " .. vim.fn.fnameescape(path))
+end
+
 -- Dashboard git clone
 function M.dashboard_git_clone()
     vim.ui.input({ prompt = "Repository URL: " }, function(url)
