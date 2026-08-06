@@ -204,6 +204,7 @@ Storyboard se reporta en `:checkhealth` y requiere `go` y `curl` en el host.
 - Búsqueda de tareas pendientes en notas (`<leader>it`)
 - Limpieza automática de buffers en DirChanged
 - Rename LSP cross-file con auto-save (`<leader>rn`)
+- Snippets helper: listas aleatorias copiables (queries SQL, …) vía `<leader>hs`, editadas con `<leader>hl`
 
 #### Optimizaciones de Rendimiento
 - Lazy loading agresivo
@@ -271,6 +272,7 @@ Consulta la [Guía de Instalación](instalacion.md#extensión-vs-code-neovim) pa
 | DiffView | Git/Diff | Todos | ✅ Activo |
 | Dadbod | Datos/SQL | SQL (mysql/postgres/sqlserver) | ✅ Activo |
 | Storyboard | Backend custom | Binario Go | ✅ Activo |
+| Snippets helper | Edición | Todos | ✅ Activo |
 
 ## 🌐 Idiomas
 

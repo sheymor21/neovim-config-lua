@@ -40,6 +40,7 @@ Esta guía cubre la configuración general de Neovim, incluyendo opciones básic
     │   ├── dashboard-urls.lua     # Lista de URLs del dashboard (gitignored)
     │   ├── dashboard-urls.example.lua
     │   ├── paths.lua              # Vault y constantes de rutas
+    │   ├── helpers.lua            # Listas de snippets helper (SQL, …)
     │   ├── snacks.lua             # Override de Snacks (vim.notify)
     │   ├── csharp-accessors.lua   # Overrides de accessors C#
     │   ├── csharp-editorconfig.lua # Helper editorconfig C#
@@ -275,6 +276,10 @@ Clona `folke/lazy.nvim` en la primera ejecución (rama stable) y:
 - El backend Go custom de `lua/config/storyboard.lua` clona `https://github.com/sheymor21/DiaProject.git` en `vim.fn.stdpath("data")/storyboard`, compila el binario `server` la primera vez y lo ejecuta en un puerto libre
 - Su ciclo de vida es lazy: sólo se carga cuando llamas a `start/stop/api_*` y se controla íntegramente desde el prefijo `<leader>ts<key>` de `plugins-keymaps/storyboard-keymaps.lua`
 
+**Snippets helper (sin spec de plugin)**
+- Los datos viven en `lua/config/helpers.lua` como tablas `M.helpers.<clave>` con `label` y una lista `items` de strings (multilínea con `[[...]]`)
+- Los keymaps viven en `plugins-keymaps/helpers-keymaps.lua` bajo el prefijo `<leader>h<key>` (`<leader>hs` = SQL, `<leader>hl` = editar el archivo de datos). Elegir un item lo copia al registro `+`
+
 **DAP (`config/dap-config.lua`)**
 - Go (delve vía Mason), C# (netcoredbg vía Mason con auto-install), JavaScript/TypeScript (js-debug-adapter vía Mason)
 - Las configuraciones C# incluyen auto-detección desde `.sln`/`.csproj`, runners NUnit e inyección de URL desde launchSettings para ASP.NET
@@ -340,6 +345,10 @@ La tabla `M` de `function-keymaps.lua` envuelve cada helper no trivial; los arch
 ### Helpers Dadbod
 - `M.dadbod_schemes` — Esquemas registrados (`mysql`, `sqlserver`, `postgres`) con puertos, usuarios y prompts extra
 - `M.dadbod_build_url()` — Constructor de URI interactivo; el resultado va a los registros `+` y `"`
+
+### Helpers de snippets
+- `M.helpers_open(clave)` — `vim.ui.select` (Snacks) sobre `config.helpers[clave].items`; el snippet elegido se copia al registro `+` (avisa si la lista no existe o está vacía)
+- `M.helpers_open_config()` — Abre `lua/config/helpers.lua` para añadir/editar/eliminar a mano
 
 ## 📊 Configuración de Diagnósticos
 

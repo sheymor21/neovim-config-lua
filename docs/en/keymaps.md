@@ -275,6 +275,17 @@ For markdown buffers, `gf` is also buffer-mapped to `follow_link`.
 
 > Semantic tokens are intentionally disabled for **all** clients in `lsp/on_attach.lua` (`client.server_capabilities.semanticTokensProvider = nil`) — the Tree-sitter warnings/errors list carries the highlights.
 
+## 🗂️ Helper snippets — `lua/plugins-keymaps/helpers-keymaps.lua`
+
+Random snippets you might forget (SQL queries, shell one-liners, …). Each list lives in `lua/config/helpers.lua` under `M.helpers` and gets its own direct key under the `<leader>h` prefix.
+
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `<leader>hs` | `helpers_open("sql")` | Pick a SQL query → copies it to the `+` register |
+| `<leader>hl` | `helpers_open_config()` | Open `lua/config/helpers.lua` for editing |
+
+To add a new list (e.g. git): define `git = { label = "Git", items = {...} }` in `lua/config/helpers.lua`, then copy the `<leader>hs` keymap line in `helpers-keymaps.lua` and point it at your category.
+
 ## 🗃️ Dadbod / SQL — `lua/plugins-keymaps/dadbod-keymaps.lua`
 
 | Keybinding | Function | Description |
@@ -367,6 +378,7 @@ To revert to the standard Vim layout, see [colemak-dh.md](colemak-dh.md).
 - **Multicursor**: `<C-n>` (add cursor), `<esc>` (clear)
 - **Flash**: `f` (jump), `F` (treesitter)
 - **Notes**: `<leader>od` (today), `<leader>of` (find), `<leader>og` (tags)
+- **Helpers**: `<leader>hs` (SQL snippet), `<leader>hl` (edit list)
 - **Storyboard**: `<leader>tsd` (start), `<leader>tso` (open), `<leader>tsl` (logs)
 - **Dadbod**: `<leader>db` (UI), `<leader>du` (URI builder)
 

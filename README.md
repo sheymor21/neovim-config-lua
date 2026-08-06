@@ -41,6 +41,7 @@ nvim
 - **Development Tools**: DAP debugging, Neotest, LazyGit, DiffView
 - **Session Management**: Persistence and project management
 - **Database Workflow**: dadbod / dadbod-ui for SQL connection management
+- **Helper Snippets**: copiable lists of random snippets (SQL queries, …) via `<leader>hs` / `<leader>hl`
 - **Storyboard (DiaProject)**: Optional custom Go kanban server (`<leader>ts<key>`)
 - **Performance Optimized**: Lazy loading and modular configuration
 

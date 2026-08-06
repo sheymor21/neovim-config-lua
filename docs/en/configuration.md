@@ -40,6 +40,7 @@ This guide covers the general Neovim configuration, including basic options, LSP
     │   ├── dashboard-urls.lua     # Dashboard URL list (gitignored)
     │   ├── dashboard-urls.example.lua
     │   ├── paths.lua              # Vault and path constants
+    │   ├── helpers.lua            # Random helper snippet lists (SQL, …)
     │   ├── snacks.lua             # Snacks.nvim overrides (vim.notify)
     │   ├── csharp-accessors.lua   # C# custom accessor overrides
     │   ├── csharp-editorconfig.lua # C# editorconfig helper
@@ -317,6 +318,10 @@ Clones `folke/lazy.nvim` on first run (stable branch) and:
 - The custom Go backend from `lua/config/storyboard.lua` clones `https://github.com/sheymor21/DiaProject.git` to `vim.fn.stdpath("data")/storyboard`, builds the `server` binary on first start, and launches it on a free port.
 - Its lifecycle is `defer`-style: it loads lazily (only the `start/stop/api_*` calls reach into it) and is fully scriptable via the `<leader>ts<key>` prefix in `plugins-keymaps/storyboard-keymaps.lua`.
 
+**Helper snippets (no plugin spec)**
+- Data lives in `lua/config/helpers.lua` as `M.helpers.<key>` tables with a `label` and an `items` list of strings (multiline via `[[...]]`).
+- Keymaps live in `plugins-keymaps/helpers-keymaps.lua` under the `<leader>h<key>` prefix (`<leader>hs` = SQL, `<leader>hl` = edit the data file). Picking an item copies it to the `+` register.
+
 **DAP (`config/dap-config.lua`)**
 - Go (delve via Mason), C# (netcoredbg via Mason — auto-installs if missing), JavaScript/TypeScript (js-debug-adapter via Mason)
 - C# configurations include auto-detection from `.sln` / `.csproj`, NUnit suite runners, and ASP.NET launchSettings URL injection
@@ -382,6 +387,10 @@ The `M` table in `function-keymaps.lua` wraps every non-trivial keymap helper; k
 ### Dadbod helpers
 - `M.dadbod_schemes` — registered schemes (`mysql`, `sqlserver`, `postgres`) with default ports, users, and per-scheme extra prompts
 - `M.dadbod_build_url()` — Interactive URI builder; the encoded URL is copied to both `+` and `"` registers and surfaced as a notification
+
+### Helper snippet helpers
+- `M.helpers_open(key)` — Snacks-backed `vim.ui.select` over `config.helpers[key].items`; the chosen snippet is copied to the `+` register (warns on unknown/empty lists)
+- `M.helpers_open_config()` — Opens `lua/config/helpers.lua` for manual add/edit/remove
 
 ## 📊 Diagnostic Configuration
 
