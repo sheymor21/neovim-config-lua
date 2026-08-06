@@ -69,13 +69,14 @@ Snacks pickers run async, so `<leader>sg>` and similar patterns are split into s
 - **Theme / Misc**: colors, configurationsless, reloader, toggle-term, treesitter, wakatime (disabled)
 
 ### Plugin-keymap files in `lua/plugins-keymaps/`
-`conform`, `dadbod`, `dap`, `diffview`, `fzf-lua`, `grapple`, `lazydocker`, `lazygit`, `notes`, `snacks`, `spider`, `storyboard`, `yanky`.
+`conform`, `dadbod`, `dap`, `diffview`, `fzf-lua`, `grapple`, `helpers`, `lazydocker`, `lazygit`, `notes`, `snacks`, `spider`, `storyboard`, `yanky`.
 
 ### Config / Setup modules in `lua/config/`
 **Theme / appearance**: `theme.lua`, `filetype-theme.lua`, `colors.lua` (plugin spec).
 **LSP / Mason**: `dap-config.lua`.
 **Tools**: `lazygit.lua`, `lazy-docker.lua`, `indent.lua`, `reloader.lua`, `profiler.lua`.
 **Notes vault**: `paths.lua` (default `~/Documents/Sheymor`), `snacks.lua`, `dashboard-urls.lua` (gitignored).
+**Snippets**: `helpers.lua` (random helper lists, e.g. SQL queries — edit by hand, one list per keymap).
 **Specialized**: `csharp-accessors.lua`, `csharp-editorconfig.lua`, `dadbod.lua`, `storyboard.lua`, `plugin-health.lua`, `diffview.lua`.
 
 ### Disabled plugins in `lua/plugins-off/`
@@ -90,6 +91,10 @@ Sheymor has a custom storyboard backend hosted at `https://github.com/sheymor21/
 ## Dadbod
 
 `lua/plugins/dadbod.lua` lays out `tpope/vim-dadbod`, `vim-dadbod-ui`, and `vim-dadbod-completion`. Connection strings are managed by the UI itself (`:DBUIAddConnection`), stored under `~/.local/share/nvim/dadbod_ui/`. blink.cmp picks up the dadbod completion source via the providers table in `lua/plugins/blink-cmp.lua` for SQL filetype.
+
+## Helpers (random snippets)
+
+`lua/config/helpers.lua` holds named lists of snippets (e.g. SQL queries) under `M.helpers`. Each list is a table keyed for a keymap: `M.helpers.sql.items` is a list of strings (multiline via `[[...]]`). Keymaps in `lua/plugins-keymaps/helpers-keymaps.lua` use the `<leader>h<key>` prefix (`<leader>hs` = SQL, `<leader>hl` = open the config file for editing). Selecting an item copies it to the `+` register. To add a new list: add a table in `helpers.lua` and copy one keymap line in `helpers-keymaps.lua`.
 
 ## Testing Changes
 
@@ -138,6 +143,7 @@ Active LSP servers (`lsp/servers.lua`):
 | Git diff | diffview | `<leader>gd`, `<leader>gD`, `<leader>gh`, `<leader>gH`, `<leader>gt` |
 | Git | Snacks.lazygit | `<leader>ig`; LazyDocker `<leader>id` |
 | Notes | Markdown notes + snacks.picker | `<leader>on`, `<leader>od`, `<leader>of` |
+| Helper snippets | custom | `<leader>hs`, `<leader>hl` |
 | Picker | Snacks.picker | `<leader>sm`, `<leader>sh`, `<leader>sk`, `<leader>sc`, `<leader>su`, `<leader>sq`, `<leader>sl`, `<leader>sr` |
 | Completion | blink.cmp | `<Tab>`, `<S-Tab>`, `<C-j>`, `<C-k>`, `<C-Space>`, `<CR>`, `<C-s>` (snippets-only) |
 | Terminal | Snacks.terminal | `<leader>tt` |
