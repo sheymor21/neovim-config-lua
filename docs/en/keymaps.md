@@ -156,6 +156,12 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation (see
 | `<leader>ma` | `mc_match_all_cursors()` | Add cursor to all matches |
 | `<esc>` | `mc_clear_or_enable_cursors()` | Toggle multicursor mode |
 
+### Spider (smart word motion) — `lua/plugins-keymaps/spider-keymaps.lua`
+| Keybinding | Function | Description |
+|------------|----------|-------------|
+| `w` | `spider.motion("w")` | Word forward (camelCase, snake_case, subwords) |
+| `b` | `spider.motion("b")` | Word backward (camelCase, snake_case, subwords) |
+
 ### DAP — `lua/plugins-keymaps/dap-keymaps.lua`
 | Keybinding | Function | Description |
 |------------|----------|-------------|
@@ -169,7 +175,7 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation (see
 | `<leader>cdu` | `dapui.toggle()` | Toggle debugging UI |
 | `<leader>cdx` | `dap.terminate()` | Stop debug session |
 | `<leader>cdd` | `auto_detect_debug()` | Auto-detect project type + run |
-| `<leader>cdt` | NUnit test in current file | Debug PHPUnit/NUnit test for current file |
+| `<leader>cdt` | NUnit test in current file | Debug NUnit test for current C# file |
 | `<leader>cdT` | All NUnit tests | Debug all NUnit tests in solution |
 
 ### LazyGit / LazyDocker / Terminal (`<leader>i<key>`)
@@ -183,7 +189,7 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation (see
 | Keybinding | Function | Description |
 |------------|----------|-------------|
 | `<leader>gd` | `Diffview.open()` | DiffView (working changes; toggles when already open) |
-| `<leader>gD` | `Diffview.open({ files_only = true })` | DiffView vs HEAD, files only |
+| `<leader>gD` | `Diffview.open({ files_only = true })` | DiffView, files only (working changes) |
 | `<leader>gh` | `Diffview.file_history()` | File history |
 | `<leader>gH` | `Diffview.file_history({ rev = { "HEAD" } })` | Branch history |
 | `<leader>gt` | `Diffview.toggle_files()` | Toggle files panel |
@@ -205,6 +211,7 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation (see
 ### Notes (Markdown vault) — `lua/plugins-keymaps/notes-keymaps.lua`
 | Keybinding | Function | Description |
 |------------|----------|-------------|
+| `<leader>oo` | open_notes_panel() | Open notes panel (file picker of the vault) |
 | `<leader>on` | new_note_with_folder() | Create a note in a vault folder |
 | `<leader>oC` | capture_note() | Quick note (no folder picker) |
 | `<leader>od` | open_daily_note(0) | Today's daily note |
@@ -217,6 +224,7 @@ This configuration uses the Colemak-DH layout for more ergonomic navigation (see
 | `<leader>or` | rename_note() | Rename current note |
 | `<leader>oc` | toggle_checkbox() | Toggle `- [ ]` ⇄ `- [x]` |
 | `<leader>ok` | follow_link() | Follow `[[wiki]]` or `[text](path)` |
+| `<leader>it` | search_notes() | Grep the vault for pending tasks (`- [ ]`) |
 
 For markdown buffers, `gf` is also buffer-mapped to `follow_link`.
 

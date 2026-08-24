@@ -153,6 +153,12 @@ Esta configuración usa Colemak-DH (consulta `colemak-dh.md` para la guía de re
 | `<leader>ma` | `mc_match_all_cursors()` | Cursor en todos los matches |
 | `<esc>` | `mc_clear_or_enable_cursors()` | Alternar multicursor |
 
+### Spider (movimiento inteligente de palabras) — `lua/plugins-keymaps/spider-keymaps.lua`
+| Keybinding | Función | Descripción |
+|------------|---------|-------------|
+| `w` | `spider.motion("w")` | Palabra hacia adelante (camelCase, snake_case, subwords) |
+| `b` | `spider.motion("b")` | Palabra hacia atrás (camelCase, snake_case, subwords) |
+
 ### DAP — `lua/plugins-keymaps/dap-keymaps.lua`
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
@@ -178,7 +184,7 @@ Esta configuración usa Colemak-DH (consulta `colemak-dh.md` para la guía de re
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
 | `<leader>gd` | `Diffview.open()` | DiffView (cambios del working tree; alterna si ya está abierto) |
-| `<leader>gD` | `Diffview.open({ files_only = true })` | DiffView vs HEAD, sólo archivos |
+| `<leader>gD` | `Diffview.open({ files_only = true })` | DiffView, sólo archivos (cambios del working tree) |
 | `<leader>gh` | `Diffview.file_history()` | Historial de un archivo |
 | `<leader>gH` | `Diffview.file_history({ rev = { "HEAD" } })` | Historial de rama |
 | `<leader>gt` | `Diffview.toggle_files()` | Alternar panel de archivos |
@@ -200,6 +206,7 @@ Esta configuración usa Colemak-DH (consulta `colemak-dh.md` para la guía de re
 ### Notas (vault Markdown) — `lua/plugins-keymaps/notes-keymaps.lua`
 | Keybinding | Función | Descripción |
 |------------|---------|-------------|
+| `<leader>oo` | open_notes_panel() | Abrir panel de notas (file picker del vault) |
 | `<leader>on` | new_note_with_folder() | Crear nota en carpeta del vault |
 | `<leader>oC` | capture_note() | Nota rápida (sin elegir carpeta) |
 | `<leader>od` | open_daily_note(0) | Daily note de hoy |
@@ -212,6 +219,7 @@ Esta configuración usa Colemak-DH (consulta `colemak-dh.md` para la guía de re
 | `<leader>or` | rename_note() | Renombrar nota actual |
 | `<leader>oc` | toggle_checkbox() | Toggle `- [ ]` ⇄ `- [x]` |
 | `<leader>ok` | follow_link() | Seguir `[[wiki]]` o `[text](path)` |
+| `<leader>it` | search_notes() | Grep en el vault de tareas pendientes (`- [ ]`) |
 
 En buffers markdown, `gf` también está mapeado a buffer-local a `follow_link`.
 
