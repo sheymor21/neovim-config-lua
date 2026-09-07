@@ -34,9 +34,12 @@ return {
                         ls.expand_or_jump()
                         return true -- consumed
                     end
-                    return false -- fallback
+                    vim.fn.feedkeys(
+                        vim.api.nvim_replace_termcodes("<Plug>(Tabout)", true, true, true),
+                        ""
+                    )
+                    return true -- consumed by tabout
                 end,
-                "fallback",
             },
             ["<S-Tab>"] = {
                 function(cmp)
@@ -50,9 +53,12 @@ return {
                         ls.jump(-1)
                         return true -- consumed
                     end
-                    return false -- fallback
+                    vim.fn.feedkeys(
+                        vim.api.nvim_replace_termcodes("<Plug>(TaboutBack)", true, true, true),
+                        ""
+                    )
+                    return true -- consumed by tabout
                 end,
-                "fallback",
             },
             -- Snippet-only trigger
             ["<C-s>"] = {
