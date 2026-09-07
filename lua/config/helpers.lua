@@ -10,6 +10,12 @@ M.helpers = {
         items = {
             "SELECT name FROM sys.procedures ORDER BY name;",
             "EXEC sp_helptext 'dbo.NombreProcedimiento';",
+            [[-- Oracle fix
+SET LINESIZE 32767
+SET PAGESIZE 32767
+SET TRIMOUT ON
+SET TRIMSPOOL ON
+SET HEADING ON]],
         },
     },
 }

@@ -173,6 +173,7 @@ Esta configuración de Neovim incluye un conjunto completo de características d
 - Sidebar UI (`<leader>db`)
 - Completion SQL a través de blink.cmp
 - Constructor de URL (`<leader>du`) que codifica RFC 3986 y copia al portapapeles
+- Nota Oracle: las conexiones `oracle://` requieren el CLI `sqlplus` instalado en el host; sin él la conexión falla con `DB: 'sqlplus' executable not found`
 
 ### 9. Storyboard (DiaProject) — Backend kanban custom
 

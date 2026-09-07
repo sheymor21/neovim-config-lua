@@ -310,6 +310,7 @@ Clones `folke/lazy.nvim` on first run (stable branch) and:
 - Lazy-loads on the `:DB*` commands and on SQL filetypes
 - Connection strings are added via `:DBUIAddConnection` and stored under `~/.local/share/nvim/dadbod_ui/`
 - `config/dadbod.lua` only sets `vim.g.db_ui_use_nerd_fonts = 1` and a rounded floating window for the UI
+- Oracle `oracle://` connections require the `sqlplus` CLI on the host (see installation notes)
 
 **Diffview (`plugins/diffview.lua`)**
 - Wired through `config/diffview.lua` and the global `<leader>g*` keymaps in `plugins-keymaps/diffview-keymaps.lua`. The `<leader>gd` mapping toggles the working-change view.

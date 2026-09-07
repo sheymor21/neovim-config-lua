@@ -1007,9 +1007,14 @@ M.dadbod_schemes = {
         default_user = "postgres",
         extra_prompts = {},
     },
+    oracle = {
+        default_port = 1521,
+        default_user = "system",
+        extra_prompts = {},
+    },
 }
 
-local SCHEME_IDS = { "mysql", "sqlserver", "postgres" }
+local SCHEME_IDS = { "mysql", "sqlserver", "postgres", "oracle" }
 
 local function dadbod_uri_encode(s)
     -- vim.uri_encode only escapes spaces; we need to encode every byte that

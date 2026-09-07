@@ -222,7 +222,7 @@ The first time you press `<leader>tsd` (start), Neovim clones the repo to `~/.lo
 
 ### Optional: Dadbod (SQL workflow)
 
-Dadbod is bundled with `tpope/vim-dadbod`, `vim-dadbod-ui`, and `vim-dadbod-completion`. **No LSP server or extra binary is required** for the workflow itself; SQL completion comes from `vim-dadbod-completion` via blink.cmp.
+Dadbod is bundled with `tpope/vim-dadbod`, `vim-dadbod-ui`, and `vim-dadbod-completion`. **No LSP server or extra binary is required** for the workflow itself; SQL completion comes from `vim-dadbod-completion` via blink.cmp. The one exception is **Oracle**: connecting to an `oracle://` database requires Oracle's `sqlplus` CLI on the host (e.g. AUR `oracle-instantclient-sqlplus` + `oracle-instantclient-basic` + `libaio`, with `ORACLE_HOME`/`LD_LIBRARY_PATH`/`PATH` set). Without it you get `DB: 'sqlplus' executable not found`.
 
 ```bash
 # Add connections interactively (stored at ~/.local/share/nvim/dadbod_ui/):

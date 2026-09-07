@@ -271,6 +271,7 @@ This Neovim configuration includes a complete set of features designed to provid
 - **Sidebar UI**: Browse schema and run queries from `<leader>db`
 - **SQL completion**: Tables/columns come from vim-dadbod-completion through blink.cmp
 - **URL builder**: `<leader>du` walks you through host/port/user/db/password and puts the RFC-3986-encoded URI on the clipboard
+- **Oracle note**: `oracle://` connections need Oracle's `sqlplus` CLI installed on the host; without it the connection fails with `DB: 'sqlplus' executable not found`
 
 ### 9. Storyboard (DiaProject) — Custom Kanban Backend
 

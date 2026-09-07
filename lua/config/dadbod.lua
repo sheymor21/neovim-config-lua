@@ -22,3 +22,14 @@ local function setup()
 end
 
 setup()
+
+-- Disable folding in dadbod result buffers (dbout)
+local augroup = vim.api.nvim_create_augroup("DadbodResult", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+    group = augroup,
+    pattern = "dbout",
+    callback = function()
+        vim.wo.foldenable = false
+        vim.wo.wrap = true
+    end,
+})
