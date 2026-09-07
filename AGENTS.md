@@ -1,210 +1,39 @@
-# Agent Guide for Neovim Configuration
+# Agent Guide
 
-## Architecture
+## Boot Flow
 
-**Entry point**: `init.lua` - sets core vim options (tabstop=4, expandtab, relativenumber, etc.), then branches to:
-1. `lua/init/nvim.lua` - Standalone Neovim init
-2. `lua/init/nvim_vscode.lua` - VS Code: init
+- `init.lua` sets global options and dispatches to `lua/init/nvim.lua` for standalone Neovim or `lua/init/nvim_vscode.lua` when `vim.g.vscode` is set.
+- Both entrypoints load `config.lazy`, `general-config`, `function-keymaps`, and `keymaps`; standalone Neovim also loads `general-config.nvim` and the deferred `User VeryLazy` modules.
+- Lazy.nvim discovers plugin specs under `lua/plugins/`. In VS Code mode, `lua/config/lazy.lua` scans those specs and filters them through `lua/nvim_vscode/init.lua`'s `disabled_plugins` table.
+- Keep plugin specifications, setup code, and plugin-specific keymaps separated as `lua/plugins/*.lua`, `lua/config/*.lua`, and `lua/plugins-keymaps/*.lua`. Register new plugin keymaps from the appropriate environment keymap module.
 
-Both load: `config/lazy.lua` → `general-config.lua` → `function-keymaps.lua` → `keymaps.lua`
+## Keymap Constraints
 
-`lua/keymaps.lua` is itself a thin entry that delegates to `lua/keymaps/core.lua` (shared: Colemak, basics, flash) and `lua/keymaps/nvim.lua` (or `nvim_vscode.lua`).
+- The config uses Colemak-DH: normal/visual movement is `n` left, `e` down, `i` up, and `o` right; `h`, `j`, `k`, and `l` are disabled. Do not use these movement keys or their uppercase forms in leader sequences.
+- Put non-trivial mapping behavior in `lua/function-keymaps.lua` and expose it through the module table; keep keymap files declarative.
+- Avoid ambiguous leader chains that require a buffer key after an asynchronous picker. Follow the existing split-key pattern in `lua/plugins-keymaps/fzf-lua-keymaps.lua`.
 
-`lua/init/nvim.lua` additionally loads `general-config.nvim` (resolves to `lua/general-config/nvim.lua`), which contains nvim-only autocmds: project buffer cleanup on `DirChanged`, and auto-insert mode for snacks input dialogs.
+## LSP Changes
 
-**Plugin loading pattern** (3-part separation):
-```lua
--- lua/plugins/foo.lua - the spec (lazy.nvim spec table)
-return { "author/plugin", config = function() require("config.foo") end }
+- This does not use `nvim-lspconfig` for its main LSP pipeline. Add or remove servers in `lua/lsp/servers.lua`, and keep each server's implementation in its `lua/lsp/*.lua` module.
+- `lua/lsp/setup.lua` registers `FileType` startup and delegates `LspAttach` behavior to `lua/lsp/on_attach.lua`; use `:LspReload` or `:DevReload` after changes.
+- C# is the exception: Roslyn is configured by `lua/plugins/roslyn.lua`, not the custom registry. VS Code mode delegates language services to VS Code.
 
--- lua/config/foo.lua - setup logic
-require("plugin").setup({...})
+## Verification
 
--- lua/plugins-keymaps/foo-keymaps.lua - keymaps
-local map = vim.keymap.set
-map("n", "<leader>xx", ...)
-```
+- There is no repository build or test manifest. For a Lua change, source the file with `:luafile %`; use `:DevReload` for LSP changes and `:checkhealth` for dependency/plugin health.
+- `:StartupTime`, `:SlowPlugins`, and `:PluginHealth` are available for startup/plugin diagnostics.
+- Format manually; format-on-save is disabled. Conform maps Lua to `stylua`, Go to `gofumpt` then `goimports`, C# to `csharpier`, web/Markdown/YAML/JSON to `prettier`, Python to `black`, and shell to `shfmt`. Use `<leader>mf` or `<leader>mF` for async or sync formatting.
+- Match formatter settings in `lua/plugins/conform.lua` when changing formatting behavior: Lua uses 4-space/100-column, Black uses 100 characters, shell uses 4-space indentation, and Prettier uses repo-configured settings or 4-space/120-column defaults.
 
-A few specs are inline in `plugins/*.lua` (e.g. `dadbod.lua`, `unirunner.lua`).
+## External State
 
-**Deferred loading**: Non-critical modules load on `User VeryLazy` event in `lua/init/nvim.lua`. Add new deferred modules there. The `config/lazy.lua` switches to a VS Code-aware filter when `vim.g.vscode` is set.
+- `git` is required. Mason installs most language servers and DAP adapters; `gopls`, `gofumpt`, and `goimports` are expected system/Go-installed tools. `blink.cmp` may require Rust/Cargo during installation.
+- The optional Storyboard integration in `lua/config/storyboard.lua` clones `DiaProject` into `vim.fn.stdpath("data") .. "/storyboard"`, builds it with `go`, and uses `curl` plus `python3` to run/check it.
+- Dadbod connection data is stored outside the repo under `~/.local/share/nvim/dadbod_ui/`; Oracle URLs additionally require the `sqlplus` executable and Oracle environment variables.
+- The notes vault defaults to `~/Documents/Sheymor` (`lua/config/paths.lua`). `lua/config/dashboard-urls.lua` is local-only; edit the example file when documenting dashboard URL changes.
+- `lazy-lock.json` is intentionally ignored and local to each installation; do not add it to a change just because Lazy regenerates it.
 
-**VS Code mode**: `vim.g.vscode` triggers `lua/init/nvim_vscode.lua`. The `nvim_vscode` module (not in this repo) provides a `disabled_plugins` list that `config/lazy.lua` uses to filter specs dynamically.
+## Style
 
-## Critical Conventions
-
-### Colemak-DH Layout (ALWAYS RESPECT)
-The config remaps movement keys to Colemak-DH. **When defining new keymaps**:
-- `n` = left (was `h`)
-- `e` = down (was `j`)
-- `i` = up (was `k`)
-- `o` = right (was `l`)
-- `h` = open line below (was `o`)
-- `k` = enter insert mode (was `i`)
-- Original `h/j/k/l` are disabled (`<nop>`) in normal+visual
-
-**Safe keys for leader combinations**: Everything except `n/e/i/o` and their uppercase variants.
-
-**Snacks picker keys** in `lua/plugins/snacks.lua` are already mapped to Colemak-DH:
-- `<C-e>` / `e` = list down
-- `<C-i>` / `i` = list up
-
-### Keymap Behavior Functions
-Complex keymap logic goes in `lua/function-keymaps.lua`, wrapped in the `M` table, then referenced in keymaps. Do not inline complex logic in keymap definitions.
-
-### Avoid buffers in leader chains
-Snacks pickers run async, so `<leader>sg>` and similar patterns are split into separate `<leader>sXg` style keys (see `lua/plugins-keymaps/fzf-lua-keymaps.lua`).
-
-## Plugin / Module Inventory
-
-### Plugin specs in `lua/plugins/`
-- **Editor**: autopairs, blink-cmp, conform, flash, faster, multicursor, noice, spider, ufo, undotree, unidiagnostic, unipackage, unirunner, yanky
-- **UI / Nav**: cellular, gitsigns, grapple, lualine, nvim-navic, nvim-web-devicons, snacks, which-key, windows-picker, zealsearch
-- **LSP / Mason**: lazydev, mason, roslyn (C#, uses `seblyng/roslyn.nvim`)
-- **Fuzzy / Files**: fzf-lua, oil, neovim-session-manager, projects, neotest
-- **Markdown / Notes**: markdown-render
-- **Storyboard**: Custom Go project (`https://github.com/sheymor21/DiaProject`) — **no plugin spec required**. Logic lives in `lua/config/storyboard.lua` and is bound via `lua/plugins-keymaps/storyboard-keymaps.lua`
-- **Data**: dadbod + dadbod-ui + dadbod-completion
-- **Diffing**: diffview
-- **Theme / Misc**: colors, configurationsless, reloader, toggle-term, treesitter, wakatime (disabled)
-
-### Plugin-keymap files in `lua/plugins-keymaps/`
-`conform`, `dadbod`, `dap`, `diffview`, `fzf-lua`, `grapple`, `helpers`, `lazydocker`, `lazygit`, `notes`, `snacks`, `spider`, `storyboard`, `yanky`.
-
-### Config / Setup modules in `lua/config/`
-**Theme / appearance**: `theme.lua`, `filetype-theme.lua`, `colors.lua` (plugin spec).
-**LSP / Mason**: `dap-config.lua`.
-**Tools**: `lazygit.lua`, `lazy-docker.lua`, `indent.lua`, `reloader.lua`, `profiler.lua`.
-**Notes vault**: `paths.lua` (default `~/Documents/Sheymor`), `snacks.lua`, `dashboard-urls.lua` (gitignored).
-**Snippets**: `helpers.lua` (random helper lists, e.g. SQL queries — edit by hand, one list per keymap).
-**Specialized**: `csharp-accessors.lua`, `csharp-editorconfig.lua`, `dadbod.lua`, `storyboard.lua`, `plugin-health.lua`, `diffview.lua`.
-
-### Disabled plugins in `lua/plugins-off/`
-`99`, `99-keymaps`, `dressing`, `harpoon2`, `harpoon2-keymaps`, `obsidian`, `overseer`, `sessions`, `tiny-inline-diagnostic`. These exist as no-op specs to avoid accidental re-installation.
-
-## Storyboard (DiaProject) Plugin-less module
-
-Sheymor has a custom storyboard backend hosted at `https://github.com/sheymor21/DiaProject`. The module `lua/config/storyboard.lua` clones the repo to `vim.fn.stdpath("data")/storyboard`, builds it with `go build`, and runs the resulting `server` binary. Keymaps live in `lua/plugins-keymaps/storyboard-keymaps.lua` under the `<leader>ts<key>` prefix.
-
-`lua/health.lua` reports the clone, binary, and run status. Required host dependencies: `go` and `curl`.
-
-## Dadbod
-
-`lua/plugins/dadbod.lua` lays out `tpope/vim-dadbod`, `vim-dadbod-ui`, and `vim-dadbod-completion`. Connection strings are managed by the UI itself (`:DBUIAddConnection`), stored under `~/.local/share/nvim/dadbod_ui/`. blink.cmp picks up the dadbod completion source via the providers table in `lua/plugins/blink-cmp.lua` for SQL filetype.
-
-## Helpers (random snippets)
-
-`lua/config/helpers.lua` holds named lists of snippets (e.g. SQL queries) under `M.helpers`. Each list is a table keyed for a keymap: `M.helpers.sql.items` is a list of strings (multiline via `[[...]]`). Keymaps in `lua/plugins-keymaps/helpers-keymaps.lua` use the `<leader>h<key>` prefix (`<leader>hs` = SQL, `<leader>hl` = open the config file for editing). Selecting an item copies it to the `+` register. To add a new list: add a table in `helpers.lua` and copy one keymap line in `helpers-keymaps.lua`.
-
-## Testing Changes
-
-1. Edit a Lua file
-2. Run `:luafile %` (or `<leader>W`) to source current file
-3. Run `:DevReload` if LSP affected
-4. Run `:checkhealth` to verify health
-
-## LSP Architecture
-
-Custom LSP setup (not nvim-lspconfig). Uses `lua/lsp/utils.lua`:
-
-```lua
-function M.start_lsp_client(server_name, bufnr, config)
-    config.capabilities = require("blink.cmp").get_lsp_capabilities()
-    return vim.lsp.start(config, { bufnr = bufnr, reuse_client = ... })
-end
-```
-
-`lua/lsp/servers.lua` lists each server, and `lua/lsp/setup.lua` wires `FileType` autocmds + an `LspAttach` handler that delegates to `lua/lsp/on_attach.lua`.
-
-**Important**: `lua/lsp/on_attach.lua` disables semantic tokens for ALL clients (`client.server_capabilities.semanticTokensProvider = nil`) and enables `nvim-navic` only when `documentSymbolProvider` is advertised. Inlay hints and CodeLens are wired here too.
-
-Active LSP servers (`lsp/servers.lua`):
-- `gopls` - Go (system install, via `lua/lsp/gopls.lua`)
-- `vtsls` - TypeScript/JavaScript (via Mason)
-- `lua_ls` - Lua (via Mason + lazydev)
-- `html`, `cssls` - Web (via Mason)
-- `marksman` - Markdown (via Mason)
-
-**Exception**: `roslyn` (C#) is handled by `seblyng/roslyn.nvim` in `lua/plugins/roslyn.lua`, NOT the custom LSP setup.
-
-`jsonls` is in the health check and Mason `ensure_installed`, but is not on the `servers.lua` list yet — installing it via `:MasonInstall jsonls` is a manual step.
-
-`lua/lsp/on_attach.lua` wires the `<leader>rn` keymap to `function-keymaps.lsp_rename_and_save`, which performs the rename and silently writes every modified normal buffer (relevant for cross-file C# and Go renames).
-
-## Primary Tools
-
-| Tool | Plugin | Keymaps |
-|------|--------|---------|
-| File finder | fzf-lua | `<leader>ff`, `<leader>fb` |
-| Recent files | Snacks.picker | `<leader>fr` |
-| Projects | neovim-project | `<leader>fp`, `<leader>fP` |
-| File manager | Oil.nvim | `<leader>e`, `<leader>E` for cwd, `-` for parent |
-| Bookmarks | Grapple | `<leader>aa`, `<C-1>` to `<C-4>`, `<leader>as`, `<leader>ah` |
-| Git diff | diffview | `<leader>gd`, `<leader>gD`, `<leader>gh`, `<leader>gH`, `<leader>gt` |
-| Git | Snacks.lazygit | `<leader>ig`; LazyDocker `<leader>id` |
-| Notes | Markdown notes + snacks.picker | `<leader>on`, `<leader>od`, `<leader>of` |
-| Helper snippets | custom | `<leader>hs`, `<leader>hl` |
-| Picker | Snacks.picker | `<leader>sm`, `<leader>sh`, `<leader>sk`, `<leader>sc`, `<leader>su`, `<leader>sq`, `<leader>sl`, `<leader>sr` |
-| Completion | blink.cmp | `<Tab>`, `<S-Tab>`, `<C-j>`, `<C-k>`, `<C-Space>`, `<CR>`, `<C-s>` (snippets-only) |
-| Terminal | Snacks.terminal | `<leader>tt` |
-| Dashboard | Snacks.dashboard | Shows on startup |
-| Storyboard | custom Go binary | `<leader>ts<key>` |
-| Databases | dadbod / dadbod-ui | `<leader>db`, `<leader>du`, `<leader>dC`, `<leader>dr`, `<leader>dL` |
-| LSP | custom | `gd`, `gD`, `gi`, `gt`, `K`, `.`, `<leader>rn`, `<leader>ca`, `<leader>cl`, `<leader>th`, `<leader>td` |
-
-## Commands
-
-| Command | Purpose |
-|---------|---------|
-| `:checkhealth` | Run health check (see `lua/health.lua`) |
-| `:StartupTime` | Show startup performance |
-| `:SlowPlugins` | Show slow-loading plugins |
-| `:DevReload` | Full reload LSP (stops → clears cache → reloads configs → reattaches) |
-| `:LspReload` | Reload LSP only |
-| `:Lazy` | Plugin manager |
-| `:Mason` | LSP server installer |
-| `:DBUIAddConnection` | Add a dadbod connection |
-| `:DiffviewOpen` / `:DiffviewClose` / `:DiffviewFileHistory` | diffview |
-
-## External Dependencies
-
-Optional: `node`, `npm`, `deno`, `go`, `python3`, `dotnet`, `cargo` (required for blink.cmp build)
-Required: `git`
-
-For the optional storyboard backend you also need `curl` and `go`. `lua/health.lua` reports each.
-
-## Health Check System
-
-`lua/health.lua` provides `:checkhealth` integration. New checks follow `vim.health.ok/warn/error` and report via `vim.health.info` headings. It covers startup time, external dependencies, LSP server presence, plugin load failures, notes vault directory, and the storyboard binary / clone status.
-
-## Notes Vault
-
-Vault path is defined in `lua/config/paths.lua` (default: `~/Documents/Sheymor`). Notes are plain markdown files managed with `snacks.picker` and custom helpers in `lua/function-keymaps.lua`. The health check verifies vault accessibility. Daily notes go under `daily/` and templates under `templates/`.
-
-## Special Filetype Handling
-
-- **C# files**: UTF-8 BOM is preserved (`vim.opt_local.bomb = true`) to prevent showing whole file as changed
-- **Windows line endings**: Auto-converted to Unix on open (`:set fileformat=unix`)
-- **Markdown**: `gf` is buffer-mapped to `follow_link` (see `lua/plugins-keymaps/notes-keymaps.lua`)
-- **Per-filetype themes**: Auto-switched by `lua/config/filetype-theme.lua`:
-  - `lua` → `ayu`
-  - `go` → `onedark_dark`
-  - `cs` → `gruvbox`
-  - `html` → `tokyodark`
-  - `css` → `gruvbox`
-  - `javascript` / `typescript` → `onedark_dark`
-- **BufEnter filter**: `lua/general-config.lua` skips prompt buffers (snacks picker/input), runs `filetype detect` when filetype is empty, and treesitter-restarts the buffer.
-- **Snacks input auto-insert**: `lua/general-config/nvim.lua` auto-enters insert mode for `snacks_input` / `snacks_picker_input` file types.
-
-## Formatting
-
-- **Lua**: `stylua` (4-space indent, 100 col width)
-- **Go**: `gofumpt` + `goimports`
-- **C#**: `csharpier`
-- **Web**: `prettier` (with spacious defaults: 4-tab, 120 width)
-- **Format on save is DISABLED** — manual only via `<leader>mf` (async) or `<leader>mF` (sync)
-
-## Git
-
-- `lazy-lock.json` is **ignored** (not tracked). Users generate their own lockfile.
-- `lua/config/dashboard-urls.lua` is gitignored (create from `dashboard-urls.example.lua`)
+- Preserve the existing 4-space Lua formatting and ASCII-default style. Follow the surrounding module structure instead of adding a new abstraction for a one-off behavior.
