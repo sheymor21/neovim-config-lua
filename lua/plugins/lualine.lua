@@ -3,6 +3,10 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons", "SmiteshP/nvim-navic" },
     event = "VeryLazy",
     config = function()
+        local function project_name()
+            return vim.fs.basename(vim.uv.cwd() or "")
+        end
+
         require("lualine").setup({
             options = {
                 globalstatus = true,
@@ -14,6 +18,7 @@ return {
                 lualine_a = { "mode" },
                 lualine_b = { "branch", "diff" },
                 lualine_c = {
+                    project_name,
                     "filename",
                     "navic",
                 },
