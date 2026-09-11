@@ -88,13 +88,13 @@ This guide covers the general Neovim configuration, including basic options, LSP
     │   ├── undotree.lua           # Undotree
     │   ├── unidiagnostic.lua      # Diagnostics toggle
     │   ├── unipackage.lua         # Package manager
-    │   ├── unirunner.lua          # Unified runner (local clone)
+    │   ├── unirunner.lua          # Unified runner plugin spec
     │   ├── wakatime.lua           # Wakatime (disabled)
     │   ├── which-key.lua          # Which-key
     │   ├── windows-picker.lua     # Window selection
     │   ├── yanky.lua              # Yank/paste history
     │   └── zealsearch.lua         # Zeal documentation search
-    ├── nvim_vscode/               # VS Code compatibility layer (external)
+    ├── nvim_vscode/               # VS Code compatibility layer
     │   └── init.lua               # Provides disabled_plugins table
     ├── plugins-off/               # Disabled plugins (no-op specs)
     │   ├── 99.lua / 99-keymaps.lua
@@ -329,7 +329,7 @@ Clones `folke/lazy.nvim` on first run (stable branch) and:
 - TS runner auto-detects `npm`/`pnpm`/`yarn`/`bun`
 
 **Unirunner (`plugins/unirunner.lua`)**
-- Local clone at `~/Projects/unirunner.nvim` (the public `sheymor21/unirunner.nvim` spec is commented out)
+- Loaded from the public `sheymor21/unirunner.nvim` plugin spec
 - Panel keymaps are already remapped to Colemak-DH (`e`/`i` for down/up)
 - Root markers: `package.json`, `go.mod`, `*.sln`, `.git`
 

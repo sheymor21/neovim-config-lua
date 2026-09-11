@@ -14,7 +14,7 @@ This Neovim configuration includes a complete set of features designed to provid
 
 #### TypeScript/JavaScript Development
 - **vtsls**: Modern TS/JS Language Server (via Mason)
-- **Prettier**: Automatic code formatting
+- **Prettier**: Manual code formatting through Conform (`<leader>mf` / `<leader>mF`)
 - **DAP**: Debugging with js-debug-adapter, auto-detects `npm`/`pnpm`/`yarn`/`bun`
 - **Unirunner**: Auto-picks the package manager for `tsx`
 
@@ -358,7 +358,7 @@ See [Installation Guide](installation.md#vs-code-neovim-extension) for setup det
 
 | Feature | Category | Language Support | Status |
 |---------|----------|------------------|--------|
-| LSP | Language Support | Go, TS/JS, C#, Lua, Python, HTML/CSS, Markdown | ✅ Active |
+| LSP | Language Support | Go, TS/JS, C#, Lua, HTML/CSS, Markdown | ✅ Active |
 | DAP | Development Tools | Go, TS/JS, C# | ✅ Active |
 | blink.cmp | Editing | All (SQL gets `dadbod` source) | ✅ Active |
 | fzf-lua | Navigation | All | ✅ Active |
