@@ -40,6 +40,111 @@ Para probar un plugin localmente, añade su directorio al `runtimepath`:
 
 Si usas un gestor como `lazy.nvim`, el gestor hace esta parte por ti.
 
+## Antes de programar: qué es un buffer
+
+Un **buffer** es el espacio de memoria donde Neovim mantiene el contenido de un archivo o de un texto. No es necesariamente un archivo guardado en disco. Por ejemplo, cuando abres `notas.md`, Neovim crea un buffer con su contenido; cuando cierras el archivo, ese buffer puede desaparecer aunque el archivo siga existiendo.
+
+Una **ventana** es el área de la pantalla que muestra un buffer. Un mismo buffer puede mostrarse en varias ventanas. Un **tabpage** es un conjunto de ventanas. La relación puede verse así:
+
+```text
+tabpage
+├── ventana 1 -> buffer de notas.md
+└── ventana 2 -> buffer de resultados de Git
+```
+
+Esta separación es importante al crear plugins:
+
+- El buffer contiene los datos.
+- La ventana decide dónde y cómo se ven esos datos.
+- El tabpage organiza varias ventanas.
+
+### ¿Para qué necesita un plugin un buffer?
+
+Un plugin crea o modifica buffers cuando necesita trabajar con texto dentro de Neovim. Los casos más comunes son:
+
+| Caso de uso | Tipo de buffer habitual | Ejemplo |
+| --- | --- | --- |
+| Abrir un archivo para que el usuario lo edite | Buffer normal | Un generador de configuración. |
+| Mostrar resultados que no son un archivo | Buffer temporal | `:MiPluginDiagnostico`. |
+| Crear una pantalla de ayuda o selección | Buffer temporal + ventana flotante | Un menú del plugin. |
+| Recibir texto escrito por el usuario | Buffer editable temporal | Un formulario o editor de mensajes. |
+| Guardar estado asociado a un archivo | Buffer existente + `vim.b` | Activar una función solo para Markdown. |
+| Dibujar información sin modificar el texto | Buffer existente + extmarks | Mostrar tipos, errores o indicadores. |
+
+No crees un buffer para cada mensaje. Usa `vim.notify()` para un aviso breve, `vim.ui.input()` para pedir una línea de texto y un buffer cuando el contenido tenga varias líneas, deba permanecer visible o pueda editarse.
+
+### Buffer normal y buffer temporal
+
+Un buffer normal representa un archivo y puede guardarse con `:write`. Un buffer temporal normalmente se usa para resultados o interfaces del plugin y no debe crear un archivo en el disco:
+
+```lua
+local buf = vim.api.nvim_create_buf(false, true)
+
+vim.bo[buf].buftype = "nofile"
+vim.bo[buf].bufhidden = "wipe"
+vim.bo[buf].swapfile = false
+vim.bo[buf].modifiable = false
+
+vim.api.nvim_buf_set_lines(buf, 0, -1, false, {
+    "Resultado del plugin",
+    "-------------------",
+    "No se guarda como archivo",
+})
+
+vim.api.nvim_set_current_buf(buf)
+```
+
+Cada opción resuelve un problema diferente:
+
+- `buftype = "nofile"`: indica que no es un archivo normal.
+- `bufhidden = "wipe"`: elimina el buffer cuando deja de mostrarse.
+- `swapfile = false`: evita crear un archivo swap.
+- `modifiable = false`: evita que el usuario edite accidentalmente un resultado.
+
+Si el usuario debe editar el contenido, no uses `modifiable = false`. Puedes dejar `buftype = "acwrite"` y definir cómo se guarda, o usar un buffer normal si el contenido realmente representa un archivo.
+
+### Buffer no significa ventana
+
+Crear un buffer no lo muestra automáticamente. Puedes:
+
+1. Mostrarlo en la ventana actual con `nvim_set_current_buf()`.
+2. Mostrarlo en una ventana nueva con `nvim_open_win()`.
+3. Asociarlo a una ventana existente con `nvim_win_set_buf()`.
+
+Por ejemplo, este código crea datos y decide después dónde mostrarlos:
+
+```lua
+local buf = vim.api.nvim_create_buf(false, true)
+vim.api.nvim_buf_set_lines(buf, 0, -1, false, { "Una línea de resultados" })
+
+local win = vim.api.nvim_open_win(buf, true, {
+    relative = "editor",
+    width = 35,
+    height = 3,
+    row = 2,
+    col = 2,
+    style = "minimal",
+    border = "rounded",
+})
+```
+
+El buffer contiene la línea; la ventana flotante decide que aparezca como un panel. Si cierras `win`, el buffer todavía puede existir hasta que Neovim lo elimine según `bufhidden`.
+
+### Guardar estado por buffer
+
+Si una función solo aplica al buffer actual, guarda su estado en `vim.b[buf]` en lugar de usar una variable global:
+
+```lua
+local buf = vim.api.nvim_get_current_buf()
+vim.b[buf].mi_plugin_activo = true
+
+if vim.b[buf].mi_plugin_activo then
+    vim.notify("La función está activa en este buffer")
+end
+```
+
+Esto permite que cada archivo tenga un valor distinto. Usa una variable local del módulo para estado global del plugin, `vim.b` para estado por buffer y `vim.w` para estado por ventana.
+
 ## 3. Escribe el módulo principal
 
 Crea `lua/mi_primer_plugin/init.lua`:

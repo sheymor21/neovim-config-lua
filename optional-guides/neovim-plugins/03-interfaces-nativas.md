@@ -2,6 +2,8 @@
 
 Neovim ofrece varias capas para construir interfaces sin depender de un framework externo. Elige la más pequeña que resuelva el problema:
 
+Si todavía no tienes claro qué es un buffer o por qué una ventana es distinta del contenido que muestra, consulta la sección sobre buffers en [Ciclo de vida y APIs](02-ciclo-de-vida-y-apis.md). En una interfaz nativa, normalmente el buffer contiene la pantalla y la ventana decide dónde aparece.
+
 | Necesidad | API recomendada |
 | --- | --- |
 | Mensaje o estado breve | `vim.notify` |
