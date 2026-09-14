@@ -5,9 +5,28 @@ return {
     config = function()
         local reloader = require("config.reloader")
 
-        vim.api.nvim_create_user_command("DevReload", function()
-            reloader.full_reload()
-        end, { desc = "Full reload of LSP" })
+        vim.api.nvim_create_user_command("DevReload", function(opts)
+            local plugin = vim.trim(opts.args)
+            if plugin == "" then
+                reloader.reload_plugins()
+            else
+                reloader.reload_plugin(plugin)
+            end
+        end, {
+            desc = "Select or reload one plugin",
+            nargs = "?",
+            complete = function(arg_lead)
+                local plugins = require("lazy.core.config").plugins
+                local names = {}
+                for name, plugin in pairs(plugins) do
+                    if plugin._.loaded and vim.startswith(name, arg_lead) then
+                        table.insert(names, name)
+                    end
+                end
+                table.sort(names)
+                return names
+            end,
+        })
 
         vim.api.nvim_create_user_command("LspReload", function(opts)
             local server = vim.trim(opts.args)

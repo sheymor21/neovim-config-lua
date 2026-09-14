@@ -206,6 +206,70 @@ function M.full_reload()
     vim.notify(string.format("LSP reloaded (%.2fms)", elapsed), vim.log.levels.INFO)
 end
 
+---Re-run a loaded plugin's configuration without deactivating it.
+---@param plugin_name string
+function M.reload_plugin(plugin_name)
+    local plugin = require("lazy.core.plugin")
+    local config = require("lazy.core.config")
+    local loader = require("lazy.core.loader")
+
+    plugin.load()
+
+    local target = config.plugins[plugin_name]
+    if not target then
+        vim.notify("Plugin not found: " .. plugin_name, vim.log.levels.ERROR)
+        return
+    end
+    if not target._.loaded then
+        vim.notify("Plugin is not loaded: " .. plugin_name, vim.log.levels.WARN)
+        return
+    end
+    if type(target.config) ~= "function" and target.opts == nil then
+        vim.notify("Plugin has no reloadable config: " .. plugin_name, vim.log.levels.WARN)
+        return
+    end
+
+    target._.cache = nil
+    local ok, err = pcall(loader.config, target)
+    if not ok then
+        vim.notify("Failed to configure " .. plugin_name .. ": " .. tostring(err), vim.log.levels.ERROR)
+        return
+    end
+
+    vim.notify("Reloaded plugin: " .. plugin_name, vim.log.levels.INFO)
+end
+
+---Select and re-run one loaded plugin configuration.
+function M.reload_plugins()
+    local plugin = require("lazy.core.plugin")
+    local config = require("lazy.core.config")
+
+    -- Re-read specs before presenting the current list of loaded plugins.
+    plugin.load()
+
+    local skipped = {
+        ["lazy.nvim"] = true,
+        reloader = true,
+        ["roslyn.nvim"] = true,
+    }
+    local choices = {}
+
+    for name, loaded_plugin in pairs(config.plugins) do
+        if loaded_plugin._.loaded
+            and not skipped[name]
+            and (type(loaded_plugin.config) == "function" or loaded_plugin.opts ~= nil) then
+            table.insert(choices, name)
+        end
+    end
+    table.sort(choices)
+
+    vim.ui.select(choices, { prompt = "Reload plugin ❯ " }, function(choice)
+        if choice then
+            M.reload_plugin(choice)
+        end
+    end)
+end
+
 ---Alias for full reload.
 function M.reload_lsp_only()
     M.full_reload()
