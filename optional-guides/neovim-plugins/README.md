@@ -9,6 +9,7 @@ Esta documentación está dividida por tema para que puedas consultar solo la pa
    - Estructura de `lua/`, `plugin/`, `doc/`, `ftplugin/`, `queries/` y otros directorios.
    - Plugin mínimo con `setup()` y un comando.
 2. [Ciclo de vida y APIs](02-ciclo-de-vida-y-apis.md)
+   - Tutorial completo para crear y probar el primer plugin.
    - Comandos, mappings, autocomandos, buffers, ventanas y tabs.
    - Filesystem, procesos, asincronía, namespaces, extmarks, LSP y Tree-sitter.
 3. [Interfaces nativas](03-interfaces-nativas.md)
