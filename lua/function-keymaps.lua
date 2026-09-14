@@ -489,6 +489,35 @@ function M.helpers_open_config()
     vim.cmd("edit " .. vim.fn.fnameescape(path))
 end
 
+-- Create a minimal LuaLS configuration for a Neovim plugin project.
+function M.create_plugin_luarc()
+    local path = vim.fn.getcwd() .. "/.luarc.json"
+
+    if vim.fn.filereadable(path) == 1 then
+        vim.notify(".luarc.json already exists: " .. path, vim.log.levels.WARN)
+        return
+    end
+
+    local runtime_lua = (vim.env.VIMRUNTIME or vim.fn.expand("$VIMRUNTIME")) .. "/lua"
+    local lines = {
+        "{",
+        '    "runtime": { "version": "LuaJIT" },',
+        '    "diagnostics": { "globals": ["vim"] },',
+        '    "workspace": {',
+        '        "checkThirdParty": false,',
+        '        "library": [' .. vim.json.encode(runtime_lua) .. "]",
+        "    }",
+        "}",
+    }
+
+    if vim.fn.writefile(lines, path) ~= 0 then
+        vim.notify("Could not create " .. path, vim.log.levels.ERROR)
+        return
+    end
+
+    vim.notify("Created " .. path, vim.log.levels.INFO)
+end
+
 -- Dashboard git clone
 function M.dashboard_git_clone()
     vim.ui.input({ prompt = "Repository URL: " }, function(url)

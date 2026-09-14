@@ -8,3 +8,8 @@ local behavior = require("function-keymaps")
 
 map("n", "<leader>hs", function() behavior.helpers_open("sql") end, { desc = "SQL helper query" })
 map("n", "<leader>hl", behavior.helpers_open_config, { desc = "Edit helper config" })
+map("n", "<leader>hp", behavior.create_plugin_luarc, { desc = "Create plugin .luarc.json" })
+
+vim.api.nvim_create_user_command("PluginLuarc", behavior.create_plugin_luarc, {
+    desc = "Create a minimal .luarc.json for a Neovim plugin",
+})

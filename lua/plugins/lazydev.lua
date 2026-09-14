@@ -13,7 +13,12 @@ return {
             },
         },
         enabled = function(root_dir)
+            if vim.g.lazydev_enabled ~= nil then
+                return vim.g.lazydev_enabled
+            end
+
             return not vim.uv.fs_stat(root_dir .. "/.luarc.json")
+                and not vim.uv.fs_stat(root_dir .. "/.luarc.jsonc")
         end,
     },
 }
