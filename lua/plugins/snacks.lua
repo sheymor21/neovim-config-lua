@@ -23,29 +23,32 @@ return {
                 -- Override all default keys (don't include the default 's' for session)
                 keys = {
                     { icon = "", key = "f", desc = "Find File", action = ":FzfLua files" },
-                    { icon = "", key = "p", desc = "Projects", action = ":NeovimProjectDiscover" },
-                {
-                    icon = "",
-                    key = "v",
-                    desc = "Open Vault",
-                    action = function() require("function-keymaps").find_notes() end,
-                },
-                {
-                    icon = "",
-                    key = "n",
-                    desc = "Daily Note",
-                    action = function() require("function-keymaps").open_daily_note(0) end,
-                },
-                {
-                    icon = "",
-                    key = "N",
-                    desc = "New Note",
-                    action = function() require("function-keymaps").new_note_with_folder() end,
-                },
+                    { icon = "", key = "p", desc = "Projects",  action = ":NeovimProjectDiscover" },
+                    {
+                        icon = "",
+                        key = "v",
+                        desc = "Open Vault",
+                        action = function() require("function-keymaps").find_notes() end,
+                    },
+                    {
+                        icon = "",
+                        key = "n",
+                        desc = "New Note",
+                        action = function() require("function-keymaps").new_note_with_folder() end,
+                    },
+                    {
+                        icon = "",
+                        key = "N",
+                        desc = "Daily Note",
+                        action = function() require("function-keymaps").open_daily_note(0) end,
+                    },
+
                     { icon = "", key = "l", desc = "Lazy Plugins", action = ":Lazy" },
-                    { icon = "", key = "u", desc = "Open URL", action = function() require("function-keymaps").dashboard_open_url() end },
-                    { icon = "", key = "g", desc = "Git Clone", action = function() require("function-keymaps").dashboard_git_clone() end },
-                    { icon = "", key = "m", desc = "Mason", action = ":Mason" },
+                    { icon = "", key = "u", desc = "Open URL",     action = function() require("function-keymaps")
+                            .dashboard_open_url() end },
+                    { icon = "", key = "g", desc = "Git Clone",    action = function() require("function-keymaps")
+                            .dashboard_git_clone() end },
+                    { icon = "", key = "m", desc = "Mason",        action = ":Mason" },
                     {
                         icon = "",
                         key = "d",
@@ -78,7 +81,7 @@ return {
             },
             sections = {
                 { section = "header" },
-                { section = "keys", gap = 1, padding = 1 },
+                { section = "keys",   gap = 1, padding = 1 },
                 { section = "startup" },
             },
         },
