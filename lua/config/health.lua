@@ -44,14 +44,34 @@ function M.check()
     -- Check LSP servers
     vim.health.info("")
     vim.health.info("LSP Servers:")
-    local lsp_servers = { "lua_ls", "gopls", "vtsls", "html", "cssls", "jsonls" }
-    local lspconfig = require("lspconfig")
-    
+    local lsp_servers = {
+        { name = "lua_ls", cmd = "lua-language-server" },
+        { name = "gopls", cmd = "gopls" },
+        { name = "vtsls", cmd = "vtsls" },
+        { name = "html", cmd = "vscode-html-language-server" },
+        { name = "cssls", cmd = "vscode-css-language-server" },
+        { name = "jsonls", cmd = "vscode-json-language-server" },
+        { name = "marksman", cmd = "marksman" },
+    }
+
     for _, server in ipairs(lsp_servers) do
-        if lspconfig[server] then
-            vim.health.ok(server .. " is configured")
+        if vim.fn.executable(server.cmd) == 1 then
+            vim.health.ok(server.name .. " is available (" .. server.cmd .. ")")
         else
-            vim.health.warn(server .. " is not configured")
+            vim.health.warn(server.name .. " is not installed - run :MasonInstall " .. server.name)
+        end
+    end
+
+    -- Check formatters
+    vim.health.info("")
+    vim.health.info("Formatters:")
+    local formatters = { "stylua", "shfmt", "prettier", "black", "csharpier", "gofumpt", "goimports" }
+
+    for _, formatter in ipairs(formatters) do
+        if vim.fn.executable(formatter) == 1 then
+            vim.health.ok(formatter .. " is installed")
+        else
+            vim.health.warn(formatter .. " is not installed - run :MasonInstall " .. formatter)
         end
     end
     
