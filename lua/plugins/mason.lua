@@ -1,3 +1,23 @@
+local function has_dotnet_sdk()
+    if vim.fn.executable("dotnet") == 0 then
+        return false
+    end
+
+    for _, root in ipairs({ vim.env.DOTNET_ROOT, "/usr/share/dotnet", vim.fn.expand("~/.dotnet") }) do
+        if root and root ~= "" and vim.fn.isdirectory(root .. "/sdk") == 1 then
+            return true
+        end
+    end
+
+    return false
+end
+
+local tools = { "stylua", "shfmt", "prettier", "black" }
+
+if has_dotnet_sdk() then
+    table.insert(tools, "csharpier")
+end
+
 return {
     {
         "mason-org/mason.nvim",
@@ -37,6 +57,16 @@ return {
                 "js-debug-adapter",
                 "delve",
             },
+        },
+    },
+
+    {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        dependencies = { "mason-org/mason.nvim" },
+        opts = {
+            ensure_installed = tools,
+            run_on_start = true,
+            start_delay = 1000,
         },
     },
 }
