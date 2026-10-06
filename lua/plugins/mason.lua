@@ -18,7 +18,7 @@ return {
             "neovim/nvim-lspconfig",
         },
         opts = {
-            ensure_installed = { "marksman", "vtsls", "html", "cssls", "jsonls" },
+            ensure_installed = { "lua_ls", "marksman", "vtsls", "html", "cssls", "jsonls" },
             automatic_enable = false,
         },
     },
