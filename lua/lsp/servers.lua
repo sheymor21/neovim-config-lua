@@ -11,6 +11,7 @@ M.servers = {
     { name = "vtsls", module = "lsp.vtsls" },
     { name = "html", module = "lsp.html" },
     { name = "cssls", module = "lsp.css" },
+    { name = "jsonls", module = "lsp.json" },
     { name = "marksman", module = "lsp.markdown" },
 }
 

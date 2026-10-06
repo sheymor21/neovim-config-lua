@@ -19,6 +19,7 @@ return {
         },
         opts = {
             ensure_installed = { "marksman", "vtsls", "html", "cssls", "jsonls" },
+            automatic_enable = false,
         },
     },
 
