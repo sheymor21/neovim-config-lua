@@ -19,11 +19,11 @@ return {
                 -- C#
                 cs = { "csharpier" },
 
-                -- Web technologies (Prettier with LSP fallback)
-                javascript = { "prettier", "vtsls" },
-                typescript = { "prettier", "vtsls" },
-                javascriptreact = { "prettier", "vtsls" },
-                typescriptreact = { "prettier", "vtsls" },
+                -- Web technologies
+                javascript = { "prettier" },
+                typescript = { "prettier" },
+                javascriptreact = { "prettier" },
+                typescriptreact = { "prettier" },
                 json = { "prettier" },
                 html = { "prettier" },
                 css = { "prettier" },
