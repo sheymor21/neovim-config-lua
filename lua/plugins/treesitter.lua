@@ -10,6 +10,11 @@ local ensure_installed = {
     "c_sharp",
     "regex",
     "bash",
+    "tsx",
+    "vue",
+    "svelte",
+    "typst",
+    "latex",
 }
 
 return {
