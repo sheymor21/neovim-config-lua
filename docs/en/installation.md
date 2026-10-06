@@ -2,6 +2,16 @@
 
 This guide will help you install and configure all necessary dependencies for your Neovim configuration to work correctly.
 
+## ⚡ Automated Setup (recommended)
+
+```bash
+git clone <your-repository> ~/.config/nvim
+~/.config/nvim/scripts/bootstrap.sh          # base + mise (node/go) + Go tools + providers
+~/.config/nvim/scripts/bootstrap.sh --all    # also .NET SDK, Rust and tectonic
+```
+
+The script installs system packages (Arch/Omarchy), runtimes via **mise**, the Go tools (`gopls`, `gofumpt`, `goimports`), host providers, and then runs a one-shot headless `:Lazy! sync`. Formatters (`stylua`, `shfmt`, `prettier`, `black`) and every LSP/DAP server are installed by Mason on first start. The manual steps below are kept as reference for other distributions.
+
 ## 📋 Prerequisites
 
 ### Operating System
@@ -68,6 +78,8 @@ cargo --version
 ```
 
 #### 5. Formatting Tools
+
+> Formatters are managed by **Mason** (`mason-tool-installer.nvim`): `stylua`, `shfmt`, `prettier`, `black` (and `csharpier` when the .NET SDK is present) install automatically on first start. The manual instructions below are alternatives for non-Arch setups or for tools you prefer to manage globally.
 
 ##### Prettier (JavaScript/TypeScript)
 ```bash
@@ -151,18 +163,23 @@ mv ~/.config/nvim ~/.config/nvim.backup
 git clone <your-repository> ~/.config/nvim
 ```
 
-### Step 2: Install Go Language Server
-```bash
-# gopls (official Go LSP)
-go install golang.org/x/tools/gopls@latest
+### Step 2: Install Go Language Tools
 
-# Go formatters
+If you use **mise** (recommended, matches `scripts/bootstrap.sh`):
+
+```bash
+mise use -g go@latest
+go install golang.org/x/tools/gopls@latest
 go install mvdan.cc/gofumpt@latest
 go install golang.org/x/tools/cmd/goimports@latest
+mise reshim
+```
 
-# Verify they're in your PATH
+With mise, `GOBIN` points at the mise Go install, so `mise reshim` exposes the binaries on `PATH`. If you installed Go system-wide instead, they land in `~/go/bin`, which must be on `PATH`.
+
+```bash
+# Verify
 which gopls gofumpt goimports
-# Should show: ~/go/bin/gopls, ~/go/bin/gofumpt, ~/go/bin/goimports
 ```
 
 ### Step 3: Start Neovim
@@ -190,7 +207,7 @@ You should see following LSPs wired up by the custom `lsp/servers.lua` pipeline:
 
 **C#** is handled separately by `roslyn.nvim` from `lua/plugins/roslyn.lua` — it doesn't go through the custom LSP pipeline. Roslyn auto-downloads its language server binaries.
 
-`jsonls` and `vtsls` are in Mason `ensure_installed` and `:checkhealth` references them, but only the LSPs listed above are auto-registered. If you need `jsonls` explicitly, run `:MasonInstall jsonls` and wire it into `lua/lsp/servers.lua`.
+All LSPs above are wired through the custom `lua/lsp/servers.lua` pipeline, including `jsonls` (`lua/lsp/json.lua`). `mason-lspconfig`'s `automatic_enable` is disabled so servers are not started twice. Add new servers by registering them in `lua/lsp/servers.lua` with their module under `lua/lsp/`.
 
 ### Verify Plugins
 ```bash
@@ -247,7 +264,11 @@ Install any missing LSP servers from the list above. Mason provides a UI to inst
 
 #### 1. gopls not found
 ```bash
-# Make sure ~/go/bin is in your PATH
+# If Go is managed by mise, regenerate the shims after installing tools
+mise reshim
+which gopls
+
+# If Go is installed system-wide, make sure ~/go/bin is on PATH
 echo 'export PATH=$PATH:~/go/bin' >> ~/.bashrc
 # or ~/.zshrc if you use zsh
 source ~/.bashrc

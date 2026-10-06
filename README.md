@@ -28,9 +28,14 @@
 # Clone configuration
 git clone <repository> ~/.config/nvim
 
-# Install dependencies (see language-specific documentation above)
+# Install host dependencies, runtimes (mise) and Go tools
+~/.config/nvim/scripts/bootstrap.sh
+
+# Start Neovim (Lazy + Mason install plugins, LSPs, DAP adapters and formatters)
 nvim
 ```
+
+See [Installation Guide](docs/en/installation.md) for manual steps and optional components (`--csharp`, `--rust`, `--latex`).
 
 ## 📋 Key Features
 
