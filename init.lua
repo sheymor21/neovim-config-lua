@@ -12,6 +12,8 @@ vim.g.mapleader = " "
 vim.g.external_terminal = "alacritty"
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
 vim.o.virtualedit = ""
 vim.opt.timeoutlen = 700
 
