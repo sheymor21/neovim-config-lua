@@ -8,6 +8,7 @@ local ensure_installed = {
     "javascript",
     "typescript",
     "c_sharp",
+    "kotlin",
     "regex",
     "bash",
     "tsx",

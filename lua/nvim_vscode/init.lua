@@ -8,6 +8,7 @@ M.disabled_plugins = {
   ["99"] = true,
   ["blink-cmp"] = true,
   cellular = true,
+  kotlin = true,
   conform = true,
   ["dap-ui"] = true,
   ["fzf-lua"] = true,

@@ -56,7 +56,7 @@ local function has_dotnet_sdk()
     return false
 end
 
-local tools = { "stylua", "shfmt", "prettier", "black" }
+local tools = { "stylua", "shfmt", "prettier", "black", "kotlin-lsp" }
 
 if has_dotnet_sdk() then
     table.insert(tools, "csharpier")
