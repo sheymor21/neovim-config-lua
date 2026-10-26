@@ -1,5 +1,6 @@
 require("config.lazy")
 require("general-config")
+require("config.gradle_java")
 require("general-config.nvim")
 require("function-keymaps")
 require("keymaps")

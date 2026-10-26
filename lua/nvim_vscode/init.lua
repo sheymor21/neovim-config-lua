@@ -5,6 +5,7 @@ M.is_vscode = function()
 end
 
 M.disabled_plugins = {
+  android_workbench = true,
   ["99"] = true,
   ["blink-cmp"] = true,
   cellular = true,
