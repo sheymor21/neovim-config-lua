@@ -1,12 +1,56 @@
+local function export_dotnet_root(root)
+    if (not vim.env.DOTNET_ROOT or vim.env.DOTNET_ROOT == "") and root and root ~= "" then
+        vim.env.DOTNET_ROOT = root
+    end
+end
+
+local function dotnet_root_from_info()
+    local info = vim.fn.systemlist("dotnet --info 2>/dev/null")
+
+    if vim.v.shell_error ~= 0 then
+        return nil
+    end
+
+    for _, line in ipairs(info) do
+        local base = line:match("^%s*Base Path:%s*(.+)$")
+        if base then
+            return vim.fn.fnamemodify(vim.trim(base), ":h:h")
+        end
+    end
+
+    return nil
+end
+
 local function has_dotnet_sdk()
     if vim.fn.executable("dotnet") == 0 then
         return false
     end
 
-    for _, root in ipairs({ vim.env.DOTNET_ROOT, "/usr/share/dotnet", vim.fn.expand("~/.dotnet") }) do
+    local mise_data = vim.env.MISE_DATA_DIR or vim.fn.expand("~/.local/share/mise")
+    local roots = {
+        vim.env.DOTNET_ROOT,
+        mise_data .. "/dotnet-root",
+        "/usr/share/dotnet",
+        vim.fn.expand("~/.dotnet"),
+    }
+
+    for _, root in pairs(roots) do
         if root and root ~= "" and vim.fn.isdirectory(root .. "/sdk") == 1 then
+            export_dotnet_root(root)
             return true
         end
+    end
+
+    local isolated = vim.fn.glob(mise_data .. "/installs/dotnet/*/sdk", false, true)
+    if #isolated > 0 then
+        export_dotnet_root(vim.fn.fnamemodify(isolated[1], ":h"))
+        return true
+    end
+
+    local sdks = vim.fn.systemlist("dotnet --list-sdks 2>/dev/null")
+    if vim.v.shell_error == 0 and #sdks > 0 then
+        export_dotnet_root(dotnet_root_from_info())
+        return true
     end
 
     return false

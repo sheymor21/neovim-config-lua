@@ -40,6 +40,15 @@ function M.check()
             vim.health.warn(dep.name .. " is not installed (optional)")
         end
     end
+
+    if vim.fn.executable("dotnet") == 1 then
+        local sdks = vim.fn.systemlist("dotnet --list-sdks 2>/dev/null")
+        if vim.v.shell_error == 0 and #sdks > 0 then
+            vim.health.ok(".NET SDK available (" .. #sdks .. " SDK(s))")
+        else
+            vim.health.warn(".NET runtime found but no SDK - Roslyn and csharpier need the SDK")
+        end
+    end
     
     -- Check LSP servers
     vim.health.info("")

@@ -129,8 +129,16 @@ stylua --version
 ```
 
 #### 6. .NET SDK (for C#)
+
+> `scripts/bootstrap.sh --csharp` installs the SDK through **mise** when available (falling back to `dotnet-sdk`). Manual options below.
+
 ```bash
-# Arch Linux
+# Recommended: manage the SDK with mise (matches the rest of this setup)
+mise use -g dotnet@latest
+eval "$(mise activate bash)"   # exports DOTNET_ROOT and puts the SDK on PATH
+dotnet --list-sdks             # must list at least one SDK
+
+# Arch Linux (system package)
 sudo pacman -S dotnet-sdk
 
 # Verify installation
@@ -142,8 +150,14 @@ dotnet --version
 # macOS: brew install dotnet
 ```
 
+With mise, SDKs live side-by-side under `~/.local/share/mise/dotnet-root` and `DOTNET_ROOT` is exported by `mise activate`. Launch Neovim from a shell where `DOTNET_ROOT` is set (or run `mise exec -- nvim`) so the config and Roslyn inherit it.
+
 ##### CSharpier (C# formatting)
+
+> You normally **don't** need to install this manually: Mason installs `csharpier` automatically once an SDK is detected.
+
 ```bash
+# Manual install, if you prefer
 dotnet tool install --global csharpier
 
 # Make sure ~/.dotnet/tools is in your PATH
@@ -293,7 +307,13 @@ nvim
 # Verify tools are installed
 which prettier black stylua shfmt gofumpt goimports csharpier
 
-# If csharpier is not found, check that ~/.dotnet/tools is in your PATH
+# C# only works with the SDK (a runtime alone is not enough)
+dotnet --list-sdks
+
+# If you manage dotnet with mise, make sure the shell exports DOTNET_ROOT
+eval "$(mise activate bash)" && echo "$DOTNET_ROOT"
+
+# If csharpier was installed manually, check that ~/.dotnet/tools is in your PATH
 echo $PATH | grep -q dotnet && echo "dotnet found" || echo "dotnet NOT in PATH"
 ```
 

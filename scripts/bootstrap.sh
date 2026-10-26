@@ -12,7 +12,7 @@ usage() {
     cat <<'EOF'
 Usage: scripts/bootstrap.sh [options]
 
-  --csharp   Install the .NET SDK (dotnet-sdk) for Roslyn / csharpier
+  --csharp   Install the .NET SDK (via mise, falling back to dotnet-sdk) for Roslyn / csharpier
   --rust     Install Rust (rustup) for cargo-based tooling
   --latex    Install tectonic for LaTeX rendering in snacks.image
   --all      Enable all optional components above
@@ -73,10 +73,16 @@ fi
 
 if [ "$DO_CSHARP" -eq 1 ]; then
     log "Installing .NET SDK"
-    if have pacman; then
+    if have mise; then
+        mise use -g dotnet@latest
+        eval "$(mise activate bash)"
+    elif have pacman; then
         sudo pacman -S --needed --noconfirm dotnet-sdk
     else
         warn "Install the .NET SDK manually: https://dotnet.microsoft.com/download"
+    fi
+    if have dotnet; then
+        dotnet --list-sdks || warn ".NET SDK not resolvable yet; run 'mise reshim' or open a new shell"
     fi
 fi
 

@@ -17,11 +17,13 @@ vim.g.loaded_ruby_provider = 0
 vim.o.virtualedit = ""
 vim.opt.timeoutlen = 700
 
--- Preserve UTF-8 BOM in C# files (prevents showing whole file as changed)
+-- C# files are saved as UTF-8 without a BOM. CSharpier is configured with
+-- `charset = utf-8` (see csharp-editorconfig.lua); this keeps Neovim from
+-- re-adding a BOM on save.
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "cs",
     callback = function()
-        vim.opt_local.bomb = true
+        vim.opt_local.bomb = false
     end,
 })
 

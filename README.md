@@ -35,7 +35,7 @@ git clone <repository> ~/.config/nvim
 nvim
 ```
 
-See [Installation Guide](docs/en/installation.md) for manual steps and optional components (`--csharp`, `--rust`, `--latex`).
+See [Installation Guide](docs/en/installation.md) for manual steps and optional components (`--csharp` installs the .NET SDK via mise, `--rust`, `--latex`).
 
 ## 📋 Key Features
 

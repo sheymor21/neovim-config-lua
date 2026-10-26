@@ -19,6 +19,9 @@ dotnet_style_require_accessibility_modifiers = always:warning
 
 #### Core EditorConfig Options ####
 
+# Character set (utf-8 = no BOM; CSharpier writes a BOM otherwise)
+charset = utf-8
+
 # Indentation and spacing
 indent_size = 4
 indent_style = space
@@ -244,19 +247,48 @@ dotnet_naming_style.begins_with_i.word_separator =
 dotnet_naming_style.begins_with_i.capitalization = pascal_case
 ]]
 
--- Find project root by looking only for .sln files
+-- Minimal fallback for loose .cs files outside any project/solution: it only
+-- fixes CSharpier's default UTF-8 BOM. Project roots get the full template.
+local editorconfig_minimal = [[root = true
+
+[*.cs]
+charset = utf-8
+]]
+
+-- Find the single root where .editorconfig should live. Prefer, in order: a
+-- solution file (*.sln/*.slnx), the Git repository root, or a project file
+-- (*.csproj). This avoids scattering .editorconfig across every subproject.
 local function find_project_root(start_path)
+    local solution_root, git_root, project_root
     local path = start_path
-    local max_depth = 10
+    local max_depth = 20
     local depth = 0
-    
+
     while path and depth < max_depth do
-        -- Check for .sln files only
-        local sln_files = vim.fn.glob(path .. "/*.sln", false, true)
-        if #sln_files > 0 then
-            return path
+        if
+            not solution_root
+            and (
+                #vim.fn.glob(path .. "/*.sln", false, true) > 0
+                or #vim.fn.glob(path .. "/*.slnx", false, true) > 0
+            )
+        then
+            solution_root = path
         end
-        
+
+        if
+            not git_root
+            and (
+                vim.fn.isdirectory(path .. "/.git") == 1
+                or vim.fn.filereadable(path .. "/.git") == 1
+            )
+        then
+            git_root = path
+        end
+
+        if not project_root and #vim.fn.glob(path .. "/*.csproj", false, true) > 0 then
+            project_root = path
+        end
+
         -- Go up one directory
         local parent = vim.fn.fnamemodify(path, ":h")
         if parent == path then
@@ -265,21 +297,21 @@ local function find_project_root(start_path)
         path = parent
         depth = depth + 1
     end
-    
-    return nil
+
+    return solution_root or git_root or project_root
 end
 
 -- Create .editorconfig file
-local function create_editorconfig(project_root)
-    local filepath = project_root .. "/.editorconfig"
+local function create_editorconfig(root, template)
+    local filepath = root .. "/.editorconfig"
     local file = io.open(filepath, "w")
-    
+
     if file then
-        file:write(editorconfig_template)
+        file:write(template)
         file:close()
         return true
     end
-    
+
     return false
 end
 
@@ -287,45 +319,43 @@ end
 function M.check_and_create_editorconfig()
     local bufnr = vim.api.nvim_get_current_buf()
     local bufname = vim.api.nvim_buf_get_name(bufnr)
-    
+
     -- Only process .cs files
     if not bufname:match("%.cs$") then
         return
     end
-    
+
     -- Get the directory of the current file
     local current_dir = vim.fn.fnamemodify(bufname, ":h")
-    
-    -- Find project root (only looks for .sln files)
+
+    -- Prefer the project root; for loose .cs files fall back to their directory
     local project_root = find_project_root(current_dir)
-    
-    if not project_root then
-        return
-    end
-    
+    local root = project_root or current_dir
+    local template = project_root and editorconfig_template or editorconfig_minimal
+
     -- Check if we already processed this directory in this session
-    if processed_dirs[project_root] then
+    if processed_dirs[root] then
         return
     end
-    
+
     -- Mark as processed immediately to prevent race conditions
-    processed_dirs[project_root] = true
-    
+    processed_dirs[root] = true
+
     -- Double-check file doesn't exist (synchronous check)
-    if vim.fn.filereadable(project_root .. "/.editorconfig") == 1 then
+    if vim.fn.filereadable(root .. "/.editorconfig") == 1 then
         return
     end
-    
+
     -- Create .editorconfig
-    if create_editorconfig(project_root) then
+    if create_editorconfig(root, template) then
         vim.notify(
-            string.format("Created .editorconfig in %s", project_root),
+            string.format("Created .editorconfig in %s", root),
             vim.log.levels.INFO,
             { title = "C# EditorConfig" }
         )
     else
         vim.notify(
-            string.format("Failed to create .editorconfig in %s", project_root),
+            string.format("Failed to create .editorconfig in %s", root),
             vim.log.levels.ERROR,
             { title = "C# EditorConfig" }
         )
