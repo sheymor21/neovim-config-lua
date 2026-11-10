@@ -270,7 +270,73 @@ function M._apply_template(path, template_name, vars)
     return content
 end
 
+local function has_android_kotlin_project(path)
+    local ok, android = pcall(require, "android_workbench")
+    if not ok or not android.is_project({ path = path }) then
+        return false
+    end
+
+    local root = vim.fs.root(path, { "gradlew" })
+    if not root then
+        return false
+    end
+
+    local gradle_files = vim.fn.globpath(root, "**/build.gradle", false, true)
+    vim.list_extend(gradle_files, vim.fn.globpath(root, "**/build.gradle.kts", false, true))
+    vim.list_extend(gradle_files, {
+        vim.fs.joinpath(root, "build.gradle"),
+        vim.fs.joinpath(root, "build.gradle.kts"),
+    })
+
+    local has_android_application = false
+    local has_kotlin_plugin = false
+    for _, file in ipairs(gradle_files) do
+        if vim.fn.filereadable(file) == 1 then
+            for _, line in ipairs(vim.fn.readfile(file)) do
+                if line:match("com%.android%.application")
+                    or line:match("libs%.plugins%.android%.application")
+                    or line:match("applicationId") then
+                    has_android_application = true
+                end
+                if line:match("org%.jetbrains%.kotlin%.android")
+                    or line:match("libs%.plugins%.kotlin%.android")
+                    or line:match("kotlin%s*%(%s*['\"]android['\"]%s*%)") then
+                    has_kotlin_plugin = true
+                end
+            end
+        end
+    end
+
+    local kotlin_sources = vim.fn.globpath(root, "**/src/**/*.kt", false, true)
+    return has_android_application and (has_kotlin_plugin or #kotlin_sources > 0)
+end
+
+local function current_buffer_path()
+    local path = vim.api.nvim_buf_get_name(0)
+    if path == "" then
+        path = vim.uv.cwd()
+    end
+    return path
+end
+
 function M.runner_run()
+    if has_android_kotlin_project(current_buffer_path()) then
+        require("android_workbench").run(nil, function(err)
+            if err then
+                local detail = type(err) == "table" and (err.message or err.code) or tostring(err)
+                vim.notify("No se pudo ejecutar la aplicación Android: " .. detail, vim.log.levels.ERROR, {
+                    title = "Android Workbench",
+                })
+                return
+            end
+
+            vim.notify("La aplicación Android se inició correctamente.", vim.log.levels.INFO, {
+                title = "Android Workbench",
+            })
+        end)
+        return
+    end
+
     require("unirunner").run()
 end
 
@@ -291,6 +357,11 @@ function M.runner_go_terminal()
 end
 
 function M.runner_cancel()
+    if has_android_kotlin_project(current_buffer_path()) then
+        vim.cmd("Android stop")
+        return
+    end
+
     require("unirunner").cancel()
 end
 
