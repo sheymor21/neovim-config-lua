@@ -123,19 +123,35 @@ Every launcher is a small executable script in `~/.local/bin`:
 #!/usr/bin/env bash
 # Dev de <ProjectName> con los secretos de Infisical (proyecto personal).
 # Alternativa sin Infisical: cd <repo dir> && dotnet run
+# Ambiente: dev por defecto; -e/--env NAME o INFISICAL_ENV lo sobrescriben.
 set -euo pipefail
+
+env_name=${INFISICAL_ENV:-dev}
+args=()
+while [ $# -gt 0 ]; do
+  case $1 in
+    -e|--env)  case "${2:-}" in ""|-*) echo "Falta el nombre del ambiente" >&2; exit 2 ;; esac
+               env_name=$2; shift 2 ;;
+    --env=*)   env_name=${1#*=}; shift ;;
+    *)         args+=("$1"); shift ;;
+  esac
+done
+[ -n "$env_name" ] || { echo "El ambiente no puede estar vacio" >&2; exit 2; }
+
 cd "$HOME/Projects/<repo dir>"
+[ "$env_name" = dev ] || echo "Infisical env: $env_name" >&2
+
 exec infisical run \
   --projectId <project-id> \
-  --env dev --expand=false \
-  -- dotnet run --launch-profile http "$@"
+  --env "$env_name" --expand=false \
+  -- dotnet run --launch-profile http "${args[@]}"
 ```
 
 Rules that matter:
 
 - **`--expand=false` is mandatory.** By default `infisical run` runs shell expansion on the values; passwords ending in `$` (or containing `$(...)`) get mangled.
 - `--` separates Infisical flags from the command; everything after it runs with the variables injected.
-- `"$@"` forwards extra arguments, so `my-api --no-build` or `--launch-profile https` work without editing the script.
+- `"${args[@]}"` forwards the remaining arguments, so `my-api --no-build` or `--launch-profile https` work without editing the script. The `-e/--env` pair is consumed by the launcher; see [Multiple environments](#-multiple-environments).
 - The first comment line must match `# Dev de <name> con los secretos` — `infi-proj` reads the project name from it. Keep the literal format even if the rest of the script is written in another language.
 - The `cd` is required: .NET resolves `appsettings*.json` from the working directory, so `dotnet run` must start inside the project folder.
 - Without the launcher the normal flow still works: `cd` to the project and run `dotnet run --launch-profile http`, using the local `appsettings.Development.json`.
@@ -193,6 +209,38 @@ How they combine:
 - To know which mode is active, look at the first log line: `Injecting N Infisical secrets` means the launcher; its absence means the local file.
 - Some projects need local infrastructure before starting (a database container, an emulator, a message broker). That dependency is unrelated to Infisical.
 
+## 🌱 Multiple environments
+
+The launcher uses `dev` by default, and any environment name can be passed at run time. The name is free-form as long as it exists as an environment slug in the project:
+
+```bash
+my-api                          # dev
+my-api -e staging               # another environment of the same project
+my-api --env=qa2 --no-build     # flag anywhere; the rest goes to dotnet
+INFISICAL_ENV=qa2 my-api        # applies to every launcher in that shell
+```
+
+Precedence: `-e/--env` > `INFISICAL_ENV` > `dev`. Anything that is not `dev` prints `Infisical env: <name>` to stderr, so the log always says which set was injected.
+
+What the flag does **not** change:
+
+- `ASPNETCORE_ENVIRONMENT`. The launch profile still sets `Development`, so `appsettings.{Env}.json` resolution and runtime behavior are unaffected; only the source of the secrets changes.
+- The existence of the environment. A missing one makes `infisical run` fail before the app starts; an existing but empty one injects nothing (`Injecting 0 Infisical secrets`) and the app falls back to the local `appsettings`. **Do not assume a non-`dev` environment is empty** — check it:
+
+  ```bash
+  infisical export --format json --env staging --projectId <id> | jq length
+  ```
+
+  A copy made with a broken import (for example, a dotenv round-trip that truncates multi-line PEM values) still reports a count, so compare the values you care about before trusting it.
+
+To populate another environment, use the same recipe with a different `--env`:
+
+```bash
+infisical secrets set --file appsettings.staging.yaml --env staging --projectId <id>
+```
+
+Keep personal-only environments here (`dev` = this machine, `staging` = shared dev server, `qa2` = whatever you need). Organization or production secrets belong in the organization's own store, not in a personal vault.
+
 ## 🔄 Restoring a local `appsettings.Development.json`
 
 The dev files are usually git-ignored, so a fresh clone does not have them. Since the local file must keep working standalone, it can be regenerated from Infisical:
@@ -240,6 +288,14 @@ The launcher's first comment line does not follow `# Dev de <name> con los secre
 
 It is not executable, does not live in `~/.local/bin`, or does not contain `infisical run`.
 
+### `infisical secrets delete` seems to do nothing
+
+Deletion defaults to `--type personal`, while `secrets set` creates `shared` secrets. Add `--type shared --env <env>`.
+
+### A custom environment looks like a copy of `dev`
+
+Check the count with `infisical export --format json --env <name> | jq length` and spot-check the values that matter. An unintentional or broken copy is worse than an empty environment, because the app uses it silently: delete those secrets or re-import them on purpose.
+
 ## ⚠️ Caveats
 
 - **Secrets are still plaintext on disk.** The local `appsettings.Development.json` files keep their values; Infisical is an overlay, not an encryption layer. Keeping the file self-sufficient is a deliberate trade-off.
@@ -272,4 +328,5 @@ infisical run --projectId <id> --env dev --expand=false -- <command>
 
 - Flattening rule: `Section:Key` in JSON ⇄ `Section__Key` as an environment variable.
 - Default environments on a new project: `dev`, `staging`, `prod`.
+- `--env <name>` selects the environment for any CLI command; `-e/--env <name>` on a launcher does the same for one invocation (see [Multiple environments](#-multiple-environments)).
 - Flags change between CLI versions; when something is rejected, check `infisical <command> --help`.
