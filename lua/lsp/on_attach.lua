@@ -19,8 +19,6 @@ local function lsp_on_attach(client, bufnr)
     map("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
     map("n", ".", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Actions" }))
     map("n", "<leader>rn", require("function-keymaps").lsp_rename_and_save, { buffer = bufnr, desc = "Rename Symbol" })
-    map("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
-
     if client.server_capabilities.documentSymbolProvider then
         require("nvim-navic").attach(client, bufnr)
     end
