@@ -3,9 +3,14 @@ return {
     "coffebar/neovim-project",
     opts = {
         projects = {
-            "~/Projects/*",
+            "~/Projects/kaptas/*",
+            "~/Projects/espinosa/*",
+            "~/Projects/assismanager/*",
+            "~/Projects/personal/*",
+            "~/Projects/universal/universal.dev/AssisManager/*",
+            "~/Projects/universal/universal.dev/cobranza/*",
+            "~/Projects/universal/universal.espinosa/cobranza/*",
             "~/.config/nvim",
-            "~/Universal/*",
             "~/.config/opencode/plugins/*"
         },
         last_session_on_startup = false,
